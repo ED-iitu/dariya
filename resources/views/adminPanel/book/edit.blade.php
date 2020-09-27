@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <form action="{{ route('books.update',$book->id) }}" method="POST">
+        <form action="{{ route('books.update',$book->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -47,12 +47,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <label for="genre">Выберите жанр</label>
-                            <select class="form-control" id="genre" name="genre_id">
-                                <option value="1">1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                            <select class="form-control" id="genre" name="genre">
+                                @foreach($genres as $genre)
+                                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -70,9 +68,10 @@
                         <div class="form-group">
                             <label for="publisher">Выберите издателя</label>
                             <select class="form-control" id="publisher" name="publisher_id">
-                                <option value="1">1</option>
-                                <option>2</option>
-                                <option>3</option>
+                                <option value="{{$book->publishers->id}}">{{$book->publishers->name}}</option>
+                                @foreach($publishers as $publisher)
+                                    <option value="{{$publisher->id}}">{{$publisher->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -85,18 +84,17 @@
                         <div class="form-group">
                             <label for="author">Выберите автора</label>
                             <select class="form-control" id="author" name="author_id">
-                                <option value="1">1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="{{$book->authors->id}}">{{$book->authors->name}}</option>
+                                @foreach($authors as $author)
+                                    <option value="{{$author->id}}">{{$author->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="image_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <input type="file" class="custom-file-input" name="image_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="{{ asset($book->image_link) }}">
                                 <label class="custom-file-label" for="inputGroupFile01">Загрузите картинку</label>
                             </div>
                         </div>
@@ -104,7 +102,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="{{$book->book_link}}">
                                 <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
                             </div>
                         </div>

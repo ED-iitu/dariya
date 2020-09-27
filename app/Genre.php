@@ -9,6 +9,11 @@ class Genre extends Model
     protected $table = 'genres';
 
     public function books() {
-        return $this->hasMany(Book::class, 'id');
+        return $this->belongsToMany(Book::class, 'book_to_genres');
+    }
+
+    public function objectToGenre()
+    {
+        return $this->belongsToMany(BookToGenre::class);
     }
 }

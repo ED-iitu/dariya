@@ -20,13 +20,13 @@ class CreateBooksTable extends Migration
             $table->string('preview_text', 500);
             $table->text('detail_text');
             $table->string('lang',5);
-            $table->integer('publisher_id');
+            $table->integer('publisher_id')->nullable();
             $table->decimal('price',19,2);
-            $table->integer('author_id');
+            $table->integer('author_id')->nullable();
             $table->integer('show_counter')->default(0);
-            $table->string('book_link');
-            $table->string('image_link');
-            $table->boolean('is_free');
+            $table->string('book_link')->nullable();
+            $table->string('image_link')->nullable();
+            $table->boolean('is_free')->nullable()->default(0);
             $table->timestamps();
         });
     }

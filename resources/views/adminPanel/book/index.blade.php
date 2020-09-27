@@ -34,7 +34,11 @@
             <tr>
                 <th scope="row">{{ $book->id }}</th>
                 <td><a href="{{ route('books.show',$book->id) }}">{{ $book->name }}</a></td>
+                @if($book->authors)
                 <td>{{ $book->authors->name }} {{ $book->authors->surname }}</td>
+                @else
+                    <td>Автор не задан</td>
+                @endif
 
                 <td>{{ $book->show_counter }}</td>
                 <td>

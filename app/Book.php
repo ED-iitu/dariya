@@ -13,13 +13,23 @@ class Book extends Model
         'publisher_id', 'price', 'author_id', 'image_link', 'book_link', 'is_free',
     ];
 
-    public function authors() {
+    public function authors()
+    {
         return $this->hasOne(Author::class, 'id', 'author_id');
     }
 
-    public function genres() {
+    public function publishers()
+    {
+        return $this->hasOne(Publisher::class, 'id', 'publisher_id');
+    }
+
+    public function genres()
+    {
         return $this->hasMany(Genre::class, 'id');
     }
 
-
+    public function objectToGenres()
+    {
+        return $this->hasMany(BookToGenre::class);
+    }
 }

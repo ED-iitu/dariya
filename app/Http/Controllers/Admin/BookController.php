@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Author;
 use App\Book;
 use App\Genre;
+use App\Publisher;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -33,10 +36,12 @@ class BookController extends Controller
     {
         $genres  = Genre::all();
         $authors = Author::all();
+        $publishers = Publisher::all();
 
         return view('adminPanel.book.create', [
             'genres' => $genres,
-            'authors' => $authors
+            'authors' => $authors,
+            'publishers' => $publishers
         ]);
     }
 
@@ -52,10 +57,27 @@ class BookController extends Controller
             'image_link' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imageName = time().'.'.$request->image_link->extension();
-        $request->image_link->move(public_path('images/booksImages'), $imageName);
+        $image_link = $request->file('image_link');
+        $book_link = $request->file('book_link');
+        $extensionImage = $image_link->getClientOriginalExtension();
+        $extensionPdf = $book_link->getClientOriginalExtension();
+        Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
+        Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
 
-        Book::create($request->all());
+        $data = [
+            'name'         => $request->name,
+            'preview_text' => $request->preview_text,
+            'detail_text'  => $request->detail_text,
+            'price'        => $request->price,
+            'author_id'    => $request->author_id,
+            'publisher_id' => $request->publisher_id,
+            'lang'         => $request->lang,
+            'is_free'      => $request->is_free,
+            'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
+            'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+        ];
+
+        Book::create($data);
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно добавлена.');
@@ -80,7 +102,15 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        return view('adminPanel.book.edit',compact('book'));
+        $genres  = Genre::all();
+        $authors = Author::all();
+        $publishers = Publisher::all();
+        return view('adminPanel.book.edit',[
+            'book' => $book,
+            'genres' => $genres,
+            'authors' => $authors,
+            'publishers' => $publishers
+        ]);
     }
 
     /**

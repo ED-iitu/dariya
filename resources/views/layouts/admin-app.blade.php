@@ -18,6 +18,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
 <div id="app">
@@ -40,6 +42,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{route('booksPage')}}">Книги</a>
                             <a class="dropdown-item" href="{{route('authorsPage')}}">Авторы</a>
+                            <a class="dropdown-item" href="{{route('publishersPage')}}">Издатели</a>
                             <a class="dropdown-item" href="{{route('genresPage')}}">Жанры</a>
                         </div>
                     </li>
@@ -92,6 +95,7 @@
     <main class="py-4">
         @yield('admin-content')
     </main>
+
 </div>
 </body>
 </html>

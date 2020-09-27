@@ -13,11 +13,10 @@ class CreateObjectToGenresTable extends Migration
      */
     public function up()
     {
-        Schema::create('object_to_genres', function (Blueprint $table) {
+        Schema::create('book_to_genres', function (Blueprint $table) {
             $table->id();
-            $table->integer('object_id');
+            $table->integer('book_id');
             $table->integer('genre_id');
-            $table->string('object_type');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateObjectToGenresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('object_to_genres');
+        Schema::dropIfExists('book_to_genres');
     }
 }

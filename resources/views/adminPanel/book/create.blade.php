@@ -66,9 +66,9 @@
                     <div class="form-group">
                         <label for="publisher">Выберите издателя</label>
                         <select class="form-control" id="publisher" name="publisher_id">
-                            <option value="1">1</option>
-                            <option>2</option>
-                            <option>3</option>
+                            @foreach($publishers as $publisher)
+                                <option value="{{$publisher->id}}">{{$publisher->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

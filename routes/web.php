@@ -20,8 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('books','Admin\BookController');
+Route::resource('authors','Admin\AuthorController');
+Route::resource('publishers','Admin\PublisherController');
 
-Route::get('/adminPanel', 'Admin\AdminPanelController@index')->name('adminPanel');
+Route::get('/adminPanel', 'Admin\AdminPanelController@index')->name('adminPanel')->middleware();
 Route::get('/adminPanel/books', 'Admin\BookController@index')->name('booksPage');
 Route::get('/adminPanel/articles', 'Admin\ArticleController@index')->name('articlesPage');
 Route::get('/adminPanel/authors', 'Admin\AuthorController@index')->name('authorsPage');
@@ -31,6 +33,7 @@ Route::get('/adminPanel/transactions', 'Admin\TransactionController@index')->nam
 Route::get('/adminPanel/supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
 Route::get('/adminPanel/videoMaterials', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
 Route::get('/adminPanel/banners', 'Admin\BannerController@index')->name('bannersPage');
+Route::get('/adminPanel/publishers', 'Admin\PublisherController@index')->name('publishersPage');
 
 
 

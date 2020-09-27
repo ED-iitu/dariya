@@ -12,10 +12,15 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-5">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <img width="100px" height="100px" src="{{ asset('/images/booksImages'.$book->image_link) }}">
+                    <img width="500px" height="500px" src="{{ asset($book->image_link) }}">
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <a href="{{asset($book->book_link)}}">File</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -51,9 +56,25 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Жанр:</strong>
-                    @foreach($book->genres as $genre)
-                        {{ $genre->name }}
-                    @endforeach
+                    @if($book->genres)
+                        <ul>
+                            @foreach($book->genres as $genre)
+                                <li>{{$genre->name}}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                    Жанр не задан
+                    @endif
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Издател:</strong>
+                    @if($book->publishers)
+                        {{ $book->publishers->name }}
+                    @else
+                        Издатель не задан
+                    @endif
                 </div>
             </div>
         </div>
