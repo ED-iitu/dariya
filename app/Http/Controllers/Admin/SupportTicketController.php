@@ -15,7 +15,7 @@ class SupportTicketController extends Controller
      */
     public function index()
     {
-        //
+        return view('adminPanel.support.index');
     }
 
     /**

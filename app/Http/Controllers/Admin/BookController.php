@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Author;
 use App\Book;
+use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.book.index');
+        $books = Book::all();
+
+        return view('adminPanel.book.index', [
+            'books' => $books,
+        ]);
     }
 
     /**
@@ -25,7 +31,13 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $genres  = Genre::all();
+        $authors = Author::all();
+
+        return view('adminPanel.book.create', [
+            'genres' => $genres,
+            'authors' => $authors
+        ]);
     }
 
     /**
@@ -36,7 +48,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'image_link' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $imageName = time().'.'.$request->image_link->extension();
+        $request->image_link->move(public_path('images/booksImages'), $imageName);
+
+        Book::create($request->all());
+
+        return redirect()->route('booksPage')
+            ->with('success','Книга успешно добавлена.');
     }
 
     /**
@@ -47,7 +69,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('adminPanel.book.show',compact('book'));
     }
 
     /**
@@ -58,7 +80,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        return view('adminPanel.book.edit',compact('book'));
     }
 
     /**
@@ -70,17 +92,31 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            'name'         => 'required',
+            'preview_text' => 'required',
+            'detail_text'  => 'required',
+            'price'        => 'required',
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('booksPage')
+            ->with('success','Книга успешно обновлена');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Book  $book
+     * @param  \App\Book $book
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect()->route('booksPage')
+            ->with('success','Книга успешно удалена');
     }
 }

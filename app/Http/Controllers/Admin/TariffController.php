@@ -15,7 +15,7 @@ class TariffController extends Controller
      */
     public function index()
     {
-        //
+        return view('adminPanel.tariff.index');
     }
 
     /**
