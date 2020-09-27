@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller as BaseController;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Monolog\Formatter\JsonFormatter;
+use PhpParser\JsonDecoder;
+use Psy\Util\Json;
 
 class Controller extends BaseController
 {
@@ -37,5 +43,16 @@ class Controller extends BaseController
             $response['data'] = $errorMessages;
         }
         return response()->json($response, $code);
+    }
+
+    public function getParsedBody($name){
+        $request = Request::createFromGlobals();
+        if($content = $request->getContent()){
+            $content = json_decode($content, true);
+            if(!empty($content) && isset($content[$name])){
+                return $content[$name];
+            }
+        }
+        return null;
     }
 }
