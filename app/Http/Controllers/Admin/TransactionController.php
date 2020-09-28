@@ -15,7 +15,11 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.transaction.index');
+        $transactions = Transaction::all();
+
+        return view('adminPanel.transaction.index', [
+            'transactions' => $transactions
+        ]);
     }
 
     /**
@@ -47,7 +51,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        //
+        return view('adminPanel.transaction.show',compact('transaction'));
     }
 
     /**
@@ -76,11 +80,15 @@ class TransactionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Transaction  $transaction
+     * @param  \App\Transaction $transaction
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+
+        return redirect()->route('transactionsPage')
+            ->with('success','Транзакция успешно удалена');
     }
 }

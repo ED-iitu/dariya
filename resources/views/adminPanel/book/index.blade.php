@@ -46,7 +46,7 @@
                         <a class="btn btn-primary edit" href="{{ route('books.edit',$book->id) }}">Изменить</a>
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger edit">Удалить</button>
+                        <button type="submit" class="btn btn-danger edit" onclick="return confirm('Are you sure?')">Удалить</button>
                     </form>
                 </td>
             </tr>

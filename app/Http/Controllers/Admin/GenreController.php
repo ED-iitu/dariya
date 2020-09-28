@@ -15,7 +15,11 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.genre.index');
+        $genres = Genre::all();
+
+        return view('adminPanel.genre.index', [
+            'genres' => $genres
+        ]);
     }
 
     /**
@@ -25,7 +29,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminPanel.genre.create');
     }
 
     /**
@@ -36,7 +40,10 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Genre::create($request->all());
+
+        return redirect()->route('genresPage')
+            ->with('success','Жанр успешно добавлен.');
     }
 
     /**
@@ -47,7 +54,7 @@ class GenreController extends Controller
      */
     public function show(Genre $genre)
     {
-        //
+        return view('adminPanel.genre.show',compact('genre'));
     }
 
     /**
@@ -58,7 +65,7 @@ class GenreController extends Controller
      */
     public function edit(Genre $genre)
     {
-        //
+        return view('adminPanel.genre.edit',compact('genre'));
     }
 
     /**
@@ -70,17 +77,24 @@ class GenreController extends Controller
      */
     public function update(Request $request, Genre $genre)
     {
-        //
+        $genre->update($request->all());
+
+        return redirect()->route('genresPage')
+            ->with('success','Жанр успешно обновлен');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Genre $genre
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+
+        return redirect()->route('genresPage')
+            ->with('success','Жанр успешно удален');
     }
 }

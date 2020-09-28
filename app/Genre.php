@@ -8,6 +8,10 @@ class Genre extends Model
 {
     protected $table = 'genres';
 
+    protected $fillable = [
+      'name'
+    ];
+
     public function books() {
         return $this->belongsToMany(Book::class, 'book_to_genres');
     }

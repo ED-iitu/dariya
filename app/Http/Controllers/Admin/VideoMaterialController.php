@@ -15,7 +15,11 @@ class VideoMaterialController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.videoMaterials.index');
+        $videos = Video::all();
+
+        return view('adminPanel.videoMaterial.index', [
+            'videos' => $videos
+        ]);
     }
 
     /**
@@ -25,7 +29,7 @@ class VideoMaterialController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminPanel.videoMaterial.create');
     }
 
     /**
@@ -36,7 +40,10 @@ class VideoMaterialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Video::create($request->all());
+
+        return redirect()->route('videoMaterialsPage')
+            ->with('success','Видео успешно добавлено.');
     }
 
     /**
@@ -47,7 +54,7 @@ class VideoMaterialController extends Controller
      */
     public function show(Video $video)
     {
-        //
+        return view('adminPanel.videoMaterial.show',compact('video'));
     }
 
     /**
@@ -58,7 +65,7 @@ class VideoMaterialController extends Controller
      */
     public function edit(Video $video)
     {
-        //
+        return view('adminPanel.videoMaterial.edit',compact('video'));
     }
 
     /**
@@ -70,17 +77,24 @@ class VideoMaterialController extends Controller
      */
     public function update(Request $request, Video $video)
     {
-        //
+        $video->update($request->all());
+
+        return redirect()->route('videoMaterialsPage')
+            ->with('success','Видео успешно обновлено');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Video  $video
+     * @param  \App\Video $video
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Video $video)
     {
-        //
+        $video->delete();
+
+        return redirect()->route('videoMaterialsPage')
+            ->with('success','Видео успешно удалено');
     }
 }

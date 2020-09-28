@@ -2,7 +2,7 @@
 @section('admin-content')
     <div class="container">
         <div>
-            <a class="btn btn-success" href="{{ route('tariffs.create') }}">Добавить Тариф</a>
+            <a class="btn btn-success" href="{{ route('videos.create') }}">Добавить Видео</a>
         </div>
         <div class="mt-3 mb-2">
             @if ($message = Session::get('success'))
@@ -17,21 +17,19 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Название</th>
-                <th scope="col">Описание</th>
+                <th scope="col">ID видео на ютубе</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
 
-            @foreach($tariffs as $tariff)
+            @foreach($videos as $video)
                 <tr>
-                    <th scope="row">{{ $tariff->id }}</th>
-                    <td><a href="{{ route('tariffs.show',$tariff->id) }}">{{ $tariff->title }}</a></td>
-                    <td>{{ $tariff->description }}</td>
+                    <th scope="row">{{ $video->id }}</th>
+                    <td><a href="{{ route('videos.show',$video->id) }}">{{ $video->youtube_video_id }}</a></td>
                     <td>
-                        <form class="delete" action="{{ route('tariffs.destroy',$tariff->id) }}" method="POST">
-                            <a class="btn btn-primary edit" href="{{ route('tariffs.edit',$tariff->id) }}">Изменить</a>
+                        <form class="delete" action="{{ route('videos.destroy',$video->id) }}" method="POST">
+                            <a class="btn btn-primary edit" href="{{ route('videos.edit',$video->id) }}">Изменить</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger edit delete-confirm" onclick="return confirm('Are you sure?')">Удалить</button>

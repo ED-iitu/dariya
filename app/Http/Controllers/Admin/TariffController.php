@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Tariff;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class TariffController extends Controller
 {
@@ -15,7 +17,11 @@ class TariffController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.tariff.index');
+        $tariffs = Tariff::all();
+
+        return view('adminPanel.tariff.index', [
+            'tariffs' => $tariffs
+        ]);
     }
 
     /**
@@ -25,7 +31,7 @@ class TariffController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminPanel.tariff.create');
     }
 
     /**
@@ -36,7 +42,20 @@ class TariffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image_link = $request->file('image_url');
+        $extensionImage = $image_link->getClientOriginalExtension();
+        Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+
+        $data = [
+            'title'         => $request->title,
+            'description' => $request->description,
+            'image_url'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+        ];
+
+        Tariff::create($data);
+
+        return redirect()->route('tariffsPage')
+            ->with('success','Тариф успешно добавлен.');
     }
 
     /**
@@ -45,9 +64,9 @@ class TariffController extends Controller
      * @param  \App\Tariff  $tarif
      * @return \Illuminate\Http\Response
      */
-    public function show(Tariff $tarif)
+    public function show(Tariff $tariff)
     {
-        //
+        return view('adminPanel.tariff.show',compact('tariff'));
     }
 
     /**
@@ -56,9 +75,9 @@ class TariffController extends Controller
      * @param  \App\Tariff  $tarif
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tariff $tarif)
+    public function edit(Tariff $tariff)
     {
-        //
+        return view('adminPanel.tariff.edit',compact('tariff'));
     }
 
     /**
@@ -68,19 +87,26 @@ class TariffController extends Controller
      * @param  \App\Tariff  $tarif
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tariff $tarif)
+    public function update(Request $request, Tariff $tariff)
     {
-        //
+        $tariff->update();
+
+        return redirect()->route('tariffsPage')
+            ->with('success','Твриф успешно обновлен');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Tariff  $tarif
+     * @param  \App\Tariff $tarif
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy(Tariff $tarif)
+    public function destroy(Tariff $tariff)
     {
-        //
+        $tariff->delete();
+
+        return redirect()->route('tariffsPage')
+            ->with('success','Тариф успешно удален');
     }
 }

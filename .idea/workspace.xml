@@ -2,26 +2,79 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f0eb8c9-5204-4075-a040-c7825e78db8d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dariya-new.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dariya-new.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/79abcbbb-acfb-42ac-8210-01896ea642b2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/79abcbbb-acfb-42ac-8210-01896ea642b2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/article/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/article/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/article/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/genre/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/genre/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/genre/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/tariff/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/tariff/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/tariff/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/transaction/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/transaction/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/transaction/show.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Author.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Author.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Book.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Book.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Article.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Genre.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Genre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthorController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/filesystems.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/filesystems.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_25_170546_create_books_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_25_170546_create_books_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_26_113057_create_object_to_genres_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_26_113057_create_object_to_genres_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/author/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/author/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/book/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/book/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TariffController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TariffController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Tariff.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Tariff.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Transaction.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Transaction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Video.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Video.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php0wSFXT.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php13S823.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php3qaMiQ.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php4vnX7C.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php5eGrqQ.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php6VKjNU.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/php949GTO.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpBLaEa8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpCDMtlj.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpCDcV0r.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpENkbxF.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpJoQDCE.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpK0Gloy.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpLlp8Ez.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpSE6svK.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpUW1s2a.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpUbD6St.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpVKCZBS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpW7zpaQ.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpXBb0Ma.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpXIxkDB.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpdm6wIf.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpetXqvz.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpfqNKLF.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpiP0csp.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpiR0z9e.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpkY3f6d.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpmhWVkT.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpnVdiRh.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpnbAsz6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phppRnnRz.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phppWaf5v.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpwBnZdo.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpxru7Gv.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpy3QvQm.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpyY4eV1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpyx1O6O.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/phpzWm3Mp.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/article/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/article/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/author/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/author/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/book/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/book/show.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/genre/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/genre/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/tariff/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/tariff/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/transaction/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/adminPanel/transaction/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/adminPanel/videoMaterials/index.blade.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,92 +119,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BookController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php">
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+            <state relative-caret-position="211">
+              <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Book.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Book.php">
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="30" column="34" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="34" />
+            <state relative-caret-position="152">
+              <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="videos" pinned="false" current-in-tab="false">
+        <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/videos">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/genre/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
+            <state relative-caret-position="90">
+              <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BookToGenre.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/BookToGenre.php">
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/tariff/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="1005">
+              <caret line="67" column="15" selection-start-line="25" selection-start-column="8" selection-end-line="67" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Author.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Author.php">
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/transaction/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="6" selection-start-line="10" selection-start-column="3" selection-end-line="12" selection-end-column="6" />
+              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2020_09_26_113057_create_object_to_genres_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_26_113057_create_object_to_genres_table.php">
+      <file leaf-file-name="VideoMaterialController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="315">
+              <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2020_09_25_170546_create_books_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_25_170546_create_books_table.php">
+      <file leaf-file-name="show.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/show.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
+            <state relative-caret-position="425">
+              <caret line="37" column="84" selection-start-line="37" selection-start-column="84" selection-end-line="37" selection-end-column="84" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="book_to_genres" pinned="false" current-in-tab="false">
-        <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/book_to_genres">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="genres" pinned="false" current-in-tab="false">
-        <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/genres">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state>
-              <filtering enabled="true" />
+      <file leaf-file-name="GenreController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="537">
+              <caret line="97" column="52" selection-start-line="94" selection-start-column="8" selection-end-line="97" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -164,7 +217,27 @@
       <find>get</find>
       <find>avatar</find>
       <find>private/var</find>
+      <find>publisher</find>
+      <find>Автора</find>
+      <find>автора</find>
+      <find>книги</find>
+      <find>книга</find>
+      <find>author</find>
+      <find>genres</find>
+      <find>genre</find>
     </findStrings>
+    <replaceStrings>
+      <replace>genre</replace>
+      <replace>genres</replace>
+      <replace>article</replace>
+      <replace>Статью</replace>
+      <replace>статьи</replace>
+      <replace>Статья</replace>
+      <replace>tariff</replace>
+      <replace>transaction</replace>
+      <replace>videos</replace>
+      <replace>video</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -172,39 +245,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Video.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php" />
-        <option value="$PROJECT_DIR$/app/Favorite.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/FavoriteController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/UserBuyedBookController.php" />
-        <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/tariff/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/genre/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/article/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/TariffController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/SupportTicketController.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/support/index.balde.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BannerController.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/banner/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/transaction/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/videoMaterials/index.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php" />
-        <option value="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php" />
-        <option value="$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Concerns/InteractsWithInput.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/author/edit.blade.php" />
-        <option value="$PROJECT_DIR$/app/Author.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/author/show.blade.php" />
-        <option value="$PROJECT_DIR$/config/filesystems.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/author/create.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/AuthorController.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/author/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php" />
-        <option value="$PROJECT_DIR$/database/migrations/2020_09_27_093359_create_publishers_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/adminPanel/publisher/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Publisher.php" />
         <option value="$PROJECT_DIR$/resources/views/adminPanel/publisher/edit.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/adminPanel/publisher/index.blade.php" />
@@ -214,15 +254,48 @@
         <option value="$PROJECT_DIR$/database/migrations/2020_09_27_103042_alter_object_to_genres.php" />
         <option value="$PROJECT_DIR$/database/migrations/2020_09_26_113057_create_object_to_genres_table.php" />
         <option value="$PROJECT_DIR$/resources/views/adminPanel/book/show.blade.php" />
-        <option value="$PROJECT_DIR$/app/Genre.php" />
         <option value="$PROJECT_DIR$/resources/views/adminPanel/book/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Book.php" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/79abcbbb-acfb-42ac-8210-01896ea642b2/console.sql" />
         <option value="$PROJECT_DIR$/database/migrations/2020_09_25_170546_create_books_table.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php" />
         <option value="$PROJECT_DIR$/app/BookToGenre.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/genre/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/genre/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Genre.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/genre/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/article/index.blade.php" />
+        <option value="$PROJECT_DIR$/database/migrations/2020_09_28_174941_alter_table_articles_add_column_image_link.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/author/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/article/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Article.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/article/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/article/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/tariff/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Tariff.php" />
+        <option value="$PROJECT_DIR$/app/TariffPriceList.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/tariff/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/tariff/show.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/TariffController.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/tariff/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/User.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php" />
+        <option value="$PROJECT_DIR$/app/Transaction.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/transaction/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/transaction/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/videoMaterials/index.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Video.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/genre/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/transaction/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/videoMaterials/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/show.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php" />
       </list>
     </option>
   </component>
@@ -406,128 +479,12 @@
             <path>
               <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
               <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
               <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="article" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="author" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="banner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="book" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="genre" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="publisher" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="support" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="tariff" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="transaction" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="adminPanel" type="462c0819:PsiDirectoryNode" />
-              <item name="videoMaterials" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dariya-new" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="dariya-new" type="b2602c69:ProjectViewProjectNode" />
@@ -552,8 +509,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/views/adminPanel/publisher" />
-      <recent name="$PROJECT_DIR$/resources/views/adminPanel/author" />
+      <recent name="$PROJECT_DIR$/resources/views/adminPanel/videoMaterials" />
+      <recent name="$PROJECT_DIR$/resources/views/adminPanel/transaction" />
+      <recent name="$PROJECT_DIR$/resources/views/adminPanel/tariff" />
+      <recent name="$PROJECT_DIR$/resources/views/adminPanel/article" />
+      <recent name="$PROJECT_DIR$/resources/views/adminPanel/genre" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/Http/Controllers/Admin" />
@@ -582,12 +542,12 @@
       <option name="presentableId" value="Default" />
       <updated>1601128913540</updated>
       <workItem from="1601128915425" duration="7615000" />
-      <workItem from="1601145624531" duration="33968000" />
+      <workItem from="1601145624531" duration="43637000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41583000" />
+    <option name="totallyTimeSpent" value="51252000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="816" extended-state="6" />
@@ -597,12 +557,13 @@
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="5" />
+      <window_info anchor="bottom" id="Version Control" order="5" weight="0.32962447" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="4" visible="true" weight="0.32962447" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.32962447" />
       <window_info anchor="right" id="Remote Host" order="1" />
       <window_info anchor="bottom" id="Database Console" order="0" weight="0.32962447" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.2532189" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.2532189" />
+      <window_info anchor="bottom" id="SQL Generator" weight="0.32962447" />
       <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="0" visible="true" weight="0.1702432" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32962447" />
@@ -629,336 +590,366 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/genre/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#46#60#0#PHP" expanded="true" />
-          </folding>
+          <caret line="18" column="38" lean-forward="true" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php">
+    <entry file="file://$PROJECT_DIR$/app/Book.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="1733" column="9" lean-forward="true" selection-start-line="1733" selection-start-column="9" selection-end-line="1733" selection-end-column="9" />
+        <state relative-caret-position="248">
+          <caret line="18" column="5" selection-start-line="15" selection-start-column="4" selection-end-line="18" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_25_172758_create_genres_table.php">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/app/Author.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
     </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/books.sql">
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_27_093359_create_publishers_table.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/audio_files">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_28_174941_alter_table_articles_add_column_image_link.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="16" column="41" lean-forward="true" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/articles.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="13" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/booksImages/1601165317.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/finder/Finder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-19">
-          <caret line="342" column="20" selection-start-line="342" selection-start-column="20" selection-end-line="342" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="458" column="48" selection-start-line="458" selection-start-column="48" selection-end-line="458" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Request.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="368" column="23" selection-start-line="368" selection-start-column="23" selection-end-line="368" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Http/Concerns/InteractsWithInput.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="249" column="41" selection-start-line="249" selection-start-column="41" selection-end-line="249" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/author/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/author/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="33" column="23" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/images/booksImages/1601191673.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="12" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env.example">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/uploads/BookImages/phphiV0Uj.jpeg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/filesystems.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/author/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        <state relative-caret-position="210">
+          <caret line="37" column="26" selection-start-line="37" selection-start-column="26" selection-end-line="37" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/authors">
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/article/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Article.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BannerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/articles">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/layouts/admin-app.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/ArticleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="44" column="100" selection-start-line="44" selection-start-column="100" selection-end-line="44" selection-end-column="100" />
+        <state relative-caret-position="258">
+          <caret line="76" column="7" lean-forward="true" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+          <folding>
+            <element signature="e#46#62#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/author/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="21" selection-end-line="45" selection-end-column="11" />
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/tariff_price_lists">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BannerController.php">
+    <entry file="file://$PROJECT_DIR$/app/Tariff.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="36" />
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/FavoriteController.php">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="950" column="37" selection-start-line="950" selection-start-column="37" selection-end-line="950" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/tariffs">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="25" column="93" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/article/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/article/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="35" column="22" selection-start-line="35" selection-start-column="22" selection-end-line="35" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/article/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="19" column="18" selection-start-line="15" selection-start-column="12" selection-end-line="19" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/tariff/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="53" column="20" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="25" column="60" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/tariff/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/TariffPriceList.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-245">
+          <caret line="10" selection-start-line="10" selection-end-line="11" selection-end-column="36" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/AuthorController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="98" column="53" selection-start-line="95" selection-start-column="8" selection-end-line="98" selection-end-column="53" />
+        <state relative-caret-position="191">
+          <caret line="57" column="64" selection-start-line="57" selection-start-column="8" selection-end-line="57" selection-end-column="64" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/publisher/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/PublisherController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="97" column="56" selection-start-line="94" selection-start-column="8" selection-end-line="97" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/transactions.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/TransactionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="53" column="43" selection-start-line="53" selection-start-column="32" selection-end-line="53" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Transaction.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/transactions">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/transaction/show.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/tariff/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="14" selection-start-line="3" selection-start-column="8" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/transaction/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Video.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/TariffController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="33" column="48" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="48" />
+          <folding>
+            <element signature="e#46#61#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="28" column="58" selection-start-line="28" selection-start-column="58" selection-end-line="28" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/genre/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/tariff/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="15" selection-start-line="25" selection-start-column="8" selection-end-line="67" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/transaction/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/publisher/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/videos">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/publisher/index.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
+        <state relative-caret-position="211">
+          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
           <caret line="29" column="24" selection-start-line="29" selection-start-column="24" selection-end-line="29" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/publisher/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Publisher.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="59" selection-start-line="15" selection-start-column="59" selection-end-line="15" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/publishers">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/PublisherController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="66" column="5" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-          <folding>
-            <element signature="e#46#64#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_26_124442_create_support_tickets_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-9" />
-      </provider>
-    </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/object_to_genres">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_27_103042_alter_object_to_genres.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="16" column="57" selection-start-line="16" selection-start-column="57" selection-end-line="16" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Genre.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="64" selection-start-line="11" selection-start-column="64" selection-end-line="11" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_27_093359_create_publishers_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/show.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="17" column="86" selection-start-line="17" selection-start-column="62" selection-end-line="17" selection-end-column="86" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/books">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/79abcbbb-acfb-42ac-8210-01896ea642b2/console.sql">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_25_170546_create_books_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="28" column="40" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="22" column="52" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/genres">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Author.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/show.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="6" selection-start-line="10" selection-start-column="3" selection-end-line="12" selection-end-column="6" />
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/book/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/adminPanel/videoMaterial/edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="52" column="26" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
+        <state relative-caret-position="425">
+          <caret line="37" column="84" selection-start-line="37" selection-start-column="84" selection-end-line="37" selection-end-column="84" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/database/migrations/2020_09_26_113057_create_object_to_genres_table.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/GenreController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="537">
+          <caret line="97" column="52" selection-start-line="94" selection-start-column="8" selection-end-line="97" selection-end-column="52" />
         </state>
       </provider>
     </entry>
-    <entry file="das://79abcbbb-acfb-42ac-8210-01896ea642b2/schema/dariya/table/book_to_genres">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/BookToGenre.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/VideoMaterialController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Book.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="30" column="34" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Admin/BookController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        <state relative-caret-position="315">
+          <caret line="95" lean-forward="true" selection-start-line="95" selection-end-line="95" />
         </state>
       </provider>
     </entry>
