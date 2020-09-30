@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\supportTicket;
+use App\SupportTicket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class supportTicketController extends Controller
+class SupportTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
