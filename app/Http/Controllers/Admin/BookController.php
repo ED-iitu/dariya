@@ -53,16 +53,19 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image_link' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
-        $extensionImage = $image_link->getClientOriginalExtension();
-        $extensionPdf = $book_link->getClientOriginalExtension();
-        Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
-        Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+
+        if (null !== $image_link) {
+            $extensionImage = $image_link->getClientOriginalExtension();
+            Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+        }
+
+        if (null !== $book_link) {
+            $extensionPdf = $book_link->getClientOriginalExtension();
+            Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
+        }
+
 
         $data = [
             'name'         => $request->name,
@@ -73,9 +76,21 @@ class BookController extends Controller
             'publisher_id' => $request->publisher_id,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
-            'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
-            'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
         ];
+
+        if (null !== $image_link) {
+            $data = array_merge($data, [
+                'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+            ]);
+        }
+
+        if (null !== $book_link) {
+            $data = array_merge($data, [
+                'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
+            ]);
+        }
+
+
 
         Book::create($data);
 
@@ -122,14 +137,43 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        $request->validate([
-            'name'         => 'required',
-            'preview_text' => 'required',
-            'detail_text'  => 'required',
-            'price'        => 'required',
-        ]);
+        $image_link = $request->file('image_link');
+        $book_link = $request->file('book_link');
 
-        $book->update($request->all());
+        if (null !== $image_link) {
+            $extensionImage = $image_link->getClientOriginalExtension();
+            Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+        }
+
+        if (null !== $book_link) {
+            $extensionPdf = $book_link->getClientOriginalExtension();
+            Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
+        }
+
+        $data = [
+            'name'         => $request->name,
+            'preview_text' => $request->preview_text,
+            'detail_text'  => $request->detail_text,
+            'price'        => $request->price,
+            'author_id'    => $request->author_id,
+            'publisher_id' => $request->publisher_id,
+            'lang'         => $request->lang,
+            'is_free'      => $request->is_free,
+        ];
+
+        if (null !== $image_link) {
+            $data = array_merge($data, [
+                'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+            ]);
+        }
+
+        if (null !== $book_link) {
+            $data = array_merge($data, [
+                'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
+            ]);
+        }
+
+        $book->update($data);
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно обновлена');

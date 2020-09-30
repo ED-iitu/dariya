@@ -11,68 +11,177 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('css/custom.css') }}" defer></script>
+    <script src="{{ asset('js/vendor/modernizr-3.5.0.min.js') }}" defer></script>
+    <script src="{{ asset('js/vendor/jquery-3.2.1.min.js') }}" defer></script>
+    <script src="{{ asset('js/popper.min.js') }}" defer></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" defer></script>
+    <script src="{{ asset('js/plugins.js') }}" defer></script>
+    <script src="{{ asset('js/active.js') }}" defer></script>
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/plugins.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+        <!-- Header -->
+        <header id="wn__header" class="header__area header__absolute sticky__header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-6 col-lg-2 mt-1">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img src="images/logo/logo1.png" alt="logo images">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 d-none d-lg-block mt-3">
+                        <nav class="mainmenu__nav">
+                            <ul class="meninmenu d-flex justify-content-start">
+                                <li class="drop with--one--item"><a href="index.html">Главная</a></li>
+                                <li class="drop"><a href="#">Книги</a></li>
+                                <li class="drop"><a href="shop-grid.html">Аудио книги</a></li>
+                                <li class="drop"><a href="shop-grid.html">Статьи</a></li>
+                                <li class="drop"><a href="#">Контакты</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-6 col-lg-2">
+                        <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                            <li class="shop_search"><a class="search__active" href="#"></a></li>
+                            <li class="wishlist"><a href="#"></a></li>
+                            <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+                                <!-- Start Shopping Cart -->
+                                <div class="block-minicart minicart__active">
+                                    <div class="minicart-content-wrapper">
+                                        <div class="micart__close">
+                                            <span>close</span>
+                                        </div>
+                                        <div class="items-total d-flex justify-content-between">
+                                            <span>1 товар</span>
+                                            <span>Итого</span>
+                                        </div>
+                                        <div class="total_amount text-right">
+                                            <span>$66.00</span>
+                                        </div>
+                                        <div class="mini_action checkout">
+                                            <a class="checkout__btn" href="cart.html">Оформить заказ</a>
+                                        </div>
+                                        <div class="single__items">
+                                            <div class="miniproduct">
+                                                <div class="item01 d-flex">
+                                                    <div class="thumb">
+                                                        <a href="product-details.html"><img src="images/product/sm-img/1.jpg" alt="product images"></a>
+                                                    </div>
+                                                    <div class="content">
+                                                        <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
+                                                        <span class="prize">$30.00</span>
+                                                        <div class="product_prize d-flex justify-content-between">
+                                                            <span class="qun">кол-во: 01</span>
+                                                            <ul class="d-flex justify-content-end">
+                                                                <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
+                                                                <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mini_action cart">
+                                            <a class="cart__btn" href="cart.html">Посмотреть и отредактировать корзину</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Shopping Cart -->
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                            <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
+                                <div class="searchbar__content setting__block">
+                                    <div class="content-inner">
+                                        <div class="switcher-currency">
+                                            <div class="switcher-options">
+                                                <div class="switcher-currency-trigger">
+                                                    <div class="setting__menu">
+                                                    @guest
+                                                        @if (Route::has('register'))
+                                                        <span><a href="{{route('createAccount')}}">Создать аккаунт</a></span>
+                                                        @endif
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                                        @else
+                                                        <span><a href="">{{ Auth::user()->name }}</a></span>
+                                                            <hr>
+                                                        <span><a href="#">Избранные</a></span>
+                                                        <span><a href="#">Мои полки</a></span>
+                                                        <span>
+                                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                                               onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Выйти
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                                        </span>
+
+                                                    @endguest
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
-                        @endguest
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
+                <!-- Start Mobile Menu -->
+                <div class="row d-none">
+                    <div class="col-lg-12 d-none">
+                        <nav class="mobilemenu__nav">
+                            <ul class="meninmenu">
+                                <li><a href="index.html">Главаная</a></li>
+                                <li><a href="#">Книги</a></li>
+                                <li><a href="shop-grid.html">Аудио книги</a></li>
+                                <li><a href="blog.html">Статьи</a></li>
+                                <li><a href="contact.html">Контакты</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <!-- End Mobile Menu -->
+                <div class="mobile-menu d-block d-lg-none">
+                </div>
+                <!-- Mobile Menu -->
             </div>
-        </nav>
+        </header>
 
-        <main class="py-4">
+        <!-- Start Search Popup -->
+        <div class="brown--color box-search-content search_active block-bg close__top">
+            <form id="search_mini_form" class="minisearch" action="#">
+                <div class="field__search">
+                    <input type="text" placeholder="Введите название книги или автора...">
+                    <div class="action">
+                        <a href="#"><i class="zmdi zmdi-search"></i></a>
+                    </div>
+                </div>
+            </form>
+            <div class="close__wrap">
+                <span>закрыть</span>
+            </div>
+        </div>
+        <!-- End Search Popup -->
+        <main>
             @yield('content')
         </main>
     </div>

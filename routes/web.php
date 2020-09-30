@@ -27,6 +27,8 @@ Route::resource('articles','Admin\ArticleController');
 Route::resource('tariffs','Admin\TariffController');
 Route::resource('transactions','Admin\TransactionController');
 Route::resource('videos','Admin\VideoMaterialController');
+Route::resource('banners','Admin\BannerController');
+Route::resource('supportTickets','Admin\SupportTicketController');
 
 Route::get('/adminPanel', 'Admin\AdminPanelController@index')->name('adminPanel');
 Route::get('/adminPanel/books', 'Admin\BookController@index')->name('booksPage');
@@ -39,7 +41,8 @@ Route::get('/adminPanel/supportTickets', 'Admin\SupportTicketController@index')-
 Route::get('/adminPanel/videoMaterial', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
 Route::get('/adminPanel/banners', 'Admin\BannerController@index')->name('bannersPage');
 Route::get('/adminPanel/publishers', 'Admin\PublisherController@index')->name('publishersPage');
+Route::get('/createAccount', 'Site\CreateAccountController@index')->name('createAccount');
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Site\HomeController@index')->name('home');

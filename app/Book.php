@@ -9,7 +9,7 @@ class Book extends Model
     protected $table = 'books';
 
     protected $fillable = [
-        'name', 'preview_text', 'detail_text', 'lang',
+        'name', 'type', 'preview_text', 'detail_text', 'lang',
         'publisher_id', 'price', 'author_id', 'image_link', 'book_link', 'is_free',
     ];
 

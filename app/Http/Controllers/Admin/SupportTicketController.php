@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\SupportTicket;
+use App\supportTicket;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SupportTicketController extends Controller
+class supportTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,11 @@ class SupportTicketController extends Controller
      */
     public function index()
     {
-        return view('adminPanel.support.index');
+        $supportTickets = supportTicket::all();
+
+        return view('adminPanel.supportTicket.index', [
+            'supportTickets' => $supportTickets
+        ]);
     }
 
     /**
@@ -25,7 +29,7 @@ class SupportTicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('adminPanel.supportTicket.create');
     }
 
     /**
@@ -36,51 +40,61 @@ class SupportTicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        supportTicket::create($request->all());
+
+        return redirect()->route('supportTicketsPage')
+            ->with('success','Жанр успешно добавлен.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\SupportTicket  $supportTicket
+     * @param  \App\supportTicket  $supportTicket
      * @return \Illuminate\Http\Response
      */
-    public function show(SupportTicket $supportTicket)
+    public function show(supportTicket $supportTicket)
     {
-        //
+        return view('adminPanel.supportTicket.show',compact('supportTicket'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SupportTicket  $supportTicket
+     * @param  \App\supportTicket  $supportTicket
      * @return \Illuminate\Http\Response
      */
-    public function edit(SupportTicket $supportTicket)
+    public function edit(supportTicket $supportTicket)
     {
-        //
+        return view('adminPanel.supportTicket.edit',compact('supportTicket'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SupportTicket  $supportTicket
+     * @param  \App\supportTicket  $supportTicket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SupportTicket $supportTicket)
+    public function update(Request $request, supportTicket $supportTicket)
     {
-        //
+        $supportTicket->update($request->all());
+
+        return redirect()->route('supportTicketsPage')
+            ->with('success','Сообщение успешно обновлено');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SupportTicket  $supportTicket
+     * @param  \App\supportTicket $supportTicket
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy(SupportTicket $supportTicket)
+    public function destroy(supportTicket $supportTicket)
     {
-        //
+        $supportTicket->delete();
+
+        return redirect()->route('supportTicketsPage')
+            ->with('success','Сообщение успешно удалено');
     }
 }

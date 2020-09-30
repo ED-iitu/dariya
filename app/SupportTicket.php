@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class SupportTicket extends Model
 {
     protected $table = 'support_tickets';
+
+    protected $fillable = [
+      'title', 'credential', 'description'
+    ];
 }
