@@ -42,6 +42,12 @@ Route::get('/adminPanel/videoMaterial', 'Admin\VideoMaterialController@index')->
 Route::get('/adminPanel/banners', 'Admin\BannerController@index')->name('bannersPage');
 Route::get('/adminPanel/publishers', 'Admin\PublisherController@index')->name('publishersPage');
 Route::get('/createAccount', 'Site\CreateAccountController@index')->name('createAccount');
+Route::get('/books', 'Site\BookController@index')->name('books');
+Route::get('/audioBooks', 'Site\BookController@audioBooks')->name('audioBooks');
+Route::get('/articles', 'Site\ArticleController@index')->name('articles');
+Route::get('/contacts', 'Site\ContactController@singleBook')->name('contacts');
+Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
+Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 
 
 

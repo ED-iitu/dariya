@@ -106,7 +106,30 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        $article->update($request->all());
+        $image_link = $request->file('image_link');
+
+        if (null !== $image_link) {
+            $extensionImage = $image_link->getClientOriginalExtension();
+            Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+        }
+
+
+        $data = [
+            'name'         => $request->name,
+            'preview_text' => $request->preview_text,
+            'detail_text'  => $request->detail_text,
+            'author_id'    => $request->author_id,
+            'lang'         => $request->lang,
+        ];
+
+        if (null !== $image_link) {
+            $data = array_merge($data, [
+                'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+            ]);
+        }
+
+
+        $article->update($data);
 
         return redirect()->route('articlesPage')
             ->with('success','Статья успешно обновлена');

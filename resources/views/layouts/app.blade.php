@@ -42,18 +42,18 @@
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2 mt-1">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="images/logo/logo1.png" alt="logo images">
+                                <img src="../images/logo/logo1.png" alt="logo images">
                             </a>
                         </div>
                     </div>
                     <div class="col-lg-8 d-none d-lg-block mt-3">
                         <nav class="mainmenu__nav">
                             <ul class="meninmenu d-flex justify-content-start">
-                                <li class="drop with--one--item"><a href="index.html">Главная</a></li>
-                                <li class="drop"><a href="#">Книги</a></li>
-                                <li class="drop"><a href="shop-grid.html">Аудио книги</a></li>
-                                <li class="drop"><a href="shop-grid.html">Статьи</a></li>
-                                <li class="drop"><a href="#">Контакты</a></li>
+                                <li class="drop with--one--item"><a href="{{route('home')}}">Главная</a></li>
+                                <li class="drop"><a href="{{route('books')}}">Книги</a></li>
+                                <li class="drop"><a href="{{route('audioBooks')}}">Аудио книги</a></li>
+                                <li class="drop"><a href="{{route('articles')}}">Статьи</a></li>
+                                <li class="drop"><a href="{{route('contacts')}}">Контакты</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -184,6 +184,60 @@
         <main>
             @yield('content')
         </main>
+        <!-- Footer Area -->
+        <footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+            <div class="footer-static-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="footer__widget footer__menu">
+                                <div class="ft__logo">
+                                    <a href="index.html">
+                                        <img src="../images/logo/logo1.png" alt="logo">
+                                    </a>
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+                                </div>
+                                <div class="footer__content">
+                                    <ul class="social__net social__net--2 d-flex justify-content-center">
+                                        <li><a href="#"><i class="bi bi-facebook"></i></a></li>
+                                        <li><a href="#"><i class="bi bi-google"></i></a></li>
+                                        <li><a href="#"><i class="bi bi-twitter"></i></a></li>
+                                        <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="bi bi-youtube"></i></a></li>
+                                    </ul>
+                                    <ul class="mainmenu d-flex justify-content-center">
+                                        <li><a href="index.html">Trending</a></li>
+                                        <li><a href="index.html">Best Seller</a></li>
+                                        <li><a href="index.html">All Product</a></li>
+                                        <li><a href="index.html">Wishlist</a></li>
+                                        <li><a href="index.html">Blog</a></li>
+                                        <li><a href="index.html">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright__wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="copyright">
+                                <div class="copy__right__inner text-left">
+                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Boighor.</a> All Rights Reserved</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="payment text-right">
+                                <img src="images/icons/payment.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

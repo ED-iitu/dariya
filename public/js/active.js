@@ -478,15 +478,15 @@
 /*====== Price Slider Active ======*/ 
     $('#slider-range').slider({
         range: true,
-        min: 10,
-        max: 500,
+        min: 0,
+        max: 20000,
         values: [110, 400],
         slide: function(event, ui) {
-            $('#amount').val('$' + ui.values[0] + ' - $' + ui.values[1]);
+            $('#amount').val('KZT ' + ui.values[0] + ' - KZT ' + ui.values[1]);
         }
     });
-    $('#amount').val('$' + $('#slider-range').slider('values', 0) +
-        " - $" + $('#slider-range').slider('values', 1));
+    $('#amount').val('KZT ' + $('#slider-range').slider('values', 0) +
+        " - KZT " + $('#slider-range').slider('values', 1));
 
 
 /*====== Dropdown ======*/
