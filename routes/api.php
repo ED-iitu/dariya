@@ -1,7 +1,10 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +16,28 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::fallback(function(){
+    return response()->json(['message' => 'Entity Not Found'], 404);
+});
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resource('book', 'Api\BookController');
-Route::post('comment/{object_type}/{id}', 'Api\CommentController@create');
+Route::middleware('auth:sanctum')->get('get_book/{id}', 'Api\BookController@index');
+//Route::get('book', 'Api\BookController');
+//Route::post('comment/{object_type}/{id}', 'Api\CommentController@create');
+Route::post('auth', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    $user = User::query()->where('email', $request->email)->first();
+
+    if (! $user || ! Hash::check($request->password, $user->password)) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+
+    return response(['token'=>$user->createToken(time())->plainTextToken]);
+});

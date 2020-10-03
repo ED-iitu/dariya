@@ -32,4 +32,9 @@ class Book extends Model
     {
         return $this->hasMany(BookToGenre::class);
     }
+
+    public function pages()
+    {
+        return $this->hasMany(BookPages::class);
+    }
 }
