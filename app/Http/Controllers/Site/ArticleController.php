@@ -9,7 +9,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::paginate(10);
         $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
         $genres = Genre::all();
 
@@ -19,6 +19,7 @@ class ArticleController extends Controller
             'genres' => $genres
         ]);
     }
+    
     public function singleBook($id)
     {
         $articles = Article::where('id', '=', $id)->get();

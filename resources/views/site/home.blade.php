@@ -2182,8 +2182,9 @@
                     </div>
                 </div>
             </div>
-            @foreach ($articles as $article)
+
             <div class="row mt--50">
+                @foreach ($articles as $article)
                 <div class="col-md-6 col-lg-4 col-sm-12">
                     <div class="post__itam">
                         <div class="content">
@@ -2201,8 +2202,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
                 @endforeach
+            </div>
         </div>
     </section>
     <!-- End Recent Post Area -->

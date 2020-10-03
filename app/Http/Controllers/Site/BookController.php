@@ -6,12 +6,13 @@ use App\Banner;
 use App\Book;
 use App\Genre;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $books = Book::paginate(10);
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
@@ -36,7 +37,12 @@ class BookController extends Controller
 
     public function audioBooks()
     {
-        $books = Book::where('type', '=', 'AUDIO')->get();
+        $books = Book::where('type', '=', 'AUDIO')->paginate(10);
+
+        if ($books->count() == 0) {
+            $books = [];
+        }
+
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
@@ -46,5 +52,24 @@ class BookController extends Controller
             'authors' => $authors,
             'banners' => $banners
         ]);
+    }
+
+    public function filter(Request $request)
+    {
+        $filter = $request->orderBy ?? "ASC";
+
+        $books = Book::orderBy('price', $filter)->paginate(10);
+       // dd($books);
+
+        $genres = Genre::all();
+        $authors = Author::all();
+        $banners = Banner::all();
+        return view('site.books' ,[
+            'books' => $books,
+            'genres' => $genres,
+            'authors' => $authors,
+            'banners' => $banners
+        ]);
+
     }
 }

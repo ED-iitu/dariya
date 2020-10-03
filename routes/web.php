@@ -48,6 +48,8 @@ Route::get('/articles', 'Site\ArticleController@index')->name('articles');
 Route::get('/contacts', 'Site\ContactController@singleBook')->name('contacts');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
+Route::get('/search', 'Site\SearchController@index')->name('search');
+Route::get('/filter', 'Site\BookController@filter')->name('filter');
 
 
 

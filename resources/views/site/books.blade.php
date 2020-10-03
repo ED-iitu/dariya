@@ -81,12 +81,15 @@
                                 </div>
                                 <p>Показ 1–12 из 40 результатов</p>
                                 <div class="orderby__wrapper">
-                                    <span>Сортировать</span>
-                                    <select class="shot__byselect">
-                                        <option>По умолчанию</option>
-                                        <option>По возрастанию цены</option>
-                                        <option>По убыванию цены</option>
-                                    </select>
+                                    <form action="{{route('filter')}}" method="GET">
+                                        <span>Сортировать</span>
+                                        <select class="shot__byselect" name="orderBy">
+                                            <option value="ASC">По умолчанию</option>
+                                            <option value="ASC">По возрастанию цены</option>
+                                            <option value="DESC">По убыванию цены</option>
+                                        </select>
+                                        <input type="submit">
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +104,11 @@
                                         <div class="product__thumb">
                                             <a class="first__img" href="{{route('book', $book->id)}}"><img src="{{$book->image_link}}" alt="product image"></a>
                                             <div class="new__box">
-                                                <span class="new-label">Hot</span>
+                                                @if($book->type == "BOOK")
+                                                <span class="new-label">PDF</span>
+                                                @else
+                                                <span class="new-label">Аудио</span>
+                                                @endif
                                             </div>
                                             <ul class="prize position__right__bottom d-flex">
                                                 <li>{{$book->price}} KZT</li>
@@ -133,13 +140,9 @@
                                 @endforeach
                                 <!-- End Single Product -->
                             </div>
-                            <ul class="wn__pagination">
-                                <li class="active"><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                            </ul>
+
+                                {{$books->links()}}
+
                         </div>
                         <div class="shop-grid tab-pane fade" id="nav-list" role="tabpanel">
                             <div class="list__view__wrapper">
@@ -172,6 +175,7 @@
 
                                     </div>
                                 </div>
+
                                 @endforeach
                                 <!-- End Single Product -->
                             </div>

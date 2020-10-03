@@ -71,16 +71,6 @@
                 </div>
                 <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
                     <div class="wn__sidebar">
-                        <!-- Start Single Widget -->
-                        <aside class="widget search_widget">
-                            <h3 class="widget-title">Search</h3>
-                            <form action="#">
-                                <div class="form-input">
-                                    <input type="text" placeholder="Search...">
-                                    <button><i class="fa fa-search"></i></button>
-                                </div>
-                            </form>
-                        </aside>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
                         <aside class="widget recent_widget">

@@ -168,11 +168,11 @@
 
         <!-- Start Search Popup -->
         <div class="brown--color box-search-content search_active block-bg close__top">
-            <form id="search_mini_form" class="minisearch" action="#">
+            <form id="search_mini_form" class="minisearch" method="GET" action="{{route('search')}}">
                 <div class="field__search">
-                    <input type="text" placeholder="Введите название книги или автора...">
+                    <input type="text" name="q" placeholder="Введите название книги или автора...">
                     <div class="action">
-                        <a href="#"><i class="zmdi zmdi-search"></i></a>
+                        <a href="{{route('search')}}"><i class="zmdi zmdi-search"></i></a>
                     </div>
                 </div>
             </form>
@@ -225,7 +225,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="copyright">
                                 <div class="copy__right__inner text-left">
-                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Boighor.</a> All Rights Reserved</p>
+                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Dariya.</a> All Rights Reserved</p>
                                 </div>
                             </div>
                         </div>
