@@ -19,8 +19,12 @@ class Comment extends Model
         return [self::ARTICLE_TYPE, self::BOOK_TYPE];
     }
 
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+    public function author(){
+        return $this->hasOne(User::class,'id', 'author_id');
     }
 }

@@ -22,9 +22,13 @@ Route::fallback(function(){
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::middleware('auth:sanctum')->get('get_book/{id}', 'Api\BookController@index');
+Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
+Route::middleware('auth:sanctum')->get('home_screen', 'Api\HomeScreenController@index');
+Route::middleware('auth:sanctum')->get('articles', 'Api\ArticleController@index');
+Route::middleware('auth:sanctum')->get('articles/{id}', 'Api\ArticleController@view');
+Route::middleware('auth:sanctum')->post('comment/{object_type}/{id}', 'Api\CommentController@create');
+Route::middleware('auth:sanctum')->post('vote/{object_type}/{id}', 'Api\VoteController@create');
 //Route::get('book', 'Api\BookController');
-//Route::post('comment/{object_type}/{id}', 'Api\CommentController@create');
 Route::post('auth', function (Request $request) {
     $request->validate([
         'email' => 'required|email',

@@ -21,7 +21,9 @@ class BookObserver
      */
     public function created(Book $book)
     {
-        ProcessParsePdfBooks::dispatch($book);
+        if($book->book_link && $book->type == 'BOOK'){
+            ProcessParsePdfBooks::dispatch($book);
+        }
     }
 
     /**

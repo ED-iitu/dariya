@@ -4,39 +4,37 @@
 namespace App\Http\Controllers\Api;
 
 
-
 use App\Article;
 use App\Book;
-use App\Comment;
-use Illuminate\Support\Facades\App;
+use App\Rating;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class VoteController extends Controller
 {
     public function create($object_type,$id){
 
-        $message = $this->getParsedBody('message');
-        if(in_array($object_type, Comment::getObjectTypes()) && $message){
+        $vote = $this->getParsedBody('vote');
+        if(in_array($object_type, Rating::getObjectTypes()) && $vote){
             $object = null;
-            if($object_type == Comment::ARTICLE_TYPE){
+            if($object_type == Rating::ARTICLE_TYPE){
                 $object = Article::query()->find($id);
             }
-            if($object_type == Comment::BOOK_TYPE){
+            if($object_type == Rating::BOOK_TYPE){
                 $object = Book::query()->find($id);
             }
             if($object){
-                $comment = new Comment();
-                $comment->setRawAttributes([
+                $rating = new Rating();
+                $rating->setRawAttributes([
                     'object_id' => $id,
                     'object_type' => $object_type,
-                    'message' => $message,
-                    'status' => true,
+                    'rate' => $vote,
                     'author_id' => Auth::id()
                 ]);
-                if($comment->save()){
+                if($rating->save()){
+                    Rating::calculateRating($id,$object_type);
                     return $this->sendResponse([
-                        "comment_id" => $comment->id
-                    ],'Комментарий успешно добавлен');
+                        "rating_id" => $rating->id
+                    ],'Голос успешно добавлен');
                 }
             }
             return $this->sendError('Not Found.',[],404);

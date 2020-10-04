@@ -20,17 +20,24 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function get_html($id)
     {
 
         $book = Book::query()->find($id);
         if($book){
             $data = [];
             foreach ($book->pages as $page){
-                $data[] = [
-                    'content' => $page->content,
-                    'page' => $page->page
-                ];
+                if($page->status){
+                    $data[] = [
+                        'content' => $page->content,
+                        'page' => $page->page
+                    ];
+                }else{
+                    $data[] = [
+                        'content' => 'Страница в обработке',
+                        'page' => $page->page
+                    ];
+                }
             }
             return response(['data' => $data]);
         }
