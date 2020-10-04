@@ -18,6 +18,13 @@
             </div>
         </div>
     </div>
+    <div class="mt-3 mb-2">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+    </div>
     <!-- End Bradcaump area -->
     <!-- Start main Content -->
     <div class="maincontent bg--white pt--80 pb--55">
@@ -98,29 +105,56 @@
                                     <h1>Отзывы читателей</h1>
                                     <div class="review__ratings__type d-flex">
                                         <div class="review-ratings">
+                                            @if(empty($comments))
                                             <div class="rating-summary d-flex">
                                                 <span>Отзывы отсутствуют</span>
                                             </div>
+                                            @else
+                                            @foreach($comments as $comment)
+                                                    <div class="card mt-3" style="flex-direction: row;width: 500px !important;">
+                                                        <div class="card-header">
+                                                            {{$comment->nickname}}
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <blockquote class="blockquote mb-0">
+                                                                <p>{{$comment->message}}</p>
+                                                                <footer class="blockquote-footer">{{$comment->created_at}}</footer>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+                                            @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
+                                @if( Auth::user())
                                 <div class="review-fieldset">
                                     <h2>Оставить отзыв</h2>
                                     <h5>{{$bookData->name}}</h5>
-                                    <div class="review_form_field">
-                                        <div class="input__box">
-                                            <span>Имя</span>
-                                            <input id="nickname_field" type="text" name="name">
+                                    <form action="{{route('comment')}}" method="GET">
+                                        <input type="hidden" name="object_id" value="{{$bookData->id}}">
+                                        <input type="hidden" name="object_type" value="BOOK">
+                                        <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
+                                        <div class="review_form_field">
+                                            <div class="input__box">
+                                                <span>Имя</span>
+                                                <input type="text" id="nickname_field" name="nickname">
+                                            </div>
+                                            <div class="input__box">
+                                                <span>Отзыв</span>
+                                                <textarea name="message"></textarea>
+                                            </div>
+                                            <div class="review-form-actions">
+                                                <button>Оставить отзыв</button>
+                                            </div>
                                         </div>
-                                        <div class="input__box">
-                                            <span>Отзыв</span>
-                                            <textarea name="review"></textarea>
-                                        </div>
-                                        <div class="review-form-actions">
-                                            <button>Оставить отзыв</button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
+                                @else
+                                <div>
+                                    Чтобы оставить отзыв вам необходимо <a href="{{route('createAccount')}}">Авторизоваться</a>
+                                </div>
+                                @endif
                             </div>
                             <!-- End Single Tab Content -->
                         </div>

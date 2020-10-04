@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 use App\Author;
 use App\Banner;
 use App\Book;
+use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,10 +29,16 @@ class BookController extends Controller
     {
         $book = Book::where('id', '=', $id)->get();
         $relatedBooks = Book::all();
+        $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'BOOK')->get();
+
+        if ($comments->count() == 0) {
+            $comments = [];
+        }
 
         return view('site.book', [
             'book' => $book,
-            'relatedBooks' => $relatedBooks
+            'relatedBooks' => $relatedBooks,
+            'comments' => $comments
         ]);
     }
 

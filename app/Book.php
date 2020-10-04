@@ -37,4 +37,9 @@ class Book extends Model
     {
         return $this->hasMany(BookPages::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
 }

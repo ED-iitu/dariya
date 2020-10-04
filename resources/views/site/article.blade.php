@@ -40,33 +40,66 @@
                                 <div class="post_content">
                                     <p>{{$article->detail_text}}</p>
                                 </div>
-                                <ul class="blog_meta">
-                                    <li><a href="#">Нет комментариев</a></li>
-                                </ul>
+                                @if(empty($comments))
+                                    <ul class="blog_meta">
+                                        <li><a href="#">Нет комментариев</a></li>
+                                    </ul>
+                                @else
+                                    <div class="comments_area mt-3">
+                                        <h3 class="comment__title">{{$comments->count()}} комментария</h3>
+                                        <ul class="comment__list">
+                                            @foreach($comments as $comment)
+                                            <li>
+                                                <div class="wn__comment">
+                                                    <div class="thumb">
+                                                        <img src="../images/blog/comment/1.jpeg" alt="comment images">
+                                                    </div>
+                                                    <div class="content">
+                                                        <div class="comnt__author d-block d-sm-flex">
+                                                            <span>{{$comment->nickname}}</span>
+                                                            <span>{{$comment->created_at}}</span>
+                                                            {{--<div class="reply__btn">--}}
+                                                                {{--<a href="#">Reply</a>--}}
+                                                            {{--</div>--}}
+                                                        </div>
+                                                        <p>{{$comment->message}}</p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
                             </div>
                         </article>
+                        @if( Auth::user())
                         <div class="comment_respond">
                             <h3 class="reply_title">Написать комментарий</h3>
-                            <form class="comment__form" action="#">
+                            <form class="comment__form" action="{{route('comment')}}" method="GET">
+                                <input type="hidden" name="object_id" value="{{$article->id}}">
+                                <input type="hidden" name="object_type" value="ARTICLE">
+                                <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
                                 <div class="input__box">
                                     <label>Комментарий</label>
-                                    <textarea name="comment"></textarea>
+                                    <textarea name="message"></textarea>
                                 </div>
                                 <div class="input__wrapper clearfix">
                                     <div class="input__box name one--third">
                                         <label>Имя</label>
-                                        <input type="text" placeholder="Имя">
-                                    </div>
-                                    <div class="input__box email one--third">
-                                        <label>Email</label>
-                                        <input type="email" placeholder="email">
+                                        <input type="text" name="nickname" placeholder="Имя">
                                     </div>
                                 </div>
                                 <div class="submite__btn">
-                                    <a href="#">Отправить комментарий</a>
+                                    <button class="btn-info" type="submit">Отправить комментарий</button>
                                 </div>
                             </form>
                         </div>
+                        @else
+                        <div>
+                            Чтобы оставить комментарий вам необходими <a href="{{route('createAccount')}}">Авторизоваться</a>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">

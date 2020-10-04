@@ -119,7 +119,7 @@
                                                         @endif
 
                                                         @else
-                                                        <span><a href="">{{ Auth::user()->name }}</a></span>
+                                                        <span><a href="{{route('profile', Auth::user()->id)}}">{{ Auth::user()->name }}</a></span>
                                                             <hr>
                                                         <span><a href="#">Избранные</a></span>
                                                         <span><a href="#">Мои полки</a></span>

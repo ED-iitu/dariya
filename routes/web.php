@@ -13,22 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::resource('books','Admin\BookController');
-Route::resource('authors','Admin\AuthorController');
-Route::resource('publishers','Admin\PublisherController');
-Route::resource('genres','Admin\GenreController');
-Route::resource('articles','Admin\ArticleController');
-Route::resource('tariffs','Admin\TariffController');
-Route::resource('transactions','Admin\TransactionController');
-Route::resource('videos','Admin\VideoMaterialController');
-Route::resource('banners','Admin\BannerController');
-Route::resource('supportTickets','Admin\SupportTicketController');
+Route::get('/', 'Site\HomeController@index')->name('home');
+
+Route::resource('adminPanel/books','Admin\BookController');
+Route::resource('adminPanel/authors','Admin\AuthorController');
+Route::resource('adminPanel/publishers','Admin\PublisherController');
+Route::resource('adminPanel/genres','Admin\GenreController');
+Route::resource('adminPanel/articles','Admin\ArticleController');
+Route::resource('adminPanel/tariffs','Admin\TariffController');
+Route::resource('adminPanel/transactions','Admin\TransactionController');
+Route::resource('adminPanel/videos','Admin\VideoMaterialController');
+Route::resource('adminPanel/banners','Admin\BannerController');
+Route::resource('adminPanel/supportTickets','Admin\SupportTicketController');
 
 Route::get('/adminPanel', 'Admin\AdminPanelController@index')->name('adminPanel');
 Route::get('/adminPanel/books', 'Admin\BookController@index')->name('booksPage');
@@ -51,6 +49,8 @@ Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article'
 Route::get('/search', 'Site\SearchController@index')->name('search');
 Route::get('/filter', 'Site\BookController@filter')->name('filter');
 Route::get('/tariffs', 'Site\TariffController@index')->name('tariff');
+Route::get('/comments/store', 'Site\CommentController@store')->name('comment');
+Route::get('/profile/{id}', 'Site\ProfileController@index')->name('profile');
 
 
 
