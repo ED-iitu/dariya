@@ -50,6 +50,7 @@ Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 Route::get('/search', 'Site\SearchController@index')->name('search');
 Route::get('/filter', 'Site\BookController@filter')->name('filter');
+Route::get('/tariffs', 'Site\TariffController@index')->name('tariff');
 
 
 

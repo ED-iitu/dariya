@@ -54,6 +54,7 @@
                                 <li class="drop"><a href="{{route('audioBooks')}}">Аудио книги</a></li>
                                 <li class="drop"><a href="{{route('articles')}}">Статьи</a></li>
                                 <li class="drop"><a href="{{route('contacts')}}">Контакты</a></li>
+                                <li class="drop"><a style="color: red" href="{{route('tariff')}}">Получить подписку</a></li>
                             </ul>
                         </nav>
                     </div>
