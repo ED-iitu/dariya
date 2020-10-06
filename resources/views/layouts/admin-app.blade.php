@@ -62,6 +62,9 @@
                         <a class="nav-link" href="{{route('bannersPage')}}">Баннеры</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('infoPage')}}">Инфо</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('supportTicketsPage')}}">Сообщения от пользователей</a>
                     </li>
                 </ul>

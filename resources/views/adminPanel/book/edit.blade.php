@@ -36,20 +36,20 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <input type="text" name="preview_text" class="form-control" placeholder="Краткое описание" value="{{ $book->preview_text }}">
+                            <textarea name="preview_text" class="form-control" placeholder="Краткое описание">{{ $book->preview_text }}</textarea>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <textarea class="form-control" style="height:150px" name="detail_text" placeholder="Детальное описание">{{ $book->detail_text }}</textarea>
+                            <textarea class="form-control" style="height:250px" name="detail_text" placeholder="Детальное описание">{{ $book->detail_text }}</textarea>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <label for="genre">Выберите жанр</label>
-                            <select class="form-control" id="genre" name="genre">
+                            <select multiple class="form-control" id="genre" name="genre">
                                 @foreach($genres as $genre)
-                                    <option value="{{$genre->id}}">{{$genre->name}}</option>
+                                    <option @if(in_array($genre->id, $book->getGenresIds())) selected="selected" @endif value="{{$genre->id}}">{{$genre->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -58,9 +58,8 @@
                         <div class="form-group">
                             <label for="lang">Выберите язык</label>
                             <select class="form-control" id="lang" name="lang">
-                                <option value="ru">Русский</option>
-                                <option>Казахский</option>
-                                <option>Английский</option>
+                                <option value="ru" @if($book->lang == 'ru')selected="selected"@endif>Русский</option>
+                                <option value="kz" @if($book->lang == 'ru')selected="selected"@endif>Казахский</option>
                             </select>
                         </div>
                     </div>

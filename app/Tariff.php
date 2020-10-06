@@ -14,6 +14,6 @@ class Tariff extends Model
 
     public function tariffPriceLists()
     {
-        return $this->hasMany(TariffPriceList::class);
+        return $this->hasMany(TariffPriceList::class,'tariff_id', 'id');
     }
 }

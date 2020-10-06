@@ -45,13 +45,14 @@ class Controller extends BaseController
         return response()->json($response, $code);
     }
 
-    public function getParsedBody($name){
+    public function getParsedBody($name = null){
         $request = Request::createFromGlobals();
         if($content = $request->getContent()){
             $content = json_decode($content, true);
-            if(!empty($content) && isset($content[$name])){
+            if($name && !empty($content) && isset($content[$name])){
                 return $content[$name];
             }
+            return $content;
         }
         return null;
     }

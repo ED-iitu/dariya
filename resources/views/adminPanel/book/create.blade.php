@@ -49,18 +49,18 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" name="preview_text" class="form-control" placeholder="Краткое описание">
+                                <textarea name="preview_text" class="form-control" placeholder="Краткое описание"></textarea>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control" style="height:150px" name="detail_text" placeholder="Детальное описание"></textarea>
+                                <textarea class="form-control" style="height:200px" name="detail_text" placeholder="Детальное описание"></textarea>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <label for="genre">Выберите жанр</label>
-                                <select class="form-control" id="genre" name="genre_id">
+                                <select multiple class="form-control" id="genre" name="genre_id">
                                     @foreach($genres as $genre)
                                         <option value="{{$genre->id}}">{{$genre->name}}</option>
                                     @endforeach
@@ -72,8 +72,7 @@
                                 <label for="lang">Выберите язык</label>
                                 <select class="form-control" id="lang" name="lang">
                                     <option value="ru">Русский</option>
-                                    <option>Казахский</option>
-                                    <option>Английский</option>
+                                    <option value="kz">Казахский</option>
                                 </select>
                             </div>
                         </div>
@@ -176,8 +175,7 @@
                                 <label for="lang">Выберите язык</label>
                                 <select class="form-control" id="lang" name="lang">
                                     <option value="ru">Русский</option>
-                                    <option>Казахский</option>
-                                    <option>Английский</option>
+                                    <option value="kz">Казахский</option>
                                 </select>
                             </div>
                         </div>

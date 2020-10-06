@@ -6,11 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+
+    const BOOK_TYPE = 'BOOK';
+    const AUDIO_BOOK_TYPE = 'AUDIO';
+
     protected $table = 'books';
 
     protected $fillable = [
         'name', 'type', 'preview_text', 'detail_text', 'lang',
-        'publisher_id', 'price', 'author_id', 'image_link', 'book_link', 'is_free',
+        'publisher_id', 'price', 'author_id', 'genres', 'image_link', 'book_link', 'is_free',
     ];
 
     public function authors()
@@ -25,7 +29,7 @@ class Book extends Model
 
     public function genres()
     {
-        return $this->hasMany(Genre::class, 'id');
+        return $this->hasManyThrough(Genre::class, BookToGenre::class, 'book_id', 'id', 'id','genre_id');
     }
 
     public function objectToGenres()
@@ -41,5 +45,18 @@ class Book extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type','=', Comment::BOOK_TYPE);
+    }
+
+    public function audio_files()
+    {
+        return $this->hasMany(AudioFile::class, 'book_id', 'id');
+    }
+
+    public function getGenresIds(){
+        $ids = [];
+        foreach ($this->genres as $genre){
+            $ids[] = $genre->id;
+        }
+        return $ids;
     }
 }

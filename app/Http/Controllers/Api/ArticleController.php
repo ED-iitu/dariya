@@ -12,13 +12,13 @@ class ArticleController extends Controller
 {
     public function index(Request $request){
         $page = $request->get('page') ? $request->get('page') : 1;
-        $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 1;
+        $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $artiles = [];
         $res = Article::query()->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($article) use (&$artiles){
             $artiles[] = [
                 "id"=> $article->id,
-                "name"=> "Какой увидели Россию и её жителей иностранные писатели=> От Дюма до Драйзера Источник=> https=>//kulturologia.ru/blogs/070920/47474/",
+                "name"=> $article->name,
                 "rating"=> $article->rate,
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0,
                 "show_counter"=> $article->show_counter,
@@ -55,6 +55,6 @@ class ArticleController extends Controller
             }
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Foud','Ресус не найдено');
+        return $this->sendError('Not Found','Ресус не найден');
     }
 }

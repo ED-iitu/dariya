@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
+
+    const TRANSACTION_TYPE_TARIFF = 'tariff';
+    const TRANSACTION_TYPE_PRODUCT = 'product';
+
     protected $table = 'transactions';
 
     protected $primaryKey = 'transaction_id';
@@ -17,5 +21,9 @@ class Transaction extends Model
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public static function geTypes(){
+        return [self::TRANSACTION_TYPE_PRODUCT, self::TRANSACTION_TYPE_TARIFF];
     }
 }

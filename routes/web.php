@@ -21,6 +21,7 @@ Route::resource('adminPanel/books','Admin\BookController');
 Route::resource('adminPanel/authors','Admin\AuthorController');
 Route::resource('adminPanel/publishers','Admin\PublisherController');
 Route::resource('adminPanel/genres','Admin\GenreController');
+Route::resource('adminPanel/info','Admin\InfoController');
 Route::resource('adminPanel/articles','Admin\ArticleController');
 Route::resource('adminPanel/tariffs','Admin\TariffController');
 Route::resource('adminPanel/transactions','Admin\TransactionController');
@@ -33,6 +34,7 @@ Route::get('/adminPanel/books', 'Admin\BookController@index')->name('booksPage')
 Route::get('/adminPanel/articles', 'Admin\ArticleController@index')->name('articlesPage');
 Route::get('/adminPanel/authors', 'Admin\AuthorController@index')->name('authorsPage');
 Route::get('/adminPanel/genres', 'Admin\GenreController@index')->name('genresPage');
+Route::get('/adminPanel/info', 'Admin\InfoController@index')->name('infoPage');
 Route::get('/adminPanel/tariffs', 'Admin\TariffController@index')->name('tariffsPage');
 Route::get('/adminPanel/transactions', 'Admin\TransactionController@index')->name('transactionsPage');
 Route::get('/adminPanel/supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
@@ -55,3 +57,5 @@ Route::get('/profile/{id}', 'Site\ProfileController@index')->name('profile');
 
 
 Route::get('/home', 'Site\HomeController@index')->name('home');
+
+Route::get('/payment_plug/{transaction_id}', 'Site\PaymentPlug@index');
