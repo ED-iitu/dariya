@@ -17,6 +17,13 @@
             </div>
         </div>
     </div>
+    <div class="mt-3 mb-2">
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+    </div>
     <!-- End Bradcaump area -->
     <!-- Start Shop Page -->
     <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
@@ -99,9 +106,9 @@
                             <div class="row">
                                 <!-- Start Single Product -->
                                 @foreach($books as $book)
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-12" >
                                     <div class="product">
-                                        <div class="product__thumb">
+                                        <div class="product__thumb" style="height: 400px">
                                             <a class="first__img" href="{{route('book', $book->id)}}"><img src="{{$book->image_link}}" alt="product image"></a>
                                             <div class="new__box">
                                                 @if($book->type == "BOOK")
@@ -114,19 +121,31 @@
                                                 <li>{{$book->price}} KZT</li>
                                                 <li class="old_prize">15000 KZT</li>
                                             </ul>
-                                            <div class="action">
-                                                <div class="actions_inner">
-                                                    <ul class="add_to_links">
-                                                        <li><a class="cart" href="cart.html"></a></li>
-                                                        <li><a class="wishlist" href="wishlist.html"></a></li>
-                                                        <li><a class="compare" href="compare.html"></a></li>
-                                                        <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="product__content">
-                                            <h4><a href="single-product.html">{{$book->name}}</a></h4>
+                                            <h4>
+                                                <a href="{{route('book', $book->id)}}">{{$book->name}}</a>
+                                                <ul class="cart__action d-flex">
+                                                    <li class="cart"><a href="#">Купить книгу</a></li>
+                                                </ul>
+                                                @if($book->favorited())
+                                                <form action="{{route('unfavoriteBook', $book)}}" method="POST">
+                                                    @csrf
+                                                    <ul class="cart__action d-flex" style="margin-top: -20px;">
+                                                        <li class="wishlist"><button class="btn-danger" type="submit">Удалить из избранных </button></li>
+                                                    </ul>
+                                                </form>
+                                                @else
+                                                    <form action="{{route('favoriteBook', $book)}}" method="POST">
+                                                        @csrf
+                                                        <ul class="cart__action d-flex" style="margin-top: -20px;">
+                                                            <li class="wishlist"><button class="btn-success" type="submit">Добавить в избранное </button></li>
+                                                        </ul>
+                                                    </form>
+                                                @endif
+
+
+                                            </h4>
                                             <ul class="rating d-flex">
                                                 <li class="on"><i class="fa fa-star-o"></i></li>
                                                 <li class="on"><i class="fa fa-star-o"></i></li>
@@ -168,9 +187,8 @@
                                         </ul>
                                         <p>{{$book->preview_text}}</p>
                                         <ul class="cart__action d-flex">
-                                            <li class="cart"><a href="cart.html">Добавить в корзину</a></li>
+                                            <li class="cart"><a href="#">Купить книгу</a></li>
                                             <li class="wishlist"><a href="cart.html"></a></li>
-                                            <li class="compare"><a href="cart.html"></a></li>
                                         </ul>
 
                                     </div>

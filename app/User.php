@@ -83,4 +83,12 @@ class User extends Authenticatable
     public function have_active_tariff(){
          return ($this->tariff_id && date('Y-m-d H:i:s', time()) < $this->tariff_end_date) ? true : false;
     }
+
+    /**
+     * Get all of favorite posts for the user.
+     */
+    public function favorites()
+    {
+        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id');
+    }
 }

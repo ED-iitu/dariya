@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Author;
+use Auth;
 use App\Banner;
 use App\Book;
 use App\Comment;
@@ -78,5 +79,31 @@ class BookController extends Controller
             'banners' => $banners
         ]);
 
+    }
+
+    /**
+     * Favorite a particular post
+     *
+     * @param  Book $book
+     * @return Response
+     */
+    public function favoriteBook(Book $book)
+    {
+        Auth::user()->favorites()->attach($book->id);
+
+        return redirect()->back()->with('success','Книга добалена в избранное');
+    }
+
+    /**
+     * Unfavorite a particular post
+     *
+     * @param  Book $book
+     * @return Response
+     */
+    public function unFavoriteBook(Book $book)
+    {
+        Auth::user()->favorites()->detach($book->id);
+
+        return redirect()->back()->with('success','Книга удаленна из избранных');
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Book extends Model
 {
@@ -58,5 +59,12 @@ class Book extends Model
             $ids[] = $genre->id;
         }
         return $ids;
+    }
+
+    public function favorited()
+    {
+        return (bool) Favorite::where('user_id', Auth::id())
+            ->where('object_id', $this->id)
+            ->first();
     }
 }

@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="wn__fotorama__wrapper">
-                                    <div class="fotorama wn__fotorama__action" data-nav="thumbs">
+                                    <div class="fotorama wn__fotorama__action" data-nav="thumbs" style="width: 300px;height: 400px;">
                                         <a href="1.jpg"><img src="{{$bookData->image_link}}" alt=""></a>
                                     </div>
                                 </div>
@@ -67,18 +67,34 @@
                                     </div>
                                     <div class="box-tocart d-flex">
                                         <form action="">
-                                            <span>Qty</span>
-                                            <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
                                             <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Add to Cart">Добавить в корзину</button>
+                                                <button class="tocart" type="submit" title="Add to Cart">Купить книгу</button>
                                             </div>
+
                                         </form>
+
+                                        <div class="product-addto-links clearfix">
+                                            @if($bookData->favorited())
+                                                <form action="{{route('unfavoriteBook', $bookData)}}" method="POST">
+                                                    @csrf
+
+                                                    <div class="addtocart__actions ml-2">
+                                                        <button style="background-color: red" class="tocart" type="submit" title="Add to Cart">Удалить из избранных</button>
+                                                    </div>
+                                                </form>
+                                            @else
+                                                <form action="{{route('favoriteBook', $bookData)}}" method="POST">
+                                                    @csrf
+
+                                                    <div class="addtocart__actions ml-2">
+                                                        <button style="background-color: blue" class="tocart" type="submit" title="Add to Cart">Добавить в избранное</button>
+                                                    </div>
+
+                                                </form>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="product-addto-links clearfix">
-                                        <a class="wishlist" href="#"></a>
-                                        <a class="compare" href="#"></a>
-                                        <a class="email" href="#"></a>
-                                    </div>
+
                                     <div class="product__overview">
                                         <p>{{$bookData->preview_text}}</p>
                                     </div>
@@ -169,7 +185,7 @@
                                 @foreach($relatedBooks as $related)
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-12">
                                     <div class="product">
-                                        <div class="product__thumb">
+                                        <div class="product__thumb" style="height: 400px">
                                             <a class="first__img" href="{{route('book', $related->id)}}"><img src="{{$related->image_link}}" alt="product image"></a>
                                             <div class="new__box">
                                                 <span class="new-label">Новый</span>

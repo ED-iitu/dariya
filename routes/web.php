@@ -45,7 +45,7 @@ Route::get('/createAccount', 'Site\CreateAccountController@index')->name('create
 Route::get('/books', 'Site\BookController@index')->name('books');
 Route::get('/audioBooks', 'Site\BookController@audioBooks')->name('audioBooks');
 Route::get('/articles', 'Site\ArticleController@index')->name('articles');
-Route::get('/contacts', 'Site\ContactController@singleBook')->name('contacts');
+Route::get('/contacts', 'Site\ContactController@index')->name('contacts');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 Route::get('/search', 'Site\SearchController@index')->name('search');
@@ -53,6 +53,10 @@ Route::get('/filter', 'Site\BookController@filter')->name('filter');
 Route::get('/tariffs', 'Site\TariffController@index')->name('tariff');
 Route::get('/comments/store', 'Site\CommentController@store')->name('comment');
 Route::get('/profile/{id}', 'Site\ProfileController@index')->name('profile');
+Route::get('/favorite', 'Site\FavoriteController@index')->name('favorite')->middleware('auth');
+
+Route::post('favorite/{book}', 'Site\BookController@favoriteBook')->name('favoriteBook');
+Route::post('unfavorite/{book}', 'Site\BookController@unFavoriteBook')->name('unfavoriteBook');
 
 
 
