@@ -2046,7 +2046,6 @@ Header Styles
 /* Header Style Four*/
 .header__absolute {
   left: 0;
-  position: absolute;
   right: 0;
   top: 0px;
   z-index: 9; }
@@ -2133,9 +2132,9 @@ Header Styles
 .header__area.sticky__header.is-sticky .header__sidebar__right,
 .header__area.sticky__header.is-sticky .mainmenu__nav,
 .header--two.sticky__header.is-sticky .mainmenu__nav .meninmenu {
-  height: 75px; }
+  height: 55px; }
 .header__area.sticky__header.is-sticky .logo {
-  height: 40px;
+  height: 20px;
   line-height: 55px;
   width: 85px;
 }

@@ -42,6 +42,16 @@
             </div>
             <div class="card bg-primary">
                 <div class="card-body text-center">
+                    <p class="card-text"><a href="">Мои покупки</a></p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
+                    <p class="card-text"><a href="{{route('profileEdit', Auth::user())}}">Обновить профиль</a></p>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <div class="card-body text-center">
                     <p class="card-text"><a href="">Настройки</a></p>
                 </div>
             </div>

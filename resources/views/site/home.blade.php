@@ -37,6 +37,41 @@
         <!-- End Single Slide -->
     </div>
     <!-- End Slider area -->
+    <!-- Start Recent Post Area -->
+    <section class="wn__recent__post bg--gray ptb--80">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section__title text-center">
+                        <h2 class="title__be--2">Наши <span class="color--theme">Статьи</span></h2>
+                        <p>Здесь вы можете увидеть статьи</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt--50">
+                @foreach ($articles as $article)
+                    <div class="col-md-6 col-lg-4 col-sm-12">
+                        <div class="post__itam">
+                            <div class="content">
+                                <h3><a href="{{route('article', $article->id)}}">{{$article->name}} </a></h3>
+                                <p>{{$article->preview_text}}</p>
+                                <div class="post__time">
+                                    <span class="day">{{$article->created_at}}</span>
+                                    <div class="post-meta">
+                                        <ul>
+                                            <li><a href="#">Автор: {{$article->authors->name}}</a></li>
+                                            <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
     <!-- Start BEst Seller Area -->
     <section class="wn__product__area brown--color pt--80  pb--30">
         <div class="container">
@@ -2171,44 +2206,10 @@
         </div>
     </section>
     <!-- Start BEst Seller Area -->
-    <!-- Start Recent Post Area -->
-    <section class="wn__recent__post bg--gray ptb--80">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section__title text-center">
-                        <h2 class="title__be--2">Наши <span class="color--theme">Статьи</span></h2>
-                        <p>Здесь вы можете увидеть статьи</p>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row mt--50">
-                @foreach ($articles as $article)
-                <div class="col-md-6 col-lg-4 col-sm-12">
-                    <div class="post__itam">
-                        <div class="content">
-                            <h3><a href="{{route('article', $article->id)}}">{{$article->name}} </a></h3>
-                            <p>{{$article->preview_text}}</p>
-                            <div class="post__time">
-                                <span class="day">{{$article->created_at}}</span>
-                                <div class="post-meta">
-                                    <ul>
-                                        <li><a href="#">Автор: {{$article->authors->name}}</a></li>
-                                        <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
     <!-- End Recent Post Area -->
     <!-- Best Sale Area -->
-    <section class="best-seel-area pt--80 pb--60">
+    <section class="best-seel-area bg--gray pt--80 pb--60">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

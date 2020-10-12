@@ -57,7 +57,8 @@ Route::get('/favorite', 'Site\FavoriteController@index')->name('favorite')->midd
 
 Route::post('favorite/{book}', 'Site\BookController@favoriteBook')->name('favoriteBook');
 Route::post('unfavorite/{book}', 'Site\BookController@unFavoriteBook')->name('unfavoriteBook');
-
+Route::get('/profile/edit/{id}', 'Site\ProfileController@edit')->name('profileEdit');
+Route::post('/profile/update/{user}', 'Site\ProfileController@update')->name('updateProfile');
 
 
 Route::get('/home', 'Site\HomeController@index')->name('home');

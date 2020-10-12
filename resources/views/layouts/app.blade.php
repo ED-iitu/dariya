@@ -42,7 +42,7 @@
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2 mt-1">
                         <div class="logo">
                             <a href="index.html">
-                                <img src="../images/logo/logo1.png" alt="logo images">
+                                <img width="50px" height="50px" src="../../images/logo/logo1.png" alt="logo images">
                             </a>
                         </div>
                     </div>
@@ -107,11 +107,11 @@
                     <div class="col-lg-12 d-none">
                         <nav class="mobilemenu__nav">
                             <ul class="meninmenu">
-                                <li><a href="index.html">Главаная</a></li>
-                                <li><a href="#">Книги</a></li>
-                                <li><a href="shop-grid.html">Аудио книги</a></li>
-                                <li><a href="blog.html">Статьи</a></li>
-                                <li><a href="contact.html">Контакты</a></li>
+                                <li><a href="{{route('home')}}">Главаная</a></li>
+                                <li><a href="{{route('books')}}">Книги</a></li>
+                                <li><a href="{{route('audioBooks')}}">Аудио книги</a></li>
+                                <li><a href="{{route('articles')}}">Статьи</a></li>
+                                <li><a href="{{route('contacts')}}">Контакты</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -142,7 +142,7 @@
             @yield('content')
         </main>
         <!-- Footer Area -->
-        <footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
+        <footer id="wn__footer" class="footer__area bg--white bg__cat--8 brown--color">
             <div class="footer-static-top">
                 <div class="container">
                     <div class="row">
@@ -150,7 +150,7 @@
                             <div class="footer__widget footer__menu">
                                 <div class="ft__logo">
                                     <a href="index.html">
-                                        <img src="../images/logo/logo1.png" alt="logo">
+                                        <img src="../../images/logo/logo1.png" alt="logo">
                                     </a>
                                     <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
                                 </div>
