@@ -152,7 +152,7 @@
                                     <a href="index.html">
                                         <img src="../../images/logo/logo1.png" alt="logo">
                                     </a>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+                                    <p>Dariya.org</p>
                                 </div>
                                 <div class="footer__content">
                                     <ul class="social__net social__net--2 d-flex justify-content-center">
@@ -163,12 +163,15 @@
                                         <li><a href="#"><i class="bi bi-youtube"></i></a></li>
                                     </ul>
                                     <ul class="mainmenu d-flex justify-content-center">
-                                        <li><a href="index.html">Trending</a></li>
-                                        <li><a href="index.html">Best Seller</a></li>
-                                        <li><a href="index.html">All Product</a></li>
-                                        <li><a href="index.html">Wishlist</a></li>
-                                        <li><a href="index.html">Blog</a></li>
-                                        <li><a href="index.html">Contact</a></li>
+                                        <li><a href="{{route('home')}}">Главная</a></li>
+                                        <li><a href="{{route('books')}}">Книги</a></li>
+                                        <li><a href="{{route('articles')}}">Статьи</a></li>
+                                        <li><a href="{{route('contacts')}}">Контакты</a></li>
+                                        @if(Auth::user())
+                                        <li><a href="{{route('profile', Auth::user()->id)}}">Личный кабинет</a></li>
+                                        @else
+                                        <li><a href="{{route('createAccount')}}">Личный кабинет</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

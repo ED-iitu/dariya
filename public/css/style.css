@@ -1144,6 +1144,8 @@ Elements Styles
   max-width: 100%; }
 .furniture--4 [class*="col-"] {
   max-width: 100%; }
+.furniture--3 [class*="col-"] {
+  max-width: 100%; }
 .activation--2 [class*="col-"] {
   max-width: 100%; }
 .blog__activation.arrows_style.owl-theme .owl-nav [class*="owl-"] {
@@ -3312,6 +3314,9 @@ h3.widget-title-modal {
 .furniture--4.border--round {
   margin-left: 0;
 }
+  .furniture--3.border--round {
+    margin-left: 0;
+  }
 .header__area .header__sidebar__right {
   margin-right: 50px;
 }
