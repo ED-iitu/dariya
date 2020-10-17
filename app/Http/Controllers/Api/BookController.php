@@ -77,7 +77,7 @@ class BookController extends Controller
                 }
             }
             if($book->authors){
-                $data['auhors'][] = $book->authors->getFullName();
+                $data['authors'][] = $book->authors->getFullName();
             }
 
 

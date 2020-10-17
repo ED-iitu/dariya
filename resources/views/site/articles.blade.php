@@ -38,7 +38,7 @@
                             <div class="content">
                                 <h4><a href="{{route('article', $article->id)}}">{{$article->name}}</a></h4>
                                 <ul class="post__meta">
-                                    <li>Автор : <a href="#">{{$article->authors->name}}</a></li>
+                                    <li>Автор : @if($article->authors)<a href="#">{{$article->authors->name}}@endif</a></li>
                                     <li class="post_separator">/</li>
                                     <li>{{$article->created_at}}</li>
                                     <li class="post_separator">/</li>

@@ -72,7 +72,7 @@ class AudioBooksController extends Controller
                 }
             }
             if($audio_book->authors){
-                $data['auhors'][] = $audio_book->authors->getFullName();
+                $data['authors'][] = $audio_book->authors->getFullName();
             }
 
 
