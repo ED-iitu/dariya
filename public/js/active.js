@@ -292,6 +292,31 @@
     });
 
 
+    /*=============  Product Activation  ==============*/
+    $('.furniture--3').owlCarousel({
+        loop:true,
+        margin: 0,
+        nav:true,
+        autoplay: false,
+        autoplayTimeout: 10000,
+        items:3,
+        navText: ['<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
+        dots: false,
+        lazyLoad: true,
+        responsive:{
+            0:{
+                items:1
+            },
+            576:{
+                items:2
+            },
+            768:{
+                items:3
+            },
+        }
+    });
+
+
 /*============= Cartbox Toggler ==============*/
     function cartboxToggler() {
         var trigger = $('.block__active'),
