@@ -60,7 +60,7 @@
                                     <span class="day">{{$article->created_at}}</span>
                                     <div class="post-meta">
                                         <ul>
-                                            <li><a href="#">Автор: {{$article->authors->name}}</a></li>
+                                            <li><a href="#">Автор: @if($article->authors){{$article->authors->name}}@endif</a></li>
                                             <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
                                         </ul>
                                     </div>
