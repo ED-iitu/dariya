@@ -37,17 +37,34 @@
                                         <li class="post-separator">/</li>
                                         <li>Просмотры: {{$article->show_counter}}</li>
                                     </ul>
+
+                                    @php $rating = $article->rate; @endphp
+                                    <div>
+                                        @foreach(range(1,5) as $i)
+                                            @if($rating >0)
+                                                @if($rating >0.5)
+                                                    <i class="fa fa-star"></i>
+                                                @else
+                                                    <i class="fa fa-star-half-o"></i>
+                                                @endif
+                                            @else
+                                                <i class="fa  fa-star-o"></i>
+                                            @endif
+                                            <?php $rating--; ?>
+                                        @endforeach
+                                        ( {{$article->rate ?? 0}} )
+                                    </div>
                                 </div>
                                 <div class="post_content">
                                     <p>{{$article->detail_text}}</p>
                                 </div>
                                 @if(empty($comments))
                                     <ul class="blog_meta">
-                                        <li><a href="#">Нет комментариев</a></li>
+                                        <li><a href="#">Нет отзывов</a></li>
                                     </ul>
                                 @else
                                     <div class="comments_area mt-3">
-                                        <h3 class="comment__title">{{$comments->count()}} комментария</h3>
+                                        <h3 class="comment__title">{{$comments->count()}} отзывов</h3>
                                         <ul class="comment__list">
                                             @foreach($comments as $comment)
                                             <li>
@@ -59,9 +76,7 @@
                                                         <div class="comnt__author d-block d-sm-flex">
                                                             <span>{{$comment->nickname}}</span>
                                                             <span>{{$comment->created_at}}</span>
-                                                            {{--<div class="reply__btn">--}}
-                                                                {{--<a href="#">Reply</a>--}}
-                                                            {{--</div>--}}
+
                                                         </div>
                                                         <p>{{$comment->message}}</p>
                                                     </div>
@@ -76,13 +91,47 @@
                         </article>
                         @if( Auth::user())
                         <div class="comment_respond">
-                            <h3 class="reply_title">Написать комментарий</h3>
+                            <h3 class="reply_title">Оставить отзыв</h3>
                             <form class="comment__form" action="{{route('comment')}}" method="GET">
+                                <div>
+                                    <div class="rate-rating">
+                                        <label>
+                                            <input type="radio" name="stars" value="1" />
+                                            <span class="rate-icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="2" />
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="3" />
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="4" />
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="stars" value="5" />
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon">★</span>
+                                        </label>
+                                    </div>
+                                </div>
                                 <input type="hidden" name="object_id" value="{{$article->id}}">
-                                <input type="hidden" name="object_type" value="ARTICLE">
+                                <input type="hidden" name="object_type" value="article">
                                 <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
                                 <div class="input__box">
-                                    <label>Комментарий</label>
+                                    <label>Отзыв</label>
                                     <textarea name="message"></textarea>
                                 </div>
                                 <div class="input__wrapper clearfix">
@@ -92,7 +141,7 @@
                                     </div>
                                 </div>
                                 <div class="submite__btn">
-                                    <button class="btn-info" type="submit">Отправить комментарий</button>
+                                    <button class="btn-info" type="submit">Отправить отзыв</button>
                                 </div>
                             </form>
                         </div>

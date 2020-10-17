@@ -44,6 +44,22 @@
                                     <li class="post_separator">/</li>
                                     <li>Просмотры: {{$article->show_counter}}</li>
                                 </ul>
+                                @php $rating = $article->rate; @endphp
+                                <div>
+                                    @foreach(range(1,5) as $i)
+                                        @if($rating >0)
+                                            @if($rating >0.5)
+                                                <i class="fa fa-star"></i>
+                                            @else
+                                                <i class="fa fa-star-half-o"></i>
+                                            @endif
+                                        @else
+                                            <i class="fa  fa-star-o"></i>
+                                        @endif
+                                        <?php $rating--; ?>
+                                    @endforeach
+                                    ( {{$article->rate ?? 0}} )
+                                </div>
                                 <p>{{$article->preview_text}}</p>
                                 <div class="blog__btn">
                                     <a class="shopbtn" href="{{route('article', $article->id)}}">Читать</a>

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="ht__bradcaump__area bg-image--4">
         <div class="container">
             <div class="row">
@@ -48,14 +49,23 @@
                                     <div class="product-info-stock-sku d-flex">
                                         <p>Кол-во просмотров:<span> {{$bookData->show_counter}}</span></p>
                                     </div>
+                                    @php $rating = $bookData->rate; @endphp
+                                    <div>
+                                        @foreach(range(1,5) as $i)
+                                            @if($rating >0)
+                                                @if($rating >0.5)
+                                                    <i class="fa fa-star"></i>
+                                                @else
+                                                    <i class="fa fa-star-half-o"></i>
+                                                @endif
+                                            @else
+                                                <i class="fa  fa-star-o"></i>
+                                            @endif
+                                            <?php $rating--; ?>
+                                        @endforeach
+                                        ( {{$bookData->rate}} )
+                                    </div>
                                     <div class="product-reviews-summary d-flex">
-                                        <ul class="rating-summary d-flex">
-                                            <li><i class="zmdi zmdi-star-outline"></i></li>
-                                            <li><i class="zmdi zmdi-star-outline"></i></li>
-                                            <li><i class="zmdi zmdi-star-outline"></i></li>
-                                            <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
-                                            <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
-                                        </ul>
                                         <div class="reviews-actions d-flex">
                                             <a href="#">(0 Отзывов)</a>
                                             <a data-toggle="tab" href="#nav-review" role="tab">Добавить отзыв</a>
@@ -150,8 +160,42 @@
                                     <h2>Оставить отзыв</h2>
                                     <h5>{{$bookData->name}}</h5>
                                     <form action="{{route('comment')}}" method="GET">
+                                        <div>
+                                            <div class="rate-rating">
+                                                <label>
+                                                    <input type="radio" name="stars" value="1" />
+                                                    <span class="rate-icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="2" />
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="3" />
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="4" />
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="5" />
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                    <span class="rate-icon">★</span>
+                                                </label>
+                                            </div>
+                                        </div>
                                         <input type="hidden" name="object_id" value="{{$bookData->id}}">
-                                        <input type="hidden" name="object_type" value="BOOK">
+                                        <input type="hidden" name="object_type" value="book">
                                         <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
                                         <div class="review_form_field">
                                             <div class="input__box">
@@ -208,13 +252,22 @@
                                         </div>
                                         <div class="product__content">
                                             <h4><a href="{{route('book', $related->id)}}">{{$related->name}}</a></h4>
-                                            <ul class="rating d-flex">
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                            </ul>
+                                            @php $rating = $related->rate; @endphp
+                                            <div>
+                                                @foreach(range(1,5) as $i)
+                                                    @if($rating >0)
+                                                        @if($rating >0.5)
+                                                            <i class="fa fa-star"></i>
+                                                        @else
+                                                            <i class="fa fa-star-half-o"></i>
+                                                        @endif
+                                                    @else
+                                                        <i class="fa  fa-star-o"></i>
+                                                    @endif
+                                                    <?php $rating--; ?>
+                                                @endforeach
+                                                ( {{$related->rate ?? 0}} )
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -146,13 +146,22 @@
 
                                             </h4>
                                             <p>Кол-во просмотров: {{$book->show_counter}}</p>
-                                            <ul class="rating d-flex">
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li class="on"><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                                <li><i class="fa fa-star-o"></i></li>
-                                            </ul>
+                                            @php $rating = $book->rate; @endphp
+                                            <div>
+                                                @foreach(range(1,5) as $i)
+                                                    @if($rating >0)
+                                                        @if($rating >0.5)
+                                                            <i class="fa fa-star"></i>
+                                                        @else
+                                                            <i class="fa fa-star-half-o"></i>
+                                                        @endif
+                                                    @else
+                                                        <i class="fa  fa-star-o"></i>
+                                                    @endif
+                                                    <?php $rating--; ?>
+                                                @endforeach
+                                                ( {{$book->rate ?? 0}} )
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

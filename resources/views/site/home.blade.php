@@ -60,8 +60,14 @@
                                     <span class="day">{{$article->created_at}}</span>
                                     <div class="post-meta">
                                         <ul>
-                                            <li><a href="#">Автор: @if($article->authors){{$article->authors->name}}@endif</a></li>
-                                            <li><a href="#"><i class="bi bi-chat-bubble"></i>27</a></li>
+                                            <li>Автор: @if($article->authors){{$article->authors->name}}@endif</li>
+                                            <li><i class="bi bi-chat-bubble"></i> 0</li>
+                                            <li><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"/>
+                                                <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                            </svg>
+                                                {{$article->show_counter}}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -112,13 +118,22 @@
                                 </div>
                             </div>
                             <div class="product__hover--content">
-                                <ul class="rating d-flex">
-                                    <li class="on"><i class="fa fa-star-o"></i></li>
-                                    <li class="on"><i class="fa fa-star-o"></i></li>
-                                    <li class="on"><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                    <li><i class="fa fa-star-o"></i></li>
-                                </ul>
+                                @php $rating = $book->rate; @endphp
+                                <div>
+                                    @foreach(range(1,5) as $i)
+                                        @if($rating >0)
+                                            @if($rating >0.5)
+                                                <i class="fa fa-star"></i>
+                                            @else
+                                                <i class="fa fa-star-half-o"></i>
+                                            @endif
+                                        @else
+                                            <i class="fa  fa-star-o"></i>
+                                        @endif
+                                        <?php $rating--; ?>
+                                    @endforeach
+                                    ( {{$book->rate ?? 0}} )
+                                </div>
                             </div>
                         </div>
                     </div>
