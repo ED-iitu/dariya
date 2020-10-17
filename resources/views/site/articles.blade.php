@@ -41,6 +41,8 @@
                                     <li>Автор : <a href="#">{{$article->authors->name}}</a></li>
                                     <li class="post_separator">/</li>
                                     <li>{{$article->created_at}}</li>
+                                    <li class="post_separator">/</li>
+                                    <li>Просмотры: {{$article->show_counter}}</li>
                                 </ul>
                                 <p>{{$article->preview_text}}</p>
                                 <div class="blog__btn">

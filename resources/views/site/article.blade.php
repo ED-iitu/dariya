@@ -34,6 +34,8 @@
                                         <li>Автор : @if($article->authors)<a href="#">{{$article->authors->name}}@endif</a></li>
                                         <li class="post-separator">/</li>
                                         <li>{{$article->created_at}}</li>
+                                        <li class="post-separator">/</li>
+                                        <li>Просмотры: {{$article->show_counter}}</li>
                                     </ul>
                                 </div>
                                 <div class="post_content">
