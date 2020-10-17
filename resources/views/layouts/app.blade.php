@@ -37,18 +37,18 @@
     <div id="app">
         <!-- Header -->
         <header id="wn__header" class="header__area header__absolute sticky__header">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6 col-6 col-lg-2 mt-1">
+                    <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                         <div class="logo">
-                            <a href="index.html">
-                                <img width="50px" height="50px" src="../../images/logo/logo1.png" alt="logo images">
+                            <a href="/">
+                                <img src="../../images/logo/logo1.png" alt="logo images">
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-8 d-none d-lg-block mt-3">
+                    <div class="col-lg-8 d-none d-lg-block">
                         <nav class="mainmenu__nav">
-                            <ul class="meninmenu d-flex justify-content-start">
+                            <ul class="meninmenu d-flex justify-content-start mb-0">
                                 <li class="drop with--one--item"><a href="{{route('home')}}">Главная</a></li>
                                 <li class="drop"><a href="{{route('books')}}">Книги</a></li>
                                 <li class="drop"><a href="{{route('audioBooks')}}">Аудио книги</a></li>
@@ -59,7 +59,7 @@
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2">
-                        <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+                        <ul class="header__sidebar__right d-flex justify-content-end align-items-center mb-0">
                             <li class="shop_search"><a class="search__active" href="#"></a></li>
                             <li class="wishlist"><a href="{{route('favorite')}}"></a></li></li>
                             <li class="setting__bar__icon"><a class="setting__active" href="#"></a>

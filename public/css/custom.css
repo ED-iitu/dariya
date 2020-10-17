@@ -1,8 +1,83 @@
 /*********************************************************************************
 
-	Template Name: Boighor Bookshop Responsive Bootstrap4 Template  
+	Template Name: Boighor Bookshop Responsive Bootstrap4 Template
 	Description: Template description
 	Version: 1.0
 	Note: This is custom css. All custom styles (user styles) declare here.
 
 **********************************************************************************/
+
+/*header----------*/
+header {
+    padding: 10px 0px;
+}
+/*logo*/
+header div.logo {
+    height: 100%!important;
+    line-height: inherit!important;
+}
+header div.logo a img {
+    height: 40px;
+}
+/*menu*/
+header nav.mainmenu__nav {
+    height: 100%!important;
+}
+header nav.mainmenu__nav ul.meninmenu li a {
+    font-size: 12px;
+    white-space: nowrap;
+}
+header div.mobile-menu div.mean-bar {
+    top: 0px;
+}
+/*sidebar*/
+header ul.header__sidebar__right {
+    height: 100%!important;
+}
+/*----------header*/
+
+
+
+
+
+
+
+
+
+/*media----------*/
+@media (max-width: 1200px) {
+    /*header----------*/
+    /*menu*/
+    header nav.mainmenu__nav ul.meninmenu li a {
+        padding: 0px 15px;
+    }
+    /*----------header*/
+}
+@media (max-width: 991px) {
+    /*header----------*/
+    header div.container {
+        position: relative;
+    }
+    /*menu*/
+    header div.mobile-menu div.mean-bar {
+        top: 0px!important;
+        right: 0px;
+    }
+    header div.mobile-menu a.meanmenu-reveal {
+        height: 40px;
+        padding-right: 15px;
+    }
+    header div.mobile-menu nav.mean-nav {
+        margin-top: 50px;
+    }
+    header div.mobile-menu nav.mean-nav ul li a {
+        padding: 10px 15px;
+        width: calc(100% - 30px);
+    }
+    /*sidebar*/
+    header ul.header__sidebar__right {
+        margin-right: 55px!important;
+    }
+    /*----------header*/
+}
+/*----------media*/
