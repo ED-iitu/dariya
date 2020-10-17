@@ -17,30 +17,35 @@ Auth::routes();
 
 Route::get('/', 'Site\HomeController@index')->name('home');
 
-Route::resource('adminPanel/books','Admin\BookController');
-Route::resource('adminPanel/authors','Admin\AuthorController');
-Route::resource('adminPanel/publishers','Admin\PublisherController');
-Route::resource('adminPanel/genres','Admin\GenreController');
-Route::resource('adminPanel/info','Admin\InfoController');
-Route::resource('adminPanel/articles','Admin\ArticleController');
-Route::resource('adminPanel/tariffs','Admin\TariffController');
-Route::resource('adminPanel/transactions','Admin\TransactionController');
-Route::resource('adminPanel/videos','Admin\VideoMaterialController');
-Route::resource('adminPanel/banners','Admin\BannerController');
-Route::resource('adminPanel/supportTickets','Admin\SupportTicketController');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admin'],
+    function () {
+        Route::resource('books','Admin\BookController');
+        Route::resource('authors','Admin\AuthorController');
+        Route::resource('publishers','Admin\PublisherController');
+        Route::resource('genres','Admin\GenreController');
+        Route::resource('role','Admin\RoleController');
+        Route::resource('info','Admin\InfoController');
+        Route::resource('articles','Admin\ArticleController');
+        Route::resource('tariffs','Admin\TariffController');
+        Route::resource('transactions','Admin\TransactionController');
+        Route::resource('videos','Admin\VideoMaterialController');
+        Route::resource('banners','Admin\BannerController');
+        Route::resource('supportTickets','Admin\SupportTicketController');
 
-Route::get('/adminPanel', 'Admin\AdminPanelController@index')->name('adminPanel');
-Route::get('/adminPanel/books', 'Admin\BookController@index')->name('booksPage');
-Route::get('/adminPanel/articles', 'Admin\ArticleController@index')->name('articlesPage');
-Route::get('/adminPanel/authors', 'Admin\AuthorController@index')->name('authorsPage');
-Route::get('/adminPanel/genres', 'Admin\GenreController@index')->name('genresPage');
-Route::get('/adminPanel/info', 'Admin\InfoController@index')->name('infoPage');
-Route::get('/adminPanel/tariffs', 'Admin\TariffController@index')->name('tariffsPage');
-Route::get('/adminPanel/transactions', 'Admin\TransactionController@index')->name('transactionsPage');
-Route::get('/adminPanel/supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
-Route::get('/adminPanel/videoMaterial', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
-Route::get('/adminPanel/banners', 'Admin\BannerController@index')->name('bannersPage');
-Route::get('/adminPanel/publishers', 'Admin\PublisherController@index')->name('publishersPage');
+        Route::get('/', 'Admin\AdminPanelController@index')->name('adminPanel');
+        Route::get('books', 'Admin\BookController@index')->name('booksPage');
+        Route::get('articles', 'Admin\ArticleController@index')->name('articlesPage');
+        Route::get('authors', 'Admin\AuthorController@index')->name('authorsPage');
+        Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
+        Route::get('role','Admin\RoleController@index')->name('rolePage');
+        Route::get('info', 'Admin\InfoController@index')->name('infoPage');
+        Route::get('tariffs', 'Admin\TariffController@index')->name('tariffsPage');
+        Route::get('transactions', 'Admin\TransactionController@index')->name('transactionsPage');
+        Route::get('supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
+        Route::get('videoMaterial', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
+        Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
+        Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
+    });
 Route::get('/createAccount', 'Site\CreateAccountController@index')->name('createAccount');
 Route::get('/books', 'Site\BookController@index')->name('books');
 Route::get('/audioBooks', 'Site\BookController@audioBooks')->name('audioBooks');

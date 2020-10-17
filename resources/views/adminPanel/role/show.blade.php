@@ -7,7 +7,7 @@
                     <h2>Жанр: {{$genre->name}}</h2>
                 </div>
                 <div>
-                    <a class="btn btn-primary" href="{{ route('genresPage') }}"> Вернуться назад</a>
+                    <a class="btn btn-primary" href="{{ route('rolePage') }}"> Вернуться назад</a>
                 </div>
             </div>
         </div>

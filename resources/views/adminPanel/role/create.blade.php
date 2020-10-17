@@ -4,10 +4,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Добавление нового Жанра</h2>
+                    <h2>Добавление нового роля</h2>
                 </div>
                 <div>
-                    <a class="btn btn-primary" href="{{ route('genresPage') }}"> Вернуться назад</a>
+                    <a class="btn btn-primary" href="{{ route('rolePage') }}"> Вернуться назад</a>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <form action="{{ route('genres.store') }}" method="POST">
+        <form action="{{ route('role.store') }}" method="POST">
             @csrf
 
             <div class="row mt-5">
@@ -31,9 +31,12 @@
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Название">
                     </div>
+                    <div class="form-group">
+                        <input type="text" name="slug" class="form-control" placeholder="Псевдоним">
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Добавить Издалетя</button>
+                    <button type="submit" class="btn btn-primary">Добавить Роль</button>
                 </div>
             </div>
 

@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Genre;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Kodeine\Acl\Models\Eloquent\Role;
 
-class GenreController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +16,10 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genres = Genre::all();
+        $roles = Role::all();
 
-        return view('adminPanel.genre.index', [
-            'genres' => $genres
+        return view('adminPanel.role.index', [
+            'roles' => $roles
         ]);
     }
 
@@ -29,7 +30,7 @@ class GenreController extends Controller
      */
     public function create()
     {
-        return view('adminPanel.genre.create');
+        return view('adminPanel.role.create');
     }
 
     /**
@@ -40,61 +41,61 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        Genre::create($request->all());
+        Role::create($request->all());
 
-        return redirect()->route('genresPage')
+        return redirect()->route('rolePage')
             ->with('success','Жанр успешно добавлен.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Genre  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Genre $genre)
+    public function show(Genre $role)
     {
-        return view('adminPanel.genre.show',compact('genre'));
+        return view('adminPanel.role.show',compact('role'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Genre  $genre
+     * @param  \App\Genre  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genre $genre)
+    public function edit(Genre $role)
     {
-        return view('adminPanel.genre.edit',compact('genre'));
+        return view('adminPanel.role.edit',compact('role'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Genre  $genre
+     * @param  \App\Genre  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genre $genre)
+    public function update(Request $request, Genre $role)
     {
-        $genre->update($request->all());
+        $role->update($request->all());
 
-        return redirect()->route('genresPage')
+        return redirect()->route('rolePage')
             ->with('success','Жанр успешно обновлен');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Genre $genre
+     * @param  \App\Genre $role
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(Genre $genre)
+    public function destroy(Genre $role)
     {
-        $genre->delete();
+        $role->delete();
 
-        return redirect()->route('genresPage')
+        return redirect()->route('rolePage')
             ->with('success','Жанр успешно удален');
     }
 }

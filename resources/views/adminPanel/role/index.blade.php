@@ -2,7 +2,7 @@
 @section('admin-content')
     <div class="container">
         <div>
-            <a class="btn btn-success" href="{{ route('genres.create') }}">Добавить Жанр</a>
+            <a class="btn btn-success" href="{{ route('role.create') }}">Добавить роль</a>
         </div>
         <div class="mt-3 mb-2">
             @if ($message = Session::get('success'))
@@ -23,13 +23,13 @@
             </thead>
             <tbody>
 
-            @foreach($genres as $genre)
+            @foreach($roles as $role)
                 <tr>
-                    <th scope="row">{{ $genre->id }}</th>
-                    <td><a href="{{ route('genres.show',$genre->id) }}">{{ $genre->name }}</a></td>
+                    <th scope="row">{{ $role->id }}</th>
+                    <td><a href="{{ route('role.show',$role->id) }}">{{ $role->name }}</a></td>
                     <td>
-                        <form class="delete" action="{{ route('genres.destroy',$genre->id) }}" method="POST">
-                            <a class="btn btn-primary edit" href="{{ route('genres.edit',$genre->id) }}">Изменить</a>
+                        <form class="delete" action="{{ route('role.destroy',$role->id) }}" method="POST">
+                            <a class="btn btn-primary edit" href="{{ route('role.edit',$role->id) }}">Изменить</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger edit delete-confirm" onclick="return confirm('Are you sure?')">Удалить</button>

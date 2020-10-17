@@ -58,9 +58,8 @@
                     <div class="form-group">
                         <label for="lang">Выберите язык</label>
                         <select class="form-control" id="lang" name="lang">
-                            <option value="ru">Русский</option>
-                            <option>Казахский</option>
-                            <option>Английский</option>
+                            <option @if($article->lang == 'ru')selected="selected"@endif value="ru">Русский</option>
+                            <option @if($article->lang == 'kz')selected="selected"@endif value="kz">Казахский</option>
                         </select>
                     </div>
                 </div>

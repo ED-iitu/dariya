@@ -57,8 +57,7 @@
                         <label for="lang">Выберите язык</label>
                         <select class="form-control" id="lang" name="lang">
                             <option value="ru">Русский</option>
-                            <option>Казахский</option>
-                            <option>Английский</option>
+                            <option value="kz">Казахский</option>
                         </select>
                     </div>
                 </div>

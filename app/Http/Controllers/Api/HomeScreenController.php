@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use Akaunting\Money\Money;
 use App\Article;
 use App\Banner;
 use App\Book;
@@ -70,6 +71,8 @@ class HomeScreenController extends Controller
                 'name' => $model->name,
                 'authors' => $authors,
                 'rating' => $model->rate,
+                "price"=> $model->price,
+                "formatted_price"=> Money::KZT($model->price)->format(),
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
@@ -97,6 +100,8 @@ class HomeScreenController extends Controller
                 'name' => $model->name,
                 'authors' => $authors,
                 'rating' => $model->rate,
+                "price"=> $model->price,
+                "formatted_price"=> Money::KZT($model->price)->format(),
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
