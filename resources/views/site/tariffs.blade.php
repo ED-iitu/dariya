@@ -85,6 +85,7 @@
                 <div class="card mb-5 mb-lg-0">
                     <div class="card-body">
                         <h5 class="card-title text-muted text-uppercase text-center">{{$tariff->title}}</h5>
+                        <img class="mt-3 mb-3" height="400px" style="margin: 0 auto;" src="{{$tariff->image_url}}" alt="product image">
                         <h6 class="card-price text-center">1000 KZT<span class="period">/мес</span></h6>
                         <hr>
                         <div class="mt-3 mb-3">

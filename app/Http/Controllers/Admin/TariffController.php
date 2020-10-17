@@ -89,7 +89,20 @@ class TariffController extends Controller
      */
     public function update(Request $request, Tariff $tariff)
     {
-        $tariff->update();
+        $image_url = $request->file('image_url');
+
+        if (null !== $image_url) {
+            $extensionImage = $image_url->getClientOriginalExtension();
+            Storage::disk('public')->put($image_url->getFilename().'.'.$extensionImage,  File::get($image_url));
+        }
+
+        $data = [
+            'title' => $request->title,
+            'descripiton' => $request->description,
+            'image_url' => '/uploads/' . $image_url->getFilename() . '.' . $extensionImage
+        ];
+
+        $tariff->update($data);
 
         return redirect()->route('tariffsPage')
             ->with('success','Твриф успешно обновлен');

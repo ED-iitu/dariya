@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Обновление жанра < {{ $banner->name }} ></h2>
+                    <h2>Обновление банера < {{ $banner->name }} ></h2>
                 </div>
                 <div>
                     <a class="btn btn-primary" href="{{ route('bannersPage') }}"> Вернуться назад</a>
@@ -23,7 +23,7 @@
             </div>
         @endif
 
-        <form action="{{ route('banners.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('banners.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
