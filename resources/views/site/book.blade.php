@@ -39,6 +39,10 @@
                                         <a href="1.jpg"><img src="{{$bookData->image_link}}" alt=""></a>
                                     </div>
                                 </div>
+                                Поделиться:
+                                <ul class="social__net social__net--2 mt-3 mb3">
+                                    <li><a href="http://www.facebook.com/sharer.php?u={{ config('app.url') }}/book/{{$bookData->id}}" target="_blank"><i class="bi bi-facebook"></i></a></li>
+                                </ul>
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="product__info__main">
