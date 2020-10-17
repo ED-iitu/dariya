@@ -55,6 +55,9 @@ class BookController extends Controller
                 "name"=> $book->name,
                 "preview_text"=> $book->preview_text,
                 "detail_text"=> $book->detail_text,
+                "lang"=> $book->lang,
+                "lang_label"=> $book->getLangLabel(),
+                "publisher"=> ($book->publisher) ? $book->publisher->name : null,
                 "rating"=> $book->rate,
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
@@ -76,8 +79,16 @@ class BookController extends Controller
                     ];
                 }
             }
-            if($book->authors){
-                $data['authors'][] = $book->authors->getFullName();
+            if($book->genres){
+                foreach ($book->genres as $genre){
+                    $data['genres'][] = [
+                        "genre_id"=> $genre->id,
+                        "name"=> $genre->name,
+                    ];
+                }
+            }
+            if($book->author){
+                $data['authors'][] = $book->author->getFullName();
             }
 
 
@@ -166,12 +177,10 @@ class BookController extends Controller
                     ];
                 }
             }
-            //$books[$genre->id]['name'] = $genre->name;
-
             $i++;
         });
         return $this->sendResponse([
-            'books' =>$books, 'count' => $res->count(), 'all_count' => $res->total()
+            'books' =>array_values($books), 'count' => $res->count(), 'all_count' => $res->total()
         ], '');
     }
 }

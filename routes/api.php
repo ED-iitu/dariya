@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         "email"=> $user->email,
         "date_of_birth"=> DateHelper::changeDateFormat($user->date_of_birth,'d.m.Y', 'Y-m-d'),
         "phone"=> PhoneHelper::formatFromNumeric($user->phone),
-        "profile_photo_path"=> url($user->profile_photo_path),
+        "profile_photo_path"=> url('uploads/'.$user->profile_photo_path),
         "tariff_id"=> $user->tariff_id,
         "tariff_price_list_id"=> $user->tariff_price_list_id,
         "created_at"=> $user->created_at,
@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->get('/user/my_audio_books', 'Api\UserControll
 Route::middleware('auth:sanctum')->get('/user/my_tariff', 'Api\UserController@my_tariff');
 Route::middleware('auth:sanctum')->get('/user/book_shelfs', 'Api\UserController@book_shelfs');
 Route::middleware('auth:sanctum')->get('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_view');
+Route::middleware('auth:sanctum')->post('/user/book_shelfs', 'Api\UserController@book_shelfs_add');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_update');
 Route::middleware('auth:sanctum')->post('/user/add_to_book_shelf/{id}', 'Api\UserController@add_to_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\UserController@remove_in_book_shelf');

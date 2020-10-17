@@ -8,6 +8,8 @@ use Auth;
 class Book extends Model
 {
 
+    use MultiLang;
+
     const BOOK_TYPE = 'BOOK';
     const AUDIO_BOOK_TYPE = 'AUDIO';
 
@@ -18,12 +20,12 @@ class Book extends Model
         'publisher_id', 'price', 'author_id', 'genres', 'image_link', 'book_link', 'is_free',
     ];
 
-    public function authors()
+    public function author()
     {
         return $this->hasOne(Author::class, 'id', 'author_id');
     }
 
-    public function publishers()
+    public function publisher()
     {
         return $this->hasOne(Publisher::class, 'id', 'publisher_id');
     }

@@ -28,8 +28,8 @@
                 <tr>
                     <th scope="row">{{ $article->id }}</th>
                     <td><a href="{{ route('articles.show',$article->id) }}">{{ $article->name }}</a></td>
-                    @if ($article->authors)
-                    <td>{{ $article->authors->name }}</td>
+                    @if ($article->author)
+                    <td>{{ $article->author->name }}</td>
                     @else
                     <td>Автор не задан</td>
                     @endif

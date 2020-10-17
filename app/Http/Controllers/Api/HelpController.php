@@ -28,7 +28,7 @@ class HelpController extends Controller
                 $info_types[$info->type]['info'][] = $info->attributesToArray();
             }
         });
-        return $this->sendResponse($info_types,'Список информации');
+        return $this->sendResponse(array_values($info_types),'Список информации');
     }
 
     public function create(){

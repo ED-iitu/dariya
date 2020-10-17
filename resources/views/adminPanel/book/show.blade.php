@@ -50,7 +50,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Автор:</strong>
-                    {{ $book->authors->name }} {{ $book->authors->surname }}
+                    {{ $book->author->name }} {{ $book->author->surname }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -70,8 +70,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Издател:</strong>
-                    @if($book->publishers)
-                        {{ $book->publishers->name }}
+                    @if($book->publisher)
+                        {{ $book->publisher->name }}
                     @else
                         Издатель не задан
                     @endif

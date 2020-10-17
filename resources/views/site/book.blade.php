@@ -79,7 +79,7 @@
                                         <span>{{$bookData->price}} KZT</span>
                                     </div>
                                     <div class="price-box">
-                                        <span>Автор: {{$bookData->authors->name}} {{$bookData->authors->surname}}</span>
+                                        <span>Автор: {{$bookData->author->name}} {{$bookData->author->surname}}</span>
                                     </div>
                                     <div class="box-tocart d-flex">
                                         <form action="">

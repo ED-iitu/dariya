@@ -39,7 +39,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Автор:</strong>
-                    {{ $article->authors->name }} {{ $article->authors->surname }}
+                    {{ $article->author->name }} {{ $article->author->surname }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

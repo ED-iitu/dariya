@@ -8,7 +8,7 @@ class BookShelf extends Model
 {
     protected $table = 'book_shelfs' ;
     protected $fillable = [
-        'title', 'description', 'image_url'
+        'title', 'user_id', 'description', 'image_url'
     ] ;
 
     public function books(){

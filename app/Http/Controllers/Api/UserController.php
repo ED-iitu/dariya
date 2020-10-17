@@ -106,9 +106,9 @@ class UserController extends Controller
         }
 //dd($request->allFiles());
         if($request->file('photo')){
-            $file = $request->file('photo')->storeAs('public/uploads/profile/'.$user->id, Str::random(5).'.'.$request->file('photo')->extension());
+            $file = $request->file('photo')->storeAs('profile/'.$user->id, Str::random(5).'.'.$request->file('photo')->extension(), 'public');
             $user->profile_photo_path = $file;
-            $data['profile_photo_path'] = url($file);
+            $data['profile_photo_path'] = url('uploads/'.$file);
         }
 
         $user->save();
@@ -124,8 +124,8 @@ class UserController extends Controller
                 "id"=> $book_shelf->id,
                 "title"=> $book_shelf->title,
                 "description"=> $book_shelf->description,
-                "image"=> $book_shelf->image_url ? url($book_shelf->image_url) :
-                    (($book_shelf->books) ? url($book_shelf->books->first()->image_link) : null),
+                "image"=> $book_shelf->image_url ? url('uploads/'.$book_shelf->image_url) :
+                    (($book_shelf->books->first()) ? url($book_shelf->books->first()->image_link) : null),
                 "books_count"=> ($book_shelf->books) ? $book_shelf->books->count() : 0,
             ];
         });
@@ -138,7 +138,7 @@ class UserController extends Controller
                 "id"=> $book_shelf->id,
                 "title"=> $book_shelf->title,
                 "description"=> $book_shelf->description,
-                "image"=> $book_shelf->image_url ? url($book_shelf->image_url) :
+                "image"=> $book_shelf->image_url ? url('uploads/'.$book_shelf->image_url) :
                     (($book_shelf->books) ? url($book_shelf->books->first()->image_link) : null),
                 "books_count"=> ($book_shelf->books) ? $book_shelf->books->count() : 0,
             ];
@@ -163,21 +163,25 @@ class UserController extends Controller
         return $this->sendError('Not Found','Ресус не найден');
     }
 
+    public function book_shelfs_add(){
+        $request = Request::createFromGlobals();
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $book_shelf= BookShelf::create($data);
+        return $this->sendResponse($book_shelf, $book_shelf ? 'Полка успешно добавлена!' : 'Ошибка при обнавление!',
+            $book_shelf ? 200 : 400);
+    }
+
     public function book_shelfs_update($id){
         $request = Request::createFromGlobals();
         $data = $request->all();
         $image_link = $request->file('image_url');
         if (null !== $image_link) {
-            $extensionImage = $image_link->getClientOriginalExtension();
-            $path = 'book_shelfs/'.Str::random(32).'.'.$extensionImage;
-            $file = Storage::disk('public')->put($path,  File::get($image_link));
-            $data['image_url'] = '/public/'.$path;
+            $file = $request->file('image_url')->storeAs('book_shelfs/'.$id, Str::random(32).'.'.$request->file('image_url')->extension(), 'public');
+            $data['image_url'] = $file;
         }
         $book_shelf= BookShelf::where('id',$id)->update($data);
-//        if($book_shelf){
-//
-//        }
-        return $this->sendResponse($book_shelf, $book_shelf ? 'Профиль успешно обнавлен!' : 'Ошибка при обнавление!',
+        return $this->sendResponse($book_shelf, $book_shelf ? 'Полка успешно обнавлена!' : 'Ошибка при обнавление!',
             $book_shelf ? 200 : 400);
     }
 

@@ -31,7 +31,7 @@
                                 <div class="post_header">
                                     <h2>{{$article->name}}</h2>
                                     <ul class="post_author">
-                                        <li>Автор : @if($article->authors)<a href="#">{{$article->authors->name}}@endif</a></li>
+                                        <li>Автор : @if($article->author)<a href="#">{{$article->author->name}}@endif</a></li>
                                         <li class="post-separator">/</li>
                                         <li>{{$article->created_at}}</li>
                                         <li class="post-separator">/</li>

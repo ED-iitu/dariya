@@ -59,10 +59,10 @@ class HomeScreenController extends Controller
         $res->each(function($model) use (&$books){
 
             $authors = [];
-            if($model->authors){
-                $author = $model->authors->name;
-                if($model->authors->surname)
-                    $author .= ' '.$model->authors->surname;
+            if($model->author){
+                $author = $model->author->name;
+                if($model->author->surname)
+                    $author .= ' '.$model->author->surname;
                 $authors[] = $author;
             }
 
@@ -88,10 +88,10 @@ class HomeScreenController extends Controller
         $res->each(function($model) use (&$audio_books){
 
             $authors = [];
-            if($model->authors){
-                $author = $model->authors->name;
-                if($model->authors->surname)
-                    $author .= ' '.$model->authors->surname;
+            if($model->author){
+                $author = $model->author->name;
+                if($model->author->surname)
+                    $author .= ' '.$model->author->surname;
                 $authors[] = $author;
             }
 

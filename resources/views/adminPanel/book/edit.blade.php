@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <label for="publisher">Выберите издателя</label>
                             <select class="form-control" id="publisher" name="publisher_id">
-                                <option value="{{$book->publishers->id}}">{{$book->publishers->name}}</option>
+                                <option value="{{$book->publisher->id}}">{{$book->publisher->name}}</option>
                                 @foreach($publishers as $publisher)
                                     <option value="{{$publisher->id}}">{{$publisher->name}}</option>
                                 @endforeach
@@ -83,7 +83,7 @@
                         <div class="form-group">
                             <label for="author">Выберите автора</label>
                             <select class="form-control" id="author" name="author_id">
-                                <option value="{{$book->authors->id}}">{{$book->authors->name}}</option>
+                                <option value="{{$book->author->id}}">{{$book->author->name}}</option>
                                 @foreach($authors as $author)
                                     <option value="{{$author->id}}">{{$author->name}}</option>
                                 @endforeach

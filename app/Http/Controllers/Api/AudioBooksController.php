@@ -50,6 +50,9 @@ class AudioBooksController extends Controller
                 "name"=> $audio_book->name,
                 "preview_text"=> $audio_book->preview_text,
                 "detail_text"=> $audio_book->detail_text,
+                "lang"=> $audio_book->lang,
+                "lang_label"=> $audio_book->getLangLabel(),
+                "publisher"=> ($audio_book->publisher) ? $audio_book->publisher->name : null,
                 "rating"=> $audio_book->rate,
                 "type"=> $audio_book->type,
                 "is_free"=> $audio_book->is_free ? true :false,
@@ -60,6 +63,16 @@ class AudioBooksController extends Controller
                 "show_counter"=> $audio_book->show_counter,
                 "image_url"=> ($audio_book->image_link) ? url($audio_book->image_link) : null,
             ];
+
+            if($audio_book->genres){
+                foreach ($audio_book->genres as $genre){
+                    $data['genres'][] = [
+                        "genre_id"=> $genre->id,
+                        "name"=> $genre->name,
+                    ];
+                }
+            }
+
             if($audio_book->comments){
                 foreach ($audio_book->comments as $comment){
                     $data['comments'][] = [
@@ -71,8 +84,8 @@ class AudioBooksController extends Controller
                     ];
                 }
             }
-            if($audio_book->authors){
-                $data['authors'][] = $audio_book->authors->getFullName();
+            if($audio_book->author){
+                $data['authors'][] = $audio_book->author->getFullName();
             }
 
 
