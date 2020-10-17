@@ -39,7 +39,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Автор:</strong>
-                    {{ $article->author->name }} {{ $article->author->surname }}
+                    @if($article->author)
+                        {{ $article->author->name }} {{ $article->author->surname }}
+                    @endif
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

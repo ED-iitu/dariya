@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <textarea class="form-control" style="height:150px" name="detail_text" placeholder="Детальное описание"></textarea>
+                        <textarea class="form-control tiny_editor" style="height:150px" name="detail_text" placeholder="Детальное описание"></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

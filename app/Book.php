@@ -25,6 +25,11 @@ class Book extends Model
         return $this->hasOne(Author::class, 'id', 'author_id');
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class, 'object_id', 'id')->where('object_type','=', Rating::BOOK_TYPE);
+    }
+
     public function publisher()
     {
         return $this->hasOne(Publisher::class, 'id', 'publisher_id');

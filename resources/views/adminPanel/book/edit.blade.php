@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <textarea class="form-control" style="height:250px" name="detail_text" placeholder="Детальное описание">{{ $book->detail_text }}</textarea>
+                            <textarea class="form-control tiny_editor" style="height:250px" name="detail_text" placeholder="Детальное описание">{{ $book->detail_text }}</textarea>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

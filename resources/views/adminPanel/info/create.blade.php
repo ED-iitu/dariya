@@ -32,7 +32,7 @@
                         <input type="text" name="title" class="form-control" placeholder="Название">
                     </div>
                     <div class="form-group">
-                        <textarea name="text" class="form-control" placeholder="Текст"></textarea>
+                        <textarea name="text" class="form-control tiny_editor" placeholder="Текст"></textarea>
                     </div>
                     <div class="form-group">
                         <select name="type" class="form-control" placeholder="Название">

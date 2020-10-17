@@ -33,9 +33,9 @@
                                     <ul class="post_author">
                                         <li>Автор : @if($article->author)<a href="#">{{$article->author->name}}@endif</a></li>
                                         <li class="post-separator">/</li>
-                                        <li>{{$article->created_at}}</li>
+                                        <li>{{\Jenssegers\Date\Date::parse($article->created_at)->format('j F, Y')}}</li>
                                         <li class="post-separator">/</li>
-                                        <li>Просмотры: {{$article->show_counter}}</li>
+                                        <li> <i class="fa fa-eye" aria-hidden="true"></i> {{$article->show_counter}}</li>
                                     </ul>
 
                                     @php $rating = $article->rate; @endphp
@@ -56,7 +56,7 @@
                                     </div>
                                 </div>
                                 <div class="post_content">
-                                    <p>{{$article->detail_text}}</p>
+                                    {!! $article->detail_text !!}
                                 </div>
                                 @if(empty($comments))
                                     <ul class="blog_meta">
@@ -75,7 +75,7 @@
                                                     <div class="content">
                                                         <div class="comnt__author d-block d-sm-flex">
                                                             <span>{{$comment->nickname}}</span>
-                                                            <span>{{$comment->created_at}}</span>
+                                                            <span>{{\Jenssegers\Date\Date::parse($comment->created_at)->format('j F, Y H:i:s')}}</span>
 
                                                         </div>
                                                         <p>{{$comment->message}}</p>

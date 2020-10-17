@@ -48,10 +48,7 @@
                                 <div class="product__info__main">
                                     <h1>{{$bookData->name}}</h1>
                                     <div class="product-info-stock-sku d-flex">
-                                        <p>Доступно:<span> Да</span></p>
-                                    </div>
-                                    <div class="product-info-stock-sku d-flex">
-                                        <p>Кол-во просмотров:<span> {{$bookData->show_counter}}</span></p>
+                                        <p>Доступно:<span> Да </span> <i class="fa fa-eye" aria-hidden="true"></i> :<span> {{$bookData->show_counter}}</span></p>
                                     </div>
                                     @php $rating = $bookData->rate; @endphp
                                     <div>
@@ -71,7 +68,7 @@
                                     </div>
                                     <div class="product-reviews-summary d-flex">
                                         <div class="reviews-actions d-flex">
-                                            <a href="#">(0 Отзывов)</a>
+                                            <a href="#">({{$bookData->comments->count()}} Отзывов)</a>
                                             <a data-toggle="tab" href="#nav-review" role="tab">Добавить отзыв</a>
                                         </div>
                                     </div>
@@ -127,7 +124,7 @@
                             <!-- Start Single Tab Content -->
                             <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
                                 <div class="description__attribute">
-                                    <p>{{$bookData->detail_text}}</p>
+                                    {!! $bookData->detail_text !!}
                                 </div>
                             </div>
                             <!-- End Single Tab Content -->

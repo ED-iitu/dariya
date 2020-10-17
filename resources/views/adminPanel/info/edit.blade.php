@@ -34,7 +34,7 @@
                             <input type="text" name="name" class="form-control" placeholder="Название" value="{{ $info->title }}">
                         </div>
                         <div class="form-group">
-                            <textarea name="text" class="form-control" placeholder="Текст">{{ $info->text }}</textarea>
+                            <textarea name="text" class="form-control tiny_editor" placeholder="Текст">{{ $info->text }}</textarea>
                         </div>
                         <div class="form-group">
                             <select name="type" class="form-control" placeholder="Название">
