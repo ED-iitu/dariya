@@ -36,6 +36,58 @@ header ul.header__sidebar__right {
 }
 /*----------header*/
 
+/*content----------*/
+section#banner-main {
+    margin-bottom: 40px;
+}
+section#banner-main div.owl-carousel {
+    border-radius: 13px;
+    overflow: hidden;
+}
+section#banner-main div.owl-carousel div.item a {
+    height: 370px;
+    background: #eee;
+    background-size: cover;
+    background-position: center center;
+}
+section#banner-main div.owl-carousel div.owl-nav {
+    margin: 0px;
+}
+section#banner-main div.owl-carousel div.owl-nav > div {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 45px;
+    width: 45px;
+    background: #fff;
+    color: #333333;
+    border-radius: 50%;
+    margin-top: -23px;
+}
+section#banner-main div.owl-carousel div.owl-nav > div:before {
+    content: "\f106";
+    font: normal normal normal 24px/1 FontAwesome;
+}
+section#banner-main div.owl-carousel div.owl-nav > div.owl-next {
+    right: 0px;
+}
+section#banner-main div.owl-carousel div.owl-nav > div.owl-next:before {
+    transform: rotate(90deg) translateY(-3px);
+}
+section#banner-main div.owl-carousel div.owl-nav > div.owl-prev {
+    left: 0px;
+}
+section#banner-main div.owl-carousel div.owl-nav > div.owl-prev:before {
+    transform: rotate(-90deg) translateY(-3px);
+}
+section#banner-main div.owl-carousel div.owl-dots {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+/*----------content*/
 
 
 
@@ -79,5 +131,22 @@ header ul.header__sidebar__right {
         margin-right: 55px!important;
     }
     /*----------header*/
+}
+@media (max-width: 767px) {
+    /*content----------*/
+    section#banner-main div.owl-carousel div.item a {
+        height: 235px;
+    }
+    /*----------content*/
+}
+@media (max-width: 400px) {
+    /*content----------*/
+    section#banner-main div.owl-carousel div.item a {
+        height: 170px;
+    }
+    section#banner-main div.owl-carousel div.owl-nav > div {
+        background: rgba(255,255,255,0.5);
+    }
+    /*----------content*/
 }
 /*----------media*/
