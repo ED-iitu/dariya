@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @foreach($articles as $article)
     <div class="ht__bradcaump__area bg-image--6">
         <div class="container">
             <div class="row">
@@ -143,6 +142,5 @@
         </div>
     </div>
 
-    @endforeach
 
 @endsection

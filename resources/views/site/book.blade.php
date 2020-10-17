@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    @foreach($book as $bookData)
     <div class="ht__bradcaump__area bg-image--4">
         <div class="container">
             <div class="row">
@@ -45,6 +44,9 @@
                                     <h1>{{$bookData->name}}</h1>
                                     <div class="product-info-stock-sku d-flex">
                                         <p>Доступно:<span> Да</span></p>
+                                    </div>
+                                    <div class="product-info-stock-sku d-flex">
+                                        <p>Кол-во просмотров:<span> {{$bookData->show_counter}}</span></p>
                                     </div>
                                     <div class="product-reviews-summary d-flex">
                                         <ul class="rating-summary d-flex">
@@ -224,5 +226,5 @@
             </div>
         </div>
     </div>
-    @endforeach
+
 @endsection

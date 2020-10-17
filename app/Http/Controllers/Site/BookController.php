@@ -28,8 +28,13 @@ class BookController extends Controller
 
     public function singleBook($id)
     {
-        $book = Book::where('id', '=', $id)->get();
-        $relatedBooks = Book::all();
+        $book = Book::find($id);
+
+        if($book) {
+            $book->where('id', $id)->increment('show_counter');
+        }
+
+        $relatedBooks = Book::where('id', '!=', $id)->get();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'BOOK')->get();
 
         if ($comments->count() == 0) {
@@ -37,7 +42,7 @@ class BookController extends Controller
         }
 
         return view('site.book', [
-            'book' => $book,
+            'bookData' => $book,
             'relatedBooks' => $relatedBooks,
             'comments' => $comments
         ]);
@@ -89,6 +94,10 @@ class BookController extends Controller
      */
     public function favoriteBook(Book $book)
     {
+        if (Auth::user() == null) {
+            return view('site.createAccount');
+        }
+
         Auth::user()->favorites()->attach($book->id);
 
         return redirect()->back()->with('success','Книга добалена в избранное');

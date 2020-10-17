@@ -119,7 +119,6 @@
                                             </div>
                                             <ul class="prize position__right__bottom d-flex">
                                                 <li>{{$book->price}} KZT</li>
-                                                <li class="old_prize">15000 KZT</li>
                                             </ul>
                                         </div>
                                         <div class="product__content">
@@ -146,6 +145,7 @@
 
 
                                             </h4>
+                                            <p>Кол-во просмотров: {{$book->show_counter}}</p>
                                             <ul class="rating d-flex">
                                                 <li class="on"><i class="fa fa-star-o"></i></li>
                                                 <li class="on"><i class="fa fa-star-o"></i></li>

@@ -23,7 +23,12 @@ class ArticleController extends Controller
     
     public function singleBook($id)
     {
-        $articles = Article::where('id', '=', $id)->get();
+        $article = Article::find($id);
+
+        if ($article) {
+            Article::where('id', $id)->increment('show_counter');
+        }
+
         $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
         $genres = Genre::all();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
@@ -32,7 +37,7 @@ class ArticleController extends Controller
             $comments = [];
         }
         return view('site.article', [
-            'articles' => $articles,
+            'article' => $article,
             'recentArticles' => $recentArticles,
             'genres' => $genres,
             'comments' => $comments
