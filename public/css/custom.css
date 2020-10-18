@@ -34,6 +34,20 @@ header div.mobile-menu div.mean-bar {
 header ul.header__sidebar__right {
     height: 100%!important;
 }
+
+.header__area .header__sidebar__right > li.wishlist > a > span{
+    position: absolute;
+    bottom: 2px;
+    right: 0px;
+    background-color: #0090ff;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 18px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+}
 /*----------header*/
 
 /*content----------*/

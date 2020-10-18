@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
@@ -19,8 +19,7 @@ class ProfileController extends Controller
 {
     public function index($id)
     {
-        $userData = User::where('id', '=', $id);
-
+        $userData = Auth::user();
         return view('site.profile', [
             'userData' => $userData
         ]);

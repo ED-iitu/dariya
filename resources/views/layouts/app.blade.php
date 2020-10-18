@@ -51,18 +51,22 @@
                         <nav class="mainmenu__nav">
                             <ul class="meninmenu d-flex justify-content-start mb-0">
                                 <li class="drop with--one--item"><a href="{{route('home')}}">Главная</a></li>
-                                <li class="drop"><a href="{{route('books')}}">Книги</a></li>
-                                <li class="drop"><a href="{{route('audioBooks')}}">Аудио книги</a></li>
                                 <li class="drop"><a href="{{route('articles')}}">Статьи</a></li>
-                                <li class="drop"><a href="{{route('contacts')}}">Контакты</a></li>
-                                <li class="drop"><a style="color: red" href="{{route('tariff')}}">Получить подписку</a></li>
+                                <li class="drop"><a href="{{route('books')}}">Книги</a></li>
+                                <li class="drop"><a href="{{route('audioBooks')}}">Аудиокниги</a></li>
+                                <li class="drop"><a href="{{route('contacts')}}">Видео</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                         <ul class="header__sidebar__right d-flex justify-content-end align-items-center mb-0">
                             <li class="shop_search"><a class="search__active" href="#"></a></li>
-                            <li class="wishlist"><a href="{{route('favorite')}}"></a></li></li>
+                            <li class="wishlist">
+                                <a href="{{route('favorite')}}">
+                                    @if(!Auth::guest() && Auth::user()->favorites()->count() > 0)
+                                    <span>{{ Auth::user()->favorites()->count() }}</span>
+                                    @endif
+                                </a></li></li>
                             <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                                 <div class="searchbar__content setting__block">
                                     <div class="content-inner">
@@ -78,8 +82,6 @@
                                                         @else
                                                         <span><a href="{{route('profile', Auth::user()->id)}}">{{ Auth::user()->name }}</a></span>
                                                             <hr>
-                                                        <span><a href="#">Избранные</a></span>
-                                                        <span><a href="#">Мои полки</a></span>
                                                         <span>
                                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                                onclick="event.preventDefault();
@@ -154,25 +156,22 @@
                                         <img src="../../images/logo/logo1.png" alt="logo">
                                     </a>
                                     <p>Dariya.org</p>
+                                    <p>Мы в соц сетях</p>
                                 </div>
                                 <div class="footer__content">
                                     <ul class="social__net social__net--2 d-flex justify-content-center">
-                                        <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-                                        <li><a href="#"><i class="bi bi-google"></i></a></li>
-                                        <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-                                        <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
-                                        <li><a href="#"><i class="bi bi-youtube"></i></a></li>
+                                        <li><a target="_blank" href="https://www.facebook.com/ilimdariyasy"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a target="_blank" href="https://www.instagram.com/dariya_damytu/"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a target="_blank" href="mailto:yerbolatsoltamurat@gmail.com"><i class="fa fa-envelope"></i></a></li>
+                                        <li><a target="_blank" href="https://t.me/ilimdariyasy"><i class="fa fa-telegram"></i></a></li>
+                                        <li><a target="_blank" href="https://www.youtube.com/channel/UCaq5z_dkV4OD77SqxC3ZLDQ/videos?view_as=subscriber"><i class="fa fa-youtube"></i></a></li>
                                     </ul>
                                     <ul class="mainmenu d-flex justify-content-center">
                                         <li><a href="{{route('home')}}">Главная</a></li>
-                                        <li><a href="{{route('books')}}">Книги</a></li>
                                         <li><a href="{{route('articles')}}">Статьи</a></li>
-                                        <li><a href="{{route('contacts')}}">Контакты</a></li>
-                                        @if(Auth::user())
-                                        <li><a href="{{route('profile', Auth::user()->id)}}">Личный кабинет</a></li>
-                                        @else
-                                        <li><a href="{{route('createAccount')}}">Личный кабинет</a></li>
-                                        @endif
+                                        <li><a href="{{route('books')}}">Книги</a></li>
+                                        <li><a href="{{route('books')}}">Аудиокниги</a></li>
+                                        <li><a href="{{route('contacts')}}">Видео</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -186,7 +185,7 @@
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <div class="copyright">
                                 <div class="copy__right__inner text-left">
-                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Dariya.</a> All Rights Reserved</p>
+                                    <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Dariya.</a> Все права защищены</p>
                                 </div>
                             </div>
                         </div>

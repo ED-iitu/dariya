@@ -7,7 +7,7 @@ $(function () {
         dots:true,
         nav: true,
         autoplay:true,
-        autoplayTimeout:3000,
+        autoplayTimeout:7000,
         navText: ''
     });
 
@@ -28,6 +28,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
+        autoplayTimeout:7000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -53,6 +54,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
+        autoplayTimeout:7000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -78,6 +80,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
+        autoplayTimeout:7000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -103,6 +106,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
+        autoplayTimeout:7000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -119,6 +123,31 @@ $(function () {
             // breakpoint from 997 up
             997 : {
                 items: 4
+            }
+        }
+    });
+    $("#my_books_slider .owl-carousel").owlCarousel({
+        loop: true,
+        margin: 15,
+        nav: true,
+        navText: '',
+        autoplayTimeout:7000,
+        responsive: {
+            // breakpoint from 0 up
+            0: {
+                items: 1
+            },
+            // breakpoint from 480 up
+            480 : {
+                items: 2
+            },
+            // breakpoint from 768 up
+            768 : {
+                items: 3
+            },
+            // breakpoint from 997 up
+            997 : {
+                items: 2
             }
         }
     });

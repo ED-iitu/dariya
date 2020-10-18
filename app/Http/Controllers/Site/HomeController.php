@@ -14,18 +14,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $books = Book::query()->where('type', Book::BOOK_TYPE)->get();
+        $audio_books = Book::query()->where('type', Book::AUDIO_BOOK_TYPE)->get();
         $articles = Article::all();
-        $genres = Genre::offset(0)->limit(4)->get();
-        $popularBooks = Book::all();
         $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
 
 
         return view('site.home', [
             'books' => $books,
+            'audio_books' => $audio_books,
             'articles' => $articles,
-            'genres' => $genres,
-            'popularBooks' => $popularBooks,
             'banners' => $banners,
         ]);
     }
