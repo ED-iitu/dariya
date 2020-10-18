@@ -52,6 +52,11 @@ Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 
 /**
+ * Search
+ */
+Route::middleware('auth:sanctum')->get('/search', 'Api\SearchController@index');
+
+/**
  * Home Screen
  */
 Route::middleware('auth:sanctum')->get('home_screen', 'Api\HomeScreenController@index');

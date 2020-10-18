@@ -51,6 +51,9 @@
                         <a class="nav-link" href="{{route('articlesPage')}}">Статьи</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{{route('categoriesPage')}}">Категории</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{{route('tariffsPage')}}">Тарифы</a>
                     </li>
                     <li class="nav-item">

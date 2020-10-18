@@ -44,10 +44,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="genre">Выберите жанр</label>
-                        <select class="form-control" id="genre" name="genre_id">
-                            @foreach($genres as $genre)
-                                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                        <label for="category">Выберите категорию</label>
+                        <select multiple="multiple" class="form-control" id="category" name="categories[]">
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -63,12 +63,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="author">Выберите автора</label>
-                        <select class="form-control" id="author" name="author_id">
-                            @foreach($authors as $author)
-                                <option value="{{$author->id}}">{{$author->name}} {{$author->surname}}</option>
-                            @endforeach
-                        </select>
+                        <label for="author">Автор</label>
+                        <input type="text" name="author" class="form-control">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

@@ -20,6 +20,7 @@ class ArticleController extends Controller
                 "id"=> $article->id,
                 "name"=> $article->name,
                 "rating"=> $article->rate,
+                "authors"=> $article->author ? [$article->author] : [],
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0,
                 "show_counter"=> $article->show_counter,
                 "image_url"=> ($article->image_link) ? url($article->image_link) : null
@@ -38,6 +39,7 @@ class ArticleController extends Controller
                 "preview_text"=> $article->preview_text,
                 "detail_text"=> $article->detail_text,
                 "rating"=> $article->rate,
+                "authors"=> $article->author ? [$article->author] : [],
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0 ,
                 "show_counter"=> $article->show_counter,
                 "image_url"=> ($article->image_link) ? url($article->image_link) : null,
@@ -50,6 +52,14 @@ class ArticleController extends Controller
                         "author_name"=> ($comment->author) ? $comment->author->name : '',
                         "personal_photo"=> null,
                         "post_date"=> $comment->created_at
+                    ];
+                }
+            }
+            if($article->categories){
+                foreach ($article->categories as $category){
+                    $data['categories'][] = [
+                        "id"=> $comment->id,
+                        "category_name"=> $category->name
                     ];
                 }
             }

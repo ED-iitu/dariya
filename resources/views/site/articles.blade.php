@@ -38,7 +38,7 @@
                             <div class="content">
                                 <h4><a href="{{route('article', $article->id)}}">{{$article->name}}</a></h4>
                                 <ul class="post__meta">
-                                    <li>Автор : @if($article->author)<a href="#">{{$article->author->name}}@endif</a></li>
+                                    <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>
                                     <li class="post_separator">/</li>
                                     <li>{{$article->created_at}}</li>
                                     <li class="post_separator">/</li>
@@ -97,10 +97,10 @@
                         </aside>
                         <!-- Start Single Widget -->
                         <aside class="widget category_widget">
-                            <h3 class="widget-title">Жанры</h3>
+                            <h3 class="widget-title">Категории</h3>
                             <ul>
-                                @foreach($genres as $genre)
-                                <li><a href="#">{{$genre->name}}</a></li>
+                                @foreach($categories as $category)
+                                <li><a href="{{url('/articles?category='.$category->name)}}">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </aside>

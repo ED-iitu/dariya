@@ -9,16 +9,15 @@ class Article extends Model
     protected $table = 'articles';
 
     protected $fillable = [
-        'name', 'preview_text', 'detail_text', 'author_id', 'lang', 'image_link'
+        'name', 'preview_text', 'detail_text', 'author', 'categories', 'lang', 'image_link'
     ];
-
-    public function authors()
-    {
-        return $this->hasOne(Author::class, 'id', 'author_id');
-    }
 
     public function comments()
     {
         return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type','=', Comment::ARTICLE_TYPE);
+    }
+
+    public function categories(){
+        return $this->hasManyThrough(Category::class, ArticleToCategory::class, 'article_id', 'id', 'id','category_id');
     }
 }

@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ArticleToGenre extends Model
+class ArticleToCategory extends Model
 {
-    protected $table = 'article_to_genres';
+    protected $table = 'article_to_category';
 
     protected $fillable = [
-        'article_id', 'genre_id'
+        'article_id', 'category_id'
     ];
 
     public function articles()
@@ -17,8 +17,8 @@ class ArticleToGenre extends Model
         return $this->belongsToMany(Book::class);
     }
 
-    public function genres()
+    public function categories()
     {
-        return $this->belongsToMany(Genre::class);
+        return $this->belongsToMany(Category::class);
     }
 }

@@ -39,18 +39,16 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Автор:</strong>
-                    @if($article->author)
-                        {{ $article->author->name }} {{ $article->author->surname }}
-                    @endif
+                    {{ $article->author }}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Жанр:</strong>
-                    @if($article->genres)
+                    <strong>Категория:</strong>
+                    @if($article->categories)
                         <ul>
-                            @foreach($article->genres as $genre)
-                                <li>{{$genre->name}}</li>
+                            @foreach($article->categories as $category)
+                                <li>{{$category->name}}</li>
                             @endforeach
                         </ul>
                     @else

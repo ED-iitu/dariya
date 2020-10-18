@@ -46,10 +46,14 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="genre">Выберите жанр</label>
-                        <select class="form-control" id="genre" name="genre">
-                            @foreach($genres as $genre)
-                                <option value="{{$genre->id}}">{{$genre->name}}</option>
+                        <label for="categories">Выберите категорию</label>
+                        <select multiple="multiple" class="form-control" id="categories" name="categories[]">
+                            @foreach($categories as $category)
+                                @if(array_key_exists($category->id,$article->categories->pluck('name','id')->toArray()))
+                                    <option selected="selected" value="{{$category->id}}">{{$category->name}}</option>
+                                @else
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -65,12 +69,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="author">Выберите автора</label>
-                        <select class="form-control" id="author" name="author_id">
-                            @foreach($authors as $author)
-                                <option value="{{$author->id}}">{{$author->name}}</option>
-                            @endforeach
-                        </select>
+                        <label for="author">Автор</label>
+                        <input type="text" name="author" class="form-control" value="{{ $article->author }}">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

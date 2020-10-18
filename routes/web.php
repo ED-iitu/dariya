@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::resource('authors','Admin\AuthorController');
         Route::resource('publishers','Admin\PublisherController');
         Route::resource('genres','Admin\GenreController');
+        Route::resource('categories','Admin\CategoryController');
         Route::resource('role','Admin\RoleController');
         Route::resource('info','Admin\InfoController');
         Route::resource('articles','Admin\ArticleController');
@@ -37,6 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('articles', 'Admin\ArticleController@index')->name('articlesPage');
         Route::get('authors', 'Admin\AuthorController@index')->name('authorsPage');
         Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
+        Route::get('categories', 'Admin\CategoryController@index')->name('categoriesPage');
         Route::get('role','Admin\RoleController@index')->name('rolePage');
         Route::get('info', 'Admin\InfoController@index')->name('infoPage');
         Route::get('tariffs', 'Admin\TariffController@index')->name('tariffsPage');

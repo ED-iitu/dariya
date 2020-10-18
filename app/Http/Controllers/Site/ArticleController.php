@@ -3,21 +3,33 @@ namespace App\Http\Controllers\Site;
 
 use App\Article;
 use App\Comment;
-use App\Genre;
+use App\Category;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::paginate(10);
+        $articles = Article::query();
+
+        if($request->get('author')){
+            $articles->orWhere('author','like',"%{$request->get('author')}%");
+        }
+        if($request->get('category')){
+            $category = $request->get('category');
+            $articles->orWhereHas('categories',function ($query) use ($category){
+                return $query->where('name', 'like', "%$category%");
+            });
+        }
+        $articles = $articles->paginate(10);
         $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
-        $genres = Genre::all();
+        $categories = Category::all();
 
         return view('site.articles', [
             'articles' => $articles,
             'recentArticles' => $recentArticles,
-            'genres' => $genres
+            'categories' => $categories
         ]);
     }
     
@@ -30,7 +42,7 @@ class ArticleController extends Controller
         }
 
         $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
-        $genres = Genre::all();
+        $categories = Category::all();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
 
         if ($comments->count() == 0) {
@@ -39,7 +51,7 @@ class ArticleController extends Controller
         return view('site.article', [
             'article' => $article,
             'recentArticles' => $recentArticles,
-            'genres' => $genres,
+            'categories' => $categories,
             'comments' => $comments
         ]);
     }

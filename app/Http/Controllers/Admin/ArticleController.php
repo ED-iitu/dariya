@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Article;
-use App\Genre;
+use App\ArticleToCategory;
+use App\Category;
 use App\Author;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,11 +34,11 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $genres  = Genre::all();
+        $categories  = Category::all();
         $authors = Author::all();
 
         return view('adminPanel.article.create', [
-            'genres' => $genres,
+            'categories' => $categories,
             'authors' => $authors,
         ]);
     }
@@ -50,20 +51,32 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $image_link = $request->file('image_link');
-        $extensionImage = $image_link->getClientOriginalExtension();
-        Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
 
         $data = [
             'name'         => $request->name,
             'preview_text' => $request->preview_text,
             'detail_text'  => $request->detail_text,
-            'author_id'    => $request->author_id,
+            'author'    => $request->author,
             'lang'         => $request->lang,
-            'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
+            'image_link' => null
         ];
+        $image_link = $request->file('image_link');
+        if($image_link){
+            $extensionImage = $image_link->getClientOriginalExtension();
+            Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+            $data['image_link']   = '/uploads/' . $image_link->getFilename() . '.' . $extensionImage;
+        }
 
-        Article::create($data);
+        $article = Article::create($data);
+        ArticleToCategory::query()->where('article_id',$article->id)->delete();
+
+        foreach ($request->categories as $category_id){
+            $link = new ArticleToCategory([
+                'article_id' => $article->id,
+                'category_id' => $category_id
+            ]);
+            $link->save();
+        }
 
         return redirect()->route('articlesPage')
             ->with('success','Статья успешно добавлена.');
@@ -88,12 +101,10 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $genres  = Genre::all();
-        $authors = Author::all();
+        $categories  = Category::all();
         return view('adminPanel.article.edit',[
             'article' => $article,
-            'genres' => $genres,
-            'authors' => $authors,
+            'categories' => $categories
         ]);
     }
 
@@ -118,7 +129,7 @@ class ArticleController extends Controller
             'name'         => $request->name,
             'preview_text' => $request->preview_text,
             'detail_text'  => $request->detail_text,
-            'author_id'    => $request->author_id,
+            'author'    => $request->author,
             'lang'         => $request->lang,
         ];
 
@@ -130,6 +141,16 @@ class ArticleController extends Controller
 
 
         $article->update($data);
+
+        ArticleToCategory::query()->where('article_id',$article->id)->delete();
+
+        foreach ($request->categories as $category_id){
+            $link = new ArticleToCategory([
+                'article_id' => $article->id,
+                'category_id' => $category_id
+            ]);
+            $link->save();
+        }
 
         return redirect()->route('articlesPage')
             ->with('success','Статья успешно обновлена');

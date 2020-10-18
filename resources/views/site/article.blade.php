@@ -31,7 +31,7 @@
                                 <div class="post_header">
                                     <h2>{{$article->name}}</h2>
                                     <ul class="post_author">
-                                        <li>Автор : @if($article->author)<a href="#">{{$article->author->name}}@endif</a></li>
+                                        <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>
                                         <li class="post-separator">/</li>
                                         <li>{{\Jenssegers\Date\Date::parse($article->created_at)->format('j F, Y')}}</li>
                                         <li class="post-separator">/</li>
@@ -179,10 +179,10 @@
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
                         <aside class="widget category_widget">
-                            <h3 class="widget-title">Жанры</h3>
+                            <h3 class="widget-title">Категории</h3>
                             <ul>
-                                @foreach($genres as $genre)
-                                <li><a href="#">{{$genre->name}}</a></li>
+                                @foreach($categories as $category)
+                                <li><a href="{{url('/articles?category='.$category->name)}}">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </aside>

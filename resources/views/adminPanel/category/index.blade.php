@@ -2,7 +2,7 @@
 @section('admin-content')
     <div class="container">
         <div>
-            <a class="btn btn-success" href="{{ route('articles.create') }}">Добавить Статью</a>
+            <a class="btn btn-success" href="{{ route('categories.create') }}">Добавить</a>
         </div>
         <div class="mt-3 mb-2">
             @if ($message = Session::get('success'))
@@ -17,25 +17,19 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Название</th>
-                <th scope="col">Автор</th>
+                <th scope="col">Имя</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
 
-            @foreach($articles as $article)
+            @foreach($categories as $category)
                 <tr>
-                    <th scope="row">{{ $article->id }}</th>
-                    <td><a href="{{ route('articles.show',$article->id) }}">{{ $article->name }}</a></td>
-                    @if ($article->author)
-                    <td>{{ $article->author }}</td>
-                    @else
-                    <td>Автор не задан</td>
-                    @endif
+                    <th scope="row">{{ $category->id }}</th>
+                    <td><a href="{{ route('categories.show',$category->id) }}">{{ $category->name }}</a></td>
                     <td>
-                        <form class="delete" action="{{ route('articles.destroy',$article->id) }}" method="POST">
-                            <a class="btn btn-primary edit" href="{{ route('articles.edit',$article->id) }}">Изменить</a>
+                        <form class="delete" action="{{ route('categories.destroy',$category->id) }}" method="POST">
+                            <a class="btn btn-primary edit" href="{{ route('categories.edit',$category->id) }}">Изменить</a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger edit delete-confirm" onclick="return confirm('Are you sure?')">Удалить</button>

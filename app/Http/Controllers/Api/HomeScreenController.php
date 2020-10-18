@@ -44,6 +44,7 @@ class HomeScreenController extends Controller
                 'id' => $article->id,
                 'name' => $article->name,
                 'rating' => $article->rate,
+                'authors' => $article->author ? [$article->author] : [],
                 'forum_message_count' => $article->comments ? $article->comments->count() : 0,
                 'show_counter' => $article->show_counter,
                 'image_url' => ($article->image_link) ? url($article->image_link) : null,

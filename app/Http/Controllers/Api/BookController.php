@@ -45,11 +45,15 @@ class BookController extends Controller
     public function view($id){
         if($book = Book::query()->find($id)){
             $is_access = false;
-            Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
-                if(!$is_access && $id == $my_book->id){
-                    $is_access = true;
-                }
-            });
+            if(Auth::user()->have_active_tariff()){
+                $is_access = true;
+            }else{
+                Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
+                    if(!$is_access && $id == $my_book->id){
+                        $is_access = true;
+                    }
+                });
+            }
             $data = [
                 "id"=> $book->id,
                 "name"=> $book->name,
