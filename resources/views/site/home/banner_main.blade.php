@@ -8,11 +8,7 @@
                 </a>
             </div>
             <div class="item">
-                <a href="#" class="d-block" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/8cf20996597533.5eb1f3b803b8f.jpg);">
-                </a>
-            </div>
-            <div class="item">
-                <a href="#" class="d-block" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/8cf20996597533.5eb1f3b803b8f.jpg);">
+                <a href="#" class="d-block" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/1c606b105505099.5f7afff3343e6.jpg);">
                 </a>
             </div>
         </div>

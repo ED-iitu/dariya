@@ -37,6 +37,7 @@ header ul.header__sidebar__right {
 /*----------header*/
 
 /*content----------*/
+/*banner-main*/
 section#banner-main {
     margin-bottom: 40px;
 }
@@ -47,8 +48,9 @@ section#banner-main div.owl-carousel {
 section#banner-main div.owl-carousel div.item a {
     height: 370px;
     background: #eee;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
+    background-repeat: no-repeat;
 }
 section#banner-main div.owl-carousel div.owl-nav {
     margin: 0px;
@@ -87,12 +89,493 @@ section#banner-main div.owl-carousel div.owl-dots {
     bottom: 0px;
     width: 100%;
 }
+/*tabs_box*/
+section#tabs_box div.tabs ul {
+    text-align: center;
+    border-bottom: 1px solid #eaeaea;
+}
+section#tabs_box div.tabs ul li {
+    display: inline-block;
+    font-weight: 500;
+    line-height: 50px;
+    text-align: center;
+    padding: 0px 25px;
+    cursor: pointer;
+}
+section#tabs_box div.tabs ul li.active {
+    color: #008cbd;
+    border-bottom: 2px solid #00bdff;
+}
+section#tabs_box div.tabs-content div[id^="content_item_"] {
+    display: none;
+}
+section#tabs_box div.tabs-content div[id^="content_item_"].active {
+    display: block;
+}
+/*articles_slider*/
+#articles_slider {
+    position: relative;
+}
+#articles_slider a.link-to-all {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 30px;
+    text-decoration: revert;
+    z-index: 2;
+}
+#articles_slider div.owl-carousel {
+    padding-top: 40px;
+}
+#articles_slider div.owl-carousel div.item a {
+    text-decoration: dashed;
+}
+#articles_slider div.owl-carousel div.item a div.image {
+    height: 150px;
+    background: #eee;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 13px;
+}
+#articles_slider div.owl-carousel div.item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+#articles_slider div.owl-carousel div.item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#articles_slider div.owl-carousel div.item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+#articles_slider div.owl-carousel div.item div.info ul {
+    display: flex;
+    align-items: center;
+}
+#articles_slider div.owl-carousel div.item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+#articles_slider div.owl-carousel div.item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+#articles_slider div.owl-carousel div.item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+#articles_slider div.owl-carousel div.item span.more {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+#articles_slider div.owl-carousel div.owl-nav > div {
+    position: absolute;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    border: 1px solid #dedede;
+}
+#articles_slider div.owl-carousel div.owl-nav > div:before {
+    content: "\f106";
+    font: normal normal normal 16px/1 FontAwesome;
+}
+#articles_slider div.owl-carousel div.owl-nav > div.owl-prev {
+    right: 35px;
+    transform: rotate(-90deg) translateY(-3px);
+}
+#articles_slider div.owl-carousel div.owl-nav > div.owl-next {
+    right: 0px;
+    transform: rotate(90deg) translateY(-3px);
+}
+/*books_slider*/
+#books_slider {
+    position: relative;
+}
+#books_slider a.link-to-all {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 30px;
+    text-decoration: revert;
+    z-index: 2;
+}
+#books_slider div.owl-carousel {
+    padding-top: 40px;
+}
+#books_slider div.owl-carousel div.item {
+    text-decoration: dashed;
+}
+#books_slider div.owl-carousel div.item a.image {
+    display: block;
+    height: 150px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #eee;
+    border-radius: 13px;
+}
+#books_slider div.owl-carousel div.item a.image span.sale {
+    position: relative;
+    display: inline-block;
+    background: #E91E63;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0px 5px;
+    line-height: 24px;
+}
+#books_slider div.owl-carousel div.item a.image span.sale:after{
+    border-color: transparent transparent transparent #E91E63;
+    border-image: none;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    margin-top: -6px;
+    position: absolute;
+    right: -11px;
+    top: 50%;
+}
+#books_slider div.owl-carousel div.item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+#books_slider div.owl-carousel div.item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#books_slider div.owl-carousel div.item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+#books_slider div.owl-carousel div.item div.info ul {
+    display: flex;
+    align-items: center;
+}
+#books_slider div.owl-carousel div.item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+#books_slider div.owl-carousel div.item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+#books_slider div.owl-carousel div.item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+#books_slider div.owl-carousel div.item div.final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#books_slider div.owl-carousel div.item div.final a.order {
+    display: inline-block;
+    background: #00bcff;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0px 20px;
+    border: 1px solid #00a4de;
+    border-radius: 4px;
+}
+#books_slider div.owl-carousel div.item div.final div.price {
+    position: relative;
+}
+#books_slider div.owl-carousel div.item div.final div.price small{
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    font-weight: 500;
+    text-decoration: line-through;
+    color: #E91E63;
+}
+#books_slider div.owl-carousel div.owl-nav > div {
+    position: absolute;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    border: 1px solid #dedede;
+}
+#books_slider div.owl-carousel div.owl-nav > div:before {
+    content: "\f106";
+    font: normal normal normal 16px/1 FontAwesome;
+}
+#books_slider div.owl-carousel div.owl-nav > div.owl-prev {
+    right: 35px;
+    transform: rotate(-90deg) translateY(-3px);
+}
+#books_slider div.owl-carousel div.owl-nav > div.owl-next {
+    right: 0px;
+    transform: rotate(90deg) translateY(-3px);
+}
+/*audios_books_slider*/
+#audios_books_slider {
+    position: relative;
+}
+#audios_books_slider a.link-to-all {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 30px;
+    text-decoration: revert;
+    z-index: 2;
+}
+#audios_books_slider div.owl-carousel {
+    padding-top: 40px;
+}
+#audios_books_slider div.owl-carousel div.item {
+    text-decoration: dashed;
+}
+#audios_books_slider div.owl-carousel div.item a.image {
+    display: block;
+    height: 150px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #eee;
+    border-radius: 13px;
+}
+#audios_books_slider div.owl-carousel div.item a.image span.sale {
+    position: relative;
+    display: inline-block;
+    background: #E91E63;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0px 5px;
+    line-height: 24px;
+}
+#audios_books_slider div.owl-carousel div.item a.image span.sale:after{
+    border-color: transparent transparent transparent #E91E63;
+    border-image: none;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    margin-top: -6px;
+    position: absolute;
+    right: -11px;
+    top: 50%;
+}
+#audios_books_slider div.owl-carousel div.item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+#audios_books_slider div.owl-carousel div.item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#audios_books_slider div.owl-carousel div.item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+#audios_books_slider div.owl-carousel div.item div.info ul {
+    display: flex;
+    align-items: center;
+}
+#audios_books_slider div.owl-carousel div.item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+#audios_books_slider div.owl-carousel div.item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+#audios_books_slider div.owl-carousel div.item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+#audios_books_slider div.owl-carousel div.item div.final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#audios_books_slider div.owl-carousel div.item div.final a.order {
+    display: inline-block;
+    background: #00bcff;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0px 20px;
+    border: 1px solid #00a4de;
+    border-radius: 4px;
+}
+#audios_books_slider div.owl-carousel div.item div.final div.price {
+    position: relative;
+}
+#audios_books_slider div.owl-carousel div.item div.final div.price small{
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    font-weight: 500;
+    text-decoration: line-through;
+    color: #E91E63;
+}
+#audios_books_slider div.owl-carousel div.owl-nav > div {
+    position: absolute;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    border: 1px solid #dedede;
+}
+#audios_books_slider div.owl-carousel div.owl-nav > div:before {
+    content: "\f106";
+    font: normal normal normal 16px/1 FontAwesome;
+}
+#audios_books_slider div.owl-carousel div.owl-nav > div.owl-prev {
+    right: 35px;
+    transform: rotate(-90deg) translateY(-3px);
+}
+#audios_books_slider div.owl-carousel div.owl-nav > div.owl-next {
+    right: 0px;
+    transform: rotate(90deg) translateY(-3px);
+}
+/*videos_slider*/
+#videos_slider {
+    position: relative;
+}
+#videos_slider a.link-to-all {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 30px;
+    text-decoration: revert;
+    z-index: 2;
+}
+#videos_slider div.owl-carousel {
+    padding-top: 40px;
+}
+#videos_slider div.owl-carousel div.item a {
+    text-decoration: dashed;
+}
+#videos_slider div.owl-carousel div.item a div.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    background: #eee;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 13px;
+}
+#videos_slider div.owl-carousel div.item a div.image i {
+    font-size: 45px;
+    color: rgba(1,146,255,0.7);
+}
+#videos_slider div.owl-carousel div.item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+#videos_slider div.owl-carousel div.item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#videos_slider div.owl-carousel div.item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+#videos_slider div.owl-carousel div.item div.info ul {
+    display: flex;
+    align-items: center;
+}
+#videos_slider div.owl-carousel div.item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+#videos_slider div.owl-carousel div.item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+#videos_slider div.owl-carousel div.item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+#videos_slider div.owl-carousel div.item span.more {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+#videos_slider div.owl-carousel div.owl-nav > div {
+    position: absolute;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    border: 1px solid #dedede;
+}
+#videos_slider div.owl-carousel div.owl-nav > div:before {
+    content: "\f106";
+    font: normal normal normal 16px/1 FontAwesome;
+}
+#videos_slider div.owl-carousel div.owl-nav > div.owl-prev {
+    right: 35px;
+    transform: rotate(-90deg) translateY(-3px);
+}
+#videos_slider div.owl-carousel div.owl-nav > div.owl-next {
+    right: 0px;
+    transform: rotate(90deg) translateY(-3px);
+}
 /*----------content*/
-
-
-
-
-
 
 
 
@@ -134,8 +617,14 @@ section#banner-main div.owl-carousel div.owl-dots {
 }
 @media (max-width: 767px) {
     /*content----------*/
+    /*banner-main*/
     section#banner-main div.owl-carousel div.item a {
         height: 235px;
+    }
+    /*tabs_box*/
+    section#tabs_box div.tabs ul li {
+        font-size: 12px;
+        padding: 0px 10px;
     }
     /*----------content*/
 }

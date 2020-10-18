@@ -2,6 +2,7 @@
 
 @section('content')
     @include('site.home.banner_main')
+    @include('site.home.tabs.tabs_box')
     <!-- Start Recent Post Area -->
     <section class="wn__recent__post bg--gray ptb--80">
         <div class="container">
