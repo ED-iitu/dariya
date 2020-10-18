@@ -84,8 +84,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="0">
-                            <label class="form-check-label" for="is_free">Для всех</label>
+                            <input class="form-check-input" type="checkbox" id="for_all" name="for_all" @if($article->for_all)checked="checked"@endif>
+                            <label class="form-check-label" for="for_all">Для всех</label>
                         </div>
                     </div>
                 </div>

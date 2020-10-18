@@ -1,17 +1,17 @@
 
 <!-- Start Slider area -->
+@if($banners)
 <section id="banner-main">
     <div class="container">
         <div class="owl-carousel owl-theme">
-            <div class="item">
-                <a href="#" class="d-block" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/8cf20996597533.5eb1f3b803b8f.jpg);">
-                </a>
-            </div>
-            <div class="item">
-                <a href="#" class="d-block" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/1c606b105505099.5f7afff3343e6.jpg);">
-                </a>
-            </div>
+            @foreach($banners as $banner)
+                <div class="item">
+                    <a href="{{$banner->redirect}}" title="{{$banner->title}}" class="d-block" style="@if($banner->background_color)background-color {{$banner->background_color}};@endif background-image: url({{url($banner->file_url)}});">
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 </section>
+@endif
 <!-- End Slider area -->

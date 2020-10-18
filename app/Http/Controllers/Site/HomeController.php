@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Article;
+use App\Banner;
 use App\Book;
 use App\BookToGenre;
 use App\Genre;
@@ -17,6 +18,7 @@ class HomeController extends Controller
         $articles = Article::all();
         $genres = Genre::offset(0)->limit(4)->get();
         $popularBooks = Book::all();
+        $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
 
 
         return view('site.home', [
@@ -24,6 +26,7 @@ class HomeController extends Controller
             'articles' => $articles,
             'genres' => $genres,
             'popularBooks' => $popularBooks,
+            'banners' => $banners,
         ]);
     }
 }
