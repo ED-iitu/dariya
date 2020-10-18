@@ -74,6 +74,7 @@ class BookController extends Controller
             'price'        => $request->price,
             'author_id'    => $request->author_id,
             'publisher_id' => $request->publisher_id,
+            'background_color' => $request->background_color,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
         ];
@@ -157,6 +158,7 @@ class BookController extends Controller
             'price'        => $request->price,
             'author_id'    => $request->author_id,
             'publisher_id' => $request->publisher_id,
+            'background_color' => $request->background_color,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
         ];

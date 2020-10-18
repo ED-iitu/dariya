@@ -92,6 +92,11 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <input type="text" value="{{ $book->background_color }}" name="background_color" class="form-control" placeholder="Цвет фона">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" name="image_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="{{ asset($book->image_link) }}">
                                 <label class="custom-file-label" for="inputGroupFile01">Загрузите картинку</label>

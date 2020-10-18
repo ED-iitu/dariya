@@ -3,7 +3,7 @@
     <div class="owl-carousel">
         @foreach($audio_books as $book)
             <div class="item">
-                <a href="{{ url('audioBook/'.$book->id) }}" class="image mb-2" style="background-image: url({{ url($book->image_link) }});">
+                <a href="{{ url('audioBook/'.$book->id) }}" class="image mb-2" style="@if($book->background_color) background-color:{{ $book->background_color }}; @endif background-image: url({{ url($book->image_link) }});">
                     <span class="sale mt-2"><i class="fa fa-headphones"></i></span>
                 </a>
                 <h6 class="title mb-2"><a href="{{ url('audioBook/'.$book->id) }}">{{ $book->name }}</a></h6>

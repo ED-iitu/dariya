@@ -22,6 +22,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Изображения</th>
                 <th scope="col">Название</th>
                 <th scope="col">Автор</th>
                 <th scope="col">Кол-во просмотров</th>
@@ -33,6 +34,13 @@
             @foreach($books as $book)
             <tr>
                 <th scope="row">{{ $book->id }}</th>
+                @if($book->image_link)
+                    <td style="background-color: {{ $book->background_color }};">
+                        <img width="100px" src="{{ url($book->image_link ) }}" alt="{{ $book->name }}">
+                    </td>
+                @else
+                    <td>Автор не задан</td>
+                @endif
                 <td><a href="{{ route('books.show',$book->id) }}">{{ $book->name }}</a></td>
                 @if($book->author)
                 <td>{{ $book->author->name }} {{ $book->author->surname }}</td>

@@ -111,6 +111,11 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
+                                <input type="text" name="background_color" class="form-control" placeholder="Цвет фона">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
