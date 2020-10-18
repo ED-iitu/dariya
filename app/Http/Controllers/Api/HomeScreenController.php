@@ -23,7 +23,7 @@ class HomeScreenController extends Controller
          *  Banners
          */
 
-        $res  = Banner::query();
+        $res  = Banner::query()->where('type' , Banner::BANNER_MAIN_TYPE);
         $banners = [];
         $res->paginate(5)->each(function ($banner) use(&$banners){
             $banners[] = [

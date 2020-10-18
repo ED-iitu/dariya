@@ -18,6 +18,8 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Название</th>
+                <th scope="col">Фоновый цвет</th>
+                <th scope="col">Тип</th>
                 <th scope="col">Перенаправление</th>
                 <th></th>
             </tr>
@@ -28,6 +30,8 @@
                 <tr>
                     <th scope="row">{{ $banner->id }}</th>
                     <td><a href="{{ route('banners.show',$banner->id) }}">{{ $banner->title }}</a></td>
+                    <td style="background-color: {{ $banner->background_color }}"></td>
+                    <td>{{ $banner->type_name() }}</td>
                     <td>{{ $banner->redirect }}</td>
                     <td>
                         <form class="delete" action="{{ route('banners.destroy',$banner->id) }}" method="POST">

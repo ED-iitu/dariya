@@ -34,6 +34,21 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <input type="text" name="background_color" class="form-control" placeholder="Цвет фона">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="type">Тип баннера</label>
+                        <select name="type" class="form-control">
+                            @foreach(\App\Banner::getBannerTypes() as $type=>$type_name)
+                                <option value="{{$type}}">{{$type_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
                         <input type="text" name="redirect" class="form-control" placeholder="Ссылка куда перенаправлять">
                     </div>
                 </div>
