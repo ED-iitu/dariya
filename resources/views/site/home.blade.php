@@ -3,7 +3,4 @@
 @section('content')
     @include('site.home.banner_main')
     @include('site.home.tabs.tabs_box')
-
-    </div>
-    <!-- //Main wrapper -->
 @endsection

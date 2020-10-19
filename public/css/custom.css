@@ -141,60 +141,6 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
 #articles_slider div.owl-carousel {
     padding-top: 40px;
 }
-#articles_slider div.owl-carousel div.item a {
-    text-decoration: dashed;
-}
-#articles_slider div.owl-carousel div.item a div.image {
-    height: 150px;
-    background: #eee;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    border-radius: 13px;
-}
-#articles_slider div.owl-carousel div.item .title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #333;
-    overflow: hidden;
-}
-#articles_slider div.owl-carousel div.item div.info{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#articles_slider div.owl-carousel div.item div.info span {
-    font-size: 12px;
-    color: #0197ff;
-}
-#articles_slider div.owl-carousel div.item div.info ul {
-    display: flex;
-    align-items: center;
-}
-#articles_slider div.owl-carousel div.item div.info ul li{
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-}
-#articles_slider div.owl-carousel div.item div.description {
-    position: relative;
-    height: 80px;
-    overflow: hidden;
-}
-#articles_slider div.owl-carousel div.item div.description:after {
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    width: 100%;
-    background: white;
-    box-shadow: 0px 0px 20px 30px white;
-}
-#articles_slider div.owl-carousel div.item span.more {
-    font-weight: 500;
-    font-size: 14px;
-    color: #333;
-}
 #articles_slider div.owl-carousel div.owl-nav > div {
     position: absolute;
     top: 0px;
@@ -218,6 +164,61 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
     right: 0px;
     transform: rotate(90deg) translateY(-3px);
 }
+/*article-item*/
+div.article-item a {
+    text-decoration: dashed;
+}
+div.article-item a div.image {
+    height: 150px;
+    background: #eee;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 13px;
+}
+div.article-item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+div.article-item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.article-item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+div.article-item div.info ul {
+    display: flex;
+    align-items: center;
+}
+div.article-item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+div.article-item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+div.article-item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+div.article-item span.more {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
 /*books_slider*/
 #books_slider {
     position: relative;
@@ -232,104 +233,6 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
 }
 #books_slider div.owl-carousel {
     padding-top: 40px;
-}
-#books_slider div.owl-carousel div.item {
-    text-decoration: dashed;
-}
-#books_slider div.owl-carousel div.item a.image {
-    display: block;
-    height: 150px;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #eee;
-    border-radius: 13px;
-}
-#books_slider div.owl-carousel div.item a.image span.sale {
-    position: relative;
-    display: inline-block;
-    background: #E91E63;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 0px 5px;
-    line-height: 24px;
-}
-#books_slider div.owl-carousel div.item a.image span.sale:after{
-    border-color: transparent transparent transparent #E91E63;
-    border-image: none;
-    border-style: solid;
-    border-width: 6px;
-    content: "";
-    margin-top: -6px;
-    position: absolute;
-    right: -11px;
-    top: 50%;
-}
-#books_slider div.owl-carousel div.item .title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #333;
-    overflow: hidden;
-}
-#books_slider div.owl-carousel div.item div.info{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#books_slider div.owl-carousel div.item div.info span {
-    font-size: 12px;
-    color: #0197ff;
-}
-#books_slider div.owl-carousel div.item div.info ul {
-    display: flex;
-    align-items: center;
-}
-#books_slider div.owl-carousel div.item div.info ul li{
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-}
-#books_slider div.owl-carousel div.item div.description {
-    position: relative;
-    height: 80px;
-    overflow: hidden;
-}
-#books_slider div.owl-carousel div.item div.description:after {
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    width: 100%;
-    background: white;
-    box-shadow: 0px 0px 20px 30px white;
-}
-#books_slider div.owl-carousel div.item div.final {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#books_slider div.owl-carousel div.item div.final a.order {
-    display: inline-block;
-    background: #00bcff;
-    font-weight: 500;
-    font-size: 14px;
-    color: #fff;
-    line-height: 30px;
-    padding: 0px 20px;
-    border: 1px solid #00a4de;
-    border-radius: 4px;
-}
-#books_slider div.owl-carousel div.item div.final div.price {
-    position: relative;
-}
-#books_slider div.owl-carousel div.item div.final div.price small{
-    position: absolute;
-    top: -15px;
-    right: 0px;
-    font-weight: 500;
-    text-decoration: line-through;
-    color: #E91E63;
 }
 #books_slider div.owl-carousel div.owl-nav > div {
     position: absolute;
@@ -354,6 +257,105 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
     right: 0px;
     transform: rotate(90deg) translateY(-3px);
 }
+/*book-item*/
+div.book-item {
+    text-decoration: dashed;
+}
+div.book-item a.image {
+    display: block;
+    height: 150px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #eee;
+    border-radius: 13px;
+}
+div.book-item a.image span.sale {
+    position: relative;
+    display: inline-block;
+    background: #E91E63;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0px 5px;
+    line-height: 24px;
+}
+div.book-item a.image span.sale:after{
+    border-color: transparent transparent transparent #E91E63;
+    border-image: none;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    margin-top: -6px;
+    position: absolute;
+    right: -11px;
+    top: 50%;
+}
+div.book-item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+div.book-item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.book-item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+div.book-item div.info ul {
+    display: flex;
+    align-items: center;
+}
+div.book-item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+div.book-item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+div.book-item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+div.book-item div.final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+div.book-item div.final a.order {
+    display: inline-block;
+    background: #00bcff;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0px 20px;
+    border: 1px solid #00a4de;
+    border-radius: 4px;
+}
+div.book-item div.final div.price {
+    position: relative;
+}
+div.book-item div.final div.price small{
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    font-weight: 500;
+    text-decoration: line-through;
+    color: #E91E63;
+}
 /*audios_books_slider*/
 #audios_books_slider {
     position: relative;
@@ -368,104 +370,6 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
 }
 #audios_books_slider div.owl-carousel {
     padding-top: 40px;
-}
-#audios_books_slider div.owl-carousel div.item {
-    text-decoration: dashed;
-}
-#audios_books_slider div.owl-carousel div.item a.image {
-    display: block;
-    height: 150px;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-color: #eee;
-    border-radius: 13px;
-}
-#audios_books_slider div.owl-carousel div.item a.image span.sale {
-    position: relative;
-    display: inline-block;
-    background: #E91E63;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 0px 5px;
-    line-height: 24px;
-}
-#audios_books_slider div.owl-carousel div.item a.image span.sale:after{
-    border-color: transparent transparent transparent #E91E63;
-    border-image: none;
-    border-style: solid;
-    border-width: 6px;
-    content: "";
-    margin-top: -6px;
-    position: absolute;
-    right: -11px;
-    top: 50%;
-}
-#audios_books_slider div.owl-carousel div.item .title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #333;
-    overflow: hidden;
-}
-#audios_books_slider div.owl-carousel div.item div.info{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#audios_books_slider div.owl-carousel div.item div.info span {
-    font-size: 12px;
-    color: #0197ff;
-}
-#audios_books_slider div.owl-carousel div.item div.info ul {
-    display: flex;
-    align-items: center;
-}
-#audios_books_slider div.owl-carousel div.item div.info ul li{
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-}
-#audios_books_slider div.owl-carousel div.item div.description {
-    position: relative;
-    height: 80px;
-    overflow: hidden;
-}
-#audios_books_slider div.owl-carousel div.item div.description:after {
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    width: 100%;
-    background: white;
-    box-shadow: 0px 0px 20px 30px white;
-}
-#audios_books_slider div.owl-carousel div.item div.final {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#audios_books_slider div.owl-carousel div.item div.final a.order {
-    display: inline-block;
-    background: #00bcff;
-    font-weight: 500;
-    font-size: 14px;
-    color: #fff;
-    line-height: 30px;
-    padding: 0px 20px;
-    border: 1px solid #00a4de;
-    border-radius: 4px;
-}
-#audios_books_slider div.owl-carousel div.item div.final div.price {
-    position: relative;
-}
-#audios_books_slider div.owl-carousel div.item div.final div.price small{
-    position: absolute;
-    top: -15px;
-    right: 0px;
-    font-weight: 500;
-    text-decoration: line-through;
-    color: #E91E63;
 }
 #audios_books_slider div.owl-carousel div.owl-nav > div {
     position: absolute;
@@ -490,6 +394,105 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
     right: 0px;
     transform: rotate(90deg) translateY(-3px);
 }
+/*audio-book-item*/
+div.audio-book-item {
+    text-decoration: dashed;
+}
+div.audio-book-item a.image {
+    display: block;
+    height: 150px;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #eee;
+    border-radius: 13px;
+}
+div.audio-book-item a.image span.sale {
+    position: relative;
+    display: inline-block;
+    background: #E91E63;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 0px 5px;
+    line-height: 24px;
+}
+div.audio-book-item a.image span.sale:after{
+    border-color: transparent transparent transparent #E91E63;
+    border-image: none;
+    border-style: solid;
+    border-width: 6px;
+    content: "";
+    margin-top: -6px;
+    position: absolute;
+    right: -11px;
+    top: 50%;
+}
+div.audio-book-item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+div.audio-book-item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.audio-book-item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+div.audio-book-item div.info ul {
+    display: flex;
+    align-items: center;
+}
+div.audio-book-item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+div.audio-book-item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+div.audio-book-item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+div.audio-book-item div.final {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+div.audio-book-item div.final a.order {
+    display: inline-block;
+    background: #00bcff;
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+    line-height: 30px;
+    padding: 0px 20px;
+    border: 1px solid #00a4de;
+    border-radius: 4px;
+}
+div.audio-book-item div.final div.price {
+    position: relative;
+}
+div.audio-book-item div.final div.price small{
+    position: absolute;
+    top: -15px;
+    right: 0px;
+    font-weight: 500;
+    text-decoration: line-through;
+    color: #E91E63;
+}
 /*videos_slider*/
 #videos_slider {
     position: relative;
@@ -504,67 +507,6 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
 }
 #videos_slider div.owl-carousel {
     padding-top: 40px;
-}
-#videos_slider div.owl-carousel div.item a {
-    text-decoration: dashed;
-}
-#videos_slider div.owl-carousel div.item a div.image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
-    background: #eee;
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    border-radius: 13px;
-}
-#videos_slider div.owl-carousel div.item a div.image i {
-    font-size: 45px;
-    color: rgba(1,146,255,0.7);
-}
-#videos_slider div.owl-carousel div.item .title {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #333;
-    overflow: hidden;
-}
-#videos_slider div.owl-carousel div.item div.info{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#videos_slider div.owl-carousel div.item div.info span {
-    font-size: 12px;
-    color: #0197ff;
-}
-#videos_slider div.owl-carousel div.item div.info ul {
-    display: flex;
-    align-items: center;
-}
-#videos_slider div.owl-carousel div.item div.info ul li{
-    display: inline-flex;
-    align-items: center;
-    font-size: 12px;
-}
-#videos_slider div.owl-carousel div.item div.description {
-    position: relative;
-    height: 80px;
-    overflow: hidden;
-}
-#videos_slider div.owl-carousel div.item div.description:after {
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    display: block;
-    width: 100%;
-    background: white;
-    box-shadow: 0px 0px 20px 30px white;
-}
-#videos_slider div.owl-carousel div.item span.more {
-    font-weight: 500;
-    font-size: 14px;
-    color: #333;
 }
 #videos_slider div.owl-carousel div.owl-nav > div {
     position: absolute;
@@ -588,6 +530,68 @@ section#tabs_box div.tabs-content div[id^="content_item_"].active {
 #videos_slider div.owl-carousel div.owl-nav > div.owl-next {
     right: 0px;
     transform: rotate(90deg) translateY(-3px);
+}
+/*video-item*/
+div.video-item a {
+    text-decoration: dashed;
+}
+div.video-item a div.image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    background: #eee;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 13px;
+}
+div.video-item a div.image i {
+    font-size: 45px;
+    color: rgba(1,146,255,0.7);
+}
+div.video-item .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #333;
+    overflow: hidden;
+}
+div.video-item div.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+div.video-item div.info span {
+    font-size: 12px;
+    color: #0197ff;
+}
+div.video-item div.info ul {
+    display: flex;
+    align-items: center;
+}
+div.video-item div.info ul li{
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+}
+div.video-item div.description {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+}
+div.video-item div.description:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    display: block;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 0px 20px 30px white;
+}
+div.video-item span.more {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
 }
 /*----------content*/
 
