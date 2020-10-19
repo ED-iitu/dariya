@@ -593,6 +593,68 @@ div.video-item span.more {
     font-size: 14px;
     color: #333;
 }
+/*subscription-block*/
+.subscription div.item.premium > div {
+    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription1.png);
+    background-color: #ffddb9;
+    border: 1px solid #ffc88d;
+}
+.subscription div.item.standard > div {
+    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription2.png);
+    background-color: #d5eaff;
+    border: 1px solid #aad4ff
+}
+.subscription div.item > div {
+    display: flex;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 13px;
+}
+.subscription div.item > div img{
+    max-height: 200px;
+    max-width: 200px;
+    margin-right: 15px;
+}
+.subscription div.item > div form {
+    width: 100%;
+}
+.subscription div.item > div form input{
+    display: none;
+}
+.subscription div.item > div form label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    font-weight: 500;
+    line-height: 45px;
+    border-radius: 13px;
+    padding: 0px 15px;
+    cursor: pointer;
+}
+.subscription div.item > div form label span {
+    display: flex;
+    align-items: center;
+}
+.subscription div.item > div form label span:nth-of-type(1):before {
+    content: "";
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin-right: 7px;
+    border-radius: 50%;
+    border: 1px solid #0066ff;
+}
+.subscription div.item > div form button{
+    width: 100%;
+    background: #0066FF;
+    font-weight: 500;
+    color: #fff;
+    line-height: 45px;
+    border: none;
+    border-radius: 8px;
+}
 /*----------content*/
 
 
@@ -643,6 +705,15 @@ div.video-item span.more {
     section#tabs_box div.tabs ul li {
         font-size: 12px;
         padding: 0px 10px;
+    }
+    /*subscription-block*/
+    .subscription div.item > div {
+        flex-direction: column;
+    }
+    .subscription div.item > div img {
+        margin: 0px auto 15px;
+        max-width: 100%;
+        max-height: 100%;
     }
     /*----------content*/
 }

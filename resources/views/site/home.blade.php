@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('site.home.banner_main')
-    @include('site.home.tabs.tabs_box')
+    @include('site.sliders.banner_main')
+    @include('site.tabs.tabs_box')
+    @include('site.static_templates.subscription.subscription')
 @endsection
