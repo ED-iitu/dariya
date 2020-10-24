@@ -92,4 +92,20 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id');
     }
+
+    public function getRatingForArticle($article_id){
+        $rating = Rating::query()->where(['object_id' => $article_id,'object_type' => Rating::ARTICLE_TYPE,'author_id' => $this->id])->orderBy('created_at', 'desc')->first();
+        if($rating){
+            return $rating->rate;
+        }
+        return null;
+    }
+
+    public function getRatingForBook($book_id){
+        $rating = Rating::query()->where(['object_id' => $book_id,'object_type' => Rating::BOOK_TYPE,'author_id' => $this->id])->orderBy('created_at', 'desc')->first();
+        if($rating){
+            return $rating->rate;
+        }
+        return null;
+    }
 }

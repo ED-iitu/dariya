@@ -24,7 +24,7 @@ class VideoController extends Controller
             'route' => route('articles'),
             'active' => true
         ];
-        $videos = Video::limit(10)->get();
+        $videos = Video::paginate(9);
         $recentVideos = Video::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
         $categories = Category::all();
         return view('site.videos',[

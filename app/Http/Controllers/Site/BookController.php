@@ -21,7 +21,7 @@ class BookController extends Controller
             'active' => true
         ];
 
-        $books = Book::where('type', '=', Book::BOOK_TYPE)->paginate(10);
+        $books = Book::where('type', '=', Book::BOOK_TYPE)->paginate(9);
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
@@ -43,7 +43,7 @@ class BookController extends Controller
             $book->where('id', $id)->increment('show_counter');
         }
 
-        $relatedBooks = Book::where('id', '!=', $id)->get();
+        $relatedBooks = Book::where('id', '!=', $id)->limit(4)->get();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'BOOK')->get();
 
         if ($comments->count() == 0) {
@@ -72,7 +72,7 @@ class BookController extends Controller
 
     public function audioBooks()
     {
-        $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->paginate(10);
+        $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->paginate(9);
 
         if ($books->count() == 0) {
             $books = [];

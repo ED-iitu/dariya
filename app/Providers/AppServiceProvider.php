@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Book;
 use App\Observers\BookObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Jenssegers\Date\Date;
@@ -30,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
         Book::observe(BookObserver::class);
         Schema::defaultStringLength(191);
         Date::setlocale(config('app.locale'));
+        Paginator::defaultView('vendor.pagination.bootstrap-4');
     }
 }

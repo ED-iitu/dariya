@@ -15,43 +15,6 @@
                             <div class="col-md-4">
                                 @include('site.blocks.article')
                             </div>
-{{--                        <article class="blog__post d-flex flex-wrap">--}}
-{{--                            <div class="thumb">--}}
-{{--                                <a href="{{route('article', $article->id)}}">--}}
-{{--                                    <img src="{{$article->image_link}}" alt="blog images">--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                            <div class="content">--}}
-{{--                                <h4><a href="{{route('article', $article->id)}}">{{$article->name}}</a></h4>--}}
-{{--                                <ul class="post__meta">--}}
-{{--                                    <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>--}}
-{{--                                    <li class="post_separator">/</li>--}}
-{{--                                    <li>{{$article->created_at}}</li>--}}
-{{--                                    <li class="post_separator">/</li>--}}
-{{--                                    <li>Просмотры: {{$article->show_counter}}</li>--}}
-{{--                                </ul>--}}
-{{--                                @php $rating = $article->rate; @endphp--}}
-{{--                                <div>--}}
-{{--                                    @foreach(range(1,5) as $i)--}}
-{{--                                        @if($rating >0)--}}
-{{--                                            @if($rating >0.5)--}}
-{{--                                                <i class="fa fa-star"></i>--}}
-{{--                                            @else--}}
-{{--                                                <i class="fa fa-star-half-o"></i>--}}
-{{--                                            @endif--}}
-{{--                                        @else--}}
-{{--                                            <i class="fa  fa-star-o"></i>--}}
-{{--                                        @endif--}}
-{{--                                        <?php $rating--; ?>--}}
-{{--                                    @endforeach--}}
-{{--                                    ( {{$article->rate ?? 0}} )--}}
-{{--                                </div>--}}
-{{--                                <p>{{$article->preview_text}}</p>--}}
-{{--                                <div class="blog__btn">--}}
-{{--                                    <a class="shopbtn" href="{{route('article', $article->id)}}">Читать</a>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </article>--}}
                         @endforeach
                         </div>
                         <!-- End Single Post -->

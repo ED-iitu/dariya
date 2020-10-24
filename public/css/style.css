@@ -6227,16 +6227,24 @@ a.checkout__title {
   color: transparent;
 }
 
-.rate-rating label:last-child .rate-icon {
-  color: #000;
-}
 
 .rate-rating:not(:hover) label input:checked ~ .rate-icon,
 .rate-rating:hover label:hover input ~ .rate-icon {
   color: #09f;
 }
 
+.rate-rating label .active{
+  color: #09f;
+}
+
 .rate-rating label input:focus:not(:checked) ~ .rate-icon:last-child {
   color: #000;
   text-shadow: 0 0 5px #09f;
+}
+
+.rate-rating label:last-child .rate-icon {
+  color: #ccc;
+}
+.rate-rating label:last-child .active {
+  color: #09f;
 }

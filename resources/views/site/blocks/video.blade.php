@@ -1,12 +1,12 @@
 
 <div class="video-item">
     <a href="#">
-        <div class="image mb-2" style="background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/fs/dc8c5495918705.5ea268f33fd96.png);">
+        <div class="image mb-2" style="background-image: url({{url($video->image_link)}});">
             <i class="fa fa-play" aria-hidden="true"></i>
         </div>
-        <h6 class="title mb-2">Туысы бiрдiн уысы бiр</h6>
+        <h6 class="title mb-2">{{ $video->name }}</h6>
         <div class="info mb-2">
-            <span>9 октября 2020</span>
+            <span>{{\Jenssegers\Date\Date::parse($video->created_at)->format('j F, Y')}}</span>
             <ul class="mb-0">
                 <li class="mr-2">
                     <i class="bi bi-chat-bubble"></i>
@@ -22,7 +22,7 @@
             </ul>
         </div>
         <div class="description mb-2">
-            <p>Ет жақын бауырлардың өзі арасы алшақтап, араға ай салып көріспей жүретін бұл заманда туыстық қатынас, ағайынмен араласу сынды жақсы дүниелер сиреп барады.</p>
+            <p>{{ $video->preview }}</p>
         </div>
         <span class="more">Подробнее</span>
     </a>

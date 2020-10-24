@@ -28,15 +28,17 @@ class CommentController extends Controller
             Rating::calculateRating($request->object_id,$request->object_type);
         }
 
-        $data = [
-            'object_id' => $request->object_id,
-            'object_type' => $request->object_type,
-            'author_id' => $request->author_id,
-            'message' => $request->message,
-            'nickname' => $request->nickname
-        ];
+        if($request->message){
+            $data = [
+                'object_id' => $request->object_id,
+                'object_type' => $request->object_type,
+                'author_id' => $request->author_id,
+                'message' => $request->message,
+            ];
 
-        Comment::create($data);
+            Comment::create($data);
+        }
+
 
         return redirect()->back()->with('success','Комментарий успешно отправлен');
     }

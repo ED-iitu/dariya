@@ -22,8 +22,8 @@ class ArticleController extends Controller
                 return $query->where('name', 'like', "%$category%");
             });
         }
-        $articles = $articles->paginate(10);
-        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
+        $articles = $articles->paginate(9);
+        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
         $categories = Category::all();
 
         $title = 'Подборка статей';
@@ -50,7 +50,7 @@ class ArticleController extends Controller
             Article::where('id', $id)->increment('show_counter');
         }
 
-        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
+        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
         $categories = Category::all();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
 

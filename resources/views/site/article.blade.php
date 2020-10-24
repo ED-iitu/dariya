@@ -6,7 +6,7 @@
     <div class="page-blog-details bg--white">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-12 mt--30">
+                <div class="col-lg-9 col-12 mt--30 mb-3">
                     <div class="blog-details content">
                         <article class="blog-post-details">
                             <div class="post-thumbnail">
@@ -82,33 +82,33 @@
                                     <div class="rate-rating">
                                         <label>
                                             <input type="radio" name="stars" value="1" />
-                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 1 ) active @endif">★</span>
                                         </label>
                                         <label>
                                             <input type="radio" name="stars" value="2" />
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
                                         </label>
                                         <label>
                                             <input type="radio" name="stars" value="3" />
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
                                         </label>
                                         <label>
                                             <input type="radio" name="stars" value="4" />
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
                                         </label>
                                         <label>
                                             <input type="radio" name="stars" value="5" />
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
-                                            <span class="rate-icon">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
                                         </label>
                                     </div>
                                 </div>
@@ -119,14 +119,8 @@
                                     <label>Отзыв</label>
                                     <textarea name="message"></textarea>
                                 </div>
-                                <div class="input__wrapper clearfix">
-                                    <div class="input__box name one--third">
-                                        <label>Имя</label>
-                                        <input type="text" name="nickname" placeholder="Имя">
-                                    </div>
-                                </div>
                                 <div class="submite__btn">
-                                    <button class="btn-info" type="submit">Отправить отзыв</button>
+                                    <button class="btn btn-primary" type="submit">Отправить отзыв</button>
                                 </div>
                             </form>
                         </div>
@@ -137,7 +131,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="col-lg-3 col-12 mt--30">
+                <div class="col-lg-3 col-12 mt--30 mb-3">
                     <div class="wn__sidebar">
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->

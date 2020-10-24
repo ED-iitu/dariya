@@ -8,6 +8,7 @@ use App\Book;
 use App\BookToGenre;
 use App\Genre;
 use App\Http\Controllers\Controller;
+use App\Video;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -17,6 +18,7 @@ class HomeController extends Controller
         $books = Book::query()->where('type', Book::BOOK_TYPE)->get();
         $audio_books = Book::query()->where('type', Book::AUDIO_BOOK_TYPE)->get();
         $articles = Article::all();
+        $videos = Video::all();
         $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
 
 
@@ -24,6 +26,7 @@ class HomeController extends Controller
             'books' => $books,
             'audio_books' => $audio_books,
             'articles' => $articles,
+            'videos' => $videos,
             'banners' => $banners,
         ]);
     }

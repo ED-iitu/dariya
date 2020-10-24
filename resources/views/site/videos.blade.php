@@ -19,6 +19,7 @@
                         </div>
                         <!-- End Single Post -->
                     </div>
+                    {{$videos->links()}}
                 </div>
                 <div class="col-lg-3 col-12 md-mt-30 sm-mt-30 pt--30">
                     <div class="wn__sidebar">
