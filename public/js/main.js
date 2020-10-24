@@ -15,7 +15,6 @@ $(function () {
             $(div).removeClass('show'); // скрываем его
         }
     });
-
     // banner-main
     $('#banner-main .owl-carousel').owlCarousel({
         items: 1,
@@ -26,7 +25,6 @@ $(function () {
         autoplayTimeout:7000,
         navText: ''
     });
-
     // tabs_box
     $('#tabs_box ul li').on('click', function (){
         $('#tabs_box ul li').removeClass('active');
@@ -36,7 +34,6 @@ $(function () {
         $("[id^='content_item_']").removeClass('active');
         $(content_box).addClass('active');
     });
-
     // slider
     $("#articles_slider .owl-carousel").owlCarousel({
         items: 4,
@@ -166,6 +163,10 @@ $(function () {
                 items: 2
             }
         }
+    });
+    // about
+    $('#about a.show-btn').on('click', function () {
+        $('#about .content-box').addClass('show');
     });
     // ---------- End home page
 });

@@ -755,6 +755,46 @@ div.video-item span.more {
     width: 35px;
     margin-right: 10px;
 }
+/*about*/
+#about .content-box {
+    position: relative;
+    height: 115px;
+    overflow: hidden;
+}
+#about .content-box.show {
+    height: auto;
+}
+#about .content-box.show:before {
+    content: none;
+}
+#about .content-box:before {
+    content: '';
+    display: block;
+    background: white;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    box-shadow: 0px 0px 20px 30px white;
+}
+#about .content-box p {
+    margin-bottom: 7px;
+}
+#about a.show-btn {
+    display: inline-flex;
+    font-weight: 500;
+    cursor: pointer;
+    color: #0090ff;
+}
+#about .content-box.show + a.show-btn {
+    display: none;
+}
+#about a.show-btn span {
+    margin-right: 5px;
+}
+#about a.show-btn i {
+    transform: rotate(180deg);
+    line-height: 18px;
+}
 /*----------content*/
 
 
