@@ -4,4 +4,5 @@
     @include('site.sliders.banner_main')
     @include('site.tabs.tabs_box')
     @include('site.static_templates.subscription.subscription')
+    @include('site.static_templates.download_mobile_apps')
 @endsection

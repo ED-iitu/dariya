@@ -1,7 +1,7 @@
 
 <div class="book-item">
     <a href="{{ url('book/'.$book->id) }}" class="image mb-2" style="@if($book->background_color) background-color:{{ $book->background_color }}; @endif background-image: url({{ url($book->image_link) }});">
-        <span class="sale mt-2"><i class="fa fa-book"></i></span>
+        <span class="sale mt-3"><i class="fa fa-book"></i></span>
     </a>
     <h6 class="title mb-2"><a href="{{ url('book/'.$book->id) }}">{{ $book->name }}</a></h6>
     <div class="info mb-2">
@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <div class="description mb-2">
+    <div class="description">
         <p><a href="{{ url('book/'.$book->id) }}">{{$book->preview_text}}</a></p>
     </div>
     @if(Auth::user() && Auth::user()->books->keyBy('id')->has($book->id))
