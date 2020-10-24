@@ -3931,8 +3931,9 @@ h3.widget-title-modal {
   Breadcaump Styles
 ----------------------------*/
 .ht__bradcaump__area {
-  padding-bottom: 110px;
-  padding-top: 220px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #fafafa;
 }
 .bradcaump__inner .bradcaump-title {
   font-size: 24px;
@@ -3941,18 +3942,16 @@ h3.widget-title-modal {
   color: #fff;
   line-height: 30px; }
 .bradcaump__inner .bradcaump-content {
-  padding: 15px 0; }
+  padding: 5px 0; }
   .bradcaump__inner .bradcaump-content .breadcrumb_item {
     font-size: 14px;
-    font-style: italic;
     font-weight: 400;
     text-transform: capitalize;
-    color: #fff; }
+    color: #747272; }
     .bradcaump__inner .bradcaump-content .breadcrumb_item.active, .bradcaump__inner .bradcaump-content .breadcrumb_item:hover {
       color: #0090ff; }
   .bradcaump__inner .bradcaump-content span.brd-separetor {
-    color: #fff;
-    font-style: italic;
+    color: #747272;
     margin: 0 7px; }
 
 /*--------------------------

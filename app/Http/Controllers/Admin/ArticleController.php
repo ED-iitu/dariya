@@ -144,13 +144,16 @@ class ArticleController extends Controller
 
         ArticleToCategory::query()->where('article_id',$article->id)->delete();
 
-        foreach ($request->categories as $category_id){
-            $link = new ArticleToCategory([
-                'article_id' => $article->id,
-                'category_id' => $category_id
-            ]);
-            $link->save();
+        if($request->categories){
+            foreach ($request->categories as $category_id){
+                $link = new ArticleToCategory([
+                    'article_id' => $article->id,
+                    'category_id' => $category_id
+                ]);
+                $link->save();
+            }
         }
+
 
         return redirect()->route('articlesPage')
             ->with('success','Статья успешно обновлена');

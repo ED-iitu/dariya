@@ -1,77 +1,64 @@
 @extends('layouts.app')
-
+@section('title', $title)
 @section('content')
-    <div class="ht__bradcaump__area bg-image--4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">Статьи</h2>
-                        <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="{{route('home')}}">Главная</a>
-                            <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">Статьи</span>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('site.blocks.breadcrumb', ['breadcrumb' => $breadcrumb])
     <!-- End Bradcaump area -->
     <!-- Start Blog Area -->
-    <div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
+    <div class="page-blog bg--white blog-sidebar right-sidebar">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-12">
                     <div class="blog-page">
-                        <div class="page__header">
-                            <h2>Список статей</h2>
-                        </div>
                         <!-- Start Single Post -->
+                        <div class="row mt--30 mb-3">
                         @foreach($articles as $article)
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="{{route('article', $article->id)}}">
-                                    <img src="{{$article->image_link}}" alt="blog images">
-                                </a>
+                            <div class="col-md-4">
+                                @include('site.blocks.article')
                             </div>
-                            <div class="content">
-                                <h4><a href="{{route('article', $article->id)}}">{{$article->name}}</a></h4>
-                                <ul class="post__meta">
-                                    <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>{{$article->created_at}}</li>
-                                    <li class="post_separator">/</li>
-                                    <li>Просмотры: {{$article->show_counter}}</li>
-                                </ul>
-                                @php $rating = $article->rate; @endphp
-                                <div>
-                                    @foreach(range(1,5) as $i)
-                                        @if($rating >0)
-                                            @if($rating >0.5)
-                                                <i class="fa fa-star"></i>
-                                            @else
-                                                <i class="fa fa-star-half-o"></i>
-                                            @endif
-                                        @else
-                                            <i class="fa  fa-star-o"></i>
-                                        @endif
-                                        <?php $rating--; ?>
-                                    @endforeach
-                                    ( {{$article->rate ?? 0}} )
-                                </div>
-                                <p>{{$article->preview_text}}</p>
-                                <div class="blog__btn">
-                                    <a class="shopbtn" href="{{route('article', $article->id)}}">Читать</a>
-                                </div>
-                            </div>
-                        </article>
+{{--                        <article class="blog__post d-flex flex-wrap">--}}
+{{--                            <div class="thumb">--}}
+{{--                                <a href="{{route('article', $article->id)}}">--}}
+{{--                                    <img src="{{$article->image_link}}" alt="blog images">--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
+{{--                            <div class="content">--}}
+{{--                                <h4><a href="{{route('article', $article->id)}}">{{$article->name}}</a></h4>--}}
+{{--                                <ul class="post__meta">--}}
+{{--                                    <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>--}}
+{{--                                    <li class="post_separator">/</li>--}}
+{{--                                    <li>{{$article->created_at}}</li>--}}
+{{--                                    <li class="post_separator">/</li>--}}
+{{--                                    <li>Просмотры: {{$article->show_counter}}</li>--}}
+{{--                                </ul>--}}
+{{--                                @php $rating = $article->rate; @endphp--}}
+{{--                                <div>--}}
+{{--                                    @foreach(range(1,5) as $i)--}}
+{{--                                        @if($rating >0)--}}
+{{--                                            @if($rating >0.5)--}}
+{{--                                                <i class="fa fa-star"></i>--}}
+{{--                                            @else--}}
+{{--                                                <i class="fa fa-star-half-o"></i>--}}
+{{--                                            @endif--}}
+{{--                                        @else--}}
+{{--                                            <i class="fa  fa-star-o"></i>--}}
+{{--                                        @endif--}}
+{{--                                        <?php $rating--; ?>--}}
+{{--                                    @endforeach--}}
+{{--                                    ( {{$article->rate ?? 0}} )--}}
+{{--                                </div>--}}
+{{--                                <p>{{$article->preview_text}}</p>--}}
+{{--                                <div class="blog__btn">--}}
+{{--                                    <a class="shopbtn" href="{{route('article', $article->id)}}">Читать</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </article>--}}
                         @endforeach
+                        </div>
                         <!-- End Single Post -->
                     </div>
                     {{$articles->links()}}
                 </div>
-                <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+                <div class="col-lg-3 col-12 md-mt-30 sm-mt-30 pt--30">
                     <div class="wn__sidebar">
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->

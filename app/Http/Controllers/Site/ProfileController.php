@@ -17,11 +17,22 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function index($id)
+    public function index()
     {
         $userData = Auth::user();
+        $title = 'Профиль';
+        if($userData->name){
+            $title .= ' - '.$userData->name;
+        }
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('signin'),
+            'active' => true
+        ];
         return view('site.profile', [
-            'userData' => $userData
+            'userData' => $userData,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 

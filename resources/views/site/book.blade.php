@@ -1,23 +1,8 @@
 @extends('layouts.app')
-
+@section('title', $title)
 @section('content')
 
-    <div class="ht__bradcaump__area bg-image--4">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="bradcaump__inner text-center">
-                        <h2 class="bradcaump-title">{{$bookData->name}}</h2>
-                        <nav class="bradcaump-content">
-                            <a class="breadcrumb_item" href="{{route('home')}}">Главная</a>
-                            <span class="brd-separetor">/</span>
-                            <span class="breadcrumb_item active">{{$bookData->name}}</span>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('site.blocks.breadcrumb', ['breadcrumb' => $breadcrumb])
     <div class="mt-3 mb-2">
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
@@ -27,7 +12,7 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- Start main Content -->
-    <div class="maincontent bg--white pt--80 pb--55">
+    <div class="maincontent bg--white pb--55">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-12">
@@ -35,20 +20,24 @@
                         <div class="row">
                             <div class="col-lg-6 col-12">
                                 <div class="wn__fotorama__wrapper">
-                                    <div class="fotorama wn__fotorama__action" data-nav="thumbs" style="width: 300px;height: 400px;">
+                                    <div class="fotorama wn__fotorama__action" data-nav="thumbs"
+                                         style="width: 300px;height: 400px;">
                                         <a href="1.jpg"><img src="{{$bookData->image_link}}" alt=""></a>
                                     </div>
                                 </div>
                                 Поделиться:
                                 <ul class="social__net social__net--2 mt-3 mb3">
-                                    <li><a href="http://www.facebook.com/sharer.php?u={{ config('app.url') }}/book/{{$bookData->id}}" target="_blank"><i class="bi bi-facebook"></i></a></li>
+                                    <li>
+                                        <a href="http://www.facebook.com/sharer.php?u={{ config('app.url') }}/book/{{$bookData->id}}"
+                                           target="_blank"><i class="bi bi-facebook"></i></a></li>
                                 </ul>
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="product__info__main">
                                     <h1>{{$bookData->name}}</h1>
                                     <div class="product-info-stock-sku d-flex">
-                                        <p>Доступно:<span> Да </span> <i class="fa fa-eye" aria-hidden="true"></i> :<span> {{$bookData->show_counter}}</span></p>
+                                        <p>Доступно:<span> Да </span> <i class="fa fa-eye" aria-hidden="true"></i>
+                                            :<span> {{$bookData->show_counter}}</span></p>
                                     </div>
                                     @php $rating = $bookData->rate; @endphp
                                     <div>
@@ -81,7 +70,8 @@
                                     <div class="box-tocart d-flex">
                                         <form action="">
                                             <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Add to Cart">Купить книгу</button>
+                                                <button class="tocart" type="submit" title="Add to Cart">Купить книгу
+                                                </button>
                                             </div>
 
                                         </form>
@@ -92,7 +82,9 @@
                                                     @csrf
 
                                                     <div class="addtocart__actions ml-2">
-                                                        <button style="background-color: red" class="tocart" type="submit" title="Add to Cart">Удалить из избранных</button>
+                                                        <button style="background-color: red" class="tocart"
+                                                                type="submit" title="Add to Cart">Удалить из избранных
+                                                        </button>
                                                     </div>
                                                 </form>
                                             @else
@@ -100,7 +92,9 @@
                                                     @csrf
 
                                                     <div class="addtocart__actions ml-2">
-                                                        <button style="background-color: blue" class="tocart" type="submit" title="Add to Cart">Добавить в избранное</button>
+                                                        <button style="background-color: blue" class="tocart"
+                                                                type="submit" title="Add to Cart">Добавить в избранное
+                                                        </button>
                                                     </div>
 
                                                 </form>
@@ -117,7 +111,8 @@
                     </div>
                     <div class="product__info__detailed">
                         <div class="pro_details_nav nav justify-content-start" role="tablist">
-                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">Детали</a>
+                            <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details"
+                               role="tab">Детали</a>
                             <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">Отзывы</a>
                         </div>
                         <div class="tab__container">
@@ -135,12 +130,13 @@
                                     <div class="review__ratings__type d-flex">
                                         <div class="review-ratings">
                                             @if(empty($comments))
-                                            <div class="rating-summary d-flex">
-                                                <span>Отзывы отсутствуют</span>
-                                            </div>
+                                                <div class="rating-summary d-flex">
+                                                    <span>Отзывы отсутствуют</span>
+                                                </div>
                                             @else
-                                            @foreach($comments as $comment)
-                                                    <div class="card mt-3" style="flex-direction: row;width: 500px !important;">
+                                                @foreach($comments as $comment)
+                                                    <div class="card mt-3"
+                                                         style="flex-direction: row;width: 500px !important;">
                                                         <div class="card-header">
                                                             {{$comment->nickname}}
                                                         </div>
@@ -151,72 +147,73 @@
                                                             </blockquote>
                                                         </div>
                                                     </div>
-                                            @endforeach
+                                                @endforeach
                                             @endif
                                         </div>
                                     </div>
                                 </div>
                                 @if( Auth::user())
-                                <div class="review-fieldset">
-                                    <h2>Оставить отзыв</h2>
-                                    <h5>{{$bookData->name}}</h5>
-                                    <form action="{{route('comment')}}" method="GET">
-                                        <div>
-                                            <div class="rate-rating">
-                                                <label>
-                                                    <input type="radio" name="stars" value="1" />
-                                                    <span class="rate-icon">★</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" name="stars" value="2" />
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" name="stars" value="3" />
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" name="stars" value="4" />
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                </label>
-                                                <label>
-                                                    <input type="radio" name="stars" value="5" />
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                    <span class="rate-icon">★</span>
-                                                </label>
+                                    <div class="review-fieldset">
+                                        <h2>Оставить отзыв</h2>
+                                        <h5>{{$bookData->name}}</h5>
+                                        <form action="{{route('comment')}}" method="GET">
+                                            <div>
+                                                <div class="rate-rating">
+                                                    <label>
+                                                        <input type="radio" name="stars" value="1"/>
+                                                        <span class="rate-icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="stars" value="2"/>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="stars" value="3"/>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="stars" value="4"/>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                    </label>
+                                                    <label>
+                                                        <input type="radio" name="stars" value="5"/>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                        <span class="rate-icon">★</span>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <input type="hidden" name="object_id" value="{{$bookData->id}}">
-                                        <input type="hidden" name="object_type" value="book">
-                                        <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
-                                        <div class="review_form_field">
-                                            <div class="input__box">
-                                                <span>Имя</span>
-                                                <input type="text" id="nickname_field" name="nickname">
+                                            <input type="hidden" name="object_id" value="{{$bookData->id}}">
+                                            <input type="hidden" name="object_type" value="book">
+                                            <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
+                                            <div class="review_form_field">
+                                                <div class="input__box">
+                                                    <span>Имя</span>
+                                                    <input type="text" id="nickname_field" name="nickname">
+                                                </div>
+                                                <div class="input__box">
+                                                    <span>Отзыв</span>
+                                                    <textarea name="message"></textarea>
+                                                </div>
+                                                <div class="review-form-actions">
+                                                    <button>Оставить отзыв</button>
+                                                </div>
                                             </div>
-                                            <div class="input__box">
-                                                <span>Отзыв</span>
-                                                <textarea name="message"></textarea>
-                                            </div>
-                                            <div class="review-form-actions">
-                                                <button>Оставить отзыв</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                        </form>
+                                    </div>
                                 @else
-                                <div>
-                                    Чтобы оставить отзыв вам необходимо <a href="{{route('createAccount')}}">Авторизоваться</a>
-                                </div>
+                                    <div>
+                                        Чтобы оставить отзыв вам необходимо <a
+                                                href="{{route('signin')}}">Авторизоваться</a>
+                                    </div>
                                 @endif
                             </div>
                             <!-- End Single Tab Content -->
@@ -227,53 +224,11 @@
                             <h2 class="title__be--2">Похожие книги</h2>
                         </div>
                         <div class="row mt--60">
-                            <div class="productcategory__slide--2 arrows_style owl-carousel owl-theme">
-                                <!-- Start Single Product -->
-                                @foreach($relatedBooks as $related)
-                                <div class="col-lg-4 col-md-4 col-sm-6 col-12">
-                                    <div class="product">
-                                        <div class="product__thumb" style="height: 400px">
-                                            <a class="first__img" href="{{route('book', $related->id)}}"><img src="{{$related->image_link}}" alt="product image"></a>
-                                            <div class="new__box">
-                                                <span class="new-label">Новый</span>
-                                            </div>
-                                            <ul class="prize position__right__bottom d-flex">
-                                                <li>{{$related->price}} KZT</li>
-                                            </ul>
-                                            <div class="action">
-                                                <div class="actions_inner">
-                                                    <ul class="add_to_links">
-                                                        <li><a class="cart" href="cart.html"></a></li>
-                                                        <li><a class="wishlist" href="wishlist.html"></a></li>
-                                                        <li><a class="compare" href="compare.html"></a></li>
-                                                        <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="product__content">
-                                            <h4><a href="{{route('book', $related->id)}}">{{$related->name}}</a></h4>
-                                            @php $rating = $related->rate; @endphp
-                                            <div>
-                                                @foreach(range(1,5) as $i)
-                                                    @if($rating >0)
-                                                        @if($rating >0.5)
-                                                            <i class="fa fa-star"></i>
-                                                        @else
-                                                            <i class="fa fa-star-half-o"></i>
-                                                        @endif
-                                                    @else
-                                                        <i class="fa  fa-star-o"></i>
-                                                    @endif
-                                                    <?php $rating--; ?>
-                                                @endforeach
-                                                ( {{$related->rate ?? 0}} )
-                                            </div>
-                                        </div>
-                                    </div>
+                            @foreach($relatedBooks as $book)
+                                <div class="col-md-3">
+                                    @include('site.blocks.book')
                                 </div>
-                                    @endforeach
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -53,8 +53,8 @@
                                 <li class="drop with--one--item"><a href="{{route('home')}}">Главная</a></li>
                                 <li class="drop"><a href="{{route('articles')}}">Статьи</a></li>
                                 <li class="drop"><a href="{{route('books')}}">Книги</a></li>
-                                <li class="drop"><a href="{{route('audioBooks')}}">Аудиокниги</a></li>
-                                <li class="drop"><a href="{{route('contacts')}}">Видео</a></li>
+                                <li class="drop"><a href="{{route('audio_books')}}">Аудиокниги</a></li>
+                                <li class="drop"><a href="{{route('videos')}}">Видео</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -67,41 +67,25 @@
                                     <span>{{ Auth::user()->favorites()->count() }}</span>
                                     @endif
                                 </a></li></li>
-                            <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
-                                <div class="searchbar__content setting__block">
-                                    <div class="content-inner">
-                                        <div class="switcher-currency">
-                                            <div class="switcher-options">
-                                                <div class="switcher-currency-trigger">
-                                                    <div class="setting__menu">
-                                                    @guest
-                                                        @if (Route::has('register'))
-                                                        <span><a href="{{route('createAccount')}}">Создать аккаунт</a></span>
-                                                        @endif
-
-                                                        @else
-                                                        <span><a href="{{route('profile', Auth::user()->id)}}">{{ Auth::user()->name }}</a></span>
-                                                            <hr>
-                                                        <span>
-                                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        Выйти
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                                        </span>
-
-                                                    @endguest
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            @if(!Auth::guest())
+                                <li id="profile_dropdown" class="setting__bar__icon"><a></a>
+                                    {{Auth::user()->email}}
+                                    <ul>
+                                        <li>
+                                            <a href="{{ route('profile') }}">Профиль</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Выйти</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @else
+                                <li class="setting__bar__icon"><a href="{{route('signin')}}"></a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -110,11 +94,11 @@
                     <div class="col-lg-12 d-none">
                         <nav class="mobilemenu__nav">
                             <ul class="meninmenu">
-                                <li><a href="{{route('home')}}">Главаная</a></li>
-                                <li><a href="{{route('books')}}">Книги</a></li>
-                                <li><a href="{{route('audioBooks')}}">Аудио книги</a></li>
+                                <li><a href="{{route('home')}}">Главная</a></li>
                                 <li><a href="{{route('articles')}}">Статьи</a></li>
-                                <li><a href="{{route('contacts')}}">Контакты</a></li>
+                                <li><a href="{{route('books')}}">Книги</a></li>
+                                <li><a href="{{route('audio_books')}}">Аудиокниги</a></li>
+                                <li><a href="{{route('videos')}}">Видео</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -171,7 +155,7 @@
                                         <li><a href="{{route('articles')}}">Статьи</a></li>
                                         <li><a href="{{route('books')}}">Книги</a></li>
                                         <li><a href="{{route('books')}}">Аудиокниги</a></li>
-                                        <li><a href="{{route('contacts')}}">Видео</a></li>
+                                        <li><a href="{{route('videos')}}">Видео</a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -14,7 +14,14 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::paginate(10);
+        $title = 'Книги';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('articles'),
+            'active' => true
+        ];
+
+        $books = Book::where('type', '=', Book::BOOK_TYPE)->paginate(10);
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
@@ -22,7 +29,9 @@ class BookController extends Controller
             'books' => $books,
             'genres' => $genres,
             'authors' => $authors,
-            'banners' => $banners
+            'banners' => $banners,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
@@ -41,16 +50,29 @@ class BookController extends Controller
             $comments = [];
         }
 
+        $breadcrumb[] = [
+            'title' => 'Книги',
+            'route' => route('articles'),
+            'active' => false,
+        ];
+        $title = $book->name;
+        $breadcrumb[] = [
+            'title' => $title,
+            'active' => true
+        ];
+
         return view('site.book', [
             'bookData' => $book,
             'relatedBooks' => $relatedBooks,
-            'comments' => $comments
+            'comments' => $comments,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 
     public function audioBooks()
     {
-        $books = Book::where('type', '=', 'AUDIO')->paginate(10);
+        $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->paginate(10);
 
         if ($books->count() == 0) {
             $books = [];
@@ -59,11 +81,21 @@ class BookController extends Controller
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
-        return view('site.audioBooks' ,[
+
+        $title = 'Аудио книги';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('articles'),
+            'active' => true
+        ];
+
+        return view('site.books' ,[
             'books' => $books,
             'genres' => $genres,
             'authors' => $authors,
-            'banners' => $banners
+            'banners' => $banners,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 

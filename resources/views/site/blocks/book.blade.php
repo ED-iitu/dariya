@@ -23,11 +23,17 @@
     <div class="description mb-2">
         <p><a href="{{ url('book/'.$book->id) }}">{{$book->preview_text}}</a></p>
     </div>
-    <div class="final">
-        <a href="{{ url('book/'.$book->id) }}" class="order">Купить</a>
-        <div class="price">
-            @if($book->old_price)<small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif
-            <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>
+    @if(Auth::user() && Auth::user()->books->keyBy('id')->has($book->id))
+        <div class="final">
+            <a style="background: #f3ac61; border-color: #f3ac61" href="{{ url('book/'.$book->id) }}" class="order">Читать</a>
         </div>
-    </div>
+    @else
+        <div class="final">
+            <a href="{{ url('book/'.$book->id) }}" class="order">Купить</a>
+            <div class="price">
+                @if($book->old_price)<small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif
+                <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>
+            </div>
+        </div>
+    @endif
 </div>

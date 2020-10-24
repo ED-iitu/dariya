@@ -1,5 +1,21 @@
 $(function () {
     // Start home page ----------
+    // header-profile-menu
+    $('#profile_dropdown').on('click', function(){
+        if ($(this).hasClass('show')) {
+            $(this).removeClass('show');
+        } else {
+            $(this).addClass('show');
+        }
+    });
+    $(document).mouseup(function (e){ // событие клика по веб-документу
+        var div = $("#profile_dropdown"); // тут указываем ID элемента
+        if (!div.is(e.target) // если клик был не по нашему блоку
+            && div.has(e.target).length === 0) { // и не по его дочерним элементам
+            $(div).removeClass('show'); // скрываем его
+        }
+    });
+
     // banner-main
     $('#banner-main .owl-carousel').owlCarousel({
         items: 1,

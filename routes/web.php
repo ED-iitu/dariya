@@ -48,18 +48,19 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
         Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
     });
-Route::get('/createAccount', 'Site\CreateAccountController@index')->name('createAccount');
+Route::get('/signin', 'Site\CreateAccountController@signin')->name('signin');
+Route::get('/signup', 'Site\CreateAccountController@signup')->name('signup');
 Route::get('/books', 'Site\BookController@index')->name('books');
-Route::get('/audioBooks', 'Site\BookController@audioBooks')->name('audioBooks');
+Route::get('/audio_books', 'Site\BookController@audioBooks')->name('audio_books');
 Route::get('/articles', 'Site\ArticleController@index')->name('articles');
-Route::get('/contacts', 'Site\ContactController@index')->name('contacts');
+Route::get('/videos', 'Site\VideoController@index')->name('videos');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 Route::get('/search', 'Site\SearchController@index')->name('search');
 Route::get('/filter', 'Site\BookController@filter')->name('filter');
 Route::get('/tariffs', 'Site\TariffController@index')->name('tariff');
 Route::get('/comments/store', 'Site\CommentController@store')->name('comment');
-Route::get('/profile/{id}', 'Site\ProfileController@index')->name('profile');
+Route::get('/profile', 'Site\ProfileController@index')->name('profile')->middleware('auth');
 Route::get('/favorite', 'Site\FavoriteController@index')->name('favorite')->middleware('auth');
 
 Route::post('favorite/{book}', 'Site\BookController@favoriteBook')->name('favoriteBook');

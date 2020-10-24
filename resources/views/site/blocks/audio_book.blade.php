@@ -1,9 +1,9 @@
 
 <div class="audio-book-item">
-    <a href="{{ url('audioBook/'.$book->id) }}" class="image mb-2" style="@if($book->background_color) background-color:{{ $book->background_color }}; @endif background-image: url({{ url($book->image_link) }});">
+    <a href="{{ url('book/'.$book->id) }}" class="image mb-2" style="@if($book->background_color) background-color:{{ $book->background_color }}; @endif background-image: url({{ url($book->image_link) }});">
         <span class="sale mt-2"><i class="fa fa-headphones"></i></span>
     </a>
-    <h6 class="title mb-2"><a href="{{ url('audioBook/'.$book->id) }}">{{ $book->name }}</a></h6>
+    <h6 class="title mb-2"><a href="{{ url('book/'.$book->id) }}">{{ $book->name }}</a></h6>
     <div class="info mb-2">
         <span>{{\Jenssegers\Date\Date::parse($book->created_at)->format('j F, Y')}}</span>
         <ul class="mb-0">
@@ -21,10 +21,10 @@
         </ul>
     </div>
     <div class="description mb-2">
-        <p><a href="{{ url('audioBook/'.$book->id) }}">{{$book->preview_text}}</a></p>
+        <p><a href="{{ url('book/'.$book->id) }}">{{$book->preview_text}}</a></p>
     </div>
     <div class="final">
-        <a href="{{ url('audioBook/'.$book->id) }}" class="order">Купить</a>
+        <a href="{{ url('bye/'.$book->id) }}" class="order">Купить</a>
         <div class="price">
             @if($book->old_price)<small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif
             <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>

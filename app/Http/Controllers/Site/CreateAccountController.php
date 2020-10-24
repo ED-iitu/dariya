@@ -9,8 +9,25 @@ use Illuminate\Http\Request;
 
 class CreateAccountController extends Controller
 {
-    public function index()
+    public function signin()
     {
-        return view('site.createAccount');
+        $title = 'Авторизация';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('signin'),
+            'active' => true
+        ];
+        return view('site.signin', compact('title', 'breadcrumb'));
+    }
+
+    public function signup()
+    {
+        $title = 'Регистрация';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('signin'),
+            'active' => true
+        ];
+        return view('site.signup', compact('title', 'breadcrumb'));
     }
 }

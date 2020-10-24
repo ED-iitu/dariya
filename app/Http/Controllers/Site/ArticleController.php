@@ -26,10 +26,19 @@ class ArticleController extends Controller
         $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
         $categories = Category::all();
 
+        $title = 'Подборка статей';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('articles'),
+            'active' => true
+        ];
+
         return view('site.articles', [
             'articles' => $articles,
             'recentArticles' => $recentArticles,
-            'categories' => $categories
+            'categories' => $categories,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
     
@@ -48,11 +57,25 @@ class ArticleController extends Controller
         if ($comments->count() == 0) {
             $comments = [];
         }
+
+
+        $breadcrumb[] = [
+            'title' => 'Подборка статей',
+            'route' => route('articles'),
+            'active' => false,
+        ];
+        $title = $article->name;
+        $breadcrumb[] = [
+            'title' => $title,
+            'active' => true
+        ];
         return view('site.article', [
             'article' => $article,
             'recentArticles' => $recentArticles,
             'categories' => $categories,
-            'comments' => $comments
+            'comments' => $comments,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb
         ]);
     }
 }

@@ -10,6 +10,33 @@
 /*header----------*/
 header {
     padding: 10px 0px;
+    border-bottom: 1px solid #eaeaea;
+    margin-bottom: 10px;
+}
+header #profile_dropdown {
+    cursor: pointer;
+}
+header #profile_dropdown ul {
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    display: none;
+    width: 100%;
+    min-width: 200px;
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.3);
+}
+header #profile_dropdown.show ul {
+    display: block!important;
+}
+header #profile_dropdown ul li {
+    display: block;
+}
+header #profile_dropdown ul li a {
+    display: block;
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
 }
 /*logo*/
 header div.logo {
@@ -50,7 +77,26 @@ header ul.header__sidebar__right {
 }
 /*----------header*/
 
+
+.right-wrapper{
+    background-image: url(/images/book_illustration.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+
 /*content----------*/
+/*profile*/
+.profile-img{
+    display: inline-block;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-color: #f5f1f1;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 /*banner-main*/
 section#banner-main {
     margin-bottom: 40px;
