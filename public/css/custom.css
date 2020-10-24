@@ -263,6 +263,7 @@ div.article-item div.description:after {
 div.article-item span.more {
     font-weight: 500;
     font-size: 14px;
+    line-height: 32px;
     color: #333;
 }
 /*books_slider*/
@@ -637,37 +638,49 @@ div.video-item div.description:after {
 div.video-item span.more {
     font-weight: 500;
     font-size: 14px;
+    line-height: 32px;
     color: #333;
 }
-/*subscription-block*/
-.subscription div.item.premium > div {
-    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription1.png);
-    background-color: #ffddb9;
-    border: 1px solid #ffc88d;
-}
-.subscription div.item.standard > div {
-    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription2.png);
-    background-color: #d5eaff;
-    border: 1px solid #aad4ff
-}
-.subscription div.item > div {
+/*subscription*/
+.subscription .content-box {
     display: flex;
+    flex-direction: row;
+}
+.subscription .content-box div.item {
+    display: flex;
+    width: 50%;
     background-position: center center;
     background-size: cover;
     border-radius: 13px;
 }
-.subscription div.item > div img{
-    max-height: 200px;
-    max-width: 200px;
+.subscription .content-box div.item.premium {
+    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription1.png);
+    background-color: #ffddb9;
+    border: 1px solid #ffc88d;
     margin-right: 15px;
 }
-.subscription div.item > div form {
+.subscription .content-box div.item.standard {
+    background-image: url(http://127.0.0.1:8000/images/backgrounds/subscription2.png);
+    background-color: #d5eaff;
+    border: 1px solid #aad4ff
+}
+.subscription .content-box div.item .info-img {
+    margin-right: 15px;
+}
+.subscription .content-box div.item .info-img img{
+    max-height: 200px;
+    max-width: 200px;
+}
+.subscription .content-box div.item form {
     width: 100%;
 }
-.subscription div.item > div form input{
+.subscription .content-box div.item form input{
     display: none;
 }
-.subscription div.item > div form label {
+.subscription .content-box div.item form input:checked + label span:nth-of-type(1):before {
+    background: #4d94ff;
+}
+.subscription .content-box div.item form label {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -679,11 +692,11 @@ div.video-item span.more {
     padding: 0px 15px;
     cursor: pointer;
 }
-.subscription div.item > div form label span {
+.subscription .content-box div.item form label span {
     display: flex;
     align-items: center;
 }
-.subscription div.item > div form label span:nth-of-type(1):before {
+.subscription .content-box div.item form label span:nth-of-type(1):before {
     content: "";
     display: inline-block;
     height: 15px;
@@ -692,14 +705,55 @@ div.video-item span.more {
     border-radius: 50%;
     border: 1px solid #0066ff;
 }
-.subscription div.item > div form button{
+.subscription .content-box div.item form button{
     width: 100%;
-    background: #0066FF;
+    background: #0091ff;
     font-weight: 500;
     color: #fff;
     line-height: 45px;
     border: none;
     border-radius: 8px;
+    box-shadow: 0px 2px 3px 0px rgba(0,14,25,0.5);
+}
+/*download_mobile_apps*/
+#download_mobile_apps .content-box {
+    background-image: url("/images/content/phone_big.png");
+    background-position: right -125% bottom 85%;
+    background-size: 1000px;
+    background-repeat: no-repeat;
+    background-color: rgb(0 123 220);
+    padding: 45px 60px;
+    border-radius: 14px;
+}
+#download_mobile_apps .content-box > img {
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 40px;
+}
+#download_mobile_apps .content-box > div {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+#download_mobile_apps .content-box > div a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    background: #e2f4ff;
+    font-weight: 500;
+    color: #111;
+    border-radius: 35px;
+    padding: 8px 0px;
+    box-shadow: 0px 3px 5px 0px rgba(0,60,107,0.5);
+}
+#download_mobile_apps .content-box > div a.google-play {
+    color: #555;
+    margin-right: 23px;
+}
+#download_mobile_apps .content-box > div a img {
+    width: 35px;
+    margin-right: 10px;
 }
 /*----------content*/
 
@@ -713,6 +767,13 @@ div.video-item span.more {
         padding: 0px 15px;
     }
     /*----------header*/
+
+    /*content---------*/
+    /*download_mobile_apps*/
+    #download_mobile_apps .content-box {
+        background-position: right 586% bottom 85%;
+    }
+    /*---------content*/
 }
 @media (max-width: 991px) {
     /*header----------*/
@@ -740,6 +801,31 @@ div.video-item span.more {
         margin-right: 55px!important;
     }
     /*----------header*/
+
+    /*content---------*/
+    /*subscription*/
+    .subscription .content-box div.item {
+        flex-direction: column;
+        align-items: center;
+        font-size: 14px;
+    }
+    .subscription .content-box div.item .info-img {
+        height: 200px;
+        margin-right: 0px;
+        margin-bottom: 15px;
+    }
+    .subscription .content-box div.item .info-img img {
+    }
+    /*download_mobile_apps*/
+    #download_mobile_apps .content-box {
+        background-position: right 152% bottom 85%;
+        background-blend-mode: color-burn;
+        text-align: center;
+    }
+    #download_mobile_apps .content-box > div {
+        justify-content: center;
+    }
+    /*---------content*/
 }
 @media (max-width: 767px) {
     /*content----------*/
@@ -752,14 +838,46 @@ div.video-item span.more {
         font-size: 12px;
         padding: 0px 10px;
     }
-    /*subscription-block*/
-    .subscription div.item > div {
-        flex-direction: column;
+    /*subscription*/
+    .subscription .content-box div.item {
+        font-size: 12px;
     }
-    .subscription div.item > div img {
-        margin: 0px auto 15px;
-        max-width: 100%;
-        max-height: 100%;
+    .subscription .content-box div.item .info-img img {
+        max-width: 100%!important;
+        max-height: 100%!important;
+    }
+    .subscription .content-box div.item form label {
+        font-weight: 400;
+        line-height: 35px;
+        padding: 0px 10px;
+    }
+    .subscription .content-box div.item form label span:nth-of-type(1):before {
+        height: 10px;
+        width: 10px;
+        margin-right: 3px;
+    }
+    .subscription .content-box div.item.premium {
+        margin-right: 0px;
+        border-radius: 13px 0px 0px 13px;
+    }
+    .subscription .content-box div.item.standard {
+        border-radius: 0px 13px 13px 0px;
+    }
+    /*download_mobile_apps*/
+    #download_mobile_apps .content-box {
+        background-position: right 84% bottom 85%;
+        padding: 15px;
+    }
+    #download_mobile_apps .content-box > div a {
+        width: 125px;
+        font-size: 12px;
+    }
+    #download_mobile_apps .content-box > div a.google-play {
+        margin-right: 15px;
+    }
+    #download_mobile_apps .content-box > div a img {
+        width: 25px;
+        margin-right: 7px;
     }
     /*----------content*/
 }
@@ -770,6 +888,56 @@ div.video-item span.more {
     }
     section#banner-main div.owl-carousel div.owl-nav > div {
         background: rgba(255,255,255,0.5);
+    }
+    /*article-item*/
+    div.article-item a div.image {
+        height: 100px;
+    }
+    div.article-item div.info {
+        flex-direction: column;
+        align-items: end;
+    }
+    div.article-item div.description {
+        height: 65px;
+        font-size: 12px;
+    }
+    /*book-item*/
+    div.book-item a div.image {
+        height: 100px;
+    }
+    div.book-item div.info {
+        flex-direction: column;
+        align-items: end;
+    }
+    div.book-item div.description {
+        height: 65px;
+        font-size: 12px;
+    }
+    div.book-item div.final {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    div.book-item div.final div.price {
+        order: 1;
+    }
+    div.book-item div.final a.order {
+        order: 2;
+    }
+    /*subscription*/
+    .subscription .content-box div.item .info-img {
+        height: 150px;
+    }
+    .subscription .content-box div.item form label {
+        flex-direction: column;
+        line-height: initial;
+        border-bottom: 1px solid #e3e3e3;
+        border-radius: 0px;
+        padding: 5px;
+        margin-bottom: 0px;
+    }
+    .subscription .content-box div.item form button {
+        line-height: 35px;
+        font-weight: 400;
     }
     /*----------content*/
 }

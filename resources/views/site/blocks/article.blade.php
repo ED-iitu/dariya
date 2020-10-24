@@ -19,7 +19,7 @@
                 </li>
             </ul>
         </div>
-        <div class="description mb-2">
+        <div class="description">
             <p>{{ $article->preview_text }}</p>
         </div>
         <span class="more">Подробнее</span>

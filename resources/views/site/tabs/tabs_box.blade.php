@@ -1,7 +1,7 @@
 
 <!-- Start Tab Box -->
 <section id="tabs_box">
-    <div class="container mb-5">
+    <div class="container mb-md-5 mb-3">
         <div class="tabs">
             @include('site.tabs.components.tabs')
         </div>
