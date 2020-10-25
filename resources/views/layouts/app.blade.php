@@ -39,6 +39,17 @@
         <!-- Header -->
         <header id="wn__header" class="header__area header__absolute sticky__header">
             <div class="container">
+                <div id="site_search">
+                    <div class="search-box">
+                        <a class="search">
+                            <img src="https://img.icons8.com/ios-glyphs/25/search.png" alt="">
+                        </a>
+                        <input type="text" placeholder="Поиск...">
+                        <a class="close">
+                            <img src="https://img.icons8.com/ios/35/multiply.png" alt="">
+                        </a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                         <div class="logo">
