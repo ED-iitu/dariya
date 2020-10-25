@@ -164,6 +164,18 @@ header ul.header__sidebar__right {
 
 
 /*content----------*/
+
+#social-links ul li{
+    display: inline-block;
+}
+#social-links ul li.share-link a{
+    display: block;
+    height: 30px;
+    width: 30px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-align: center;
+}
 /*profile*/
 .profile-img{
     display: inline-block;

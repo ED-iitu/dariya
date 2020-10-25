@@ -9,6 +9,7 @@ use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Jorenvh\Share\ShareFacade;
 
 class BookController extends Controller
 {
@@ -73,12 +74,20 @@ class BookController extends Controller
             'active' => true
         ];
 
+        $share_links = ShareFacade::page(url('book/'.$id), $book->name)
+            ->facebook()
+            ->twitter()
+            ->whatsapp()
+            ->telegram()
+            ->getRawLinks();
+
         return view('site.book', [
             'bookData' => $book,
             'relatedBooks' => $relatedBooks,
             'comments' => $comments,
             'title' => $title,
-            'breadcrumb' => $breadcrumb
+            'breadcrumb' => $breadcrumb,
+            'share_links' => $share_links,
         ]);
     }
 

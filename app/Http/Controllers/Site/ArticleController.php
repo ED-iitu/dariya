@@ -6,6 +6,7 @@ use App\Comment;
 use App\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Jorenvh\Share\ShareFacade;
 
 class ArticleController extends Controller
 {
@@ -69,12 +70,21 @@ class ArticleController extends Controller
             'title' => $title,
             'active' => true
         ];
+
+        $share_links = ShareFacade::page(url('article/'.$id), $article->name)
+            ->facebook()
+            ->twitter()
+            ->whatsapp()
+            ->telegram()
+            ->getRawLinks();
+
         return view('site.article', [
             'article' => $article,
             'similar_articles' => $similar_articles,
             'comments' => $comments,
             'title' => $title,
-            'breadcrumb' => $breadcrumb
+            'breadcrumb' => $breadcrumb,
+            'share_links' => $share_links,
         ]);
     }
 }

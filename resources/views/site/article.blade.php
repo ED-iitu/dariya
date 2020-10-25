@@ -22,9 +22,9 @@
                                         <li class="post-separator">/</li>
                                         <li> <i class="fa fa-eye" aria-hidden="true"></i> {{$article->show_counter}}</li>
                                     </ul>
-
+                                    @include('site.blocks.share_links')
                                     @php $rating = $article->rate; @endphp
-                                    <div>
+                                    <div style="display: inline-block">
                                         @foreach(range(1,5) as $i)
                                             @if($rating >0)
                                                 @if($rating >0.5)
