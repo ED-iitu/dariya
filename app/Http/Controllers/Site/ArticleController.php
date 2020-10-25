@@ -23,7 +23,7 @@ class ArticleController extends Controller
             });
         }
         $articles = $articles->paginate(9);
-        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
+        $recentArticles = Article::recents();
         $categories = Category::all();
 
         $title = 'Подборка статей';
@@ -48,16 +48,16 @@ class ArticleController extends Controller
 
         if ($article) {
             Article::where('id', $id)->increment('show_counter');
+            $author = $article->author;
+            $similar_articles = Article::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
         }
 
-        $recentArticles = Article::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
-        $categories = Category::all();
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
 
         if ($comments->count() == 0) {
             $comments = [];
         }
-
+        $article->setAsRecent();
 
         $breadcrumb[] = [
             'title' => 'Подборка статей',
@@ -71,8 +71,7 @@ class ArticleController extends Controller
         ];
         return view('site.article', [
             'article' => $article,
-            'recentArticles' => $recentArticles,
-            'categories' => $categories,
+            'similar_articles' => $similar_articles,
             'comments' => $comments,
             'title' => $title,
             'breadcrumb' => $breadcrumb

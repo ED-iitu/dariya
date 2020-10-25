@@ -17,14 +17,26 @@ class FavoriteController extends Controller
 {
     public function index()
     {
-        $books = Auth::user()->favorites;
+        $title = 'Избранные';
+        $breadcrumb[] = [
+            'title' => $title,
+            'route' => route('favorite'),
+            'active' => true
+        ];
 
-        if (count($books) == 0) {
-            $books = [];
-        }
+        $books = Auth::user()->favorites_books()->get();
+        $audio_books = Auth::user()->favorites_audio_books;
+        $articles = Auth::user()->favorites_articles;
+        $videos = Auth::user()->favorites_videos;
+
 
         return view('site.favorite', [
-            'books' => $books
+            'books' => $books,
+            'audio_books' => $audio_books,
+            'articles' => $articles,
+            'videos' => $videos,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb,
         ]);
     }
 }

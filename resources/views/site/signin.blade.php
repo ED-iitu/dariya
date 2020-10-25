@@ -29,6 +29,7 @@
                                     <span>Запомнить?</span>
                                 </label>
                             </div>
+                            @include('social-auth::buttons')
                             <a href="{{ route('signup') }}">Регистрация</a> | <a href="#">Забыли пароль?</a>
                         </div>
                     </form>

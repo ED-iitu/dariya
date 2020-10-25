@@ -136,34 +136,24 @@
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
                         <aside class="widget recent_widget">
-                            <h3 class="widget-title">Недавние</h3>
+                            <h3 class="widget-title">Похожие статьи</h3>
                             <div class="recent-posts">
                                 <ul>
-                                    @foreach($recentArticles as $recent)
+                                    @foreach($similar_articles as $similar)
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="{{route('article', $article->id)}}"><img src="{{$recent->image_link}}" alt="blog images"></a>
+                                                <a href="{{route('article', $similar->id)}}"><img src="{{$similar->image_link}}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4><a href="{{route('article', $article->id)}}">{{$recent->name}}</a></h4>
-                                                <p>	{{$recent->created_at}}</p>
+                                                <h4><a href="{{route('article', $similar->id)}}">{{$similar->name}}</a></h4>
+                                                <p>	{{$similar->created_at}}</p>
                                             </div>
                                         </div>
                                     </li>
                                     @endforeach
                                 </ul>
                             </div>
-                        </aside>
-                        <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
-                        <aside class="widget category_widget">
-                            <h3 class="widget-title">Категории</h3>
-                            <ul>
-                                @foreach($categories as $category)
-                                <li><a href="{{url('/articles?category='.$category->name)}}">{{$category->name}}</a></li>
-                                @endforeach
-                            </ul>
                         </aside>
                         <!-- End Single Widget -->
                     </div>

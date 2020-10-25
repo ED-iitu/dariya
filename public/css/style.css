@@ -5673,9 +5673,22 @@ a.checkout__title {
     border-bottom: 1px dashed #e1e1e1;
     line-height: 45px;
     text-align: left;
-    text-transform: capitalize; }
+    text-transform: capitalize;
+    padding: 0px 10px;
+  }
+.shop__sidebar h3 {
+  cursor: pointer;
+}
+.wedget__categories.poroduct--cat ul li:hover {
+  background-color: #deedfe;
+  cursor: pointer;
+}
+.wedget__categories.poroduct--cat ul li.active {
+  background-color: #deedfe;
+}
     .wedget__categories.poroduct--cat ul li a {
       color: #333;
+      text-decoration: none;
       font-size: 14px;
       font-weight: 400; }
       .wedget__categories.poroduct--cat ul li a:hover {

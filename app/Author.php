@@ -13,7 +13,11 @@ class Author extends Model
     ];
 
     public function books() {
-        return $this->hasMany(Book::class, 'author_id');
+        return $this->hasMany(Book::class, 'author_id')->where('type', Book::BOOK_TYPE);
+    }
+
+    public function audio_books() {
+        return $this->hasMany(Book::class, 'author_id')->where('type', Book::AUDIO_BOOK_TYPE);
     }
 
     public function getFullName(){

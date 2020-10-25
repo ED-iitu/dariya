@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Книги';
         $breadcrumb[] = [
@@ -21,7 +21,19 @@ class BookController extends Controller
             'active' => true
         ];
 
-        $books = Book::where('type', '=', Book::BOOK_TYPE)->paginate(9);
+        $books = Book::query()->where('type', '=', Book::BOOK_TYPE);
+        if($request->get('authors')){
+            $books->whereIn('author_id',$request->get('authors'));
+        }
+
+        if($request->get('genres')){
+            $genres = $request->get('genres');
+            $books->whereHas('objectToGenres',function ($query)use($genres){
+                return $query->whereIn('genre_id', $genres);
+            });
+        }
+
+        $books = $books->paginate(9);
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();

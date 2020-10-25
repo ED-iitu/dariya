@@ -47,7 +47,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:7000,
+        autoplayTimeout:5000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -55,15 +55,18 @@ $(function () {
             },
             // breakpoint from 480 up
             480 : {
-                items: 2
+                items: 2,
+                autoplayTimeout:5000,
             },
             // breakpoint from 768 up
             768 : {
-                items: 3
+                items: 3,
+                autoplayTimeout:5000,
             },
             // breakpoint from 997 up
             997 : {
-                items: 4
+                items: 4,
+                autoplayTimeout:5000,
             }
         }
     });
@@ -73,7 +76,7 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:7000,
+        autoplayTimeout:5000,
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -182,4 +185,33 @@ $(function () {
         $('#about .content-box').addClass('show');
     });
     // ---------- End home page
+
+    $('.shop__sidebar h3').on('click', function () {
+        $(this).siblings('ul').toggle();
+    });
+    $('.shop__sidebar li').on('click', function () {
+        $(this).toggleClass('active');
+        let count =  $('.shop__sidebar li.active').length;
+        if(count > 0){
+            $('.shop__sidebar button').addClass('btn-primary');
+        }else{
+            $('.shop__sidebar button').removeClass('btn-primary');
+        }
+        if($(this).find('input[type="checkbox"]').attr("checked") != 'checked') {
+            $(this).find('input[type="checkbox"]').attr("checked", "checked");
+        }else{
+            $(this).find('input[type="checkbox"]').removeAttr("checked");
+        }
+    });
+
+    $('.book-filter-clear').on('click', function () {
+        let form = $('form[name="book_filter"]');
+        form.find('input[type="checkbox"]').each(function () {
+            $(this).removeAttr("checked");
+        });
+        form.find('li').each(function () {
+            $(this).removeClass('active');
+        });
+        form.submit();
+    })
 });

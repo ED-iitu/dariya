@@ -13,7 +13,11 @@ class Genre extends Model
     ];
 
     public function books() {
-        return $this->belongsToMany(Book::class, 'book_to_genres');
+        return $this->belongsToMany(Book::class, 'book_to_genres')->where('type', Book::BOOK_TYPE);
+    }
+
+    public function audio_books() {
+        return $this->belongsToMany(Book::class, 'book_to_genres')->where('type', Book::AUDIO_BOOK_TYPE);
     }
 
     public function objectToGenre()

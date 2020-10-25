@@ -36,8 +36,8 @@
                                                 <a href="{{route('article', $recent->id)}}"><img src="{{$recent->image_link}}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4><a href="blog-details.html">{{$recent->name}}</a></h4>
-                                                <p>	{{$recent->created_at}}</p>
+                                                <h4><a href="{{route('article', $recent->id)}}">{{$recent->name}}</a></h4>
+                                                <p>	{{\Jenssegers\Date\Date::parse($recent->created_at)->format('j F, Y')}}</p>
                                             </div>
                                         </div>
                                     </li>

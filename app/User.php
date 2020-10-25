@@ -2,14 +2,17 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use DateInterval;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kodeine\Acl\Traits\HasRole;
 use Laravel\Sanctum\HasApiTokens;
+use MadWeb\SocialAuth\Contracts\SocialAuthenticatable;
+use MadWeb\SocialAuth\Models\SocialProvider;
+use Laravel\Socialite\Contracts\User as UserContract;
 
 
-class User extends Authenticatable
+class User extends Authenticatable implements SocialAuthenticatable
 {
     use Notifiable, HasApiTokens, HasRole;
 
@@ -86,11 +89,47 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of favorite posts for the user.
+     * Get all of favorite all for the user.
      */
     public function favorites()
     {
         return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id');
+    }
+
+    /**
+     * Get all of favorite books for the user.
+     */
+    public function favorites_books()
+    {
+        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
+            ->where('object_type',Favorite::FAVORITE_BOOK_TYPE);
+    }
+
+    /**
+     * Get all of favorite audio-books for the user.
+     */
+    public function favorites_audio_books()
+    {
+        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
+            ->where('object_type',Favorite::FAVORITE_AUDIO_BOOK_TYPE);
+    }
+
+    /**
+     * Get all of favorite articles for the user.
+     */
+    public function favorites_articles()
+    {
+        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
+            ->where('object_type',Favorite::FAVORITE_ARTICLE_TYPE);
+    }
+
+    /**
+     * Get all of favorite articles for the user.
+     */
+    public function favorites_videos()
+    {
+        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
+            ->where('object_type',Favorite::FAVORITE_VIDEO);
     }
 
     public function getRatingForArticle($article_id){
@@ -107,5 +146,85 @@ class User extends Authenticatable
             return $rating->rate;
         }
         return null;
+    }
+    /**
+     * Provide ability to modify user data
+     * received from social network.
+     *
+     * @param UserContract $socialUser
+     * @return array
+     */
+    public function mapSocialData(UserContract $socialUser)
+    {
+        $raw = $socialUser->getRaw();
+        $name = $socialUser->getName() ?? $socialUser->getNickname();
+        $name = $name ?? $socialUser->getEmail();
+
+        $result = [
+            $this->getEmailField() => $socialUser->getEmail(),
+            'name' => $name,
+            'verified' => $raw['verified'] ?? true,
+            'profile_photo_path' => $socialUser->getAvatar(),
+        ];
+
+        return $result;
+    }
+
+    /**
+     * User socials relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function socials()
+    {
+        $social_pivot_table_name = config('social-auth.table_names.user_has_social_provider');
+
+        return $this->belongsToMany(SocialProvider::class, $social_pivot_table_name);
+    }
+
+    /**
+     * Check social network is attached to user.
+     *
+     * @param $slug
+     * @return mixed
+     */
+    public function isAttached(string $slug): bool
+    {
+        return $this->socials()->where(['slug' => $slug])->exists();
+    }
+
+    /**
+     * Attach social network provider to the user.
+     *
+     * @param SocialProvider $social
+     * @param string $socialId
+     * @param string $token
+     * @param int $expiresIn
+     */
+    public function attachSocial($social, string $socialId, string $token, int $expiresIn = null)
+    {
+        $data = ['social_id' => $socialId, 'token' => $token];
+
+        $expiresIn = $expiresIn
+            ? date_create('now')
+                ->add(DateInterval::createFromDateString($expiresIn.' seconds'))
+                ->format($this->getDateFormat())
+            : false;
+
+        if ($expiresIn) {
+            $data['expires_in'] = $expiresIn;
+        }
+
+        $this->socials()->attach($social, $data);
+    }
+
+    /**
+     * Get model email field name.
+     *
+     * @return string
+     */
+    public function getEmailField(): string
+    {
+        return 'email';
     }
 }

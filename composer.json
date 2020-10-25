@@ -20,6 +20,7 @@
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.4",
+        "mad-web/laravel-social-auth": "^3.1",
         "thesoftwarefanatics/php-html-parser": "~1"
     },
     "require-dev": {

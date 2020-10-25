@@ -2,10 +2,12 @@
 
 namespace App;
 
+use App\Shared\Recentable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use Recentable;
     protected $table = 'articles';
 
     protected $fillable = [

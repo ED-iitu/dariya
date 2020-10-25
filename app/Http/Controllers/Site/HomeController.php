@@ -21,6 +21,7 @@ class HomeController extends Controller
         $videos = Video::all();
         $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
 
+        $title = 'Дамыту орталығы';
 
         return view('site.home', [
             'books' => $books,
@@ -28,6 +29,7 @@ class HomeController extends Controller
             'articles' => $articles,
             'videos' => $videos,
             'banners' => $banners,
+            'title' => $title,
         ]);
     }
 }

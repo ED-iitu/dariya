@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', $title)
 @section('content')
     @include('site.sliders.banner_main')
     @include('site.tabs.tabs_box')
