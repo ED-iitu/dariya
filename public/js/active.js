@@ -1,6 +1,6 @@
 /*********************************************************************************
 
-    Template Name: Boighor Bookshop Responsive Bootstrap4 Template 
+    Template Name: Boighor Bookshop Responsive Bootstrap4 Template
     Version: 1.0
 
 **********************************************************************************/
@@ -43,7 +43,7 @@
 (function($) {
     'use strict';
 
-    
+
 
 /*============ Scroll Up Activation ============*/
     $.scrollUp({
@@ -75,10 +75,11 @@
                 var windowpos = sticky_menu.top;
                 $(window).on('scroll', function () {
                   var windowpos = $(window).scrollTop();
-                  if (windowpos > pos.top + 250) {
-                    sticky_menu.addClass('is-sticky');
+                  // if (windowpos > pos.top + 250) {
+                  if (windowpos > pos.top + 0) {
+                    sticky_menu.addClass('sticky');
                   } else {
-                    sticky_menu.removeClass('is-sticky');
+                    sticky_menu.removeClass('sticky');
                   }
             });
           }
@@ -115,7 +116,7 @@
               breakpoint: 576,
               settings: {
                 dots: false,
-                slidesToShow: 1,  
+                slidesToShow: 1,
                 centerPadding: '0px',
                 }
             },
@@ -259,7 +260,7 @@
             }
         }
     });
-  
+
 
 /*=============  Product Activation  ==============*/
     $('.furniture--4').owlCarousel({
@@ -500,7 +501,7 @@
     });
 
 
-/*====== Price Slider Active ======*/ 
+/*====== Price Slider Active ======*/
     $('#slider-range').slider({
         range: true,
         min: 0,
@@ -517,7 +518,7 @@
 /*====== Dropdown ======*/
     $('.dropdown').parent('.drop').css('position' , 'relative');
 
-	
+
 /*====== slick slider ======*/
 	$('.center').slick({
 	  centerMode: true,

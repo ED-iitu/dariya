@@ -7,11 +7,22 @@
 
 **********************************************************************************/
 
+body {
+    padding-top: 75px;
+}
+
 /*header----------*/
 header {
+    position: fixed;
+    top: 0px;
+    background: #fff;
     padding: 10px 0px;
     border-bottom: 1px solid #eaeaea;
     margin-bottom: 10px;
+}
+header.sticky {
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3);
+    border-bottom: 1px solid #d4d4d4;
 }
 header #profile_dropdown {
     cursor: pointer;
@@ -978,6 +989,16 @@ div.video-item span.more {
     .subscription .content-box div.item form button {
         line-height: 35px;
         font-weight: 400;
+    }
+    /*about*/
+    #about .title {
+        font-size: 18px;
+    }
+    #about .content-box {
+        font-size: 12px;
+    }
+    #about a.show-btn {
+        font-size: 14px;
     }
     /*----------content*/
 }
