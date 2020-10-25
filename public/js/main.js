@@ -1,14 +1,14 @@
 $(function () {
     // Start home page ----------
     // header-profile-menu
-    $('#profile_dropdown').on('click', function(){
+    $('#profile_dropdown').on('click', function () {
         if ($(this).hasClass('show')) {
             $(this).removeClass('show');
         } else {
             $(this).addClass('show');
         }
     });
-    $(document).mouseup(function (e){ // событие клика по веб-документу
+    $(document).mouseup(function (e) { // событие клика по веб-документу
         var div = $("#profile_dropdown"); // тут указываем ID элемента
         if (!div.is(e.target) // если клик был не по нашему блоку
             && div.has(e.target).length === 0) { // и не по его дочерним элементам
@@ -16,18 +16,19 @@ $(function () {
         }
     });
     //site_search
-    $('.search__active').on('click', function(){
+    $('.search__active').on('click', function () {
         $('#site_search').addClass('show');
+        $('#site_search').find('input[type="text"]').focus();
     });
-    $('#site_search .close').on('click', function() {
+    $('#site_search .close').on('click', function () {
         $('#site_search').removeClass('show');
     });
     // tabs_box
-    $('#tabs_box ul li').on('click', function (){
+    $('#tabs_box ul li').on('click', function () {
         $('#tabs_box ul li').removeClass('active');
         $(this).addClass('active');
 
-        var content_box = "#"+$(this).data('tab-content-box');
+        var content_box = "#" + $(this).data('tab-content-box');
         $("[id^='content_item_']").removeClass('active');
         $(content_box).addClass('active');
     });
@@ -35,10 +36,10 @@ $(function () {
     $('#banner-main .owl-carousel').owlCarousel({
         items: 1,
         loop: true,
-        dots:true,
+        dots: true,
         nav: true,
-        autoplay:true,
-        autoplayTimeout:7000,
+        autoplay: true,
+        autoplayTimeout: 7000,
         navText: ''
     });
     $("#articles_slider .owl-carousel").owlCarousel({
@@ -47,26 +48,26 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:5000,
+        autoplayTimeout: 5000,
         responsive: {
             // breakpoint from 0 up
             0: {
                 items: 2
             },
             // breakpoint from 480 up
-            480 : {
+            480: {
                 items: 2,
-                autoplayTimeout:5000,
+                autoplayTimeout: 5000,
             },
             // breakpoint from 768 up
-            768 : {
+            768: {
                 items: 3,
-                autoplayTimeout:5000,
+                autoplayTimeout: 5000,
             },
             // breakpoint from 997 up
-            997 : {
+            997: {
                 items: 4,
-                autoplayTimeout:5000,
+                autoplayTimeout: 5000,
             }
         }
     });
@@ -76,22 +77,22 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:5000,
+        autoplayTimeout: 5000,
         responsive: {
             // breakpoint from 0 up
             0: {
                 items: 2
             },
             // breakpoint from 480 up
-            480 : {
+            480: {
                 items: 2
             },
             // breakpoint from 768 up
-            768 : {
+            768: {
                 items: 3
             },
             // breakpoint from 997 up
-            997 : {
+            997: {
                 items: 4
             }
         }
@@ -102,22 +103,22 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:7000,
+        autoplayTimeout: 7000,
         responsive: {
             // breakpoint from 0 up
             0: {
                 items: 2
             },
             // breakpoint from 480 up
-            480 : {
+            480: {
                 items: 2
             },
             // breakpoint from 768 up
-            768 : {
+            768: {
                 items: 3
             },
             // breakpoint from 997 up
-            997 : {
+            997: {
                 items: 4
             }
         }
@@ -128,22 +129,22 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:7000,
+        autoplayTimeout: 7000,
         responsive: {
             // breakpoint from 0 up
             0: {
                 items: 2
             },
             // breakpoint from 480 up
-            480 : {
+            480: {
                 items: 2
             },
             // breakpoint from 768 up
-            768 : {
+            768: {
                 items: 3
             },
             // breakpoint from 997 up
-            997 : {
+            997: {
                 items: 4
             }
         }
@@ -153,22 +154,22 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-        autoplayTimeout:7000,
+        autoplayTimeout: 7000,
         responsive: {
             // breakpoint from 0 up
             0: {
                 items: 2
             },
             // breakpoint from 480 up
-            480 : {
+            480: {
                 items: 2
             },
             // breakpoint from 768 up
-            768 : {
+            768: {
                 items: 3
             },
             // breakpoint from 997 up
-            997 : {
+            997: {
                 items: 2
             }
         }
@@ -176,7 +177,7 @@ $(function () {
     $('#advertisings .owl-carousel').owlCarousel({
         items: 1,
         loop: true,
-        dots:true,
+        dots: true,
         nav: true,
         navText: ''
     });
@@ -191,15 +192,15 @@ $(function () {
     });
     $('.shop__sidebar li').on('click', function () {
         $(this).toggleClass('active');
-        let count =  $('.shop__sidebar li.active').length;
-        if(count > 0){
+        let count = $('.shop__sidebar li.active').length;
+        if (count > 0) {
             $('.shop__sidebar button').addClass('btn-primary');
-        }else{
+        } else {
             $('.shop__sidebar button').removeClass('btn-primary');
         }
-        if($(this).find('input[type="checkbox"]').attr("checked") != 'checked') {
+        if ($(this).find('input[type="checkbox"]').attr("checked") != 'checked') {
             $(this).find('input[type="checkbox"]').attr("checked", "checked");
-        }else{
+        } else {
             $(this).find('input[type="checkbox"]').removeAttr("checked");
         }
     });

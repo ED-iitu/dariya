@@ -140,14 +140,14 @@
             @yield('content')
         </main>
         <!-- Footer Area -->
-        <footer id="wn__footer" class="footer__area bg--white bg__cat--8 brown--color">
+        <footer id="wn__footer" class="footer__area bg--white bg__cat--8 brown--color mt--30">
             <div class="footer-static-top">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="footer__widget footer__menu">
                                 <div class="ft__logo">
-                                    <a href="index.html">
+                                    <a href="{{ route('home') }}">
                                         <img src="../../images/logo/logo1.png" alt="logo">
                                     </a>
                                     <p>Dariya.org</p>

@@ -1112,6 +1112,9 @@ div.video-item span.more {
         margin-right: 7px;
     }
     /*----------content*/
+    .ft__logo img {
+        width: 45px;
+    }
 }
 @media (max-width: 400px) {
     /*content----------*/

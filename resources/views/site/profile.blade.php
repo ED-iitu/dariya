@@ -55,7 +55,7 @@
                                             <div class="col-md-6"><input type="password" name="newPassword" class="form-control" placeholder="Новый пароль"></div>
                                         </div>
 
-                                        <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+                                        <div class="mt-5 text-right"><button class="btn btn-primary profile-button" type="submit">Изменить</button></div>
                                     </form>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                     <div id="my_books_slider">
                         <div class="row">
                             @foreach($userData->books as $book)
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-6">
                                     @include('site.blocks.book')
                                 </div>
                             @endforeach

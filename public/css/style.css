@@ -2190,7 +2190,7 @@ Header Styles
   .header__area .header__sidebar__right {
     z-index: 9; }
   .header__area .logo {
-    z-index: 2;
+    z-index: 1000;
     position: relative; }
   .header__area .container-fluid {
     padding: 0 18px; }
