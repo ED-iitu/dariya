@@ -935,6 +935,38 @@ div.video-item span.more {
     transform: rotate(180deg);
     line-height: 18px;
 }
+
+.call-buttons{
+    position: fixed;
+    bottom: 95px;
+    right: 40px;
+    z-index: 10000;
+}
+.call-buttons a{
+    display: block;
+    width: 45px;
+    height: 45px;
+    background: #4fc251;
+    color: #fff;
+    margin-top: 10px;
+    line-height: 45px;
+    text-align: center;
+    font-size: 30px;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 1px 1px 8px #797979;
+    cursor: pointer;
+}
+.call-buttons a:hover{
+    background-color: #64d566;
+}
+.call-buttons a:last-child{
+    background-color: #f3f3f3;
+    color: #0090ff;
+}
+.call-buttons a:last-child:hover{
+    color: #0090ffb0;
+}
 /*----------content*/
 
 

@@ -194,5 +194,9 @@
             </div>
         </footer>
     </div>
+    <div class="call-buttons">
+        <a target="_blank" href="https://api.whatsapp.com/send?phone=+77757652460" id="call-to-whatsapp"><i class="fa fa-whatsapp"></i></a>
+        <a href="tel:+77757652460" id="call-to-whatsapp"><i class="fa fa-phone"></i></a>
+    </div>
 </body>
 </html>
