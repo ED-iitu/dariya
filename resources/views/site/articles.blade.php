@@ -12,7 +12,7 @@
                         <!-- Start Single Post -->
                         <div class="row mt--30 mb-3">
                         @foreach($articles as $article)
-                            <div class="col-md-4">
+                            <div class="col-md-4 col-6">
                                 @include('site.blocks.article')
                             </div>
                         @endforeach

@@ -62,12 +62,12 @@
                             <div class="row">
                                 <!-- Start Single Product -->
                                 @foreach($books as $book)
-                                    <div class="col-md-4 mb-3">
+                                    <div class="col-md-4 mb-3 col-6">
                                         @if($book->type == \App\Book::BOOK_TYPE)
                                             @include('site.blocks.book')
                                         @else
                                             @include('site.blocks.audio_book')
-                                        @endif;
+                                        @endif
                                     </div>
 
                                 {{--                                <div class="col-lg-4 col-md-4 col-sm-6 col-12" >--}}

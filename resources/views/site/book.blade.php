@@ -221,7 +221,7 @@
                         </div>
                         <div class="row mt--60">
                             @foreach($relatedBooks as $book)
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-6">
                                     @include('site.blocks.book')
                                 </div>
                             @endforeach
