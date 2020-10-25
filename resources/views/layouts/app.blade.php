@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2">
                         <div class="logo">
-                            <a href="/">
+                            <a href="{{route('home')}}">
                                 <img src="../../images/logo/logo1.png" alt="logo images">
                             </a>
                         </div>
@@ -79,8 +79,8 @@
                                     @endif
                                 </a></li></li>
                             @if(!Auth::guest())
-                                <li id="profile_dropdown" class="setting__bar__icon"><a></a>
-                                    {{Auth::user()->email}}
+                                <li id="profile_dropdown" class="setting__bar__icon">
+                                    <span class="profile-initial">{{Auth::user()->shortUpperInitial()}}</span>
                                     <ul>
                                         <li>
                                             <a href="{{ route('profile') }}">Профиль</a>

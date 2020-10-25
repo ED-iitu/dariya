@@ -22,8 +22,8 @@
                                 <label>Пароль<span>*</span></label>
                                 <input type="password" name="password">
                             </div>
-                            <div class="form__btn">
-                                <button>Войти</button>
+                            <div class="form-group">
+                                <button class="btn btn-primary">Войти</button>
                                 <label class="label-for-checkbox">
                                     <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
                                     <span>Запомнить?</span>

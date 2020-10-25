@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Site;
 use App\Article;
 use App\Comment;
 use App\Category;
+use App\Facades\ShareFacade;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Jorenvh\Share\ShareFacade;
 
 class ArticleController extends Controller
 {
@@ -73,6 +73,7 @@ class ArticleController extends Controller
 
         $share_links = ShareFacade::page(url('article/'.$id), $article->name)
             ->facebook()
+            ->vk()
             ->twitter()
             ->whatsapp()
             ->telegram()

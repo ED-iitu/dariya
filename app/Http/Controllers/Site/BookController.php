@@ -76,6 +76,7 @@ class BookController extends Controller
 
         $share_links = ShareFacade::page(url('book/'.$id), $book->name)
             ->facebook()
+            ->vk()
             ->twitter()
             ->whatsapp()
             ->telegram()

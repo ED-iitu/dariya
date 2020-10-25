@@ -30,8 +30,8 @@
                                 <label>Подтвердите пароль<span>*</span></label>
                                 <input type="password" name="password_confirmation">
                             </div>
-                            <div class="form__btn">
-                                <button>Создать аккаунт</button>
+                            <div class="form-group">
+                                <button class="btn btn-primary">Создать аккаунт</button>
                             </div>
                         </div>
                     </form>

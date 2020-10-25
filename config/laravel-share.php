@@ -17,6 +17,9 @@ return [
         'facebook' => [
             'uri' => 'http://www.facebook.com/sharer.php?u=',
         ],
+        'vk' => [
+            'uri' => 'http://vk.com/share.php?url=',
+        ],
         'twitter' => [
             'uri' => 'https://twitter.com/intent/tweet',
             'text' => 'Default share text',

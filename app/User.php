@@ -227,4 +227,13 @@ class User extends Authenticatable implements SocialAuthenticatable
     {
         return 'email';
     }
+
+    public function shortUpperInitial(){
+        if($this->name){
+            return strtoupper(substr($this->name,0,2));
+        }
+        if($this->email){
+            return strtoupper(substr($this->email,0,2));
+        }
+    }
 }

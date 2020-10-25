@@ -113,6 +113,17 @@ header .container #profile_dropdown ul li a {
     padding: 10px 15px;
     border-bottom: 1px solid #eee;
 }
+.profile-initial{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: #f1f1f1;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 50%;
+    box-shadow: inset 1px 0px 4px #e6e6e6;
+}
 header .container ul.header__sidebar__right .search__active {
     display: block!important;
 }
@@ -160,6 +171,7 @@ header ul.header__sidebar__right {
     background-image: url(/images/book_illustration.png);
     background-repeat: no-repeat;
     background-size: contain;
+    background-position: center;
 }
 
 
@@ -175,6 +187,7 @@ header ul.header__sidebar__right {
     border: 1px solid #007bff;
     border-radius: 5px;
     text-align: center;
+    color: #007bff;
 }
 /*profile*/
 .profile-img{
@@ -966,6 +979,13 @@ div.video-item span.more {
 }
 .call-buttons a:last-child:hover{
     color: #0090ffb0;
+}
+
+.my__account__wrapper .fa-google{
+    color: #d64936;
+}
+.my__account__wrapper .fa-facebook{
+    color: #3c65af;
 }
 /*----------content*/
 
