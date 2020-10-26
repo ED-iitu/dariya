@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Author;
+use App\BookToGenre;
 use Auth;
 use App\Banner;
 use App\Book;
@@ -56,7 +57,13 @@ class BookController extends Controller
             $book->where('id', $id)->increment('show_counter');
         }
 
-        $relatedBooks = Book::where('id', '!=', $id)->limit(4)->get();
+        $relatedBooks = Book::query()->where('type', $book->type)->whereHas('genres', function($query)use($book){
+            return $query->whereIn('genre_id', $book->genres->pluck('id')->toArray());
+        })->limit(4)->get();
+        $relatedBooksFilterParams = [];
+        foreach ($book->genres->pluck('id')->toArray() as $key=>$genre_id){
+            $relatedBooksFilterParams['genres['.$key.']'] =$genre_id;
+        }
         $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'BOOK')->get();
 
         if ($comments->count() == 0) {
@@ -64,8 +71,8 @@ class BookController extends Controller
         }
 
         $breadcrumb[] = [
-            'title' => 'Книги',
-            'route' => route('articles'),
+            'title' => ($book->type == Book::BOOK_TYPE) ? 'Книги' : 'Аудио книги',
+            'route' => ($book->type == Book::BOOK_TYPE) ? route('books') : route('audio_books'),
             'active' => false,
         ];
         $title = $book->name;
@@ -85,6 +92,7 @@ class BookController extends Controller
         return view('site.book', [
             'bookData' => $book,
             'relatedBooks' => $relatedBooks,
+            'relatedBooksFilterParams' => $relatedBooksFilterParams,
             'comments' => $comments,
             'title' => $title,
             'breadcrumb' => $breadcrumb,
@@ -107,7 +115,7 @@ class BookController extends Controller
         $title = 'Аудио книги';
         $breadcrumb[] = [
             'title' => $title,
-            'route' => route('articles'),
+            'route' => route('books'),
             'active' => true
         ];
 
@@ -119,25 +127,6 @@ class BookController extends Controller
             'title' => $title,
             'breadcrumb' => $breadcrumb
         ]);
-    }
-
-    public function filter(Request $request)
-    {
-        $filter = $request->orderBy ?? "ASC";
-
-        $books = Book::orderBy('price', $filter)->paginate(10);
-       // dd($books);
-
-        $genres = Genre::all();
-        $authors = Author::all();
-        $banners = Banner::all();
-        return view('site.books' ,[
-            'books' => $books,
-            'genres' => $genres,
-            'authors' => $authors,
-            'banners' => $banners
-        ]);
-
     }
 
     /**

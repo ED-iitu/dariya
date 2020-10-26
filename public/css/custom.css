@@ -1059,7 +1059,7 @@ div.video-item span.more {
     }
     /*---------content*/
 }
-@media (max-width: 767px) {
+@media (max-width: 768px) {
     /*content----------*/
     /*banner-main*/
     section#banner-main div.owl-carousel div.item a {
@@ -1114,6 +1114,9 @@ div.video-item span.more {
     /*----------content*/
     .ft__logo img {
         width: 45px;
+    }
+    .product__overview{
+        display: none;
     }
 }
 @media (max-width: 400px) {

@@ -25,7 +25,6 @@
                                         <a href="1.jpg"><img src="{{$bookData->image_link}}" alt=""></a>
                                     </div>
                                 </div>
-                                @include('site.blocks.share_links')
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="product__info__main">
@@ -65,7 +64,7 @@
                                     <div class="box-tocart d-flex">
                                         <form action="">
                                             <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Add to Cart">Купить книгу
+                                                <button class="tocart" type="submit" title="Купить книгу">Купить книгу
                                                 </button>
                                             </div>
 
@@ -78,7 +77,7 @@
 
                                                     <div class="addtocart__actions ml-2">
                                                         <button style="background-color: red" class="tocart"
-                                                                type="submit" title="Add to Cart">Удалить из избранных
+                                                                type="submit" title="Удалить из избранных">Удалить из избранных
                                                         </button>
                                                     </div>
                                                 </form>
@@ -88,7 +87,7 @@
 
                                                     <div class="addtocart__actions ml-2">
                                                         <button style="background-color: blue" class="tocart"
-                                                                type="submit" title="Add to Cart">Добавить в избранное
+                                                                type="submit" title="Добавить в избранное">Добавить в избранное
                                                         </button>
                                                     </div>
 
@@ -220,11 +219,16 @@
                             <h2 class="title__be--2">Похожие книги</h2>
                         </div>
                         <div class="row mt--60">
-                            @foreach($relatedBooks as $book)
-                                <div class="col-md-3 col-6">
-                                    @include('site.blocks.book')
+                            <div class="container">
+                                <div id="books_slider">
+                                    <a class="link-to-all" href="{{ route(($bookData->type == \App\Book::BOOK_TYPE) ? 'books' : 'audio_books', $relatedBooksFilterParams) }}">Все книги</a>
+                                    <div class="owl-carousel">
+                                        @foreach($relatedBooks as $book)
+                                            @include('site.blocks.book')
+                                        @endforeach
+                                    </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

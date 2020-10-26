@@ -57,7 +57,6 @@ Route::get('/videos', 'Site\VideoController@index')->name('videos');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 Route::get('/search', 'Site\SearchController@index')->name('search');
-Route::get('/filter', 'Site\BookController@filter')->name('filter');
 Route::get('/tariffs', 'Site\TariffController@index')->name('tariff');
 Route::get('/comments/store', 'Site\CommentController@store')->name('comment');
 Route::get('/profile', 'Site\ProfileController@index')->name('profile')->middleware('auth');
