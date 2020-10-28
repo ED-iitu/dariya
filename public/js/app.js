@@ -37338,7 +37338,3 @@ module.exports = __webpack_require__(/*! /Users/eduard/Desktop/dariya-new/resour
 /***/ })
 
 /******/ });
-
-window.onload = function() {
-    tinymce.init({selector:'.tiny_editor'});
-};

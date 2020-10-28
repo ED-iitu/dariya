@@ -8,6 +8,7 @@ use App\Book;
 use App\BookToGenre;
 use App\Genre;
 use App\Http\Controllers\Controller;
+use App\Tariff;
 use App\Video;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class HomeController extends Controller
         $articles = Article::all();
         $videos = Video::all();
         $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
+        $tariffs = Tariff::all();
 
         $title = 'Дамыту орталығы';
 
@@ -29,6 +31,7 @@ class HomeController extends Controller
             'articles' => $articles,
             'videos' => $videos,
             'banners' => $banners,
+            'tariffs' => $tariffs,
             'title' => $title,
         ]);
     }

@@ -138,6 +138,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        dd($_FILES, $request->file_title);
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
 

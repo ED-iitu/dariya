@@ -105,14 +105,6 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="{{$book->book_link}}">
-                                <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="0">
                                 <label class="form-check-label" for="is_free">Платная</label>
@@ -121,6 +113,113 @@
                                 <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
                                 <label class="form-check-label" for="is_free">Бесплатная</label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#pdf" role="tab" aria-controls="pdf" aria-selected="true">PDF</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#audio" role="tab" aria-controls="audio" aria-selected="false">Аудио-файлы</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 p-4">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="pdf" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" value="{{$book->book_link}}">
+                                            <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <input multiple id="book_audio_files_input" type="file" name="audio_files[]" class="form-control" placeholder="Аудио">
+                                        <div id="audio-file-content"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                var footerTemplate = '<div class="file-thumbnail-footer" style ="height:94px">\n' +
+                                    '  <input class="kv-input kv-new form-control input-sm form-control-sm text-center {TAG_CSS_NEW}" value="{caption}" placeholder="Enter caption...">\n' +
+                                    '  <input class="kv-input kv-init form-control input-sm form-control-sm text-center {TAG_CSS_INIT}" name="file_title[]" value="{TAG_VALUE}" placeholder="Введите загаловок ...">\n' +
+                                    '   <div class="small" style="margin:15px 0 2px 0">{size}</div> {progress}\n{indicator}\n{actions}\n' +
+                                    '</div>';
+                                var fileinput_params = {
+                                    uploadAsync: false,
+                                    maxFileCount: 30,
+                                    overwriteInitial: false,
+                                    showPreview:true,
+                                    layoutTemplates: {footer: footerTemplate},
+                                    allowedFileTypes:['audio'],
+                                    theme:'fas',
+                                    // previewThumbTags: {
+                                    //     '{TAG_VALUE}': '',        // no value
+                                    //     '{TAG_CSS_NEW}': '',      // new thumbnail input
+                                    //     '{TAG_CSS_INIT}': 'kv-hidden'  // hide the initial input
+                                    // },
+                                    // initialPreview: [
+                                    //     '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/1">',
+                                    //     '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/2">',
+                                    // ],
+                                    // initialPreviewConfig: [
+                                    //     {caption: "City-1.jpg", size: 327892, url: "/site/file-delete", key: 1},
+                                    //     {caption: "City-2.jpg", size: 438828, url: "/site/file-delete", key: 2},
+                                    // ],
+                                    // initialPreviewThumbTags: [
+                                    //     {'{TAG_VALUE}': 'City-1.jpg', '{TAG_CSS_NEW}': 'kv-hidden', '{TAG_CSS_INIT}': ''},
+                                    //     {
+                                    //         '{TAG_VALUE}': function() { // callback example
+                                    //             return 'City-2.jpg';
+                                    //         },
+                                    //         '{TAG_CSS_NEW}': 'kv-hidden',
+                                    //         '{TAG_CSS_INIT}': ''
+                                    //     }
+                                    // ],
+                                    uploadExtraData: function() {  // callback example
+                                        var out = {}, key, i = 0;
+                                        $('.kv-input:visible').each(function() {
+                                            var $thumb = $(this).closest('.file-preview-frame'); // gets the thumbnail
+                                            var fileId = $thumb.data('fileid'); // gets the file identifier for file thumb
+                                            out[fileId] = $("#book_audio_files_input").val();
+                                        });
+                                        return out;
+                                    }
+                                };
+                                @if($book->audio_files())
+                                    fileinput_params.initialPreviewConfig = [
+                                    @foreach($book->audio_files()->get() as $file)
+                                        {
+                                            'caption': "{{ $file->original_name }}",
+                                            'size': {{ $file->file_size }},
+                                            'url': "{{ $file->audio_link }}",
+                                            "key": {{$file->id }}
+                                        },
+                                    @endforeach
+                                    ];
+                                    fileinput_params.initialPreview = [
+                                    @foreach($book->audio_files()->get() as $file)
+                                          '<audio style="width: 100%; height: 30px;" controls="" class="kv-preview-data file-preview-audio"><source src="{{ url($file->audio_link) }}" type="audio/mpeg"></audio>',
+                                    @endforeach
+                                    ];
+
+                                    fileinput_params.initialPreviewThumbTags = [
+                                        @foreach($book->audio_files()->get() as $file)
+                                        {
+                                            '{TAG_VALUE}': '{{ $file->title }}',
+                                            '{TAG_CSS_NEW}': 'kv-hidden',
+                                            '{TAG_CSS_INIT}': ''
+                                        },
+                                        @endforeach
+                                    ];
+                                @endif
+                            </script>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
