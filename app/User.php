@@ -102,7 +102,7 @@ class User extends Authenticatable implements SocialAuthenticatable
     public function favorites_books()
     {
         return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
-            ->where('object_type',Favorite::FAVORITE_BOOK_TYPE);
+            ->wherePivot('object_type',Favorite::FAVORITE_BOOK_TYPE);
     }
 
     /**
@@ -111,7 +111,7 @@ class User extends Authenticatable implements SocialAuthenticatable
     public function favorites_audio_books()
     {
         return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
-            ->where('object_type',Favorite::FAVORITE_AUDIO_BOOK_TYPE);
+            ->wherePivot('object_type',Favorite::FAVORITE_AUDIO_BOOK_TYPE);
     }
 
     /**
@@ -119,8 +119,8 @@ class User extends Authenticatable implements SocialAuthenticatable
      */
     public function favorites_articles()
     {
-        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
-            ->where('object_type',Favorite::FAVORITE_ARTICLE_TYPE);
+        return $this->belongsToMany(Article::class, 'favorites', 'user_id', 'object_id')
+            ->wherePivot('object_type',Favorite::FAVORITE_ARTICLE_TYPE);
     }
 
     /**
@@ -128,8 +128,8 @@ class User extends Authenticatable implements SocialAuthenticatable
      */
     public function favorites_videos()
     {
-        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id')
-            ->where('object_type',Favorite::FAVORITE_VIDEO);
+        return $this->belongsToMany(Video::class, 'favorites', 'user_id', 'object_id')
+            ->wherePivot('object_type',Favorite::FAVORITE_VIDEO);
     }
 
     public function getRatingForArticle($article_id){

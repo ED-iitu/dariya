@@ -11,4 +11,6 @@ class Favorite extends Model
     const FAVORITE_ARTICLE_TYPE = 'ARTICLE';
     const FAVORITE_VIDEO = 'VIDEO';
     protected $table = 'favorites';
+
+    protected $fillable = ['object_type', 'object_id', 'user_id', 'created_at'];
 }

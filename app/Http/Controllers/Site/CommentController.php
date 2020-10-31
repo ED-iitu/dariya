@@ -16,18 +16,19 @@ class CommentController extends Controller
 {
     public function store(Request $request)
     {
-        $rating = new Rating();
-        $rating->setRawAttributes([
-            'object_id' => $request->object_id,
-            'object_type' => $request->object_type,
-            'rate' => $request->stars,
-            'author_id' => $request->author_id
-        ]);
+        if($request->stars){
+            $rating = new Rating();
+            $rating->setRawAttributes([
+                'object_id' => $request->object_id,
+                'object_type' => $request->object_type,
+                'rate' => $request->stars,
+                'author_id' => $request->author_id
+            ]);
 
-        if($rating->save()){
-            Rating::calculateRating($request->object_id,$request->object_type);
+            if($rating->save()){
+                Rating::calculateRating($request->object_id,$request->object_type);
+            }
         }
-
         if($request->message){
             $data = [
                 'object_id' => $request->object_id,

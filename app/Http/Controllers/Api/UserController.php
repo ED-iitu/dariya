@@ -5,14 +5,17 @@ namespace App\Http\Controllers\Api;
 
 
 use Akaunting\Money\Money;
+use App\Article;
 use App\Book;
 use App\BookShelf;
 use App\BookShelfLink;
+use App\Favorite;
 use App\Helpers\DateHelper;
 use App\Helpers\PhoneHelper;
 use App\Tariff;
 use App\User;
 use App\UserBuyedBook;
+use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -40,6 +43,171 @@ class UserController extends Controller
             }
         });
         return $this->sendResponse($books, '');
+    }
+
+    public function toggle_favorites($type,$id){
+        $favorite = false;
+        switch (strtoupper($type)){
+            case Favorite::FAVORITE_BOOK_TYPE:
+                if(Book::query()->where(['id' => $id, 'type' => Book::BOOK_TYPE])->exists()){
+                    $favorite = Auth::user()->favorites_books()->toggle([$id => [
+                        'object_type' => Favorite::FAVORITE_BOOK_TYPE,
+                    ]]);
+                }
+                break;
+            case Favorite::FAVORITE_AUDIO_BOOK_TYPE:
+                if(Book::query()->where(['id' => $id, 'type' => Book::AUDIO_BOOK_TYPE])->exists()) {
+                    $favorite = Auth::user()->favorites_audio_books()->toggle([$id => [
+                        'object_type' => Favorite::FAVORITE_AUDIO_BOOK_TYPE,
+                    ]]);
+                }
+                break;
+            case Favorite::FAVORITE_ARTICLE_TYPE:
+                if(Article::query()->find($id)) {
+                    $favorite = Auth::user()->favorites_articles()->toggle([$id => [
+                        'object_type' => Favorite::FAVORITE_ARTICLE_TYPE,
+                    ]]);
+                }
+                break;
+            case Favorite::FAVORITE_VIDEO:
+                if(Video::query()->find($id)) {
+                    $favorite = Auth::user()->favorites_videos()->toggle([$id => [
+                        'object_type' => Favorite::FAVORITE_VIDEO,
+                    ]]);
+                }
+                break;
+            default:
+        }
+        if($favorite){
+            return $this->sendResponse($favorite,
+                (isset($favorite['detached']) && !empty($favorite['detached'])) ? 'Успешно удален из избранных!' : 'Успешно добавлен в избранное!',
+            );
+        }
+        return $this->sendError('Ощибка при добавление','Ощибка при добавление',400);
+    }
+
+    public function favorites()
+    {
+
+        /**
+         * Articles
+         */
+        $articles  = [];
+        Auth::user()->favorites_articles()->paginate(5, ['*'], 'page_article')->each(function ($article) use (&$articles){
+            $articles[] = [
+                'id' => $article->id,
+                'name' => $article->name,
+                'rating' => $article->rate,
+                'authors' => $article->author ? [$article->author] : [],
+                'forum_message_count' => $article->comments ? $article->comments->count() : 0,
+                'show_counter' => $article->show_counter,
+                'image_url' => ($article->image_link) ? url($article->image_link) : null,
+            ];
+        });
+        $all_articles = Auth::user()->favorites_articles()->count();
+
+        /**
+         * Books
+         */
+        $books  = [];
+        Auth::user()->favorites_books()->paginate(5, ['*'], 'page_book')->each(function($model) use (&$books){
+
+            $authors = [];
+            if($model->author){
+                $author = $model->author->name;
+                if($model->author->surname)
+                    $author .= ' '.$model->author->surname;
+                $authors[] = $author;
+            }
+
+            $books[] = [
+                'id' => $model->id,
+                'name' => $model->name,
+                'authors' => $authors,
+                'rating' => $model->rate,
+                "price"=> $model->price,
+                "formatted_price"=> Money::KZT($model->price)->format(),
+                'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
+                'show_counter' => $model->show_counter,
+                'image_url' => ($model->image_link) ? url($model->image_link) : null,
+            ];
+        });
+        $all_books = Auth::user()->favorites_books()->count();
+
+        /**
+         * Audio-Books
+         */
+        $audio_books  = [];
+        Auth::user()->favorites_audio_books()->paginate(5, ['*'], 'page_audio_book')->each(function($model) use (&$audio_books){
+
+            $authors = [];
+            if($model->author){
+                $author = $model->author->name;
+                if($model->author->surname)
+                    $author .= ' '.$model->author->surname;
+                $authors[] = $author;
+            }
+
+            $audio_books[] = [
+                'id' => $model->id,
+                'name' => $model->name,
+                'authors' => $authors,
+                'rating' => $model->rate,
+                "price"=> $model->price,
+                "formatted_price"=> Money::KZT($model->price)->format(),
+                'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
+                'show_counter' => $model->show_counter,
+                'image_url' => ($model->image_link) ? url($model->image_link) : null,
+            ];
+        });
+        $all_audio_books = Auth::user()->favorites_audio_books()->count();
+
+        /**
+         * Videos
+         */
+        $videos  = [];
+        Auth::user()->favorites_videos()->paginate(5, ['*'], 'page_video')->each(function($model) use (&$videos){
+            $videos[] = [
+                'id' => $model->id,
+                'name' => $model->name,
+                'rating' => $model->rate,
+                'authors' => $model->author ? [$model->author] : [],
+                'forum_message_count' => $model->comments ? $model->comments->count() : 0,
+                'show_counter' => $model->show_counter,
+                'image_url' => ($model->image_link) ? url($model->image_link) : null,
+                "type" => ($model->youtube_video_id) ? "YOUTUBE" : "LOCAL",
+                'youtube_video_id' => $model->youtube_video_id
+            ];
+        });
+        $all_videos = Auth::user()->favorites_videos()->count();
+
+        $data = [
+            [
+                'type' => 'article',
+                'content' => $articles,
+                'count' => count($articles),
+                'all_count' => $all_articles
+            ],
+            [
+                'type' => 'books',
+                'content' => $books,
+                'count' => count($books),
+                'all_count' => $all_books
+            ],
+            [
+                'type' => 'audio_books',
+                'content' => $audio_books,
+                'count' => count($audio_books),
+                'all_count' => $all_audio_books
+            ],
+            [
+                'type' => 'video',
+                'content' => $videos,
+                'count' => count($videos),
+                'all_count' => $all_videos
+            ]
+        ];
+        return response($data);
     }
 
     public function my_audio_books()

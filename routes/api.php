@@ -45,11 +45,13 @@ Route::middleware('auth:sanctum')->get('/user/my_audio_books', 'Api\UserControll
 Route::middleware('auth:sanctum')->get('/user/my_tariff', 'Api\UserController@my_tariff');
 Route::middleware('auth:sanctum')->get('/user/book_shelfs', 'Api\UserController@book_shelfs');
 Route::middleware('auth:sanctum')->get('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_view');
+Route::middleware('auth:sanctum')->get('/user/favorites', 'Api\UserController@favorites');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs', 'Api\UserController@book_shelfs_add');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_update');
 Route::middleware('auth:sanctum')->post('/user/remove_book_shelfs/{id}', 'Api\UserController@book_shelfs_remove');
 Route::middleware('auth:sanctum')->post('/user/add_to_book_shelf/{id}', 'Api\UserController@add_to_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\UserController@remove_in_book_shelf');
+Route::middleware('auth:sanctum')->post('/user/toggle_favorites/{type}/{id}', 'Api\UserController@toggle_favorites');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 
 /**
