@@ -104,6 +104,7 @@ class AudioBooksController extends Controller
                         'file_id' => $audio_file->id,
                         'original_name' => $audio_file->original_name,
                         'file_size' => $audio_file->file_size,
+                        'duration' => 4200,
                         'content_type' => $audio_file->content_type,
                         'url' => $audio_file->audio_link ? url($audio_file->audio_link) : null
                     ];
