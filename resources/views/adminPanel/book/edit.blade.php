@@ -47,7 +47,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <label for="genre">Выберите жанр</label>
-                            <select multiple class="form-control" id="genre" name="genre">
+                            <select multiple class="form-control" id="genre" name="genres[]">
                                 @foreach($genres as $genre)
                                     <option @if(in_array($genre->id, $book->getGenresIds())) selected="selected" @endif value="{{$genre->id}}">{{$genre->name}}</option>
                                 @endforeach

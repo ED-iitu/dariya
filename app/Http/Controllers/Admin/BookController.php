@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Author;
 use App\Book;
+use App\BookToGenre;
 use App\Genre;
 use App\Publisher;
 use Illuminate\Http\Request;
@@ -174,8 +175,19 @@ class BookController extends Controller
                 'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
             ]);
         }
-
         $book->update($data);
+
+        BookToGenre::query()->where('book_id',$book->id)->delete();
+
+        if($request->genres){
+            foreach ($request->genres as $genre_id){
+                $link = new BookToGenre([
+                    'book_id' => $book->id,
+                    'genre_id' => $genre_id
+                ]);
+                $link->save();
+            }
+        }
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно обновлена');
