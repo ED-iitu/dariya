@@ -54,38 +54,38 @@ Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get
 /**
  * Search
  */
-Route::middleware('auth:sanctum')->get('/search', 'Api\SearchController@index');
+Route::get('search', 'Api\SearchController@index');
 
 /**
  * Home Screen
  */
-Route::middleware('auth:sanctum')->get('home_screen', 'Api\HomeScreenController@index');
+Route::get('home_screen', 'Api\HomeScreenController@index');
 
 /**
  * Help
  */
-Route::middleware('auth:sanctum')->get('/help', 'Api\HelpController@index');
-Route::middleware('auth:sanctum')->post('/help', 'Api\HelpController@create');
+Route::get('help', 'Api\HelpController@index');
+Route::middleware('auth:sanctum')->post('help', 'Api\HelpController@create');
 
 /**
  * Articles
  */
-Route::middleware('auth:sanctum')->get('articles', 'Api\ArticleController@index');
-Route::middleware('auth:sanctum')->get('articles/{id}', 'Api\ArticleController@view');
+Route::get('articles', 'Api\ArticleController@index');
+Route::get('articles/{id}', 'Api\ArticleController@view');
 
 /**
  * Books
  */
-Route::middleware('auth:sanctum')->get('books', 'Api\BookController@index');
-Route::middleware('auth:sanctum')->get('books/group_by_genre', 'Api\BookController@group_by_genre');
-Route::middleware('auth:sanctum')->get('books/{id}', 'Api\BookController@view');
+Route::get('books', 'Api\BookController@index');
+Route::get('books/group_by_genre', 'Api\BookController@group_by_genre');
+Route::get('books/{id}', 'Api\BookController@view');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 
 /**
  * Audio-Books
  */
-Route::middleware('auth:sanctum')->get('audio_books', 'Api\AudioBooksController@index');
-Route::middleware('auth:sanctum')->get('audio_books/{id}', 'Api\AudioBooksController@view');
+Route::get('audio_books', 'Api\AudioBooksController@index');
+Route::get('audio_books/{id}', 'Api\AudioBooksController@view');
 
 /**
  * Comments

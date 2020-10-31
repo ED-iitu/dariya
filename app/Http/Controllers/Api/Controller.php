@@ -5,15 +5,17 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Controllers\Controller as BaseController;
-use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Monolog\Formatter\JsonFormatter;
-use PhpParser\JsonDecoder;
-use Psy\Util\Json;
 
 class Controller extends BaseController
 {
+    public function __construct(Request $request)
+    {
+        if($request->header('Authorization')){
+            $this->middleware("auth:sanctum");
+        }
+    }
+
     /**
      * success response method.
      *
