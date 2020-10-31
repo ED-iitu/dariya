@@ -101,6 +101,8 @@ Route::get('top_books/{type?}', 'Api\TopsController@books');
 Route::get('top_audio_books/{type?}', 'Api\TopsController@audio_books');
 Route::get('news/{type?}', 'Api\TopsController@news');
 
+Route::get('genres', 'Api\BookController@genres');
+
 
 /**
  * Comments

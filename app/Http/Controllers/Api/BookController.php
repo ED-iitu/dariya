@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 
 use Akaunting\Money\Money;
 use App\Book;
+use App\Genre;
 use Gufy\PdfToHtml\Config;
 use Gufy\PdfToHtml\Html;
 use Gufy\PdfToHtml\PageGenerator;
@@ -190,6 +191,13 @@ class BookController extends Controller
         });
         return $this->sendResponse([
             'books' =>array_values($books), 'count' => $res->count(), 'all_count' => $res->total()
+        ], '');
+    }
+
+    public function genres(){
+        $genres = Genre::all();
+        return $this->sendResponse([
+            'books' =>$genres, 'count' => $genres->count(), 'all_count' => $genres->count()
         ], '');
     }
 }
