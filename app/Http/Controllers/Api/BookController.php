@@ -66,6 +66,8 @@ class BookController extends Controller
                 "publisher"=> ($book->publisher) ? $book->publisher->name : null,
                 "rating"=> $book->rate,
                 "user_rating"=> ($book->user_rate()) ? $book->user_rate()->rate : null,
+                "page_count"=> $book->page_count,
+                "duration"=> $book->duration,
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
                 "is_access"=> $is_access,
