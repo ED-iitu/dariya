@@ -197,7 +197,7 @@ class BookController extends Controller
     public function genres(){
         $genres = Genre::all();
         return $this->sendResponse([
-            'books' =>$genres, 'count' => $genres->count(), 'all_count' => $genres->count()
+            'genres' =>$genres, 'count' => $genres->count(), 'all_count' => $genres->count()
         ], '');
     }
 }
