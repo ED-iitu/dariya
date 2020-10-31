@@ -12,6 +12,8 @@ use App\BookShelfLink;
 use App\Favorite;
 use App\Helpers\DateHelper;
 use App\Helpers\PhoneHelper;
+use App\PushSetting;
+use App\PushSettingsValue;
 use App\Tariff;
 use App\User;
 use App\UserBuyedBook;
@@ -385,5 +387,34 @@ class UserController extends Controller
             }
         }
         return $this->sendError('Not Found','Ресус не найден');
+    }
+
+    public function push_settings(){
+        $data = [];
+        $user = Auth::user();
+        PushSetting::query()->each(function ($setting) use (&$data, $user){
+            $data[] = [
+                'id' => $setting->id,
+                'name' => $setting->name,
+                'title' => $setting->title,
+                'value' => ($setting->getValue()) ? 'Y' : 'N'
+            ];
+        });
+        return $this->sendResponse($data, 'Успешно добавлен!');
+    }
+
+    public function toggle_settings($id){
+        $value = $this->getParsedBody('value');
+        if(in_array($value,['Y', 'N']) && PushSetting::query()->find($id)){
+            $data = [
+                'setting_id' => $id,
+                'value' => ($value == 'Y') ? 1 : 0,
+                'user_id' => Auth::id()
+            ];
+            PushSettingsValue::query()->where(['user_id' => Auth::id(), 'setting_id' => $id])->delete();
+            PushSettingsValue::create($data);
+            return $this->sendResponse($data,  'Настройки успешно сохранены!' );
+        }
+        return $this->sendError('Ошибка при обнавление!','Ошибка при обнавление!',400);
     }
 }

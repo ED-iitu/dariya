@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->get('/user/my_tariff', 'Api\UserController@my
 Route::middleware('auth:sanctum')->get('/user/book_shelfs', 'Api\UserController@book_shelfs');
 Route::middleware('auth:sanctum')->get('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_view');
 Route::middleware('auth:sanctum')->get('/user/favorites', 'Api\UserController@favorites');
+Route::middleware('auth:sanctum')->get('/user/push_settings', 'Api\UserController@push_settings');
+Route::middleware('auth:sanctum')->post('/user/push_settings/{id}', 'Api\UserController@toggle_settings');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs', 'Api\UserController@book_shelfs_add');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_update');
 Route::middleware('auth:sanctum')->post('/user/remove_book_shelfs/{id}', 'Api\UserController@book_shelfs_remove');
