@@ -138,7 +138,7 @@ class UserController extends Controller
                 "id"=> $book_shelf->id,
                 "title"=> $book_shelf->title,
                 "description"=> $book_shelf->description,
-                "image"=> $book_shelf->image_url ? url('uploads/'.$book_shelf->image_url) :
+                "image"=> ($book_shelf->image_url) ? url('uploads/'.$book_shelf->image_url) :
                     (($book_shelf->books) ? url($book_shelf->books->first()->image_link) : null),
                 "books_count"=> ($book_shelf->books) ? $book_shelf->books->count() : 0,
             ];
@@ -180,8 +180,15 @@ class UserController extends Controller
             $file = $request->file('image_url')->storeAs('book_shelfs/'.$id, Str::random(32).'.'.$request->file('image_url')->extension(), 'public');
             $data['image_url'] = $file;
         }
-        $book_shelf= BookShelf::where('id',$id)->update($data);
+        $book_shelf= BookShelf::where(['id'=>$id, 'user_id' => Auth::id()])->update($data);
         return $this->sendResponse($book_shelf, $book_shelf ? 'Полка успешно обнавлена!' : 'Ошибка при обнавление!',
+            $book_shelf ? 200 : 400);
+    }
+
+    public function book_shelfs_remove($id){
+        $book_shelf= BookShelf::where(['id'=>$id, 'user_id' => Auth::id()])->delete();
+        BookShelfLink::where(['shelf_id'=>$id])->delete();
+        return $this->sendResponse($book_shelf, $book_shelf ? 'Полка успешно удалена!' : 'Ошибка при удаление!',
             $book_shelf ? 200 : 400);
     }
 

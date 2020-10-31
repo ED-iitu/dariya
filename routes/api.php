@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->get('/user/book_shelfs', 'Api\UserController@
 Route::middleware('auth:sanctum')->get('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_view');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs', 'Api\UserController@book_shelfs_add');
 Route::middleware('auth:sanctum')->post('/user/book_shelfs/{id}', 'Api\UserController@book_shelfs_update');
+Route::middleware('auth:sanctum')->post('/user/remove_book_shelfs/{id}', 'Api\UserController@book_shelfs_remove');
 Route::middleware('auth:sanctum')->post('/user/add_to_book_shelf/{id}', 'Api\UserController@add_to_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\UserController@remove_in_book_shelf');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
