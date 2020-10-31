@@ -190,7 +190,7 @@ class BookController extends Controller
             $i++;
         });
         return $this->sendResponse([
-            'books' =>array_values($books), 'count' => $res->count(), 'all_count' => $res->total()
+            'genres' =>array_values($books), 'count' => $res->count(), 'all_count' => $res->total()
         ], '');
     }
 
