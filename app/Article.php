@@ -4,6 +4,7 @@ namespace App;
 
 use App\Shared\Recentable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -22,4 +23,19 @@ class Article extends Model
     public function categories(){
         return $this->hasManyThrough(Category::class, ArticleToCategory::class, 'article_id', 'id', 'id','category_id');
     }
+    public function user_rate()
+    {
+        if (Auth::user()) {
+            return Rating::query()
+                ->where([
+                    'author_id' => Auth::id(),
+                    'object_type' => Rating::ARTICLE_TYPE,
+                    'object_id' => $this->id
+                ])
+                ->orderBy('created_at')
+                ->first();
+        }
+        return false;
+    }
+
 }

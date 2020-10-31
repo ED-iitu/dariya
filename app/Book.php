@@ -27,7 +27,7 @@ class Book extends Model
 
     public function ratings()
     {
-        return $this->hasMany(Rating::class, 'object_id', 'id')->where('object_type','=', Rating::BOOK_TYPE);
+        return $this->hasMany(Rating::class, 'object_id', 'id')->where('object_type', '=', Rating::BOOK_TYPE);
     }
 
     public function publisher()
@@ -37,7 +37,7 @@ class Book extends Model
 
     public function genres()
     {
-        return $this->hasManyThrough(Genre::class, BookToGenre::class, 'book_id', 'id', 'id','genre_id');
+        return $this->hasManyThrough(Genre::class, BookToGenre::class, 'book_id', 'id', 'id', 'genre_id');
     }
 
     public function objectToGenres()
@@ -52,7 +52,7 @@ class Book extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type','=', Comment::BOOK_TYPE);
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::BOOK_TYPE);
     }
 
     public function audio_files()
@@ -60,9 +60,10 @@ class Book extends Model
         return $this->hasMany(AudioFile::class, 'book_id', 'id');
     }
 
-    public function getGenresIds(){
+    public function getGenresIds()
+    {
         $ids = [];
-        foreach ($this->genres as $genre){
+        foreach ($this->genres as $genre) {
             $ids[] = $genre->id;
         }
         return $ids;
@@ -70,8 +71,23 @@ class Book extends Model
 
     public function favorited()
     {
-        return (bool) Favorite::where('user_id', Auth::id())
+        return (bool)Favorite::where('user_id', Auth::id())
             ->where('object_id', $this->id)
             ->first();
+    }
+
+    public function user_rate()
+    {
+        if (Auth::user()) {
+            return Rating::query()
+                ->where([
+                    'author_id' => Auth::id(),
+                    'object_type' => Rating::BOOK_TYPE,
+                    'object_id' => $this->id
+                ])
+                ->orderBy('created_at')
+                ->first();
+        }
+        return false;
     }
 }

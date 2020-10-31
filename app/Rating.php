@@ -8,6 +8,7 @@ class Rating extends Model
 {
     const ARTICLE_TYPE = 'article';
     const BOOK_TYPE = 'book';
+    const VIDEO_TYPE = 'video';
 
     protected $table = 'ratings';
 
@@ -34,6 +35,10 @@ class Rating extends Model
                 $article->save();
             }elseif($object_type == self::BOOK_TYPE){
                 $book = Book::query()->find($object_id);
+                $book->rate = $rating;
+                $book->save();
+            }elseif($object_type == self::VIDEO_TYPE){
+                $book = Video::query()->find($object_id);
                 $book->rate = $rating;
                 $book->save();
             }

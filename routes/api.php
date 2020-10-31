@@ -88,6 +88,13 @@ Route::get('audio_books', 'Api\AudioBooksController@index');
 Route::get('audio_books/{id}', 'Api\AudioBooksController@view');
 
 /**
+ * Videos
+ */
+Route::get('videos', 'Api\VideoController@index');
+Route::get('videos/{id}', 'Api\VideoController@view');
+
+
+/**
  * Comments
  */
 Route::middleware('auth:sanctum')->post('comment/{object_type}/{id}', 'Api\CommentController@create');

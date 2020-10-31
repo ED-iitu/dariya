@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Article;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
 
 class ArticleController extends Controller
 {
@@ -39,6 +38,7 @@ class ArticleController extends Controller
                 "preview_text"=> $article->preview_text,
                 "detail_text"=> $article->detail_text,
                 "rating"=> $article->rate,
+                "user_rating"=> ($article->user_rate()) ? $article->user_rate()->rate : null,
                 "authors"=> $article->author ? [$article->author] : [],
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0 ,
                 "show_counter"=> $article->show_counter,

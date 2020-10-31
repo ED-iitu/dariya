@@ -118,7 +118,13 @@ class HomeScreenController extends Controller
         $res->each(function($model) use (&$videos){
             $videos[] = [
                 'id' => $model->id,
-                'name' => '',
+                'name' => $model->name,
+                'rating' => $model->rate,
+                'authors' => $model->author ? [$model->author] : [],
+                'forum_message_count' => $model->comments ? $model->comments->count() : 0,
+                'show_counter' => $model->show_counter,
+                'image_url' => ($model->image_link) ? url($model->image_link) : null,
+                "type" => ($model->youtube_video_id) ? "YOUTUBE" : "LOCAL",
                 'youtube_video_id' => $model->youtube_video_id
             ];
         });

@@ -65,6 +65,7 @@ class BookController extends Controller
                 "lang_label"=> $book->getLangLabel(),
                 "publisher"=> ($book->publisher) ? $book->publisher->name : null,
                 "rating"=> $book->rate,
+                "user_rating"=> ($book->user_rate()) ? $book->user_rate()->rate : null,
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
                 "is_access"=> $is_access,
