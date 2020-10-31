@@ -93,6 +93,13 @@ Route::get('audio_books/{id}', 'Api\AudioBooksController@view');
 Route::get('videos', 'Api\VideoController@index');
 Route::get('videos/{id}', 'Api\VideoController@view');
 
+/**
+ * Tops
+ */
+Route::get('top_books/{type?}', 'Api\TopsController@books');
+Route::get('top_audio_books/{type?}', 'Api\TopsController@audio_books');
+Route::get('news/{type?}', 'Api\TopsController@news');
+
 
 /**
  * Comments
