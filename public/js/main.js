@@ -18,11 +18,7 @@ $(function () {
     //site_search
     $('.search__active').on('click', function () {
         $('#site_search').addClass('show');
-<<<<<<< Updated upstream
-        $('#site_search').find('input[type="text"]').focus();
-=======
         $('#blackout-box').removeClass('d-none');
->>>>>>> Stashed changes
     });
     $('#site_search .close').on('click', function () {
         $('#site_search').removeClass('show');
@@ -103,16 +99,10 @@ $(function () {
         loop: true,
         dots: true,
         nav: true,
-<<<<<<< Updated upstream
-        autoplay: true,
-        autoplayTimeout: 7000,
-        navText: ''
-=======
         navText: '',
         autoplay:true,
         autoplayTimeout:7000,
         animateOut: 'fadeOut',
->>>>>>> Stashed changes
     });
     $("#articles_slider .owl-carousel").owlCarousel({
         items: 4,
@@ -120,12 +110,8 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-<<<<<<< Updated upstream
-        autoplayTimeout: 5000,
-=======
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -154,12 +140,8 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-<<<<<<< Updated upstream
-        autoplayTimeout: 5000,
-=======
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -185,12 +167,8 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-<<<<<<< Updated upstream
-        autoplayTimeout: 7000,
-=======
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -216,12 +194,8 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-<<<<<<< Updated upstream
-        autoplayTimeout: 7000,
-=======
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -246,12 +220,8 @@ $(function () {
         margin: 15,
         nav: true,
         navText: '',
-<<<<<<< Updated upstream
-        autoplayTimeout: 7000,
-=======
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         responsive: {
             // breakpoint from 0 up
             0: {
@@ -274,14 +244,9 @@ $(function () {
     $('#advertisings .owl-carousel').owlCarousel({
         items: 1,
         loop: true,
-<<<<<<< Updated upstream
-        dots: true,
-        nav: true,
-=======
         dots:true,
         autoplay:true,
         autoplayTimeout:5000,
->>>>>>> Stashed changes
         navText: ''
     });
     // about

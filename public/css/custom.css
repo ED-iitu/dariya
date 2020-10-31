@@ -46,7 +46,7 @@ header .container #site_search {
     max-width: 750px;
     margin: auto;
     padding: 0px 15px;
-    z-index: 99;
+    z-index: 9999;
 }
 header .container #site_search.show {
     display: block;
