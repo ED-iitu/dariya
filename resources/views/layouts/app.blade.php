@@ -44,9 +44,24 @@
                         <a class="search">
                             <img src="https://img.icons8.com/ios-glyphs/25/search.png" alt="">
                         </a>
-                        <input type="text" placeholder="Поиск...">
+                        <input name="search" type="text" placeholder="Поиск...">
                         <a class="close">
                             <img src="https://img.icons8.com/ios/35/multiply.png" alt="">
+                        </a>
+                    </div>
+                    <div class="results-box">
+                        <a href="#" class="result p-2 p-md-3">
+                            <div class="image mr-3" style="background-image: url('/images/bg/7.jpg');"></div>
+                            <div class="content">
+                                <div class="info">
+                                    <h6 class="title mb-1">Title</h6>
+                                    <span class="label">Label</span>
+                                    <p class="text mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                                </div>
+                                <div class="price">
+                                    <span>1 559 ₸</span>
+                                </div>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -60,7 +75,7 @@
                     </div>
                     <div class="col-lg-8 d-none d-lg-block">
                         <nav class="mainmenu__nav">
-                            <ul class="meninmenu d-flex justify-content-start mb-0">
+                            <ul class="meninmenu d-flex justify-content-start mx-auto my-0">
                                 <li class="drop with--one--item"><a href="{{route('home')}}">Главная</a></li>
                                 <li class="drop"><a href="{{route('articles')}}">Статьи</a></li>
                                 <li class="drop"><a href="{{route('books')}}">Книги</a></li>
@@ -119,6 +134,7 @@
                 </div>
                 <!-- Mobile Menu -->
             </div>
+            <div id="blackout-box" class="d-none"></div>
         </header>
 
         <!-- Start Search Popup -->

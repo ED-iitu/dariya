@@ -37338,3 +37338,12 @@ module.exports = __webpack_require__(/*! /Users/eduard/Desktop/dariya-new/resour
 /***/ })
 
 /******/ });
+<<<<<<< Updated upstream
+=======
+
+window.onload = function() {
+    if (typeof tinymce !== 'undefined') {
+        tinymce.init({selector:'.tiny_editor'});
+    }
+};
+>>>>>>> Stashed changes
