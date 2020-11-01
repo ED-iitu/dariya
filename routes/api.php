@@ -84,6 +84,7 @@ Route::get('articles/{id}', 'Api\ArticleController@view');
 Route::get('books', 'Api\BookController@index');
 Route::get('books/group_by_genre', 'Api\BookController@group_by_genre');
 Route::get('books/{id}', 'Api\BookController@view');
+Route::get('related_books/{id}', 'Api\BookController@relatedBooks');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 
 /**

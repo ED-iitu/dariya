@@ -198,6 +198,33 @@ class BookController extends Controller
         ], '');
     }
 
+    public function relatedBooks($id){
+        $books = [];
+        if($book = Book::find($id)){
+            $res = Book::query()->where('type', $book->type)->whereHas('genres', function($query)use($book){
+                return $query->whereIn('genre_id', $book->genres->pluck('id')->toArray());
+            })->paginate(5);
+            $res->each(function ($book) use (&$books){
+                $books[] = [
+                    "id"=> $book->id,
+                    "name"=> $book->name,
+                    "rating"=> $book->rate,
+                    "type"=> $book->type,
+                    "is_free"=> $book->is_free ? true :false,
+                    "is_favorite"=> $book->isBookFavorite(),
+                    "price"=> $book->price,
+                    "formatted_price"=> Money::KZT($book->price)->format(),
+                    "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
+                    "show_counter"=> $book->show_counter,
+                    "image_url"=> ($book->image_link) ? url($book->image_link) : null
+                ];
+            });
+        }
+        return $this->sendResponse([
+            'related_books' =>array_values($books), 'count' => $res->count(), 'all_count' => $res->total()
+        ], '');
+    }
+
     public function genres(){
         $genres = Genre::all();
         return $this->sendResponse([
