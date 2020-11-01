@@ -29,11 +29,19 @@ class TopsController extends Controller
             $books = [];
             $res = Book::query()->where(['type' => Book::BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
+                $authors = [];
+                if($book->author){
+                    $author = $book->author->name;
+                    if($book->author->surname)
+                        $author .= ' '.$book->author->surname;
+                    $authors[] = $author;
+                }
                 $books[] = [
                     "id"=> $book->id,
                     "name"=> $book->name,
                     "rating"=> $book->rate,
                     "type"=> $book->type,
+                    'authors' => $authors,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
                     "price"=> $book->price,
@@ -116,11 +124,19 @@ class TopsController extends Controller
             $books = [];
             $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
+                $authors = [];
+                if($book->author){
+                    $author = $book->author->name;
+                    if($book->author->surname)
+                        $author .= ' '.$book->author->surname;
+                    $authors[] = $author;
+                }
                 $books[] = [
                     "id"=> $book->id,
                     "name"=> $book->name,
                     "rating"=> $book->rate,
                     "type"=> $book->type,
+                    'authors' => $authors,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
                     "price"=> $book->price,
@@ -203,6 +219,13 @@ class TopsController extends Controller
             $books = [];
             $res = Book::query()->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
+                $authors = [];
+                if($book->author){
+                    $author = $book->author->name;
+                    if($book->author->surname)
+                        $author .= ' '.$book->author->surname;
+                    $authors[] = $author;
+                }
                 $books[] = [
                     "id"=> $book->id,
                     "name"=> $book->name,
@@ -210,6 +233,7 @@ class TopsController extends Controller
                     "type"=> $book->type,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
+                    'authors' => $authors,
                     "price"=> $book->price,
                     "formatted_price"=> Money::KZT($book->price)->format(),
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
