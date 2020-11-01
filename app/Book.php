@@ -90,4 +90,40 @@ class Book extends Model
         }
         return false;
     }
+
+    public function isBookFavorite()
+    {
+        if (Auth::user() &&
+            Favorite::query()
+                ->where([
+                    'object_id' => $this->id,
+                    'object_type' => Favorite::FAVORITE_BOOK_TYPE,
+                    'user_id' => Auth::id()
+                ])->exists()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isAudioBookFavorite()
+    {
+        if (Auth::user() &&
+            Favorite::query()
+                ->where([
+                    'object_id' => $this->id,
+                    'object_type' => Favorite::FAVORITE_AUDIO_BOOK_TYPE,
+                    'user_id' => Auth::id()
+                ])->exists()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isFavorite()
+    {
+        if ($this->isBookFavorite() || $this->isAudioBookFavorite()) {
+            return true;
+        }
+        return false;
+    }
 }
