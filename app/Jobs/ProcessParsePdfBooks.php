@@ -38,11 +38,13 @@ class ProcessParsePdfBooks implements ShouldQueue
     {
         $book = $this->book;
         $path = public_path(substr_replace($book->book_link,'',0,1));
-        // change pdftohtml bin location
-        Config::set('pdftohtml.bin', base_path('bin/win/poppler-0.68.0/bin/pdftohtml.exe'));
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+            // change pdftohtml bin location
+            Config::set('pdftohtml.bin', base_path('bin/win/poppler-0.68.0/bin/pdftohtml.exe'));
 
-        // change pdfinfo bin location
-        Config::set('pdfinfo.bin', base_path('bin/win/poppler-0.68.0/bin/pdfinfo.exe'));
+            // change pdfinfo bin location
+            Config::set('pdfinfo.bin', base_path('bin/win/poppler-0.68.0/bin/pdfinfo.exe'));
+        }
 
         $pdf_pages_dir = storage_path('app/public/pdf/book_'.$book->id);
 
