@@ -36,6 +36,12 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <input multiple id="book_audio_files_input" type="file" name="audio_files[]" class="form-control" placeholder="Аудио">
+                            <div id="audio-file-content"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <textarea name="preview_text" class="form-control" placeholder="Краткое описание">{{ $book->preview_text }}</textarea>
                         </div>
                     </div>
@@ -139,10 +145,7 @@
                             </div>
                             <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <div class="form-group">
-                                        <input multiple id="book_audio_files_input" type="file" name="audio_files[]" class="form-control" placeholder="Аудио">
-                                        <div id="audio-file-content"></div>
-                                    </div>
+
                                 </div>
                             </div>
                             <script type="text/javascript">

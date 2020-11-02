@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('videoMaterial', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
         Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
         Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
+        Route::get('audio_load/{id}', 'Admin\BookController@loadAudioFiles')->name('loadAudioFiles');
     });
 Route::get('/signin', 'Site\CreateAccountController@signin')->name('signin');
 Route::get('/signup', 'Site\CreateAccountController@signup')->name('signup');

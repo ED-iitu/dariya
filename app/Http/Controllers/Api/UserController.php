@@ -304,12 +304,21 @@ class UserController extends Controller
 
     public function book_shelfs_view($id){
         if($book_shelf = BookShelf::query()->where(['id' => $id, 'user_id' => Auth::id()])->first()){
+            $image_url = null;
+            if($book_shelf->image_url){
+                $image_url = url('uploads/'.$book_shelf->image_url);
+            }else{
+                if($book_shelf->books){
+                    if($book_shelf->books->first()){
+                        $image_url = url($book_shelf->books->first()->image_link);
+                    }
+                }
+            }
             $data = [
                 "id"=> $book_shelf->id,
                 "title"=> $book_shelf->title,
                 "description"=> $book_shelf->description,
-                "image"=> ($book_shelf->image_url) ? url('uploads/'.$book_shelf->image_url) :
-                    (($book_shelf->books) ? url($book_shelf->books->first()->image_link) : null),
+                "image"=> $image_url,
                 "books_count"=> ($book_shelf->books) ? $book_shelf->books->count() : 0,
             ];
             if($book_shelf->books){

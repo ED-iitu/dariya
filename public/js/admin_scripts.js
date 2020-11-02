@@ -34,6 +34,42 @@
         '{TAG_CSS_INIT}': 'kv-hidden'  // hide the initial input
     };
     $("#book_audio_files_input").fileinput(fileinput_params);
+    //     var count=0;
+    //     $("#fileuploader").uploadFile({
+    //         // url:"YOUR_FILE_UPLOAD_URL",
+    //         fileName:"audio_files",
+    //         autoSubmit: false,
+    //         uploadStr:"Выбрать",
+    //         dragDropStr: "<span><b>Или перетащите файлы сюда</b></span>",
+    //         extraHTML:function()
+    //         {
+    //             var html = "<div>Название главы: <input type='text' name='tags' value='' /> <br/>";
+    //             html += "</div>";
+    //             return html;
+    //         },
+    //         onSelect:function(files)
+    //         {
+    //             console.log(files);
+    //             files[0].name;
+    //             files[0].size;
+    //             return true; //to allow file submission.
+    //         },
+    //         onLoad:function(obj)
+    //         {
+    //             $.ajax({
+    //                 cache: false,
+    //                 url: "/admin/audio_load/5",
+    //                 dataType: "json",
+    //                 success: function(data)
+    //                 {
+    //                     for(var i=0;i<data.length;i++)
+    //                     {
+    //                         obj.createProgress(data[i]["name"],data[i]["path"],data[i]["size"]);
+    //                     }
+    //                 }
+    //             });
+    //         },
+    //     });
 })(jQuery);
 window.onload = function() {
     tinymce.init({selector:'.tiny_editor'});

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AudioFile;
 use App\Author;
 use App\Book;
 use App\BookToGenre;
 use App\Genre;
 use App\Publisher;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -130,6 +132,17 @@ class BookController extends Controller
         ]);
     }
 
+    public function loadAudioFiles($id){
+        $data = [];
+        AudioFile::query()->where('book_id',$id)->each(function ($file) use (&$data){
+            $data[] = [
+                'name' => $file->original_name,
+                'path' => $file->audio_link,
+                'size' => $file->file_size
+            ];
+        });
+        return new JsonResponse($data,'200');
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -139,6 +152,7 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
+        dd($_FILES,$request->file('audio_files'));
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
 

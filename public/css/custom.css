@@ -1209,6 +1209,7 @@ div.video-item span.more {
     /*article-item*/
     div.article-item a div.image {
         height: 100px;
+        background-size: contain;
     }
     div.article-item div.info {
         flex-direction: column;
