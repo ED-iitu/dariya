@@ -54,14 +54,19 @@ class ProcessParsePdfBooks implements ShouldQueue
         ]);
 
         $page  = 1;
-        $data = [];
         foreach ($pdf_to_html->getHtml() as $html){
-            $book_page = new BookPages();
-            $book_page->setRawAttributes([
-                'book_id' => $book->id,
-                'page' => $page,
-                'content' => $html
-            ]);
+            $book = BookPages::query()->where(['book_id' => $book->id, 'page' => $page])->first();
+            if($book){
+                $book->content = $html;
+            }else{
+                $book_page = new BookPages();
+                $book_page->setRawAttributes([
+                    'book_id' => $book->id,
+                    'page' => $page,
+                    'content' => $html
+                ]);
+            }
+
             if($book_page->save()){
                 ProcessCorrectingPdfBooks::dispatch($book_page);
             }

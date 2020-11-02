@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\AudioFile;
 use App\Author;
 use App\Book;
+use App\BookPages;
 use App\BookToGenre;
 use App\Genre;
 use App\Publisher;
@@ -152,7 +153,6 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        dd($_FILES,$request->file('audio_files'));
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
 
@@ -216,7 +216,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        $book->delete();
+        if($book->delete()){
+            BookPages::query()->where(['book_id' => $book->id])->delete();
+        }
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно удалена');
