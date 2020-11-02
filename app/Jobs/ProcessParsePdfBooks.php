@@ -55,9 +55,8 @@ class ProcessParsePdfBooks implements ShouldQueue
 
         $page  = 1;
         foreach ($pdf_to_html->getHtml() as $html){
-            $book = BookPages::query()->where(['book_id' => $book->id, 'page' => $page])->first();
-            if($book){
-                $book->content = $html;
+            if($book_page = BookPages::query()->where(['book_id' => $book->id, 'page' => $page])->first()){
+                $book_page->content = $html;
             }else{
                 $book_page = new BookPages();
                 $book_page->setRawAttributes([
