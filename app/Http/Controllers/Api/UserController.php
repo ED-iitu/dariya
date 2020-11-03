@@ -58,7 +58,7 @@ class UserController extends Controller
                         return $this->sendResponse(['book_id' => $id],'Книга успешно добавлен в мои книги!');
                     }
                 }
-                return $this->sendError('У вас уже имеется в списке мои книг','Ошибка при добавление' ,409);
+                return $this->sendError('Эта книга уже имеется в списке мои книг','Ошибка при добавление' ,409);
             }else{
                 return $this->sendError('У вас не имеется подписка. Оформите подписку или купите эту книгу','Ошибка при добавление' ,403);
             }
@@ -73,12 +73,12 @@ class UserController extends Controller
             if($bookQuery->exists()){
                 $book = $bookQuery->first();
                 if($book->type_of_acquisition == UserBook::USER_BOOK_PURCHASED){
-                    return $this->sendError('Вы купили эту книгу, по этому нельзя удалить из списка мои книг!','Ошибка при добавление' ,409);
+                    return $this->sendError('Вы купили эту книгу, по этому нельзя удалить из списка мои книг!','Ошибка при удаление' ,409);
                 }
                 return $this->sendResponse(['book_id' => $id],'Книга успешно удален из мои книги!');
             }
         }
-        return $this->sendError('Книга не найдено','Ошибка при добавление' ,404);
+        return $this->sendError('Книга не найдено','Ошибка при удаление' ,404);
     }
 
     public function toggle_favorites($type,$id){
