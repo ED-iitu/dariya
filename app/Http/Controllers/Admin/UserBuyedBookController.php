@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\UserBuyedBook;
+use App\UserBook;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -42,10 +42,10 @@ class UserBuyedBookController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\UserBuyedBook  $userBuyedBook
+     * @param  \App\UserBook  $userBuyedBook
      * @return \Illuminate\Http\Response
      */
-    public function show(UserBuyedBook $userBuyedBook)
+    public function show(UserBook $userBuyedBook)
     {
         //
     }
@@ -53,10 +53,10 @@ class UserBuyedBookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\UserBuyedBook  $userBuyedBook
+     * @param  \App\UserBook  $userBuyedBook
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserBuyedBook $userBuyedBook)
+    public function edit(UserBook $userBuyedBook)
     {
         //
     }
@@ -65,10 +65,10 @@ class UserBuyedBookController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserBuyedBook  $userBuyedBook
+     * @param  \App\UserBook  $userBuyedBook
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UserBuyedBook $userBuyedBook)
+    public function update(Request $request, UserBook $userBuyedBook)
     {
         //
     }
@@ -76,10 +76,10 @@ class UserBuyedBookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\UserBuyedBook  $userBuyedBook
+     * @param  \App\UserBook  $userBuyedBook
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserBuyedBook $userBuyedBook)
+    public function destroy(UserBook $userBuyedBook)
     {
         //
     }

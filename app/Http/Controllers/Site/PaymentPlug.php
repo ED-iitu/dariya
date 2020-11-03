@@ -7,7 +7,7 @@ namespace App\Http\Controllers\Site;
 use App\TariffPriceList;
 use App\Transaction;
 use App\User;
-use App\UserBuyedBook;
+use App\UserBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -48,8 +48,8 @@ class PaymentPlug
                 $transaction->processor_transaction_id = Str::random(255);
                 if($transaction->save()){
                     $success_pay = true;
-                    if(!($my_book = UserBuyedBook::query()->where(['book_id'=> $transaction->object_id, 'user_id' => Auth::id()])->first())){
-                        UserBuyedBook::query()->create([
+                    if(!($my_book = UserBook::query()->where(['book_id'=> $transaction->object_id, 'user_id' => Auth::id()])->first())){
+                        UserBook::query()->create([
                             'user_id' => $user->id,
                             'book_id' => $transaction->object_id
                         ]);

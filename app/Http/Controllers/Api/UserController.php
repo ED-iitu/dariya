@@ -16,7 +16,7 @@ use App\PushSetting;
 use App\PushSettingsValue;
 use App\Tariff;
 use App\User;
-use App\UserBuyedBook;
+use App\UserBook;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,18 +33,52 @@ class UserController extends Controller
 
         $books = [];
         Auth::user()->books()->each(function ($book) use (&$books){
-            if($book->type == Book::BOOK_TYPE){
                 $books[] = [
                     "id"=> $book->id,
                     "name"=> $book->name,
                     "rating"=> $book->rate,
+                    "type"=> $book->type,
+                    "is_free"=> $book->is_free ? true :false,
+                    "is_favorite"=> $book->isBookFavorite(),
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                     "show_counter"=> $book->show_counter,
                     "image_url"=> ($book->image_link) ? url($book->image_link) : null
                 ];
-            }
         });
         return $this->sendResponse($books, '');
+    }
+
+    public function add_to_my_books($id)
+    {
+        if(Book::query()->find($id)){
+            if(Auth::user()->have_active_tariff()){
+                if(!UserBook::query()->where(['book_id' => $id, 'user_id' => Auth::id()])->exists()){
+                    $new_link = new UserBook(['book_id' => $id, 'user_id' => Auth::id(), 'type_of_acquisition' => UserBook::USER_BOOK_SUBSCRIPTION]);
+                    if($new_link->save()){
+                        return $this->sendResponse(['book_id' => $id],'Книга успешно добавлен в мои книги!');
+                    }
+                }
+                return $this->sendError('У вас уже имеется в списке мои книг','Ошибка при добавление' ,409);
+            }else{
+                return $this->sendError('У вас не имеется подписка. Оформите подписку или купите эту книгу','Ошибка при добавление' ,403);
+            }
+        }
+        return $this->sendError('Книга не найдено','Ошибка при добавление' ,404);
+    }
+
+    public function remove_in_my_books($id)
+    {
+        if(Book::query()->find($id)){
+            $bookQuery = UserBook::query()->where(['book_id' => $id, 'user_id' => Auth::id()]);
+            if($bookQuery->exists()){
+                $book = $bookQuery->first();
+                if($book->type_of_acquisition == UserBook::USER_BOOK_PURCHASED){
+                    return $this->sendError('Вы купили эту книгу, по этому нельзя удалить из списка мои книг!','Ошибка при добавление' ,409);
+                }
+                return $this->sendResponse(['book_id' => $id],'Книга успешно удален из мои книги!');
+            }
+        }
+        return $this->sendError('Книга не найдено','Ошибка при добавление' ,404);
     }
 
     public function toggle_favorites($type,$id){
@@ -381,7 +415,7 @@ class UserController extends Controller
     public function add_to_book_shelf($id){
         if($book_shelf = BookShelf::query()->where(['id' => $id, 'user_id' => Auth::id()])->first()){
             $book_id = $this->getParsedBody('book_id');
-            if((Auth::user()->have_active_tariff() ||UserBuyedBook::query()->where('book_id', $book_id)->exists())
+            if((Auth::user()->have_active_tariff() ||UserBook::query()->where('book_id', $book_id)->exists())
                 && !BookShelfLink::query()->where(['book_id' => $book_id, 'shelf_id' => $id])->exists()){
                 $data = [
                     'book_id' => $book_id,

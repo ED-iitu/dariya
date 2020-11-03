@@ -8,7 +8,7 @@ use App\Book;
 use App\Tariff;
 use App\TariffPriceList;
 use App\Transaction;
-use App\UserBuyedBook;
+use App\UserBook;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -52,7 +52,7 @@ class OrderController extends Controller
                 case Transaction::TRANSACTION_TYPE_PRODUCT:
                     $book = Book::query()->find($object_id);
                     if($book){
-                        if($my_book = UserBuyedBook::query()->where(['book_id' => $book->id, 'user_id' => $user->id])->first()){
+                        if($my_book = UserBook::query()->where(['book_id' => $book->id, 'user_id' => $user->id])->first()){
                             return $this->sendError('Forbidden','Вы ранее уже купили эту книгу', 403);
                         }
                         $user = Auth::user();

@@ -67,6 +67,7 @@ class AudioBooksController extends Controller
                 "duration"=> $audio_book->duration,
                 "is_free"=> $audio_book->is_free ? true :false,
                 "is_favorite"=> $audio_book->isFavorite(),
+                "in_my_book"=> $audio_book->inMyBook(),
                 "is_access"=> $is_access,
                 "price"=> $audio_book->price,
                 "formatted_price"=> Money::KZT($audio_book->price)->format(),

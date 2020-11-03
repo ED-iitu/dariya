@@ -63,7 +63,7 @@ class User extends Authenticatable implements SocialAuthenticatable
     {
         return $this->hasManyThrough(
             Book::class,
-            UserBuyedBook::class,
+            UserBook::class,
             'user_id',
             'id',
             'id',

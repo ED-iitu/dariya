@@ -105,6 +105,19 @@ class Book extends Model
         return false;
     }
 
+    public function inMyBook()
+    {
+        if (Auth::user() &&
+            UserBook::query()
+                ->where([
+                    'book_id' => $this->id,
+                    'user_id' => Auth::id()
+                ])->exists()) {
+            return true;
+        }
+        return false;
+    }
+
     public function isAudioBookFavorite()
     {
         if (Auth::user() &&
