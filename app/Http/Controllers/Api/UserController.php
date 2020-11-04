@@ -75,6 +75,7 @@ class UserController extends Controller
                 if($book->type_of_acquisition == UserBook::USER_BOOK_PURCHASED){
                     return $this->sendError('Вы купили эту книгу, по этому нельзя удалить из списка мои книг!','Ошибка при удаление' ,409);
                 }
+                $book->delete();
                 return $this->sendResponse(['book_id' => $id],'Книга успешно удален из мои книги!');
             }
         }
