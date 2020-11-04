@@ -38,40 +38,46 @@ class ProcessParsePdfBooks implements ShouldQueue
     {
         $book = $this->book;
         $path = public_path(substr_replace($book->book_link,'',0,1));
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            // change pdftohtml bin location
-            Config::set('pdftohtml.bin', base_path('bin/win/poppler-0.68.0/bin/pdftohtml.exe'));
+        $hash = hash_file('sha256', $path);
+        if($book->pdf_hash != $hash){
+            if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+                // change pdftohtml bin location
+                Config::set('pdftohtml.bin', base_path('bin/win/poppler-0.68.0/bin/pdftohtml.exe'));
 
-            // change pdfinfo bin location
-            Config::set('pdfinfo.bin', base_path('bin/win/poppler-0.68.0/bin/pdfinfo.exe'));
-        }
-
-        $pdf_pages_dir = storage_path('app/public/pdf/book_'.$book->id);
-
-        Config::set('pdftohtml.output', $pdf_pages_dir);
-        $pdf_to_html = new Html($path,[
-            'ignoreImages'=>true,
-        ]);
-
-        $page  = 1;
-        foreach ($pdf_to_html->getHtml() as $html){
-            if($book_page = BookPages::query()->where(['book_id' => $book->id, 'page' => $page])->first()){
-                $book_page->content = $html;
-            }else{
-                $book_page = new BookPages();
-                $book_page->setRawAttributes([
-                    'book_id' => $book->id,
-                    'page' => $page,
-                    'content' => $html
-                ]);
+                // change pdfinfo bin location
+                Config::set('pdfinfo.bin', base_path('bin/win/poppler-0.68.0/bin/pdfinfo.exe'));
             }
 
-            if($book_page->save()){
-                ProcessCorrectingPdfBooks::dispatch($book_page);
+            $pdf_pages_dir = storage_path('app/public/pdf/book_'.$book->id);
+
+            Config::set('pdftohtml.output', $pdf_pages_dir);
+            $pdf_to_html = new Html($path,[
+                'ignoreImages'=>true,
+            ]);
+
+            $page  = 1;
+            foreach ($pdf_to_html->getHtml() as $html){
+                $book_page_query = BookPages::query()->where(['book_id' => $book->id, 'page' => $page]);
+                if($book_page_query->exists()){
+                    $book_page = $book_page_query->first();
+                    $book_page->content = $html;
+                }else{
+                    $book_page = new BookPages();
+                    $book_page->setRawAttributes([
+                        'book_id' => $book->id,
+                        'page' => $page,
+                        'content' => $html
+                    ]);
+                }
+                if($book_page->save()){
+                    ProcessCorrectingPdfBooks::dispatch($book_page);
+                }
+                $page++;
             }
-            $page++;
+            static::delTree($pdf_pages_dir);
+            $book->pdf_hash = $hash;
+            $book->save();
         }
-         static::delTree($pdf_pages_dir);
     }
 
     static function delTree($dir)

@@ -34,9 +34,9 @@ class BookObserver
      */
     public function updated(Book $book)
     {
-//        if($book->book_link){
-//            ProcessParsePdfBooks::dispatch($book);
-//        }
+        if($book->book_link){
+            ProcessParsePdfBooks::dispatch($book);
+        }
     }
 
     /**
