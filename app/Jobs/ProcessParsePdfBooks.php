@@ -56,27 +56,26 @@ class ProcessParsePdfBooks implements ShouldQueue
             ]);
 
             $page  = 1;
-            foreach ($pdf_to_html->getHtml() as $html){
-                $book_page_query = BookPages::query()->where(['book_id' => $book->id, 'page' => $page]);
-                if($book_page_query->exists()){
-                    $book_page = $book_page_query->first();
-                    $book_page->content = $html;
-                }else{
+            $book_pages = $pdf_to_html->getHtml();
+            if(is_array($book_pages) && !empty($book_pages)){
+                BookPages::query()->where('book_id', $book->id)->delete();
+                $book->pdf_hash = $hash;
+                $book->page_count = count($book_pages);
+                $book->save();
+                foreach ($book_pages as $html){
                     $book_page = new BookPages();
                     $book_page->setRawAttributes([
                         'book_id' => $book->id,
                         'page' => $page,
                         'content' => $html
                     ]);
+                    if($book_page->save()){
+                        ProcessCorrectingPdfBooks::dispatch($book_page);
+                    }
+                    $page++;
                 }
-                if($book_page->save()){
-                    ProcessCorrectingPdfBooks::dispatch($book_page);
-                }
-                $page++;
             }
-            static::delTree($pdf_pages_dir);
-            $book->pdf_hash = $hash;
-            $book->save();
+            ProcessParsePdfBooks::delTree($pdf_pages_dir);
         }
     }
 
