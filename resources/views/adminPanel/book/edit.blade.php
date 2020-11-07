@@ -146,8 +146,38 @@
                             <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <input multiple id="book_audio_files_input" type="file" name="audio_files[]" class="form-control" placeholder="Аудио">
-                                        <div id="audio-file-content"></div>
+                                        <table class="table">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Номер страниц</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th colspan="2">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group">
+                                                                Найти <a href="{{route('booksPages', $book->id)}}?status=0">Отключенных</a>/<a href="{{route('booksPages', $book->id)}}?status=1">Включенных</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <form action="">
+                                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <input type="text" class="input-text" name="pageNumber" placeholder="1">
+                                                                <button type="submit">Показать страницу</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </th>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        @foreach($book->audio_files as $file)
+
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

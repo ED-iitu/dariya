@@ -29,4 +29,17 @@ class Video extends Model
         }
         return false;
     }
+    public function isFavorite()
+    {
+        if (Auth::user() &&
+            Favorite::query()
+                ->where([
+                    'object_id' => $this->id,
+                    'object_type' => Favorite::FAVORITE_VIDEO,
+                    'user_id' => Auth::id()
+                ])->exists()) {
+            return true;
+        }
+        return false;
+    }
 }

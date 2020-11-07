@@ -65,7 +65,7 @@ class BookController extends Controller
         $book_page = BookPages::query()->find($id);
         if($book_page->update([
             'status' => $request->get('status'),
-            'content' => $request->get('content'),
+            'content' => str_replace(['&nbsp;', '&ndash;'],[' ','–'],$request->get('content')),
         ])){
             return redirect()->route('booksPages',$book_page->book_id)
                 ->with('success',"Страница {$book_page->page}  успешно обновлена");
