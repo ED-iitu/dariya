@@ -19,21 +19,21 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
-    fileinput_params.uploadExtraData = function() {  // callback example
-        var out = {}, key, i = 0;
-        $('.kv-input:visible').each(function() {
-            var $thumb = $(this).closest('.file-preview-frame'); // gets the thumbnail
-            var fileId = $thumb.data('fileid'); // gets the file identifier for file thumb
-            out[fileId] = $("#book_audio_files_input").val();
-        });
-        return out;
-    };
-    fileinput_params.previewThumbTags = {
-        '{TAG_VALUE}': '',        // no value
-        '{TAG_CSS_NEW}': '',      // new thumbnail input
-        '{TAG_CSS_INIT}': 'kv-hidden'  // hide the initial input
-    };
-    $("#book_audio_files_input").fileinput(fileinput_params);
+    // fileinput_params.uploadExtraData = function() {  // callback example
+    //     var out = {}, key, i = 0;
+    //     $('.kv-input:visible').each(function() {
+    //         var $thumb = $(this).closest('.file-preview-frame'); // gets the thumbnail
+    //         var fileId = $thumb.data('fileid'); // gets the file identifier for file thumb
+    //         out[fileId] = $("#book_audio_files_input").val();
+    //     });
+    //     return out;
+    // };
+    // fileinput_params.previewThumbTags = {
+    //     '{TAG_VALUE}': '',        // no value
+    //     '{TAG_CSS_NEW}': '',      // new thumbnail input
+    //     '{TAG_CSS_INIT}': 'kv-hidden'  // hide the initial input
+    // };
+    //$("#book_audio_files_input").fileinput(fileinput_params);
     //     var count=0;
     //     $("#fileuploader").uploadFile({
     //         // url:"YOUR_FILE_UPLOAD_URL",

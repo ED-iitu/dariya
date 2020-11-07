@@ -35,6 +35,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
 
         Route::get('/', 'Admin\AdminPanelController@index')->name('adminPanel');
         Route::get('books', 'Admin\BookController@index')->name('booksPage');
+        Route::get('books/{id}/edit/pages', 'Admin\BookController@book_pages')->name('booksPages');
+        Route::post('books/{id}/edit/pages', 'Admin\BookController@edit_book_pages')->name('editBooksPages');
         Route::get('articles', 'Admin\ArticleController@index')->name('articlesPage');
         Route::get('authors', 'Admin\AuthorController@index')->name('authorsPage');
         Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
