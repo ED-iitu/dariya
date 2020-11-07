@@ -67,7 +67,8 @@ class ProcessParsePdfBooks implements ShouldQueue
                     $book_page->setRawAttributes([
                         'book_id' => $book->id,
                         'page' => $page,
-                        'content' => $html
+                        'original_content' => $html,
+                        'content' => $html,
                     ]);
                     if($book_page->save()){
                         ProcessCorrectingPdfBooks::dispatch($book_page);

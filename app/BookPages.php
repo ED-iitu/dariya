@@ -9,6 +9,6 @@ class BookPages extends Model
     protected $table = 'book_pages';
 
     protected $fillable = [
-        'book_id', 'page', 'content'
+        'book_id', 'page', 'original_content', 'content'
     ];
 }
