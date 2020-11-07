@@ -82,7 +82,7 @@
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="edit_book_{{ $book_page->book_id }}_page_{{ $book_page->page }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog modal-xl">
                             <div class="modal-content">
                                 <form name="form_edit_book_{{ $book_page->book_id }}_page_{{ $book_page->page }}" action="{{ route('editBooksPages', $book_page->id) }}" method="post">
                                     @csrf
@@ -103,7 +103,7 @@
                                             </div>
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <textarea name="content" class="tiny_editor" cols="30" rows="10">{!! $book_page->content  !!}</textarea>
+                                                    <textarea name="content" class="tiny_editor" style="width: 100%">{!! $book_page->content  !!}</textarea>
                                                 </div>
                                             </div>
                                         </div>

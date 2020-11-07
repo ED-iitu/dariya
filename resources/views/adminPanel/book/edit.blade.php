@@ -130,7 +130,7 @@
                             <div class="tab-pane fade show active" id="pdf" role="tabpanel" aria-labelledby="home-tab">
                                 @if($book->book_link)
                                     <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <p><a href="{{ url($book->book_link) }}" target="_blank"><i class="fa fa-file-pdf"></i></a> {{$book->name}}
+                                        <p><a href="{{ url($book->book_link) }}" target="_blank"><i class="fa fa-file-pdf"></i> PDF</a> {{$book->name}}
                                             <a href="{{route('booksPages', $book->id)}}" target="_blank">Открыть HTML формат</a></p>
                                     </div>
                                 @endif
@@ -149,35 +149,27 @@
                                         <table class="table">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Номер страниц</th>
-                                                <th></th>
+                                                <th scope="col">Файл</th>
+                                                <th>Зазаловок</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
-                                            <tr>
-                                                <th colspan="2">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                            <div class="form-group">
-                                                                Найти <a href="{{route('booksPages', $book->id)}}?status=0">Отключенных</a>/<a href="{{route('booksPages', $book->id)}}?status=1">Включенных</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <form action="">
-                                                        <div class="col-xs-12 col-sm-12 col-md-12">
-                                                            <div class="form-group">
-                                                                <input type="text" class="input-text" name="pageNumber" placeholder="1">
-                                                                <button type="submit">Показать страницу</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
-                                                </th>
-                                            </tr>
+                                            <tbody class="audio-files-table-body">
+                                            @foreach($book->audio_files as $file)
+                                                <tr data-id="{{ $file->id }}">
+                                                    <th>
+                                                        <input type="text" value="{{ $file->id }}" name="order">
+                                                        <audio controls>
+                                                            <source src="{{ url($file->audio_link) }}" type="audio/mpeg">
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    </th>
+                                                    <th>
+                                                        <input name="audio_files[{{$file->id}}]title" type="text" value="{{ $file->title }}">
+                                                    </th>
+                                                </tr>
+                                            @endforeach
                                             </tbody>
                                         </table>
-                                        @foreach($book->audio_files as $file)
-
-                                        @endforeach
                                     </div>
                                 </div>
                             </div>

@@ -19,6 +19,26 @@
         e.preventDefault();
         $("body").toggleClass("sb-sidenav-toggled");
     });
+
+        var $sortableList = $('.audio-files-table-body');
+
+        var sortEventHandler = function(event, ui){
+            console.log("New sort order!");
+            var listElements = $sortableList.children();
+            var listValues = [];
+
+            listElements.each(function(element){
+                listValues.push($(this).data('id'));
+            });
+
+            console.log(listValues);
+        };
+
+        $sortableList.sortable({
+            stop: sortEventHandler
+        });
+        $sortableList.on("sortchange", sortEventHandler);
+
     // fileinput_params.uploadExtraData = function() {  // callback example
     //     var out = {}, key, i = 0;
     //     $('.kv-input:visible').each(function() {
