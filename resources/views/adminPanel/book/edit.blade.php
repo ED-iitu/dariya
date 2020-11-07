@@ -116,18 +116,30 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" @if(\App\Book::BOOK_TYPE == $book->type) checked @endif type="radio" id="type" name="type" value="{{\App\Book::BOOK_TYPE}}">
+                                <label class="form-check-label" for="type">Книга</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" @if(\App\Book::AUDIO_BOOK_TYPE == $book->type) checked @endif type="radio" id="type" name="type" value="{{ \App\Book::AUDIO_BOOK_TYPE }}">
+                                <label class="form-check-label" for="type">Аудио-книга</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#pdf" role="tab" aria-controls="pdf" aria-selected="true">PDF</a>
+                                <a class="nav-link @if($book->type == \App\Book::BOOK_TYPE) active @endif" id="home-tab" data-toggle="tab" href="#pdf" role="tab" aria-controls="pdf" aria-selected="true">PDF</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#audio" role="tab" aria-controls="audio" aria-selected="false">Аудио-файлы</a>
+                                <a class="nav-link @if($book->type == \App\Book::AUDIO_BOOK_TYPE) active @endif" id="profile-tab" data-toggle="tab" href="#audio" role="tab" aria-controls="audio" aria-selected="false">Аудио-файлы</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 p-4">
                         <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="pdf" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="tab-pane fade @if($book->type == \App\Book::BOOK_TYPE) show active @endif" id="pdf" role="tabpanel" aria-labelledby="home-tab">
                                 @if($book->book_link)
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <p><a href="{{ url($book->book_link) }}" target="_blank"><i class="fa fa-file-pdf"></i> PDF</a> {{$book->name}}
@@ -143,28 +155,39 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="tab-pane fade @if($book->type == \App\Book::AUDIO_BOOK_TYPE) show active @endif" id="audio" role="tabpanel" aria-labelledby="profile-tab">
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <table class="table">
                                             <thead>
                                             <tr>
-                                                <th scope="col">Файл</th>
-                                                <th>Зазаловок</th>
+                                                <th>Файл</th>
+                                                <th>Статус</th>
+                                                <th colspan="2">Зазаловок</th>
                                             </tr>
                                             </thead>
-                                            <tbody class="audio-files-table-body">
+                                            <tbody class="audio-files-table-body" data-book-id = "{{ $book->id }}">
+                                            @csrf
                                             @foreach($book->audio_files as $file)
                                                 <tr data-id="{{ $file->id }}">
                                                     <th>
-                                                        <input type="text" value="{{ $file->id }}" name="order">
                                                         <audio controls>
                                                             <source src="{{ url($file->audio_link) }}" type="audio/mpeg">
                                                             Your browser does not support the audio element.
                                                         </audio>
                                                     </th>
                                                     <th>
-                                                        <input name="audio_files[{{$file->id}}]title" type="text" value="{{ $file->title }}">
+                                                        @if($file->status)
+                                                            <span class="badge badge-success">Включен</span>
+                                                        @else
+                                                            <span class="badge badge-secondary">Отключен</span>
+                                                        @endif
+                                                    </th>
+                                                    <th>
+                                                        <input name="audio_file_titles[{{$file->id}}][title]" type="text" value="{{ $file->title }}">
+                                                    </th>
+                                                    <th>
+                                                        <button type="button" class="btn btn-danger remove-audio-file" data-id="{{ $file->id }}">Удалить</button>
                                                     </th>
                                                 </tr>
                                             @endforeach
@@ -172,82 +195,15 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" multiple class="custom-file-input" name="audio_files[]" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                            <label class="custom-file-label" for="inputGroupFile01">Загрузите аудио-файлы (MP3)</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-{{--                            <script type="text/javascript">--}}
-{{--                                var footerTemplate = '<div class="file-thumbnail-footer" style ="height:94px">\n' +--}}
-{{--                                    '  <input class="kv-input kv-new form-control input-sm form-control-sm text-center {TAG_CSS_NEW}" value="{caption}" placeholder="Enter caption...">\n' +--}}
-{{--                                    '  <input class="kv-input kv-init form-control input-sm form-control-sm text-center {TAG_CSS_INIT}" name="file_title[]" value="{TAG_VALUE}" placeholder="Введите загаловок ...">\n' +--}}
-{{--                                    '   <div class="small" style="margin:15px 0 2px 0">{size}</div> {progress}\n{indicator}\n{actions}\n' +--}}
-{{--                                    '</div>';--}}
-{{--                                var fileinput_params = {--}}
-{{--                                    uploadAsync: false,--}}
-{{--                                    maxFileCount: 30,--}}
-{{--                                    overwriteInitial: false,--}}
-{{--                                    showPreview:true,--}}
-{{--                                    layoutTemplates: {footer: footerTemplate},--}}
-{{--                                    allowedFileTypes:['audio'],--}}
-{{--                                    theme:'fas',--}}
-{{--                                    // previewThumbTags: {--}}
-{{--                                    //     '{TAG_VALUE}': '',        // no value--}}
-{{--                                    //     '{TAG_CSS_NEW}': '',      // new thumbnail input--}}
-{{--                                    //     '{TAG_CSS_INIT}': 'kv-hidden'  // hide the initial input--}}
-{{--                                    // },--}}
-{{--                                    // initialPreview: [--}}
-{{--                                    //     '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/1">',--}}
-{{--                                    //     '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/2">',--}}
-{{--                                    // ],--}}
-{{--                                    // initialPreviewConfig: [--}}
-{{--                                    //     {caption: "City-1.jpg", size: 327892, url: "/site/file-delete", key: 1},--}}
-{{--                                    //     {caption: "City-2.jpg", size: 438828, url: "/site/file-delete", key: 2},--}}
-{{--                                    // ],--}}
-{{--                                    // initialPreviewThumbTags: [--}}
-{{--                                    //     {'{TAG_VALUE}': 'City-1.jpg', '{TAG_CSS_NEW}': 'kv-hidden', '{TAG_CSS_INIT}': ''},--}}
-{{--                                    //     {--}}
-{{--                                    //         '{TAG_VALUE}': function() { // callback example--}}
-{{--                                    //             return 'City-2.jpg';--}}
-{{--                                    //         },--}}
-{{--                                    //         '{TAG_CSS_NEW}': 'kv-hidden',--}}
-{{--                                    //         '{TAG_CSS_INIT}': ''--}}
-{{--                                    //     }--}}
-{{--                                    // ],--}}
-{{--                                    uploadExtraData: function() {  // callback example--}}
-{{--                                        var out = {}, key, i = 0;--}}
-{{--                                        $('.kv-input:visible').each(function() {--}}
-{{--                                            var $thumb = $(this).closest('.file-preview-frame'); // gets the thumbnail--}}
-{{--                                            var fileId = $thumb.data('fileid'); // gets the file identifier for file thumb--}}
-{{--                                            out[fileId] = $("#book_audio_files_input").val();--}}
-{{--                                        });--}}
-{{--                                        return out;--}}
-{{--                                    }--}}
-{{--                                };--}}
-{{--                                @if($book->audio_files())--}}
-{{--                                    fileinput_params.initialPreviewConfig = [--}}
-{{--                                    @foreach($book->audio_files()->get() as $file)--}}
-{{--                                        {--}}
-{{--                                            'caption': "{{ $file->original_name }}",--}}
-{{--                                            'size': {{ $file->file_size }},--}}
-{{--                                            'url': "{{ $file->audio_link }}",--}}
-{{--                                            "key": {{$file->id }}--}}
-{{--                                        },--}}
-{{--                                    @endforeach--}}
-{{--                                    ];--}}
-{{--                                    fileinput_params.initialPreview = [--}}
-{{--                                    @foreach($book->audio_files()->get() as $file)--}}
-{{--                                          '<audio style="width: 100%; height: 30px;" controls="" class="kv-preview-data file-preview-audio"><source src="{{ url($file->audio_link) }}" type="audio/mpeg"></audio>',--}}
-{{--                                    @endforeach--}}
-{{--                                    ];--}}
-
-{{--                                    fileinput_params.initialPreviewThumbTags = [--}}
-{{--                                        @foreach($book->audio_files()->get() as $file)--}}
-{{--                                        {--}}
-{{--                                            '{TAG_VALUE}': '{{ $file->title }}',--}}
-{{--                                            '{TAG_CSS_NEW}': 'kv-hidden',--}}
-{{--                                            '{TAG_CSS_INIT}': ''--}}
-{{--                                        },--}}
-{{--                                        @endforeach--}}
-{{--                                    ];--}}
-{{--                                @endif--}}
-{{--                            </script>--}}
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">

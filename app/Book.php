@@ -57,7 +57,7 @@ class Book extends Model
 
     public function audio_files()
     {
-        return $this->hasMany(AudioFile::class, 'book_id', 'id');
+        return $this->hasMany(AudioFile::class, 'book_id', 'id')->orderBy('order');
     }
 
     public function getGenresIds()

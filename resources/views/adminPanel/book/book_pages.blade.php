@@ -50,9 +50,9 @@
                 <th scope="row">
                     Страница {{ $book_page->page }}
                     @if($book_page->status)
-                        <span class="badge badge-success">Success</span>
+                        <span class="badge badge-success">Включен</span>
                     @else
-                        <span class="badge badge-secondary">Secondary</span>
+                        <span class="badge badge-secondary">Отключен</span>
                     @endif
                 </th>
                 <td>

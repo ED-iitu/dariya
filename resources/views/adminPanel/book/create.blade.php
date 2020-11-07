@@ -13,16 +13,6 @@
         </div>
 
 
-        <ul class="nav nav-pills mt-5" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-pdf" role="tab" aria-controls="pills-home" aria-selected="true">Добавить PDF Книгу</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-audio" role="tab" aria-controls="pills-profile" aria-selected="false">Добавить аудио Книгу</a>
-            </li>
-        </ul>
-
-
 
 
         @if ($errors->any())
@@ -35,116 +25,7 @@
                 </ul>
             </div>
         @endif
-
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-pdf" role="tabpanel" aria-labelledby="pills-home-tab">
-                <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="row mt-5">
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Название">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <textarea name="preview_text" class="form-control" placeholder="Краткое описание"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <textarea class="form-control tiny_editor" style="height:200px" name="detail_text" placeholder="Детальное описание"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="genre">Выберите жанр</label>
-                                <select multiple class="form-control" id="genre" name="genre_id">
-                                    @foreach($genres as $genre)
-                                        <option value="{{$genre->id}}">{{$genre->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="lang">Выберите язык</label>
-                                <select class="form-control" id="lang" name="lang">
-                                    <option value="ru">Русский</option>
-                                    <option value="kz">Казахский</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="publisher">Выберите издателя</label>
-                                <select class="form-control" id="publisher" name="publisher_id">
-                                    @foreach($publishers as $publisher)
-                                        <option value="{{$publisher->id}}">{{$publisher->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="price" class="form-control" placeholder="Цена">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <label for="author">Выберите автора</label>
-                                <select class="form-control" id="author" name="author_id">
-                                    @foreach($authors as $author)
-                                        <option value="{{$author->id}}">{{$author->name}} {{$author->surname}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="image_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" >
-                                    <label class="custom-file-label" for="inputGroupFile01">Загрузите картинку</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="background_color" class="form-control" placeholder="Цвет фона">
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="0">
-                                    <label class="form-check-label" for="is_free">Платная</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
-                                    <label class="form-check-label" for="is_free">Бесплатная</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <button type="submit" class="btn btn-primary">Добавить книгу</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-
-            {{--Добавление аудио книги--}}
-            <div class="tab-pane fade" id="pills-audio" role="tabpanel" aria-labelledby="pills-profile-tab">
-                <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
+         <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" name="type" value="AUDIO">
@@ -196,7 +77,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <input type="text" name="price" class="form-control" placeholder="Цена">
+                                <input type="text" name="price" class="form-control" value="0" placeholder="Цена">
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -219,21 +100,59 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" checked type="checkbox" id="is_free" name="is_free" value="0">
+                                    <label class="form-check-label" for="is_free">Платная</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
+                                    <label class="form-check-label" for="is_free">Бесплатная</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="0">
-                                    <label class="form-check-label" for="is_free">Платная</label>
+                                    <input class="form-check-input" checked type="radio" id="type" name="type" value="{{\App\Book::BOOK_TYPE}}">
+                                    <label class="form-check-label" for="type">Книга</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
-                                    <label class="form-check-label" for="is_free">Бесплатная</label>
+                                    <input class="form-check-input" type="radio" id="type" name="type" value="{{ \App\Book::AUDIO_BOOK_TYPE }}">
+                                    <label class="form-check-label" for="type">Аудио-книга</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link  active" id="home-tab" data-toggle="tab" href="#pdf" role="tab" aria-controls="pdf" aria-selected="true">PDF</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#audio" role="tab" aria-controls="audio" aria-selected="false">Аудио-файлы</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 p-4">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="pdf" role="tabpanel" aria-labelledby="home-tab">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="book_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                <label class="custom-file-label" for="inputGroupFile01">Загрузите книгу (PDF)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="audio" role="tabpanel" aria-labelledby="profile-tab">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="form-group">
+                                            <div class="custom-file">
+                                                <input type="file" multiple class="custom-file-input" name="audio_files[]" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                                <label class="custom-file-label" for="inputGroupFile01">Загрузите аудио-файлы (MP3)</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -243,9 +162,5 @@
                     </div>
 
                 </form>
-            </div>
-        </div>
-
-
     </div>
 @endsection

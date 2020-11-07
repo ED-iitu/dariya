@@ -75,6 +75,24 @@ class BookController extends Controller
             ->with('error','Ошибка при изменения!');
     }
 
+    public function sort_audio(Request $request, $id){
+        $ids= $request->get('audio_file_ids');
+        AudioFile::query()->whereIn('id',$ids)->each(function ($file) use ($ids){
+            $file->order = array_search($file->id,$ids);
+            $file->save();
+        });
+        return response('OK',200);
+    }
+
+    public function remove_audio($id){
+        $audioFile = AudioFile::query()->find($id);
+        if($audioFile){
+            $audioFile->removeAudioFile();
+            $audioFile->delete();
+        }
+        return response('OK',200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -103,6 +121,7 @@ class BookController extends Controller
     {
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
+        $audio_files = $request->file('audio_files');
 
         if (null !== $image_link) {
             $extensionImage = $image_link->getClientOriginalExtension();
@@ -117,6 +136,7 @@ class BookController extends Controller
 
         $data = [
             'name'         => $request->name,
+            'type' => $request->type,
             'preview_text' => $request->preview_text,
             'detail_text'  => $request->detail_text,
             'price'        => $request->price,
@@ -141,7 +161,22 @@ class BookController extends Controller
 
 
 
-        Book::create($data);
+        $book = Book::create($data);
+
+        if (null !== $audio_files) {
+            foreach ($audio_files as $audio_file){
+                $extensionAudio = $audio_file->getClientOriginalExtension();
+                Storage::disk('public')->put($audio_file->getFilename().'.'.$extensionAudio,  File::get($audio_file));
+                $file = new AudioFile();
+                $file->audio_link  = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $file->book_id = $book->id;
+                $file->file_size = $audio_file->getSize();
+                $file->content_type = $audio_file->getClientMimeType();
+                $file->original_name = $audio_file->getClientOriginalName();
+                $file->title = ' ';
+                $file->save();
+            }
+        }
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно добавлена.');
@@ -199,6 +234,7 @@ class BookController extends Controller
     {
         $image_link = $request->file('image_link');
         $book_link = $request->file('book_link');
+        $audio_files = $request->file('audio_files');
 
         if (null !== $image_link) {
             $extensionImage = $image_link->getClientOriginalExtension();
@@ -210,9 +246,25 @@ class BookController extends Controller
             Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
         }
 
+        if (null !== $audio_files) {
+            foreach ($audio_files as $audio_file){
+                $extensionAudio = $audio_file->getClientOriginalExtension();
+                Storage::disk('public')->put($audio_file->getFilename().'.'.$extensionAudio,  File::get($audio_file));
+                $file = new AudioFile();
+                $file->audio_link  = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $file->book_id = $book->id;
+                $file->file_size = $audio_file->getSize();
+                $file->content_type = $audio_file->getClientMimeType();
+                $file->original_name = $audio_file->getClientOriginalName();
+                $file->title = ' ';
+                $file->save();
+            }
+        }
+
         $data = [
             'name'         => $request->name,
             'preview_text' => $request->preview_text,
+            'type' => $request->type,
             'detail_text'  => $request->detail_text,
             'price'        => $request->price,
             'author_id'    => $request->author_id,
@@ -233,6 +285,16 @@ class BookController extends Controller
                 'book_link'    => '/uploads/' . $book_link->getFilename() . '.'. $extensionPdf,
             ]);
         }
+
+        $audio_files = $request->get('audio_file_titles');
+        AudioFile::query()->whereIn('id', array_keys($audio_files))->each(function ($file) use($audio_files){
+           $data = $audio_files[$file->id];
+           if(isset($data['title'])){
+               $file->title = $data['title'];
+               $file->save();
+           }
+        });
+
         $book->update($data);
 
         BookToGenre::query()->where('book_id',$book->id)->delete();

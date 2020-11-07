@@ -23,21 +23,53 @@
         var $sortableList = $('.audio-files-table-body');
 
         var sortEventHandler = function(event, ui){
-            console.log("New sort order!");
             var listElements = $sortableList.children();
+            var book_id = $sortableList.data('book-id');
+            var token = $sortableList.find('input[name="_token"]').val();
             var listValues = [];
 
             listElements.each(function(element){
-                listValues.push($(this).data('id'));
+                if($(this).prop('tagName') === 'TR'){
+                    listValues.push($(this).data('id'));
+                }
             });
 
-            console.log(listValues);
+            $.ajax({
+                url: "/admin/sort_audio/"+book_id,
+                dataType: "json",
+                type:'post',
+                data: {
+                    audio_file_ids: listValues,
+                    _token: token
+                }
+            });
         };
 
         $sortableList.sortable({
             stop: sortEventHandler
         });
         $sortableList.on("sortchange", sortEventHandler);
+
+        $('.remove-audio-file').click(function() {
+            let id = $(this).data('id');
+            let token = $(this).closest('form').find('input[name="_token"]').val();
+            let tr = $(this).closest('tr');
+            let $this = $(this);
+            if (confirm('Are you sure remove this audio?')) {
+                console.log(id);
+                console.log(token);
+                $.post({
+                    url: "/admin/remove_audio/"+id,
+                    data: {
+                        _token: token
+                    },
+                    success: function(data)
+                    {
+                        tr.remove();
+                    }
+                });
+            }
+        });
 
     // fileinput_params.uploadExtraData = function() {  // callback example
     //     var out = {}, key, i = 0;
