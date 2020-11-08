@@ -87,6 +87,10 @@ class BookController extends Controller
     public function remove_audio($id){
         $audioFile = AudioFile::query()->find($id);
         if($audioFile){
+            if($book = Book::query()->find($audioFile->book_id)){
+                $book->duration -= $audioFile->duration;
+                $book->save();
+            }
             $audioFile->removeAudioFile();
             $audioFile->delete();
         }
@@ -162,13 +166,23 @@ class BookController extends Controller
 
 
         $book = Book::create($data);
-
+        $duration = 0;
         if (null !== $audio_files) {
+            include(base_path("libs/getid3/getid3.php"));
             foreach ($audio_files as $audio_file){
                 $extensionAudio = $audio_file->getClientOriginalExtension();
                 Storage::disk('public')->put($audio_file->getFilename().'.'.$extensionAudio,  File::get($audio_file));
+                $file_name = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $getID3 = new \getID3;
+                $fileInfo = $getID3->analyze(public_path($file_name));
+                $playtime_seconds = $fileInfo['playtime_seconds'];
+
+                $file_duration = intval($playtime_seconds);
+                $duration += $file_duration;
+
                 $file = new AudioFile();
-                $file->audio_link  = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $file->audio_link  = $file_name;
+                $file->duration  = $file_duration;
                 $file->book_id = $book->id;
                 $file->file_size = $audio_file->getSize();
                 $file->content_type = $audio_file->getClientMimeType();
@@ -176,6 +190,8 @@ class BookController extends Controller
                 $file->title = ' ';
                 $file->save();
             }
+            $book->duration = $duration;
+            $book->save();
         }
 
         return redirect()->route('booksPage')
@@ -246,12 +262,22 @@ class BookController extends Controller
             Storage::disk('public')->put($book_link->getFilename().'.'.$extensionPdf,  File::get($book_link));
         }
 
+        $duration = $book->duration;
         if (null !== $audio_files) {
+            include(base_path("libs/getid3/getid3.php"));
             foreach ($audio_files as $audio_file){
                 $extensionAudio = $audio_file->getClientOriginalExtension();
                 Storage::disk('public')->put($audio_file->getFilename().'.'.$extensionAudio,  File::get($audio_file));
+                $file_name = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $getID3 = new \getID3;
+                $fileInfo = $getID3->analyze(public_path($file_name));
+                $playtime_seconds = $fileInfo['playtime_seconds'];
+
+                $file_duration = intval($playtime_seconds);
+                $duration += $file_duration;
                 $file = new AudioFile();
-                $file->audio_link  = '/uploads/' . $audio_file->getFilename() . '.' . $extensionAudio;
+                $file->duration  = $file_duration;
+                $file->audio_link  = $file_name;
                 $file->book_id = $book->id;
                 $file->file_size = $audio_file->getSize();
                 $file->content_type = $audio_file->getClientMimeType();
@@ -265,6 +291,7 @@ class BookController extends Controller
             'name'         => $request->name,
             'preview_text' => $request->preview_text,
             'type' => $request->type,
+            'duration' => $duration,
             'detail_text'  => $request->detail_text,
             'price'        => $request->price,
             'author_id'    => $request->author_id,
