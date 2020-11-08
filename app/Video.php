@@ -47,4 +47,9 @@ class Video extends Model
         }
         return false;
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::VIDEO_TYPE);
+    }
 }

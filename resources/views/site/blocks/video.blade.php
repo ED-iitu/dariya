@@ -10,7 +10,7 @@
             <ul class="mb-0">
                 <li class="mr-2">
                     <i class="bi bi-chat-bubble"></i>
-                    576
+                    {{ $video->comments->count() }}
                 </li>
                 <li>
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

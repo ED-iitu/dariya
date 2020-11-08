@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     const ARTICLE_TYPE = 'article';
+    const VIDEO_TYPE = 'video';
     const BOOK_TYPE = 'book';
 
     protected $table = 'comments';
@@ -16,7 +17,11 @@ class Comment extends Model
     ];
 
     public static function getObjectTypes(){
-        return [self::ARTICLE_TYPE, self::BOOK_TYPE];
+        return [
+            self::ARTICLE_TYPE,
+            self::BOOK_TYPE,
+            self::VIDEO_TYPE,
+        ];
     }
 
 
