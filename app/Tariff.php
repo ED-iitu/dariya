@@ -9,7 +9,7 @@ class Tariff extends Model
     protected $table = 'tariffs';
 
     protected $fillable = [
-      'title', 'description', 'image_url'
+      'title', 'description', 'image_url', 'slug'
     ];
 
     public function tariffPriceLists()

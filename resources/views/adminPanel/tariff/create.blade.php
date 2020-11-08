@@ -29,27 +29,20 @@
             <div class="row mt-5">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <label for="title">Название</label>
                         <input type="text" name="title" class="form-control" placeholder="Название">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <input type="text" name="description" class="form-control" placeholder="Описание">
+                        <label for="slug">Slug</label>
+                        <input type="text" name="slug" class="form-control" placeholder="Slug">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <input type="text" name="price" class="form-control" placeholder="Цена">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <label for="lang">Срок</label>
-                        <select class="form-control" id="duration" name="duration">
-                            <option value="3">3</option>
-                            <option value="6">6</option>
-                            <option value="12">12</option>
-                        </select>
+                        <label for="description">Описание</label>
+                        <textarea name="description" class="form-control" placeholder="Описание"></textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -58,6 +51,26 @@
                             <input type="file" class="custom-file-input" name="image_url" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" >
                             <label class="custom-file-label" for="inputGroupFile01">Загрузите картинку</label>
                         </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="row border-right">
+                        @foreach(\App\TariffPriceList::getDurationLabels() as $d=>$label)
+                            @php
+                                $id = 'd_'.$d;
+                            @endphp
+                            <div class="col-xs-4 col-sm-12 col-md-4 border-left border-top border-bottom p-3">
+                                <div class="form-group">
+                                    <label for="price">Цена</label>
+                                    <input type="text" name="price_list[{{$id}}][price]" class="form-control" placeholder="Цена"
+                                           value="">
+                                </div>
+                                <div class="form-group">
+                                    <label>{{ $label }}</label>
+                                    <input type="hidden" value="{{ $d }}" name="price_list[{{$id}}][duration]">
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
