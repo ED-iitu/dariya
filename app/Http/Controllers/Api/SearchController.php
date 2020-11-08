@@ -43,6 +43,7 @@ class SearchController extends Controller
                     $data[] = [
                         "id"=> $book->id,
                         "name"=> $book->name,
+                        "preview_text"=> $book->preview_text,
                         "rating"=> $book->rate,
                         "authors"=> $authors,
                         "type"=> $book->type,
@@ -52,7 +53,8 @@ class SearchController extends Controller
                         "formatted_price"=> Money::KZT($book->price)->format(),
                         "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                         "show_counter"=> $book->show_counter,
-                        "image_url"=> ($book->image_link) ? url($book->image_link) : null
+                        "image_url"=> ($book->image_link) ? url($book->image_link) : null,
+                        "url"=> url('book/'.$book->id),
                     ];
                 });
 
@@ -70,6 +72,7 @@ class SearchController extends Controller
                     $data[] = [
                         "id"=> $article->id,
                         "name"=> $article->name,
+                        "preview_text"=> $article->preview_text,
                         "rating"=> $article->rate,
                         "author"=> $article->author ? $article->author : null,
                         "type"=> 'ARTICLE',
@@ -79,7 +82,8 @@ class SearchController extends Controller
                         "formatted_price"=> null,
                         "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0,
                         "show_counter"=> $article->show_counter,
-                        "image_url"=> ($article->image_link) ? url($article->image_link) : null
+                        "image_url"=> ($article->image_link) ? url($article->image_link) : null,
+                        "url"=> url('article/'.$article->id),
                     ];
                 });
         }

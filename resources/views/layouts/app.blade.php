@@ -48,21 +48,7 @@
                             <img src="https://img.icons8.com/ios/35/multiply.png" alt="">
                         </a>
                     </div>
-                    <div class="results-box">
-                        <a href="#" class="result p-2 p-md-3">
-                            <div class="image mr-3" style="background-image: url('/images/bg/7.jpg');"></div>
-                            <div class="content">
-                                <div class="info">
-                                    <h6 class="title mb-1">Title</h6>
-                                    <span class="label">Label</span>
-                                    <p class="text mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
-                                </div>
-                                <div class="price">
-                                    <span>1 559 ₸</span>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <div class="results-box"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-6 col-lg-2">
