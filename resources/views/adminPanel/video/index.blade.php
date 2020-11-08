@@ -17,6 +17,7 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
+                <th scope="col">Название</th>
                 <th scope="col">ID видео на ютубе</th>
                 <th></th>
             </tr>
@@ -26,6 +27,7 @@
             @foreach($videos as $video)
                 <tr>
                     <th scope="row">{{ $video->id }}</th>
+                    <th>{{ $video->name}}</th>
                     <td><a href="{{ route('videos.show',$video->id) }}">{{ $video->youtube_video_id }}</a></td>
                     <td>
                         <form class="delete" action="{{ route('videos.destroy',$video->id) }}" method="POST">
