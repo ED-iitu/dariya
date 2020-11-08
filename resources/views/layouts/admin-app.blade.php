@@ -80,7 +80,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{route('categoriesPage')}}">Категории</a>
                             <a class="nav-link" href="{{route('articlesPage')}}">Статьи</a>
-                            <a class="nav-link" href="{{route('videoMaterialsPage')}}">Видео материалы</a>
+                            <a class="nav-link" href="{{route('videosPage')}}">Видео материалы</a>
                         </nav>
                     </div>
                     <a class="nav-link" href="{{route('tariffsPage')}}">

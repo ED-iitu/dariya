@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::resource('articles','Admin\ArticleController');
         Route::resource('tariffs','Admin\TariffController');
         Route::resource('transactions','Admin\TransactionController');
-        Route::resource('videos','Admin\VideoMaterialController');
+        Route::resource('videos','Admin\VideoController');
         Route::resource('banners','Admin\BannerController');
         Route::resource('supportTickets','Admin\SupportTicketController');
 
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('tariffs', 'Admin\TariffController@index')->name('tariffsPage');
         Route::get('transactions', 'Admin\TransactionController@index')->name('transactionsPage');
         Route::get('supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
-        Route::get('videoMaterial', 'Admin\VideoMaterialController@index')->name('videoMaterialsPage');
+        Route::get('video', 'Admin\VideoController@index')->name('videosPage');
         Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
         Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
         Route::get('audio_load/{id}', 'Admin\BookController@loadAudioFiles')->name('loadAudioFiles');
