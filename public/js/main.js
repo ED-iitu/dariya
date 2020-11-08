@@ -48,12 +48,17 @@ $(function () {
                                 // var label = value.label;
                                 var title = value.name;
                                 var text = value.preview_text;
-                                var price = value.formatted_price;
+                                var price = '';
+                                if(value.formatted_price){
+                                    price = "<div class='price'><span>"+value.formatted_price+"</span></div>";
+                                }
                                 html += "<a href='"+link+"' class='result p-2 p-md-3'>";
                                 html += "<div class='image mr-3' style='background-image: url("+image+");'></div>";
                                 html += "<div class='content'><div class='info'><h6 class='title mb-1'>"+title+"</h6>"+
                                     //"<span class='label'>"+label+"</span>"+
-                                    "<p class='text mb-0'>"+text+"</p></div><div class='price'><span>"+price+"</span></div></div>";
+                                    "<p class='text mb-0'>"+text+"</p></div>"+
+                                    price+
+                                    "</div>";
                                 html += "</a>";
                             });
                             if (data.length >= 5) {
