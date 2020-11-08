@@ -21,7 +21,7 @@ class HomeController extends Controller
         $articles = Article::all();
         $videos = Video::all();
         $banners = Banner::query()->where('type', Banner::BANNER_MAIN_TYPE)->get();
-        $tariffs = Tariff::all();
+        $tariffs = Tariff::query()->whereIn('slug', ['standard', 'premium'])->get();
 
         $title = 'Дамыту орталығы';
 
