@@ -12,7 +12,7 @@ class Video extends Model
     protected $table = 'videos';
 
     protected $fillable = [
-        'youtube_video_id'
+        'youtube_video_id', 'created_at', 'updated_at'
     ];
 
     public function user_rate()

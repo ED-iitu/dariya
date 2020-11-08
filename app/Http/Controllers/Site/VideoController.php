@@ -26,7 +26,7 @@ class VideoController extends Controller
         ];
         $videos = Video::paginate(9);
         $recentVideos = Video::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
-        $categories = Category::all();
+        $categories = (Category::query()->where('slug','video')->first()) ? Category::query()->where('slug','video')->first()->childs : [];
         return view('site.videos',[
             'videos' => $videos,
             'recentVideos' => $recentVideos,

@@ -34,7 +34,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories  = Category::all();
+        $categories  = (Category::query()->where('slug','article')->first()) ? Category::query()->where('slug','article')->first()->childs : [];
         $authors = Author::all();
 
         return view('adminPanel.article.create', [
@@ -101,7 +101,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        $categories  = Category::all();
+        $categories  = (Category::query()->where('slug','article')->first()) ? Category::query()->where('slug','article')->first()->childs : [];
         return view('adminPanel.article.edit',[
             'article' => $article,
             'categories' => $categories

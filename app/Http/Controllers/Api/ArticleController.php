@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Article;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -13,7 +14,7 @@ class ArticleController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $artiles = [];
-        $res = Article::query()->paginate($pageSize,['*'],'page', $page);
+        $res = Article::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($article) use (&$artiles){
             $artiles[] = [
                 "id"=> $article->id,
@@ -68,5 +69,15 @@ class ArticleController extends Controller
             return $this->sendResponse($data, '');
         }
         return $this->sendError('Not Found','Ресус не найден');
+    }
+
+    public function categories(){
+        $categories = Category::query()->where('parent_id',0)->pluck('id','slug')->toArray();
+        foreach ($categories as &$category){
+            $category = Category::query()->where('parent_id', $category)->get()->toArray();
+        }
+        return $this->sendResponse([
+            'categories' =>$categories
+        ], '');
     }
 }

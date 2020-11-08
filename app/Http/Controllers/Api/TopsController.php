@@ -27,7 +27,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->where(['type' => Book::BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -60,7 +60,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => 'BOOK']);
+        $res = Book::query()->where(['type' => 'BOOK'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -122,7 +122,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -155,7 +155,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE]);
+        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -217,7 +217,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -250,7 +250,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE]);
+        $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -281,7 +281,7 @@ class TopsController extends Controller
         /**
          * Audio-Books
          */
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE]);
+        $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $audio_books  = [];
         $res->each(function($model) use (&$audio_books){
 

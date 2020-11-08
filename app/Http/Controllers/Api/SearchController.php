@@ -30,6 +30,7 @@ class SearchController extends Controller
                 ->orWhereHas('genres',function ($query) use ($search){
                     return $query->where('name', 'like', "%$search%");
                 })
+                ->orderBy('created_at','desc')->orderBy('updated_at', 'desc')
                 ->paginate(5)
                 ->each(function ($book) use (&$data){
                     $authors = [];
@@ -63,6 +64,7 @@ class SearchController extends Controller
                 ->orWhereHas('categories',function ($query) use ($search){
                     return $query->where('name', 'like', "%$search%");
                 })
+                ->orderBy('created_at','desc')->orderBy('updated_at', 'desc')
                 ->paginate(5)
                 ->each(function ($article) use (&$data){
                     $data[] = [

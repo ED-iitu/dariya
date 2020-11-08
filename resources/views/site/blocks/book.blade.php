@@ -1,11 +1,16 @@
 <div class="book-item">
     <a href="{{ url('book/'.$book->id) }}" class="image mb-2"
-       style="@if($book->background_color) background-color:{{ $book->background_color }}; @endif background-image: url({{ url($book->image_link) }});">
+       style="
+       @if($book->background_color)
+               background-color:{{ $book->background_color }};
+       @endif
+               {{--background-image: url( {{ url($book->image_link) }} );--}}
+               ">
         <span class="sale mt-3"><i class="fa fa-book"></i></span>
     </a>
     <h6 class="title mb-2"><a href="{{ url('book/'.$book->id) }}">{{ $book->name }}</a></h6>
     <div class="info mb-2">
-{{--        <span>{{\Jenssegers\Date\Date::parse($book->created_at)->format('j F, Y')}}</span>--}}
+        <span>{{\Jenssegers\Date\Date::parse($book->created_at)->format('j F, Y')}}</span>
         <ul class="mb-0">
             <li class="mr-2">
                 <i class="bi bi-chat-bubble"></i>
@@ -33,11 +38,11 @@
     @else
         <div class="final">
             <a href="{{ url('book/'.$book->id) }}" class="order">Купить</a>
-{{--            <div class="price">--}}
-{{--                @if($book->old_price)--}}
-{{--                    <small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif--}}
-{{--                <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>--}}
-{{--            </div>--}}
+            <div class="price">
+                @if($book->old_price)
+                    <small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif
+                <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>
+            </div>
         </div>
     @endif
 </div>

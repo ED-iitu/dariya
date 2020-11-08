@@ -25,7 +25,7 @@ class ArticleController extends Controller
         }
         $articles = $articles->paginate(9);
         $recentArticles = Article::recents();
-        $categories = Category::all();
+        $categories = (Category::query()->where('slug','article')->first()) ? Category::query()->where('slug','article')->first()->childs : [];
 
         $title = 'Подборка статей';
         $breadcrumb[] = [

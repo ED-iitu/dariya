@@ -37,7 +37,7 @@ class HomeScreenController extends Controller
         /**
          * Articles
          */
-        $res = Article::query();
+        $res = Article::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $articles  = [];
         $res->paginate(5)->each(function ($article) use (&$articles){
             $articles[] = [
@@ -56,7 +56,7 @@ class HomeScreenController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => 'BOOK']);
+        $res = Book::query()->where(['type' => 'BOOK'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -87,7 +87,7 @@ class HomeScreenController extends Controller
         /**
          * Audio-Books
          */
-        $res = Book::query()->where(['type' => 'AUDIO']);
+        $res = Book::query()->where(['type' => 'AUDIO'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $audio_books  = [];
         $res->each(function($model) use (&$audio_books){
 
@@ -118,7 +118,7 @@ class HomeScreenController extends Controller
         /**
          * Videos
          */
-        $res = Video::query();
+        $res = Video::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $videos  = [];
         $res->each(function($model) use (&$videos){
             $videos[] = [

@@ -15,7 +15,7 @@ class VideoController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $videos = [];
-        $res = Video::query()->paginate($pageSize,['*'],'page', $page);
+        $res = Video::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($video) use (&$videos){
             $videos[] = [
                 "id"=> $video->id,
