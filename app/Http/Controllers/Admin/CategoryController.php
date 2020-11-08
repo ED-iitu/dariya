@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::query()->where('parent_id', '>', 0)->get();
 
         return view('adminPanel.category.index', [
             'categories' => $categories
@@ -29,7 +29,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::query()->whereIn('slug',['video', 'article'])->get();
         return view('adminPanel.category.create', [
             'categories' => $categories
         ]);
@@ -68,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $categories = Category::all();
+        $categories = Category::query()->whereIn('slug',['video', 'article'])->get();
         return view('adminPanel.category.edit',compact('category','categories'));
     }
 
