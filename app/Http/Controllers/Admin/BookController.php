@@ -314,13 +314,15 @@ class BookController extends Controller
         }
 
         $audio_files = $request->get('audio_file_titles');
-        AudioFile::query()->whereIn('id', array_keys($audio_files))->each(function ($file) use($audio_files){
-           $data = $audio_files[$file->id];
-           if(isset($data['title'])){
-               $file->title = $data['title'];
-               $file->save();
-           }
-        });
+        if(!empty($audio_files) && is_array($audio_files)){
+            AudioFile::query()->whereIn('id', array_keys($audio_files))->each(function ($file) use($audio_files){
+                $data = $audio_files[$file->id];
+                if(isset($data['title'])){
+                    $file->title = $data['title'];
+                    $file->save();
+                }
+            });
+        }
 
         $book->update($data);
 
