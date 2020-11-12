@@ -13,8 +13,8 @@ class AudioFile extends Model
     ];
 
     public function removeAudioFile(){
-        if(file_exists(base_path($this->audio_link))){
-            unlink(base_path($this->audio_link));
+        if(file_exists(public_path($this->audio_link))){
+            unlink(public_path($this->audio_link));
         }
     }
 }
