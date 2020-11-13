@@ -56,7 +56,7 @@ class XPdfToHtml extends Dom
 
             file_put_contents($base_path.'/page'.$i.'.html', $content);
             $contents[ $i ] = file_get_contents($base_path.'/page'.$i.'.html');
-            unlink($base_path.'/page'.$i.'.html', $content);
+            unlink($base_path.'/page'.$i.'.html');
         }
         $this->contents = $contents;
     }

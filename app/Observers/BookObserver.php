@@ -5,12 +5,7 @@ namespace App\Observers;
 use App\AudioFile;
 use App\Book;
 use App\BookPages;
-use App\Jobs\ProcessParsePdfBooks;
-use Gufy\PdfToHtml\Config;
-use Gufy\PdfToHtml\Html;
-use Gufy\PdfToHtml\PageGenerator;
-use Gufy\PdfToHtml\Pdf;
-use Illuminate\Support\Facades\Storage;
+use App\Jobs\Xpdf\ProcessParsePdfBooks;
 
 class BookObserver
 {
