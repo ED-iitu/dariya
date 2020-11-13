@@ -162,14 +162,12 @@ class XPdfToHtml extends Dom
                             }
                         }
                     }
-                    if ($element->getTag()->name() == 'div' && $element->hasChildren()) {
-                        if (!is_numeric($element->text())) {
-                            $tags[] = [
-                                'left' => $left,
-                                'top' => $css_top,
-                                'html' => $element->innerHtml()
-                            ];
-                        }
+                    if (!is_numeric($element->text())) {
+                        $tags[] = [
+                            'left' => $left,
+                            'top' => $css_top,
+                            'html' => $element->innerHtml()
+                        ];
                     }
                 }
             }

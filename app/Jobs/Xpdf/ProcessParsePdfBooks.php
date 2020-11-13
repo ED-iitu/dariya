@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Str;
 
 class ProcessParsePdfBooks implements ShouldQueue
 {
@@ -44,7 +45,7 @@ class ProcessParsePdfBooks implements ShouldQueue
                 $options['info_bin'] = base_path('bin/win/xpdf/pdfinfo.exe');
             }
 
-            $pdf_pages_dir = storage_path('app/public/pdf/book_'.$book->id);
+            $pdf_pages_dir = storage_path('app/public/pdf/book_'.Str::random(32));
 
             $options['output_dir'] = $pdf_pages_dir;
             $options['file'] = $path;
