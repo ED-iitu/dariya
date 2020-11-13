@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\AudioFile;
 use App\Book;
 use App\BookPages;
 use App\Jobs\ProcessParsePdfBooks;
@@ -47,7 +48,29 @@ class BookObserver
      */
     public function deleted(Book $book)
     {
-        //
+        AudioFile::query()->where('book_id',$book->id)->get()->each(function ($file){
+            /**
+             * @var AudioFile $file
+             */
+            if($file->audio_link && file_exists(public_path($file->audio_link))){
+                unlink(public_path($file->audio_link));
+            }
+            $file->delete();
+        });
+
+        BookPages::query()->where('book_id',$book->id)->get()->each(function ($page){
+            /**
+             * @var BookPages $page
+             */
+            $page->delete();
+        });
+
+        if($book->book_link && file_exists(public_path($book->book_link))){
+            unlink(public_path($book->book_link));
+        }
+        if($book->image_link && file_exists(public_path($book->image_link))){
+            unlink(public_path($book->image_link));
+        }
     }
 
     /**
