@@ -1,4 +1,7 @@
 @extends('layouts.admin-app')
+@section('tinymce-cdn')
+<script src="https://cdn.tiny.cloud/1/buh9cjvfxrwjgckznhj8pq3xwwxdx6my7sggxzipwou72sb2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+@endsection
 @section('admin-content')
     <div class="container">
         <div class="row">

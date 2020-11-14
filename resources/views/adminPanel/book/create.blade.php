@@ -1,4 +1,7 @@
 @extends('layouts.admin-app')
+@section('tinymce-cdn')
+    <script src="https://cdn.tiny.cloud/1/buh9cjvfxrwjgckznhj8pq3xwwxdx6my7sggxzipwou72sb2/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+@endsection
 @section('admin-content')
     <div class="container">
         <div class="row">
@@ -43,7 +46,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <textarea class="form-control" style="height:150px" name="detail_text" placeholder="Детальное описание"></textarea>
+                                <textarea class="form-control tiny_editor" style="height:150px" name="detail_text" placeholder="Детальное описание"></textarea>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">

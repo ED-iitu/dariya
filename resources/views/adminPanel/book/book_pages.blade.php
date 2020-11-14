@@ -63,6 +63,14 @@
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#edit_book_{{ $book_page->book_id }}_page_{{ $book_page->page }}">
                         Изменить
                     </button>
+                    <form method="post" action="{{ route('removeBookPage') }}" name="remove_page_{{ $book_page->book_id }}_page_{{ $book_page->page }}" style="display: inline-block">
+                        @csrf
+                        <input type="hidden" name="book_id" value="{{ $book_page->book_id }}">
+                        <input type="hidden" name="page" value="{{ $book_page->page }}">
+                        <button type="submit" class="btn btn-danger" style="cursor: pointer;"  onclick="return confirm('Are you sure?')">
+                            Удалить
+                        </button>
+                    </form>
 
                     <!-- Modal -->
                     <div class="modal fade" id="book_{{ $book_page->book_id }}_page_{{ $book_page->page }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

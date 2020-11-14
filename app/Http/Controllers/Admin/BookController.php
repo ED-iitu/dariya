@@ -48,7 +48,7 @@ class BookController extends Controller
         if(isset($pageNumber)){
             $book_pages->where('page',$request->get('pageNumber'));
         }
-        $book_pages = $book_pages->paginate(100);
+        $book_pages = $book_pages->paginate(50);
         return view('adminPanel.book.book_pages', [
             'book_pages' => $book_pages,
             'book' => $book,
@@ -73,6 +73,31 @@ class BookController extends Controller
 
         return redirect()->route('booksPages',$book_page->book_id)
             ->with('error','Ошибка при изменения!');
+    }
+
+    public function remove_book_page(Request $request){
+        $request->validate([
+            'book_id' => 'required',
+            'page' => 'required',
+        ]);
+        $page = $request->page;
+        BookPages::query()
+            ->where('book_id', $request->book_id)
+            ->where('page','>=', $page)
+            ->orderBy('page')
+            ->each(function ($book_page) use ($page){
+                /**
+                 * @var BookPages $book_page
+                 */
+                if($page == $book_page->page){
+                    $book_page->delete();
+                }else{
+                    $book_page->page --;
+                    $book_page->save();
+                }
+            });
+        return redirect()->route('booksPages',$request->book_id)
+            ->with('success',"Страница {$page}  успешно удалена");
     }
 
     public function sort_audio(Request $request, $id){
