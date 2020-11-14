@@ -41,7 +41,7 @@ class PaymentController extends Controller
                     'pg_description' => 'Книга: '.$book->name,
                     'pg_result_url' => url('api/payment/result'),
                     'pg_user_contact_email' => Auth::user()->email,
-                    'pg_success_url' => url('payment/success', ['transaction_id' => $transction->transaction_id]),
+                    'pg_success_url' => url('payment/success?transaction_id='.$transction->transaction_id),
                 ];
             }
             if(Auth::user()->phone){
@@ -86,14 +86,16 @@ class PaymentController extends Controller
         $paybox_sig = $request['pg_sig'];
         unset($request['pg_sig']);
         ksort($request); //sort alphabetically
-        array_unshift($request, 'payment.php');
+        array_unshift($request, 'result');
         array_push($request, env('PAYBOX_SECRET_KEY')); //add your secret key (you can take it in your personal cabinet on paybox system)
 
         $request['pg_sig'] = md5(implode(';', $request));
+        unset($request[0], $request[1]);
         if($request['pg_sig'] != $paybox_sig){
             $response = '<?xml version="1.0" encoding="UTF-8"?>
                                 <response>
                                   <pg_status>error</pg_status>
+                                  <pg_sig>'.$request['pg_sig'].'</pg_sig>
                                 </response>';
         }else{
             $transaction_id = $request['pg_order_id'];
