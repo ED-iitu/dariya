@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Site;
 use App\Book;
 use App\Http\Controllers\Controller;
 use App\Transaction;
+use App\User;
+use App\UserBook;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -24,7 +26,7 @@ class PaymentController extends Controller
                 $transction = new Transaction();
                 $transction->setRawAttributes([
                     'user_id' => Auth::id(),
-                    'transaction_type' => 'product',
+                    'transaction_type' => Transaction::TRANSACTION_TYPE_PRODUCT,
                     'amount' => $book->price,
                     'object_id' => $id
                 ]);
@@ -37,8 +39,9 @@ class PaymentController extends Controller
                     'pg_salt' => Str::random(),
                     'pg_order_id'=>$transction->transaction_id,
                     'pg_description' => 'Книга: '.$book->name,
-                    'pg_result_url' => url('api/payment_result'),
+                    'pg_result_url' => url('api/payment/result'),
                     'pg_user_contact_email' => Auth::user()->email,
+                    'pg_success_url' => url('payment/success', ['transaction_id' => $transction->transaction_id]),
                 ];
             }
             if(Auth::user()->phone){
@@ -99,6 +102,19 @@ class PaymentController extends Controller
                     $transaction->processor_transaction_id = $request['pg_payment_id'];
                     $transaction->status = true;
                     if($transaction->save()){
+
+                        if($transaction->transaction_type == Transaction::TRANSACTION_TYPE_PRODUCT){
+                            if(!UserBook::query()->where('book_id', $transaction->object_id)->exists()){
+                                $user_book = new UserBook();
+                                $user_book->setRawAttributes([
+                                    'user_id' => $transaction->user_id,
+                                    'book_id' => $transaction->object_id,
+                                    'type_of_acquisition' => UserBook::USER_BOOK_PURCHASED
+                                ]);
+                                $user_book->save();
+                            }
+                        }
+
                         $response = '<?xml version="1.0" encoding="UTF-8"?>
                                 <response>
                                   <pg_status>ok</pg_status>
@@ -111,5 +127,13 @@ class PaymentController extends Controller
         return response($response, 200, [
             'Content-Type' => 'application/xml'
         ]);
+    }
+
+    public function success(Request $request){
+        $transaction_id = $request->get('transaction_id');
+        if($transaction_id){
+            return view('site.site.success');
+        }
+        return response('',404);
     }
 }

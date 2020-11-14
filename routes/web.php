@@ -79,3 +79,4 @@ Route::get('/home', 'Site\HomeController@index')->name('home');
 Route::get('/payment_plug/{transaction_id}', 'Site\PaymentPlug@index');
 
 Route::post('/buy_book/{id}', 'Site\PaymentController@buy_book')->middleware('auth')->name('buyBook');
+Route::get('payment/success', 'Site\PaymentController@success');
