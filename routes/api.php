@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 /*
@@ -151,6 +152,36 @@ Route::post('register', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
+        'name' => 'required',
+    ]);
+
+    $user = User::query()->where('email', $request->email)->first();
+
+    if ($user) {
+        throw ValidationException::withMessages([
+            'email' => ['The provided credentials are incorrect.'],
+        ]);
+    }
+    try{
+        $user = new User();
+        $user->setAttribute('email', $request->email);
+        $user->setAttribute('password', Hash::make($request->email));
+        $user->setAttribute('name', $request->name);
+        $user->save();
+    }catch (Exception $e){
+        throw ValidationException::withMessages([
+            'Internal Error Server',
+        ]);
+    }
+
+
+    return response(['token'=>$user->createToken(time())->plainTextToken]);
+});
+
+Route::post('register/google', function (Request $request) {
+    $request->validate([
+        'email' => 'required|email',
+        'kid' => 'required',
         'name' => 'required',
     ]);
 
