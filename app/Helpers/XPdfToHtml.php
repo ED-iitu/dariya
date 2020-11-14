@@ -125,7 +125,37 @@ class XPdfToHtml extends Dom
         return $this->contents;
     }
 
-    public static function generateCorrectHtml($html){
+    public static function findPageTitle(string $html, array &$titles)
+    {
+        $page = new Dom();
+        $page->loadStr($html,[]);
+        /**
+         * @var Dom\Collection $elements
+         */
+        $body = $page->find('body');
+        /**
+         * @var Dom\HtmlNode $element
+         */
+        $body->each(function ($collection)use (&$titles) {
+            $elements = $collection->getChildren();
+            /**
+             * @var Dom\HtmlNode $element
+             */
+            foreach ($elements as $key => &$element) {
+                if ($element instanceof Dom\HtmlNode && !empty($element->innerHtml())) {
+                    if(array_key_exists($element->innerHtml(),$titles)){
+                        $titles[$element->innerHtml()]++;
+                    }else{
+                        $titles[$element->innerHtml()] = 1;
+                    }
+                    break;
+                }
+            }
+            return false;
+        });
+    }
+
+    public static function generateCorrectHtml($html, $title){
         $page = new Dom();
         $page->loadStr($html,[]);
         /**
@@ -137,7 +167,7 @@ class XPdfToHtml extends Dom
          */
         $element_left_css = [];
         $tags = [];
-        $body->each(function ($collection)use (&$element_left_css, &$element_top_css, &$tags){
+        $body->each(function ($collection)use (&$element_left_css, &$element_top_css, &$tags, $title){
             $elements = $collection->getChildren();
             /**
              * @var Dom\HtmlNode $element
@@ -162,7 +192,7 @@ class XPdfToHtml extends Dom
                             }
                         }
                     }
-                    if (!is_numeric($element->text())) {
+                    if($element->innerHtml() != $title && !preg_match('/(<span class="[a-zA-Z0-9]{1,}" style="font-size:[0-9]{1,}px;vertical-align:baseline;">(([0-9]{1,})|([0-9]{1,} {1,}))<\/span>)/m',$element->innerHtml())){
                         $tags[] = [
                             'left' => $left,
                             'top' => $css_top,

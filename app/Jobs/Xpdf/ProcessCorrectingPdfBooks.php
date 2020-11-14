@@ -16,14 +16,16 @@ class ProcessCorrectingPdfBooks implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $book_page;
+    protected $title;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(BookPages $book_pages)
+    public function __construct(BookPages $book_pages, string $title)
     {
         $this->book_page = $book_pages;
+        $this->title = $title;
     }
 
     /**
@@ -34,7 +36,7 @@ class ProcessCorrectingPdfBooks implements ShouldQueue
     public function handle()
     {
         $book_page = $this->book_page;
-        $correct_html = XPdfToHtml::generateCorrectHtml($book_page->content);
+        $correct_html = XPdfToHtml::generateCorrectHtml($book_page->content, $this->title);
         $book_page->content = $correct_html;
         $book_page->status = true;
         $book_page->save();

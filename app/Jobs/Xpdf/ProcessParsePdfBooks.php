@@ -60,6 +60,14 @@ class ProcessParsePdfBooks implements ShouldQueue
                 $book->pdf_hash = $hash;
                 $book->page_count = count($book_pages);
                 $book->save();
+
+                $titles = [];
+                foreach ($book_pages as $html){
+                    \App\Helpers\XPdfToHtml::findPageTitle($html, $titles);
+                }
+                arsort($titles);
+                $title = array_key_first($titles);
+
                 foreach ($book_pages as $html){
                     $book_page = new BookPages();
                     $book_page->setRawAttributes([
@@ -69,7 +77,7 @@ class ProcessParsePdfBooks implements ShouldQueue
                         'content' => $html,
                     ]);
                     if($book_page->save()){
-                        ProcessCorrectingPdfBooks::dispatch($book_page);
+                        ProcessCorrectingPdfBooks::dispatch($book_page, $title);
                     }
                     $page++;
                 }
