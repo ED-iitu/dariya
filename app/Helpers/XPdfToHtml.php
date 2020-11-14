@@ -42,6 +42,7 @@ class XPdfToHtml extends Dom
             $content = file_get_contents($base_path.'/page'.$i.'.html');
             $content = str_replace("Â", "", $content);
             $content = str_replace("id=\"", "class=\"", $content);
+            $content = str_replace("­ ", "", $content);
 
             $content = preg_replace('/color:rgba\([0-9]{1,},[0-9]{1,},[0-9]{1,},[0-9]{1,}\);/m','',$content);
 
