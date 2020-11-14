@@ -207,3 +207,5 @@ Route::post('register/google', function (Request $request) {
 
     return response(['token'=>$user->createToken(time())->plainTextToken]);
 });
+
+Route::post('payment/result', 'Site\PaymentController@result');
