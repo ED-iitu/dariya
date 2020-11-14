@@ -62,7 +62,7 @@
                                         <span>Автор: {{$bookData->author->name}} {{$bookData->author->surname}}</span>
                                     </div>
                                     <div class="box-tocart d-flex">
-                                        <form action="{{route('buyBook', $bookData->id)}}" method="post">
+                                        <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
                                             @csrf
                                             <div class="addtocart__actions">
                                                 <button class="tocart" type="submit" title="Купить книгу">Купить книгу

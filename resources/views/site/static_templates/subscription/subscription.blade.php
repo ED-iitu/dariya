@@ -7,14 +7,15 @@
                     <img src="{{ url( $tariff->image_url ) }}">
                 </div>
                 @if($tariff->tariffPriceLists)
-                    <form action="/">
+                    <form action="{{route('buy', ['tariff',$tariff->id])}}" method="post">
                         @foreach($tariff->tariffPriceLists as $key=>$price_list)
+                            @csrf
                             <div>
                                 @php
                                 $key++;
                                 @endphp
-                                <input id="premium_item_{{$key}}" type="radio" name="premium_item">
-                                <label for="premium_item_1">
+                                <input id="premium_item_{{$tariff->id}}_{{$key}}" type="radio" name="object_id" value="{{$price_list->id}}">
+                                <label for="premium_item_{{$tariff->id}}_{{$key}}">
                                     <span>{{ $price_list->duration }} месяц</span>
                                     <span>{{ \Akaunting\Money\Money::KZT($price_list->price)->format() }}/мес</span>
                                 </label>
