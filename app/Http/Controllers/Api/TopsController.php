@@ -281,7 +281,7 @@ class TopsController extends Controller
         /**
          * Audio-Books
          */
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $audio_books  = [];
         $res->each(function($model) use (&$audio_books){
 
