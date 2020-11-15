@@ -143,7 +143,7 @@
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
                         <aside class="widget recent_widget">
-                            <h3 class="widget-title">Похожие статьи</h3>
+                            <h3 class="widget-title">Похожие видео</h3>
                             <div class="recent-posts">
                                 <ul>
                                     @foreach($similar_videos as $similar)
