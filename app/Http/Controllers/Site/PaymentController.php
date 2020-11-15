@@ -34,7 +34,8 @@ class PaymentController extends Controller
                             'user_id' => Auth::id(),
                             'transaction_type' => Transaction::TRANSACTION_TYPE_TARIFF,
                             'object_id' => $object_id,
-                            'amount' => $tariff_price_list->price
+                            'amount' => $tariff_price_list->price,
+                            'description' => $tariff_price_list->tariff->title,
                         ];
                     }
                     break;
@@ -52,7 +53,8 @@ class PaymentController extends Controller
                             'user_id' => Auth::id(),
                             'transaction_type' => Transaction::TRANSACTION_TYPE_PRODUCT,
                             'object_id' => $object_id,
-                            'amount' => $book->price
+                            'amount' => $book->price,
+                            'description' => 'Книга: '.$book->name,
                         ];
                     }
                     break;
@@ -62,13 +64,18 @@ class PaymentController extends Controller
                 $transaction = new Transaction();
                 $transaction->setRawAttributes($transaction_data);
                 if ($transaction->save()) {
+                    $price = $book->price;
+                    $description = '';
+                    if($book instanceof Book){
+                        $description
+                    }
                     if (env('PAYBOX_SECRET_KEY') && env('PAYBOX_MERCHANT_ID')) {
                         $request = [
                             'pg_merchant_id' => env('PAYBOX_MERCHANT_ID'),
-                            'pg_amount' => $book->price,
+                            'pg_amount' => $transaction_data['amount'],
                             'pg_salt' => Str::random(),
                             'pg_order_id' => $transaction->transaction_id,
-                            'pg_description' => 'Книга: ' . $book->name,
+                            'pg_description' => $transaction_data['description'],
                             'pg_result_url' => url('api/payment/result'),
                             'pg_user_contact_email' => Auth::user()->email,
                             'pg_success_url' => url('payment/success?transaction_id=' . $transaction->transaction_id),
