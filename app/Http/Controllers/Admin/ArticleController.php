@@ -20,7 +20,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::query()->orderBy('created_at','desc')->get();
 
         return view('adminPanel.article.index', [
             'articles' => $articles

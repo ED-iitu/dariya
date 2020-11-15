@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use App\Article;
 use App\Book;
 use App\Comment;
+use App\Video;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,11 @@ class CommentController extends Controller
             if($object_type == Comment::BOOK_TYPE){
                 $object = Book::query()->find($id);
             }
+
+            if($object_type == Comment::VIDEO_TYPE){
+                $object = Video::query()->find($id);
+            }
+
             if($object){
                 $comment = new Comment();
                 $comment->setRawAttributes([

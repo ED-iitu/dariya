@@ -24,7 +24,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::query()->orderBy('created_at','desc')->get();
 
         return view('adminPanel.book.index', [
             'books' => $books,
@@ -48,7 +48,7 @@ class BookController extends Controller
         if(isset($pageNumber)){
             $book_pages->where('page',$request->get('pageNumber'));
         }
-        $book_pages = $book_pages->paginate(50);
+        $book_pages = $book_pages->paginate(10);
         return view('adminPanel.book.book_pages', [
             'book_pages' => $book_pages,
             'book' => $book,

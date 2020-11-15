@@ -19,7 +19,7 @@ class VideoController extends Controller
      */
     public function index()
     {
-        $videos = Video::all();
+        $videos = Video::query()->orderBy('created_at','desc')->get();
 
         return view('adminPanel.video.index', [
             'videos' => $videos
