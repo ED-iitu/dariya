@@ -64,11 +64,6 @@ class PaymentController extends Controller
                 $transaction = new Transaction();
                 $transaction->setRawAttributes($transaction_data);
                 if ($transaction->save()) {
-                    $price = $book->price;
-                    $description = '';
-                    if($book instanceof Book){
-                        $description
-                    }
                     if (env('PAYBOX_SECRET_KEY') && env('PAYBOX_MERCHANT_ID')) {
                         $request = [
                             'pg_merchant_id' => env('PAYBOX_MERCHANT_ID'),
