@@ -76,6 +76,12 @@ class VideoController extends Controller
             'youtube_video_id'         => $request->youtube_video_id,
         ];
 
+        if($request->for_vip && $request->for_vip == 'on'){
+            $data['for_vip'] = 1;
+        }else{
+            $data['for_vip'] = 0;
+        }
+
         if (null !== $image_link) {
             $data = array_merge($data, [
                 'image_link'   => '/uploads/' . $image_link->getFilename() . '.' . $extensionImage,
@@ -146,6 +152,13 @@ class VideoController extends Controller
             'lang'         => $request->lang,
             'youtube_video_id'         => $request->youtube_video_id,
         ];
+
+        if($request->for_vip && $request->for_vip == 'on'){
+            $data['for_vip'] = 1;
+        }else{
+            $data['for_vip'] = 0;
+        }
+
 
         if (null !== $image_link) {
             $data = array_merge($data, [

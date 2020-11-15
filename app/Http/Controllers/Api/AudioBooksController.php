@@ -40,18 +40,6 @@ class AudioBooksController extends Controller
 
     public function view($id){
         if($audio_book = Book::query()->find($id)){
-            $is_access = false;
-            if(Auth::user()){
-                if(Auth::user()->have_active_tariff()){
-                    $is_access = true;
-                }else{
-                    Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
-                        if(!$is_access && $id == $my_book->id){
-                            $is_access = true;
-                        }
-                    });
-                }
-            }
             $data = [
                 "id"=> $audio_book->id,
                 "name"=> $audio_book->name,
@@ -68,7 +56,7 @@ class AudioBooksController extends Controller
                 "is_free"=> $audio_book->is_free ? true :false,
                 "is_favorite"=> $audio_book->isFavorite(),
                 "in_my_book"=> $audio_book->inMyBook(),
-                "is_access"=> $is_access,
+                "is_access"=> $audio_book->isAccess(),
                 "price"=> $audio_book->price,
                 "formatted_price"=> Money::KZT($audio_book->price)->format(),
                 "forum_message_count"=> ($audio_book->comments) ? $audio_book->comments->count() : 0 ,

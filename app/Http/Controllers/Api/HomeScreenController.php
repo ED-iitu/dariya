@@ -9,6 +9,7 @@ use App\Article;
 use App\Banner;
 use App\Book;
 use App\Video;
+use Illuminate\Support\Facades\Auth;
 
 class HomeScreenController extends Controller
 {
@@ -118,13 +119,23 @@ class HomeScreenController extends Controller
         /**
          * Videos
          */
-        $res = Video::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Video::query()->where('for_vip', 0);
+        if(Auth::user()){
+            if(Auth::user()->have_active_tariff()){
+                if(Auth::user()->tariff->slug == 'vip'){
+                    $res = Video::query();
+                }
+            }
+        }
+
+        $res = $res->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $videos  = [];
         $res->paginate(6)->each(function($model) use (&$videos){
             $videos[] = [
                 'id' => $model->id,
                 'name' => $model->name,
                 'rating' => $model->rate,
+                "for_vip" => (bool)$model->for_vip,
                 'authors' => $model->author ? $model->author : null,
                 'forum_message_count' => $model->comments ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,

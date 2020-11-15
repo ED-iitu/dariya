@@ -12,7 +12,7 @@ class Video extends Model
     protected $table = 'videos';
 
     protected $fillable = [
-        'name', 'preview_text', 'detail_text', 'author', 'categories', 'lang', 'image_link', 'youtube_video_id', 'local_video_link', 'created_at', 'updated_at'
+        'name', 'preview_text', 'detail_text', 'author', 'categories', 'lang', 'for_vip', 'image_link', 'youtube_video_id', 'local_video_link', 'created_at', 'updated_at'
     ];
 
     public function categories()

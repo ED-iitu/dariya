@@ -23,7 +23,7 @@ class ArticleController extends Controller
                 return $query->where('name', 'like', "%$category%");
             });
         }
-        $articles = $articles->paginate(9);
+        $articles = $articles->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(9);
         $recentArticles = Article::recents();
         $categories = (Category::query()->where('slug','article')->first()) ? Category::query()->where('slug','article')->first()->childs : [];
 

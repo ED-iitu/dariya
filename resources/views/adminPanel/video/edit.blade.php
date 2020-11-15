@@ -38,6 +38,14 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group alert @if($video->for_vip)alert-success @else alert-danger @endif">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="for_vip" name="for_vip" @if($video->for_vip)checked="checked"@endif>
+                                <label class="form-check-label" for="for_vip">Для VIP-подписки</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <input type="text" name="preview_text" class="form-control" placeholder="Краткое описание" value="{{ $video->preview_text }}">
                         </div>
@@ -106,15 +114,9 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="for_all" name="for_all" @if($video->for_all)checked="checked"@endif>
-                                <label class="form-check-label" for="for_all">Для всех</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        @if($video->youtube_video_id )
                         <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$video->youtube_video_id}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        @endif
                         <div class="form-group">
                             <input type="text" name="youtube_video_id" class="form-control" placeholder="ID видео с ютуба" value="{{ $video->youtube_video_id }}">
                         </div>

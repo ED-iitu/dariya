@@ -35,7 +35,7 @@ class BookController extends Controller
             });
         }
 
-        $books = $books->paginate(9);
+        $books = $books->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(9);
         $genres = Genre::all();
         $authors = Author::all();
         $banners = Banner::all();
@@ -102,7 +102,7 @@ class BookController extends Controller
 
     public function audioBooks()
     {
-        $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->paginate(9);
+        $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(9);
 
         if ($books->count() == 0) {
             $books = [];

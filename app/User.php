@@ -88,12 +88,16 @@ class User extends Authenticatable implements SocialAuthenticatable
          return ($this->tariff_id && date('Y-m-d H:i:s', time()) < $this->tariff_end_date) ? true : false;
     }
 
+    public function isInviteToVip(){
+        return $this->hasOne(InviteToVip::class,'user_id','id')->exists();
+    }
+
     /**
      * Get all of favorite all for the user.
      */
     public function favorites()
     {
-        return $this->belongsToMany(Book::class, 'favorites', 'user_id', 'object_id');
+        return $this->hasMany(Favorite::class, 'user_id', 'id');
     }
 
     /**

@@ -18,7 +18,12 @@ class OrderController extends Controller
     public function tariffs()
     {
         $tariffs = [];
-        $res = Tariff::query();
+
+        if(Auth::user()->isInviteToVip()){
+            $res = Tariff::query();
+        }else{
+            $res = Tariff::query()->whereIn('slug',['premium', 'standard']);
+        }
         $res->each(function ($tariff) use (&$tariffs){
             $tariffs[] = [
                 "id"=> $tariff->id,

@@ -46,18 +46,6 @@ class BookController extends Controller
 
     public function view($id){
         if($book = Book::query()->find($id)){
-            $is_access = false;
-            if(Auth::user()){
-                if(Auth::user()->have_active_tariff()){
-                    $is_access = true;
-                }else{
-                    Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
-                        if(!$is_access && $id == $my_book->id){
-                            $is_access = true;
-                        }
-                    });
-                }
-            }
             $data = [
                 "id"=> $book->id,
                 "name"=> $book->name,
@@ -74,7 +62,7 @@ class BookController extends Controller
                 "duration"=> $book->duration,
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
-                "is_access"=> $is_access,
+                "is_access"=> $book->isAccess(),
                 "price"=> $book->price,
                 "formatted_price"=> Money::KZT($book->price)->format(),
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0 ,

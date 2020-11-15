@@ -4,7 +4,7 @@
         <div class="image mb-2" style="background-image: url({{url($video->image_link)}});">
             <i class="fa fa-play" aria-hidden="true"></i>
         </div>
-        <h6 class="title mb-2">{{ $video->name }}</h6>
+        <h6 class="title mb-2">@if($video->for_vip)<span class="badge badge-success">VIP</span> @endif {{ $video->name }}</h6>
         <div class="info mb-2">
             <span>{{\Jenssegers\Date\Date::parse($video->created_at)->format('j F, Y')}}</span>
             <ul class="mb-0">

@@ -36,6 +36,14 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group alert alert-danger">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="for_vip" name="for_vip">
+                            <label class="form-check-label" for="for_vip">Для VIP-подписки</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <input type="text" name="preview_text" class="form-control" placeholder="Краткое описание">
                     </div>
@@ -87,14 +95,6 @@
                                     <label class="custom-file-label" for="inputGroupFile01">Загрузите видео</label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="for_all" name="for_all" checked="checked">
-                            <label class="form-check-label" for="for_all">Для всех</label>
                         </div>
                     </div>
                 </div>

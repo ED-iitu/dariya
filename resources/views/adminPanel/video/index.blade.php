@@ -27,7 +27,12 @@
             @foreach($videos as $video)
                 <tr>
                     <th scope="row">{{ $video->id }}</th>
-                    <th>{{ $video->name}}</th>
+                    <th>
+                        {{ $video->name}}
+                        @if($video->for_vip)
+                            <span class="badge badge-success">VIP</span>
+                        @endif
+                    </th>
                     <td><a href="{{ route('videos.show',$video->id) }}">{{ $video->youtube_video_id }}</a></td>
                     <td>
                         <form class="delete" action="{{ route('videos.destroy',$video->id) }}" method="POST">

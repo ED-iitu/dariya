@@ -4,10 +4,9 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Article;
 use App\Video;
 use Illuminate\Http\Request;
-use function PHPSTORM_META\type;
+use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
@@ -15,7 +14,17 @@ class VideoController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $videos = [];
-        $res = Video::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+
+        $res = Video::query()->where('for_vip', 0);
+        if(Auth::user()){
+            if(Auth::user()->have_active_tariff()){
+                if(Auth::user()->tariff->slug == 'vip'){
+                    $res = Video::query();
+                }
+            }
+        }
+
+        $res = $res->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($video) use (&$videos){
             $videos[] = [
                 "id"=> $video->id,
@@ -27,6 +36,7 @@ class VideoController extends Controller
                 "show_counter"=> $video->show_counter,
                 "image_url"=> ($video->image_link) ? url($video->image_link) : null,
                 "type" => ($video->youtube_video_id) ? "YOUTUBE" : "LOCAL",
+                "for_vip" => (bool)$video->for_vip,
                 "youtube_video_id" => $video->youtube_video_id,
                 "local_video_link" => ($video->local_video_link) ? url($video->local_video_link) : null,
             ];

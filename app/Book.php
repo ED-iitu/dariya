@@ -139,4 +139,24 @@ class Book extends Model
         }
         return false;
     }
+
+    public function isAccess(){
+        $is_access = false;
+        if(Auth::user()){
+            $id = $this->id;
+            if(Auth::user()->have_active_tariff()){
+                $is_access = true;
+                if(Auth::user()->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE){
+                    $is_access = false;
+                }
+            }else{
+                Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
+                    if(!$is_access && $id == $my_book->id){
+                        $is_access = true;
+                    }
+                });
+            }
+        }
+        return $is_access;
+    }
 }
