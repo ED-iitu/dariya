@@ -1177,6 +1177,15 @@ div.video-item span.more {
     .product__overview{
         display: none;
     }
+
+    div.article-item a div.image {
+        height: 100px;
+        background-size: contain;
+    }
+    div.video-item a div.image {
+        height: 100px;
+        background-size: contain;
+    }
 }
 @media (max-width: 400px) {
     /*header----------*/
