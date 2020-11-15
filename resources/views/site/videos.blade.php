@@ -50,7 +50,7 @@
                             <h3 class="widget-title">Категории</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                <li><a href="{{url('/articles?category='.$category->name)}}">{{$category->name}}</a></li>
+                                <li><a href="{{url('/videos?category='.$category->name)}}">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </aside>
