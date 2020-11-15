@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Добавление нового Категории</h2>
+                    <h2>Добавление нового приглашения к VIP</h2>
                 </div>
                 <div>
                     <a class="btn btn-primary" href="{{ route('categoriesPage') }}"> Вернуться назад</a>
@@ -23,22 +23,16 @@
             </div>
         @endif
 
-        <form action="{{ route('categories.store') }}" method="POST">
+        <form action="{{ route('invite_to_vip.store') }}" method="POST">
             @csrf
 
             <div class="row mt-5">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Название">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <label for="parent_id">Родительская категория</label>
-                        <select name="parent_id" class="form-control">
-                            <option value="0">Корневая категория</option>
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                        <label for="use_id">Пользователь</label>
+                        <select name="user_id" class="form-control">
+                            @foreach($users as $user)
+                                <option value="{{$user->id}}">{{$user->name}} [{{$user->email}}]</option>
                             @endforeach
                         </select>
                     </div>

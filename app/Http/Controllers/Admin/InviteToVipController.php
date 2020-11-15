@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\InviteToVip;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class InviteToVipController extends Controller
 {
@@ -29,9 +31,9 @@ class InviteToVipController extends Controller
      */
     public function create()
     {
-        $categories = InviteToVip::query()->whereIn('slug',['video', 'article'])->get();
+        $users = User::query()->where('id','!=', Auth::id())->get();
         return view('adminPanel.invite_to_vip.create', [
-            'categories' => $categories
+            'users' => $users
         ]);
     }
 
@@ -43,62 +45,30 @@ class InviteToVipController extends Controller
      */
     public function store(Request $request)
     {
-        InviteToVip::create($request->all());
+        $request->validate([
+            'user_id' => 'required',
+        ]);
+        $data = $request->all();
+        $data['invited_by'] = Auth::id();
+        $data['status'] = 0;
+        InviteToVip::create($data);
 
         return redirect()->route('InviteToVipPage')
-            ->with('success','Категория успешно добавлен.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\InviteToVip  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InviteToVip $category)
-    {
-        return view('adminPanel.invite_to_vip.show',compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\InviteToVip  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InviteToVip $category)
-    {
-        $categories = InviteToVip::query()->whereIn('slug',['video', 'article'])->get();
-        return view('adminPanel.invite_to_vip.edit',compact('category','categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\InviteToVip  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, InviteToVip $category)
-    {
-        $category->update($request->all());
-
-        return redirect()->route('InviteToVipPage')
-            ->with('success','Категория успешно обновлен');
+            ->with('success','Пользовательуспешно добавлен.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\InviteToVip $category
+     * @param  \App\InviteToVip $inviteToVip
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
-    public function destroy(InviteToVip $category)
+    public function destroy(InviteToVip $inviteToVip)
     {
-        $category->delete();
+        $inviteToVip->delete();
 
         return redirect()->route('InviteToVipPage')
-            ->with('success','Категория успешно удален');
+            ->with('success','Пользователь успешно удален');
     }
 }

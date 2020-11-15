@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::resource('genres','Admin\GenreController');
         Route::resource('categories','Admin\CategoryController');
         Route::resource('invite_to_vip','Admin\InviteToVipController');
+        Route::resource('users','Admin\UserController');
         Route::resource('role','Admin\RoleController');
         Route::resource('info','Admin\InfoController');
         Route::resource('articles','Admin\ArticleController');
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
         Route::get('categories', 'Admin\CategoryController@index')->name('categoriesPage');
         Route::get('invite_to_vip', 'Admin\InviteToVipController@index')->name('InviteToVipPage');
+        Route::get('users', 'Admin\UserController@index')->name('usersPage');
         Route::get('role','Admin\RoleController@index')->name('rolePage');
         Route::get('info', 'Admin\InfoController@index')->name('infoPage');
         Route::get('tariffs', 'Admin\TariffController@index')->name('tariffsPage');

@@ -120,7 +120,7 @@ class HomeScreenController extends Controller
          */
         $res = Video::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $videos  = [];
-        $res->paginate(8)->each(function($model) use (&$videos){
+        $res->paginate(6)->each(function($model) use (&$videos){
             $videos[] = [
                 'id' => $model->id,
                 'name' => $model->name,

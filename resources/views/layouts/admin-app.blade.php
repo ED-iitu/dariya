@@ -107,6 +107,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-info"></i></div>
                         Инфо
                     </a>
+                    <a class="nav-link" href="{{route('usersPage')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
+                        Пользователи
+                    </a>
                     <a class="nav-link" href="{{route('supportTicketsPage')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
                         Сообщения от пользователей
