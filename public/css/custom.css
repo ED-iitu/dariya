@@ -428,7 +428,7 @@ div.article-item span.more {
     font-weight: 500;
     font-size: 14px;
     line-height: 32px;
-    color: #333;
+    color: #1d8afe;
 }
 /*books_slider*/
 #books_slider {
@@ -1048,7 +1048,29 @@ div.video-item span.more {
 }
 /*----------content*/
 
-
+.footer-static-top {
+    padding: 20px 0 0 0;
+}
+.footer__menu .ft__logo a {
+    margin-bottom: 5px;
+}
+.ft__logo {
+    margin: 0 auto 0px;
+}
+.social__net li a {
+    font-size: 30px;
+    line-height: 20px;
+}
+.social__net {
+    margin-bottom: 10px;
+}
+.footer__menu .footer__content .mainmenu li {
+    margin-bottom: 0;
+    padding: 0px 10px;
+}
+.copyright__wrapper {
+    padding: 10px 0;
+}
 
 /*media----------*/
 @media (max-width: 1200px) {
@@ -1149,6 +1171,12 @@ div.video-item span.more {
     }
     #advertisings div.owl-carousel .item a {
         height: 160px;
+    }
+    section#banner-main div.owl-carousel div.owl-nav > div.owl-prev{
+        display: none;
+    }
+    section#banner-main div.owl-carousel div.owl-nav > div.owl-next{
+        display: none;
     }
     /*tabs_box*/
     section#tabs_box div.tabs ul li {
