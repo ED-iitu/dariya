@@ -113,7 +113,7 @@ class SearchController extends Controller
                         "forum_message_count"=> ($video->comments) ? $video->comments->count() : 0,
                         "show_counter"=> $video->show_counter,
                         "image_url"=> ($video->image_link) ? url($video->image_link) : null,
-                        "url"=> url('article/'.$video->id),
+                        "url"=> url('video/'.$video->id),
                     ];
                 });
         }
