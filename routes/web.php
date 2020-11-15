@@ -64,6 +64,7 @@ Route::get('/books', 'Site\BookController@index')->name('books');
 Route::get('/audio_books', 'Site\BookController@audioBooks')->name('audio_books');
 Route::get('/articles', 'Site\ArticleController@index')->name('articles');
 Route::get('/videos', 'Site\VideoController@index')->name('videos');
+Route::get('/video/{id}', 'Site\VideoController@single')->name('video');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/article/{id}', 'Site\ArticleController@singleBook')->name('article');
 Route::get('/search', 'Site\SearchController@index')->name('search');

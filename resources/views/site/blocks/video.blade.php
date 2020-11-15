@@ -1,6 +1,6 @@
 
 <div class="video-item">
-    <a href="#">
+    <a href="{{ route('video', $video->id) }}">
         <div class="image mb-2" style="background-image: url({{url($video->image_link)}});">
             <i class="fa fa-play" aria-hidden="true"></i>
         </div>

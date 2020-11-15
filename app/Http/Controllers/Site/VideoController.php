@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Book;
 use App\Category;
+use App\Comment;
+use App\Facades\ShareFacade;
 use App\Http\Controllers\Controller;
 use App\Video;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,51 @@ class VideoController extends Controller
             'categories' => $categories,
             'title' => $title,
             'breadcrumb' => $breadcrumb
+        ]);
+    }
+
+    public function single($id)
+    {
+        $video = Video::find($id);
+
+        if ($video) {
+            Video::where('id', $id)->increment('show_counter');
+            $author = $video->author;
+            $similar_videos = Video::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
+        }
+
+        $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
+
+        if ($comments->count() == 0) {
+            $comments = [];
+        }
+
+        $breadcrumb[] = [
+            'title' => 'Подборка статей',
+            'route' => route('videos'),
+            'active' => false,
+        ];
+        $title = $video->name;
+        $breadcrumb[] = [
+            'title' => $title,
+            'active' => true
+        ];
+
+        $share_links = ShareFacade::page(url('video/'.$id), $video->name)
+            ->facebook()
+            ->vk()
+            ->twitter()
+            ->whatsapp()
+            ->telegram()
+            ->getRawLinks();
+
+        return view('site.video', [
+            'video' => $video,
+            'similar_videos' => $similar_videos,
+            'comments' => $comments,
+            'title' => $title,
+            'breadcrumb' => $breadcrumb,
+            'share_links' => $share_links,
         ]);
     }
 }
