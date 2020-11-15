@@ -61,7 +61,7 @@ class ArticleController extends Controller
             if($article->categories){
                 foreach ($article->categories as $category){
                     $data['categories'][] = [
-                        "id"=> $comment->id,
+                        "id"=> $category->id,
                         "category_name"=> $category->name
                     ];
                 }
