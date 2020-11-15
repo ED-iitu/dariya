@@ -1124,6 +1124,32 @@ div.video-item span.more {
     section#banner-main div.owl-carousel div.item a {
         height: 160px;
     }
+    .footer-static-top {
+        padding: 10px 0 0 0;
+    }
+    .footer__menu .ft__logo a {
+        margin-bottom: 5px;
+    }
+    .ft__logo {
+        margin: 0 auto 0px;
+    }
+    .social__net li a {
+        font-size: 30px;
+        line-height: 20px;
+    }
+    .social__net {
+        margin-bottom: 10px;
+    }
+    .footer__menu .footer__content .mainmenu li {
+        margin-bottom: 0;
+        padding: 0px 10px;
+    }
+    .copyright__wrapper {
+        padding: 10px 0;
+    }
+    #advertisings div.owl-carousel .item a {
+        height: 160px;
+    }
     /*tabs_box*/
     section#tabs_box div.tabs ul li {
         font-size: 12px;

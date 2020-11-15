@@ -178,15 +178,15 @@
             <div class="copyright__wrapper">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="copyright">
-                                <div class="copy__right__inner text-left">
+                                <div class="copy__right__inner text-lg-left text-md-center">
                                     <p>Copyright <i class="fa fa-copyright"></i> <a href="#">Dariya.</a> Все права защищены</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12">
-                            <div class="payment text-right">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="payment text-lg-right text-md-center">
                                 <img src="images/icons/payment.png" alt="" />
                             </div>
                         </div>
