@@ -89,7 +89,15 @@ class BannerController extends Controller
      */
     public function update(Request $request, Banner $banner)
     {
-        $banner->update($request->all());
+        $data = $request->all();
+        if($request->file('file_url')){
+            $image_link = $request->file('file_url');
+            $extensionImage = $image_link->getClientOriginalExtension();
+            Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
+            $data['file_url'] = '/uploads/' . $image_link->getFilename() . '.' . $extensionImage;
+        }
+
+        $banner->update($data);
 
         return redirect()->route('bannersPage')
             ->with('success','Баннер успешно обновлен');
