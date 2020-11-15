@@ -83,10 +83,18 @@
                             <a class="nav-link" href="{{route('videosPage')}}">Видео материалы</a>
                         </nav>
                     </div>
-                    <a class="nav-link" href="{{route('tariffsPage')}}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-money"></i></div>
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tariffContent" aria-expanded="false" aria-controls="tariffContent">
+                        <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
                         Тарифы
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <div class="collapse" id="tariffContent" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="{{route('tariffsPage')}}">Тарифы</a>
+                            <a class="nav-link" href="{{route('InviteToVipPage')}}">Приглашения к VIP-подписку</a>
+                            <a class="nav-link" href="{{route('videosPage')}}">Видео материалы</a>
+                        </nav>
+                    </div>
                     <a class="nav-link" href="{{route('transactionsPage')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-bank"></i></div>
                         Транзакции

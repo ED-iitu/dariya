@@ -140,6 +140,32 @@ class BookController extends Controller
         return $this->sendError('Book Not Found' ,[], 404);
     }
 
+    public function get_html_by_paginate($id)
+    {
+
+        $book = Book::query()->find($id);
+        if($book){
+            $data = [];
+            foreach ($book->pages()->paginate(10) as $page){
+                if($page->status){
+                    $data[] = [
+                        'content' => $page->content,
+                        'page' => $page->page
+                    ];
+                }else{
+                    $data[] = [
+                        'content' => 'Страница в обработке',
+                        'page' => $page->page
+                    ];
+                }
+            }
+            return response(['data' => $data]);
+        }
+
+
+        return $this->sendError('Book Not Found' ,[], 404);
+    }
+
     public function group_by_genre(Request $request){
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
