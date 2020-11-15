@@ -21,7 +21,7 @@ class VideoController extends Controller
 {
     public function index()
     {
-        $title = 'Подборка статей';
+        $title = 'Подборка видео';
         $breadcrumb[] = [
             'title' => $title,
             'route' => route('articles'),
@@ -35,7 +35,7 @@ class VideoController extends Controller
                 }
             }
         }
-        $recentVideos = Video::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->get();
+        $recentVideos = Video::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
         $categories = (Category::query()->where('slug','video')->first()) ? Category::query()->where('slug','video')->first()->childs : [];
         return view('site.videos',[
             'videos' => $videos,
@@ -63,7 +63,7 @@ class VideoController extends Controller
         }
 
         $breadcrumb[] = [
-            'title' => 'Подборка статей',
+            'title' => 'Видео',
             'route' => route('videos'),
             'active' => false,
         ];

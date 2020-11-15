@@ -33,10 +33,10 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="{{route('article', $recent->id)}}"><img src="{{$recent->image_link}}" alt="blog images"></a>
+                                                <a href="{{route('video', $recent->id)}}"><img src="{{$recent->image_link}}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
-                                                <h4><a href="blog-details.html">{{$recent->name}}</a></h4>
+                                                <h4><a href="{{route('video', $recent->id)}}">{{$recent->name}}</a></h4>
                                                 <p>	{{$recent->created_at}}</p>
                                             </div>
                                         </div>
