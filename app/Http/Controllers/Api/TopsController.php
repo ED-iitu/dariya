@@ -213,11 +213,16 @@ class TopsController extends Controller
     public function news($type = false)
     {
         if($type){
+            if($type == 'new_book'){
+                $type = Book::BOOK_TYPE;
+            }else{
+                $type = Book::AUDIO_BOOK_TYPE;
+            }
             $request = \Illuminate\Http\Request::createFromGlobals();
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where('type',$type)->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
