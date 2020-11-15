@@ -120,7 +120,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="object_id" value="{{$video->id}}">
-                                <input type="hidden" name="object_type" value="article">
+                                <input type="hidden" name="object_type" value="video">
                                 <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
                                 <div class="input__box">
                                     <label>Отзыв</label>
