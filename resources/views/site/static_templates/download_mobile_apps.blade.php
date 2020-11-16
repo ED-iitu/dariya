@@ -2,11 +2,11 @@
     <div class="content-box">
         <img src="{{ asset('images/content/dariya_text.png') }}" alt="">
         <div>
-            <a class="google-play" href="#">
+            <a class="google-play" href="{{ env('ANDROID_APP_LINK','#') }}">
                 <img src="{{ asset('images/content/google-play.png') }}" alt="">
                 <span>Google Play</span>
             </a>
-            <a class="app-store" href="#">
+            <a class="app-store" href="{{ env('IOS_APP_LINK','#') }}">
                 <img src="{{ asset('images/content/mac-os.png') }}" alt="">
                 <span>App Store</span>
             </a>

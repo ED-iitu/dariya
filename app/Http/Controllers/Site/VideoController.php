@@ -42,7 +42,7 @@ class VideoController extends Controller
             });
         }
         $videos = $videos->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(9);
-        $recentVideos = Video::where('created_at', '>', date('Y-m-d H:i:s', strtotime('-7days')))->limit(5)->get();
+        $recentVideos = Video::recents();
         $categories = (Category::query()->where('slug','video')->first()) ? Category::query()->where('slug','video')->first()->childs : [];
         return view('site.videos',[
             'videos' => $videos,
@@ -79,7 +79,7 @@ class VideoController extends Controller
             'title' => $title,
             'active' => true
         ];
-
+        $video->setAsRecent();
         $share_links = ShareFacade::page(url('video/'.$id), $video->name)
             ->facebook()
             ->vk()

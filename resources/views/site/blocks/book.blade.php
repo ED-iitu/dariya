@@ -31,9 +31,9 @@
     <div class="description">
         <p><a href="{{ url('book/'.$book->id) }}">{{$book->preview_text}}</a></p>
     </div>
-    @if(Auth::user() && Auth::user()->books->keyBy('id')->has($book->id))
+    @if($book->isAccess())
         <div class="final">
-            <a style="background: #f3ac61; border-color: #f3ac61" href="{{ url('book/'.$book->id) }}" class="order">Читать</a>
+            <a style="background: #f3ac61; border-color: #f3ac61" href="{{ route('readBook',$book->id) }}" class="order"><i class="fa fa-book"></i> Читать</a>
         </div>
     @else
         <div class="final">

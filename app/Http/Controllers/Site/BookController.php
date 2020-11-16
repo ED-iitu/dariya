@@ -99,7 +99,20 @@ class BookController extends Controller
             'share_links' => $share_links,
         ]);
     }
+    public function readBook($id)
+    {
+        if($book = Book::query()->find($id)){
+            $android_link = env('ANDROID_APP_LINK','#');
+            $ios_link = env('IOS_APP_LINK','#');
 
+            $message = 'Чтобы читать книгу установите приложение из <a href="'.$android_link.'" target="_blank"><b>Google Play</b></a> или <a href="'.$ios_link.'" target="_blank"><b>App Store</b></a>';
+            if($book->type == Book::AUDIO_BOOK_TYPE){
+                $message = 'Чтобы слушать аудио-книгу установите приложение из <a href="'.$android_link.'" target="_blank"><b>Google Play</b></a> или <a href="'.$ios_link.'" target="_blank"><b>App Store</b></a>';
+            }
+            return redirect()->route('book', $id)
+                ->with('success',$message);
+        }
+    }
     public function audioBooks()
     {
         $books = Book::where('type', '=', Book::AUDIO_BOOK_TYPE)->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(9);

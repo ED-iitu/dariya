@@ -67,7 +67,11 @@
                         <div class="row">
                             @foreach($userData->books as $book)
                                 <div class="col-md-3 col-6">
-                                    @include('site.blocks.book')
+                                    @if($book->type == \App\Book::AUDIO_BOOK_TYPE)
+                                        @include('site.blocks.audio_book')
+                                    @else
+                                        @include('site.blocks.book')
+                                    @endif
                                 </div>
                             @endforeach
                         </div>

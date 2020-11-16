@@ -6,6 +6,7 @@ use App\Article;
 use App\ArticleToCategory;
 use App\Category;
 use App\Author;
+use App\Favorite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -168,6 +169,8 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
+
+        Favorite::query()->where(['object_type' => Favorite::FAVORITE_ARTICLE_TYPE, 'object_id' => $article->id])->delete();
 
         return redirect()->route('articlesPage')
             ->with('success','Статься успешно удалена');

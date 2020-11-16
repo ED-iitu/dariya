@@ -3,18 +3,20 @@
 @section('content')
 
     @include('site.blocks.breadcrumb', ['breadcrumb' => $breadcrumb])
-    <div class="mt-3 mb-2">
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-    </div>
     <!-- End Bradcaump area -->
     <!-- Start main Content -->
     <div class="maincontent bg--white pb--55">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="mt-3 mb-2">
+                        @if ($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{!! $message !!}</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
                 <div class="col-lg-12 col-12">
                     <div class="wn__single__product">
                         <div class="row">
@@ -62,14 +64,18 @@
                                         <span>Автор: {{$bookData->author->name}} {{$bookData->author->surname}}</span>
                                     </div>
                                     <div class="box-tocart d-flex">
-                                        <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
-                                            @csrf
-                                            <div class="addtocart__actions">
-                                                <button class="tocart" type="submit" title="Купить книгу">Купить книгу
-                                                </button>
-                                            </div>
-
-                                        </form>
+                                        @if($bookData->isAccess())
+                                                @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
+                                                    <a href="{{ route('readBook', $bookData->id) }}" class="dariya-btn dariya-btn-yellow"><i class="fa fa-microphone"></i> Слушать</a>
+                                                @else
+                                                    <a href="{{ route('readBook', $bookData->id) }}" class="dariya-btn dariya-btn-yellow"><i class="fa fa-book"></i> Читать</a>
+                                                @endif
+                                            @else
+                                                <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
+                                                    @csrf
+                                                    <button type="submit" title="Купить книгу">Купить книгу</button>
+                                                </form>
+                                        @endif
 
                                         <div class="product-addto-links clearfix">
                                             @if($bookData->favorited())
@@ -77,18 +83,17 @@
                                                     @csrf
 
                                                     <div class="addtocart__actions ml-2">
-                                                        <button style="background-color: red" class="tocart"
-                                                                type="submit" title="Удалить из избранных">Удалить из избранных
+                                                        <button class="dariya-btn dariya-btn-red"
+                                                                type="submit" title="Добавить в избранное"><i class="fa fa-trash"></i> Удалить из избранных
                                                         </button>
                                                     </div>
                                                 </form>
                                             @else
                                                 <form action="{{route('favoriteBook', $bookData)}}" method="POST">
                                                     @csrf
-
                                                     <div class="addtocart__actions ml-2">
-                                                        <button style="background-color: blue" class="tocart"
-                                                                type="submit" title="Добавить в избранное">Добавить в избранное
+                                                        <button class="dariya-btn dariya-btn-blue"
+                                                                type="submit" title="Добавить в избранное"><i class="fa fa-heart"></i> Добавить в избранное
                                                         </button>
                                                     </div>
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Favorite;
 use App\Video;
 use App\VideoToCategory;
 use Illuminate\Http\Request;
@@ -209,7 +210,7 @@ class VideoController extends Controller
     public function destroy(Video $video)
     {
         $video->delete();
-
+        Favorite::query()->where(['object_type' => Favorite::FAVORITE_VIDEO, 'object_id' => $video->id])->delete();
         return redirect()->route('videosPage')
             ->with('success','Видео успешно удалено');
     }

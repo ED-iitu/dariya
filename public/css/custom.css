@@ -1072,6 +1072,33 @@ div.video-item span.more {
     padding: 10px 0;
 }
 
+.dariya-btn{
+    display: inline-block;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 35px;
+    padding: 0px 20px;
+    border-radius: 4px;
+    color: #fff;
+    border: 1px solid;
+    text-decoration: none;
+}
+.dariya-btn:hover{
+    text-decoration: none;
+    color: #efecec;
+}
+.dariya-btn-blue{
+    background: #00bcff;
+    border-color: #00a4de;
+}
+.dariya-btn-yellow{
+    background: #f3ac61;
+    border-color: #f3ac61;
+}
+.dariya-btn-red{
+    background: #f36161;
+    border-color: #f36161;
+}
 /*media----------*/
 @media (max-width: 1200px) {
     /*header----------*/

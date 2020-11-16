@@ -7,8 +7,10 @@ use App\Author;
 use App\Book;
 use App\BookPages;
 use App\BookToGenre;
+use App\Favorite;
 use App\Genre;
 use App\Publisher;
+use App\UserBook;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -388,6 +390,11 @@ class BookController extends Controller
     {
         if($book->delete()){
             BookPages::query()->where(['book_id' => $book->id])->delete();
+            Favorite::query()
+                ->where(['object_type' => Favorite::FAVORITE_BOOK_TYPE, 'object_id' => $book->id])
+                ->orWhere(['object_type' => Favorite::FAVORITE_AUDIO_BOOK_TYPE, 'object_id' => $book->id])
+                ->delete();
+            UserBook::query()->where('book_id', $book->id)->delete();
         }
 
         return redirect()->route('booksPage')
