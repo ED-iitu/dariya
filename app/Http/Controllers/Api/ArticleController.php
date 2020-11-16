@@ -46,6 +46,7 @@ class ArticleController extends Controller
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0 ,
                 "show_counter"=> $article->show_counter,
                 "image_url"=> ($article->image_link) ? url($article->image_link) : null,
+                "share_link"=> route('article', $article->id)
             ];
             if($article->comments){
                 foreach ($article->comments as $comment){

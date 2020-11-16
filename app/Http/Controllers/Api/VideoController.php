@@ -63,6 +63,7 @@ class VideoController extends Controller
                 "type" => ($video->youtube_video_id) ? "YOUTUBE" : "LOCAL",
                 "youtube_video_id" => $video->youtube_video_id,
                 "local_video_link" => ($video->local_video_link) ? url($video->local_video_link) : null,
+                "share_link"=> route('video', $video->id)
             ];
             if($video->comments){
                 foreach ($video->comments as $comment){

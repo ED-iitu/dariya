@@ -68,6 +68,7 @@ class BookController extends Controller
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0 ,
                 "show_counter"=> $book->show_counter,
                 "image_url"=> ($book->image_link) ? url($book->image_link) : null,
+                "share_link"=> route('book', $book->id)
             ];
             if($book->comments){
                 foreach ($book->comments as $comment){

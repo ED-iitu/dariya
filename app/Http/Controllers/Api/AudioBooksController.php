@@ -62,6 +62,7 @@ class AudioBooksController extends Controller
                 "forum_message_count"=> ($audio_book->comments) ? $audio_book->comments->count() : 0 ,
                 "show_counter"=> $audio_book->show_counter,
                 "image_url"=> ($audio_book->image_link) ? url($audio_book->image_link) : null,
+                "share_link"=> route('book', $audio_book->id)
             ];
 
             if($audio_book->genres){

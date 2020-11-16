@@ -91,6 +91,7 @@ class OrderController extends Controller
                             'pg_result_url' => url('api/payment/result'),
                             'pg_user_contact_email' => Auth::user()->email,
                             'pg_success_url' => url('payment/success?transaction_id='.$transaction->transaction_id),
+                            'pg_failure_url' => url('payment/failure?transaction_id='.$transaction->transaction_id),
                         ];
                     }
                     if(Auth::user()->phone){
@@ -112,7 +113,9 @@ class OrderController extends Controller
                     $query = http_build_query($request);
                     $payment_url = 'https://api.paybox.money/payment.php?'.$query;
                     return $this->sendResponse([
-                        'payment_url' =>$payment_url
+                        'payment_url' =>$payment_url,
+                        'success_url' => $request['pg_success_url'],
+                        'failure_url' => $request['pg_failure_url']
                     ], 'Заказ успешно создан! Осталось оплатить');
                 }
             }
