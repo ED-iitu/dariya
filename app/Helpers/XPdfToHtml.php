@@ -251,7 +251,7 @@ class XPdfToHtml extends Dom
                             ($current_left != $prev_left && $current_left < $prev_left)
                         ) && ($prev_left <= $max_left)
                         ){
-                        $ps[$prev_element_index]['text'] = $ps[$prev_element_index]['text'].''.$e['html'];
+                        $ps[$prev_element_index]['text'] = $ps[$prev_element_index]['text'].' '.$e['html'];
                     }else{
                         $ps[$element_index] = [
                             'left' => $current_left,

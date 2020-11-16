@@ -80,7 +80,6 @@ Route::get('/profile/edit/{id}', 'Site\ProfileController@edit')->name('profileEd
 Route::post('/profile/update/{user}', 'Site\ProfileController@update')->name('updateProfile');
 
 
-Route::get('/home', 'Site\HomeController@index')->name('home');
 
 Route::get('/payment_plug/{transaction_id}', 'Site\PaymentPlug@index');
 

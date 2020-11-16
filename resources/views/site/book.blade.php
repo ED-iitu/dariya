@@ -65,41 +65,51 @@
                                     </div>
                                     <div class="box-tocart d-flex">
                                         @if($bookData->isAccess())
-                                                @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
-                                                    <a href="{{ route('readBook', $bookData->id) }}" class="dariya-btn dariya-btn-yellow"><i class="fa fa-microphone"></i> Слушать</a>
-                                                @else
-                                                    <a href="{{ route('readBook', $bookData->id) }}" class="dariya-btn dariya-btn-yellow"><i class="fa fa-book"></i> Читать</a>
-                                                @endif
+                                            @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
+                                                <a href="{{ route('readBook', $bookData->id) }}"
+                                                   class="dariya-btn dariya-btn-yellow"><i class="fa fa-microphone"></i>
+                                                    Слушать</a>
                                             @else
-                                                <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
-                                                    @csrf
-                                                    <button type="submit" title="Купить книгу">Купить книгу</button>
-                                                </form>
-                                        @endif
-
-                                        <div class="product-addto-links clearfix">
-                                            @if($bookData->favorited())
-                                                <form action="{{route('unfavoriteBook', $bookData)}}" method="POST">
-                                                    @csrf
-
-                                                    <div class="addtocart__actions ml-2">
-                                                        <button class="dariya-btn dariya-btn-red"
-                                                                type="submit" title="Добавить в избранное"><i class="fa fa-trash"></i> Удалить из избранных
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            @else
-                                                <form action="{{route('favoriteBook', $bookData)}}" method="POST">
-                                                    @csrf
-                                                    <div class="addtocart__actions ml-2">
-                                                        <button class="dariya-btn dariya-btn-blue"
-                                                                type="submit" title="Добавить в избранное"><i class="fa fa-heart"></i> Добавить в избранное
-                                                        </button>
-                                                    </div>
-
-                                                </form>
+                                                <a href="{{ route('readBook', $bookData->id) }}"
+                                                   class="dariya-btn dariya-btn-yellow"><i class="fa fa-book"></i>
+                                                    Читать</a>
                                             @endif
-                                        </div>
+                                        @else
+                                            <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
+                                                @csrf
+                                                <button type="submit" title="Купить книгу"
+                                                        class="dariya-btn dariya-btn-yellow"><i
+                                                            class="fa fa-shopping-bag"></i> Купить
+                                                </button>
+                                            </form>
+                                        @endif
+                                        @if(\Illuminate\Support\Facades\Auth::user())
+                                            <div class="product-addto-links clearfix">
+                                                @if($bookData->favorited())
+                                                    <form action="{{route('unfavoriteBook', $bookData)}}" method="POST">
+                                                        @csrf
+
+                                                        <div class="addtocart__actions ml-2">
+                                                            <button class="dariya-btn dariya-btn-red"
+                                                                    type="submit" title="Добавить в избранное"><i
+                                                                        class="fa fa-trash"></i> Удалить из избранных
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                @else
+                                                    <form action="{{route('favoriteBook', $bookData)}}" method="POST">
+                                                        @csrf
+                                                        <div class="addtocart__actions ml-2">
+                                                            <button class="dariya-btn dariya-btn-blue"
+                                                                    type="submit" title="Добавить в избранное"><i
+                                                                        class="fa fa-heart"></i> Добавить в избранное
+                                                            </button>
+                                                        </div>
+
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="product__overview">
@@ -227,7 +237,9 @@
                         <div class="row mt--60">
                             <div class="container">
                                 <div id="books_slider">
-                                    <a class="link-to-all" href="{{ route(($bookData->type == \App\Book::BOOK_TYPE) ? 'books' : 'audio_books', $relatedBooksFilterParams) }}">Все книги</a>
+                                    <a class="link-to-all"
+                                       href="{{ route(($bookData->type == \App\Book::BOOK_TYPE) ? 'books' : 'audio_books', $relatedBooksFilterParams) }}">Все
+                                        книги</a>
                                     <div class="owl-carousel">
                                         @foreach($relatedBooks as $book)
                                             @include('site.blocks.book')

@@ -75,5 +75,5 @@ return [
     | Redirect path after success/error login via social network
     |
     */
-    'redirect' => '/home',
+    'redirect' => '/',
 ];

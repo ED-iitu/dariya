@@ -25,7 +25,7 @@
                             <div class="form-group">
                                 <button class="btn btn-primary">Войти</button>
                                 <label class="label-for-checkbox">
-                                    <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+                                    <input id="rememberme" class="input-checkbox" name="remember" value="forever" type="checkbox">
                                     <span>Запомнить?</span>
                                 </label>
                             </div>

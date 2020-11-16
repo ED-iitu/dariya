@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Article;
 use App\Book;
+use App\Observers\ArticleObserver;
 use App\Observers\BookObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Book::observe(BookObserver::class);
+        Article::observe(ArticleObserver::class);
         Schema::defaultStringLength(191);
         Date::setlocale(config('app.locale'));
         Paginator::defaultView('vendor.pagination.bootstrap-4');
