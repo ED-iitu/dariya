@@ -118,6 +118,7 @@ Route::get('categories', 'Api\ArticleController@categories');
 /**
  * Comments
  */
+Route::get('comment/{object_type}/{id}', 'Api\CommentController@index');
 Route::middleware('auth:sanctum')->post('comment/{object_type}/{id}', 'Api\CommentController@create');
 
 /**

@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
+    public function index($object_type,$id){
+        $comments = Comment::query()->where(['object_type' => $object_type, 'object_id' => $id])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(20);
+        $comments->each(function ($comment){
+            $comment->author;
+            return $comment;
+        });
+        return $this->sendResponse($comments, '');
+    }
+
     public function create($object_type,$id){
 
         $message = $this->getParsedBody('message');
