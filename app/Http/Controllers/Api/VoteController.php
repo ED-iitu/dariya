@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use App\Article;
 use App\Book;
 use App\Rating;
+use App\Video;
 use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
@@ -21,6 +22,9 @@ class VoteController extends Controller
             }
             if($object_type == Rating::BOOK_TYPE){
                 $object = Book::query()->find($id);
+            }
+            if($object_type == Rating::VIDEO_TYPE){
+                $object = Video::query()->find($id);
             }
             if($object){
                 $rating = new Rating();

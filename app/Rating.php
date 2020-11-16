@@ -17,30 +17,36 @@ class Rating extends Model
     ];
 
     public static function getObjectTypes(){
-        return [self::ARTICLE_TYPE, self::BOOK_TYPE];
+        return [
+            self::ARTICLE_TYPE,
+            self::BOOK_TYPE,
+            self::VIDEO_TYPE,
+        ];
     }
 
     public static function calculateRating($object_id, $object_type){
         if(in_array($object_type, self::getObjectTypes())){
             $rating_summ  = 0;
-            $rating_count = 1;
+            $rating_count = 0;
             Rating::query()->where(['object_type' => $object_type, 'object_id' => $object_id])->each(function ($rating) use (&$rating_summ, &$rating_count){
                 $rating_summ += $rating->rate;
                 $rating_count++;
             });
-            $rating = $rating_summ/$rating_count;
-            if($object_type == self::ARTICLE_TYPE){
-                $article = Article::query()->find($object_id);
-                $article->rate = $rating;
-                $article->save();
-            }elseif($object_type == self::BOOK_TYPE){
-                $book = Book::query()->find($object_id);
-                $book->rate = $rating;
-                $book->save();
-            }elseif($object_type == self::VIDEO_TYPE){
-                $book = Video::query()->find($object_id);
-                $book->rate = $rating;
-                $book->save();
+            if($rating_count > 0){
+                $rating = $rating_summ/$rating_count;
+                if($object_type == self::ARTICLE_TYPE){
+                    $article = Article::query()->find($object_id);
+                    $article->rate = $rating;
+                    $article->save();
+                }elseif($object_type == self::BOOK_TYPE){
+                    $book = Book::query()->find($object_id);
+                    $book->rate = $rating;
+                    $book->save();
+                }elseif($object_type == self::VIDEO_TYPE){
+                    $book = Video::query()->find($object_id);
+                    $book->rate = $rating;
+                    $book->save();
+                }
             }
         }
     }
