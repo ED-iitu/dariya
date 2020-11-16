@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
         "phone"=> PhoneHelper::formatFromNumeric($user->phone),
         "profile_photo_path"=> url('uploads/'.$user->profile_photo_path),
         "tariff_id"=> $user->tariff_id,
+        "have_active_tariff"=> $user->have_active_tariff(),
         "tariff_price_list_id"=> $user->tariff_price_list_id,
         "created_at"=> $user->created_at,
         "updated_at"=> $user->updated_at,
