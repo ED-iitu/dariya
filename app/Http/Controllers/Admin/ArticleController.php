@@ -68,7 +68,6 @@ class ArticleController extends Controller
         }
 
         $article = Article::create($data);
-        ArticleToCategory::query()->where('article_id',$article->id)->delete();
 
         foreach ($request->categories as $category_id){
             $link = new ArticleToCategory([

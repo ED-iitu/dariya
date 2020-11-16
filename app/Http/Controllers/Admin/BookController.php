@@ -219,6 +219,16 @@ class BookController extends Controller
             $book->save();
         }
 
+        if($request->genres){
+            foreach ($request->genres as $genre_id){
+                $link = new BookToGenre([
+                    'book_id' => $book->id,
+                    'genre_id' => $genre_id
+                ]);
+                $link->save();
+            }
+        }
+
         return redirect()->route('booksPage')
             ->with('success','Книга успешно добавлена.');
     }

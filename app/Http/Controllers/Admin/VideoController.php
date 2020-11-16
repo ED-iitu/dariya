@@ -93,7 +93,17 @@ class VideoController extends Controller
                 'local_video_link'   => '/uploads/' . $local_video_link->getFilename() . '.' . $extensionImage,
             ]);
         }
-        Video::create($data);
+        $video = Video::create($data);
+
+        if($request->categories){
+            foreach ($request->categories as $category_id){
+                $link = new VideoToCategory([
+                    'video_id' => $video->id,
+                    'category_id' => $category_id
+                ]);
+                $link->save();
+            }
+        }
 
         return redirect()->route('videosPage')
             ->with('success','Видео успешно добавлено.');
