@@ -15,12 +15,20 @@ use Illuminate\Support\Facades\Auth;
 class CommentController extends Controller
 {
     public function index($object_type,$id){
-        $comments = Comment::query()->where(['object_type' => $object_type, 'object_id' => $id])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(20);
-        $comments->each(function ($comment){
-            $comment->author;
-            return $comment;
+        $comments = [];
+        $res = Comment::query()->where(['object_type' => $object_type, 'object_id' => $id])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(20);
+        $res->each(function ($comment) use (&$comments){
+            $comments[] = [
+                "message"=> $comment->message,
+                "author_id"=> $comment->author_id,
+                "author_name"=> ($comment->author) ? $comment->author->name : '',
+                "personal_photo"=> null,
+                "post_date"=> $comment->created_at
+            ];
         });
-        return $this->sendResponse($comments, '');
+        return $this->sendResponse([
+            'comments' =>$comments, 'count' => $res->count(), 'all_count' => $res->total()
+        ], '');
     }
 
     public function create($object_type,$id){
