@@ -28,7 +28,7 @@
     </div>
     @if($book->isAccess())
         <div class="final">
-            <a style="background: #f3ac61; border-color: #f3ac61" href="{{ route('readBook',$book->id) }}"
+            <a style="background: #f3ac61; border-color: #f3ac61" href="{{ route('listenBook',$book->id) }}"
                class="order"><i class="fa fa-microphone"></i> Слушать</a>
         </div>
     @else

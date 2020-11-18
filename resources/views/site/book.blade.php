@@ -66,7 +66,7 @@
                                     <div class="box-tocart d-flex">
                                         @if($bookData->isAccess())
                                             @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
-                                                <a href="{{ route('readBook', $bookData->id) }}"
+                                                <a href="{{ url('listenBook', $bookData->id) }}"
                                                    class="dariya-btn dariya-btn-yellow"><i class="fa fa-microphone"></i>
                                                     Слушать</a>
                                             @else
@@ -85,7 +85,7 @@
                                         @endif
                                         @if(\Illuminate\Support\Facades\Auth::user())
                                             <div class="product-addto-links clearfix">
-                                                @if($bookData->favorited())
+                                                @if($bookData->isBookFavorite())
                                                     <form action="{{route('unfavoriteBook', $bookData)}}" method="POST">
                                                         @csrf
 
@@ -205,10 +205,6 @@
                                             <input type="hidden" name="object_type" value="book">
                                             <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
                                             <div class="review_form_field">
-                                                <div class="input__box">
-                                                    <span>Имя</span>
-                                                    <input type="text" id="nickname_field" name="nickname">
-                                                </div>
                                                 <div class="input__box">
                                                     <span>Отзыв</span>
                                                     <textarea name="message"></textarea>

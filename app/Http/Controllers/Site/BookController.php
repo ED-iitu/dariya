@@ -2,14 +2,15 @@
 namespace App\Http\Controllers\Site;
 
 use App\Author;
-use App\BookToGenre;
-use Auth;
 use App\Banner;
 use App\Book;
 use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Jorenvh\Share\ShareFacade;
 
 class BookController extends Controller
@@ -153,8 +154,12 @@ class BookController extends Controller
         if (Auth::user() == null) {
             return view('site.createAccount');
         }
+        $model = Auth::user()->favorites_books();
+        if($book->type == Book::AUDIO_BOOK_TYPE){
+            $model = Auth::user()->favorites_audio_books();
+        }
 
-        Auth::user()->favorites()->attach($book->id);
+        $model->attach($book->id, ['object_type' => $book->type]);
 
         return redirect()->back()->with('success','Книга добалена в избранное');
     }
@@ -167,7 +172,17 @@ class BookController extends Controller
      */
     public function unFavoriteBook(Book $book)
     {
-        Auth::user()->favorites()->detach($book->id);
+        if (Auth::user() == null) {
+            return view('site.createAccount');
+        }
+        /**
+         * @var BelongsToMany $model
+         */
+        $model = Auth::user()->favorites_books();
+        if($book->type == Book::AUDIO_BOOK_TYPE){
+            $model = Auth::user()->favorites_audio_books();
+        }
+        $model->detach($book->id);
 
         return redirect()->back()->with('success','Книга удаленна из избранных');
     }
