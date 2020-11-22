@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::resource('users','Admin\UserController');
         Route::resource('role','Admin\RoleController');
         Route::resource('info','Admin\InfoController');
+        Route::resource('page','Admin\PageController');
         Route::resource('articles','Admin\ArticleController');
         Route::resource('tariffs','Admin\TariffController');
         Route::resource('transactions','Admin\TransactionController');
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::post('books/remove_page', 'Admin\BookController@remove_book_page')->name('removeBookPage');
         Route::post('sort_audio/{id}', 'Admin\BookController@sort_audio');
         Route::post('remove_audio/{id}', 'Admin\BookController@remove_audio');
+        Route::post('upload/file', 'Admin\FileController@upload');
         Route::get('articles', 'Admin\ArticleController@index')->name('articlesPage');
         Route::get('authors', 'Admin\AuthorController@index')->name('authorsPage');
         Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
@@ -50,6 +52,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('users', 'Admin\UserController@index')->name('usersPage');
         Route::get('role','Admin\RoleController@index')->name('rolePage');
         Route::get('info', 'Admin\InfoController@index')->name('infoPage');
+        Route::get('page', 'Admin\PageController@index')->name('pagesPage');
         Route::get('tariffs', 'Admin\TariffController@index')->name('tariffsPage');
         Route::get('transactions', 'Admin\TransactionController@index')->name('transactionsPage');
         Route::get('supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
@@ -79,6 +82,7 @@ Route::post('favorite/{book}', 'Site\BookController@favoriteBook')->name('favori
 Route::post('unfavorite/{book}', 'Site\BookController@unFavoriteBook')->name('unfavoriteBook');
 Route::get('/profile/edit/{id}', 'Site\ProfileController@edit')->name('profileEdit');
 Route::post('/profile/update/{user}', 'Site\ProfileController@update')->name('updateProfile');
+Route::get('/page/{id}', 'Site\PageController@getPage')->name('page');
 
 
 

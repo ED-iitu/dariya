@@ -103,6 +103,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-link"></i></div>
                         Баннеры
                     </a>
+                    <a class="nav-link" href="{{route('pagesPage')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-bars"></i></div>
+                        Страницы
+                    </a>
                     <a class="nav-link" href="{{route('infoPage')}}">
                         <div class="sb-nav-link-icon"><i class="fas fa-info"></i></div>
                         Инфо
