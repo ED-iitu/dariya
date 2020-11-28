@@ -67,7 +67,7 @@ class VideoController extends Controller
             ->where([
                 'object_id' => $id,
                 'object_type' => Comment::VIDEO_TYPE
-            ])->paginate(5,['*'], 'comment_page');
+            ])->orderBy('created_at','desc')->paginate(5,['*'], 'comment_page');
 
         if ($comments->count() == 0) {
             $comments = [];

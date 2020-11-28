@@ -17,7 +17,7 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::ARTICLE_TYPE);
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::ARTICLE_TYPE)->orderBy('comments.created_at', 'desc');
     }
 
     public function categories()

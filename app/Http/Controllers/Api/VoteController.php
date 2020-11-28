@@ -27,6 +27,13 @@ class VoteController extends Controller
                 $object = Video::query()->find($id);
             }
             if($object){
+                if(Rating::query()->where([
+                    'object_id' => $id,
+                    'object_type' => $object_type,
+                    'author_id' => Auth::id()
+                ])->exists()){
+                    return $this->sendError('Вы уже проголосовали!',[],400);
+                }
                 $rating = new Rating();
                 $rating->setRawAttributes([
                     'object_id' => $id,

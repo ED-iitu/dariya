@@ -50,6 +50,6 @@ class Video extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::VIDEO_TYPE);
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::VIDEO_TYPE)->orderBy('comments.created_at', 'desc');
     }
 }

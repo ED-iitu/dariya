@@ -11,22 +11,29 @@ use App\Comment;
 use App\Rating;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
     public function store(Request $request)
     {
         if($request->stars){
-            $rating = new Rating();
-            $rating->setRawAttributes([
+            if(!Rating::query()->where([
                 'object_id' => $request->object_id,
                 'object_type' => $request->object_type,
-                'rate' => $request->stars,
-                'author_id' => $request->author_id
-            ]);
+                'author_id' => Auth::id()
+            ])->exists()){
+                $rating = new Rating();
+                $rating->setRawAttributes([
+                    'object_id' => $request->object_id,
+                    'object_type' => $request->object_type,
+                    'rate' => $request->stars,
+                    'author_id' => Auth::id()
+                ]);
 
-            if($rating->save()){
-                Rating::calculateRating($request->object_id,$request->object_type);
+                if($rating->save()){
+                    Rating::calculateRating($request->object_id,$request->object_type);
+                }
             }
         }
         if($request->message){
@@ -39,8 +46,6 @@ class CommentController extends Controller
 
             Comment::create($data);
         }
-
-
         return redirect()->back()->with('success','Комментарий успешно отправлен');
     }
 }

@@ -52,7 +52,7 @@ class Book extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::BOOK_TYPE);
+        return $this->hasMany(Comment::class, 'object_id', 'id')->where('object_type', '=', Comment::BOOK_TYPE)->orderBy('comments.created_at', 'desc');
     }
 
     public function audio_files()
