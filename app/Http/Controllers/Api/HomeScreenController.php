@@ -30,6 +30,7 @@ class HomeScreenController extends Controller
             $banners[] = [
                 "id"=> $banner->id,
                 "name"=> $banner->title,
+                "color"=> $banner->background_color,
                 "image_url"=> ($banner->file_url) ? url($banner->file_url) : null,
                 "redirect" => $banner->redirect
             ];
