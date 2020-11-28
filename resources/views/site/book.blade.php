@@ -158,6 +158,9 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
+                                            <div class="mt-3">
+                                                {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
+                                            </div>
                                             @endif
                                         </div>
                                     </div>

@@ -69,6 +69,7 @@
                                             </li>
                                             @endforeach
                                         </ul>
+                                        {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
                                     </div>
                                 @endif
 

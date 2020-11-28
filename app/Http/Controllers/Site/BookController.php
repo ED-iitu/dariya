@@ -65,7 +65,11 @@ class BookController extends Controller
         foreach ($book->genres->pluck('id')->toArray() as $key=>$genre_id){
             $relatedBooksFilterParams['genres['.$key.']'] =$genre_id;
         }
-        $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'BOOK')->get();
+        $comments = Comment::query()
+            ->where([
+                'object_id' => $id,
+                'object_type' => Comment::BOOK_TYPE
+            ])->paginate(5,['*'], 'comment_page');
 
         if ($comments->count() == 0) {
             $comments = [];

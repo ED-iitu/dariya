@@ -53,7 +53,11 @@ class ArticleController extends Controller
             $similar_articles = Article::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
         }
 
-        $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
+        $comments = Comment::query()
+            ->where([
+                'object_id' => $id,
+                'object_type' => Comment::ARTICLE_TYPE
+            ])->paginate(5,['*'], 'comment_page');
 
         if ($comments->count() == 0) {
             $comments = [];

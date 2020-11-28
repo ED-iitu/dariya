@@ -63,7 +63,11 @@ class VideoController extends Controller
             $similar_videos = Video::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
         }
 
-        $comments = Comment::where('object_id', '=', $id)->where('object_type', '=', 'ARTICLE')->get();
+        $comments = Comment::query()
+            ->where([
+                'object_id' => $id,
+                'object_type' => Comment::VIDEO_TYPE
+            ])->paginate(5,['*'], 'comment_page');
 
         if ($comments->count() == 0) {
             $comments = [];

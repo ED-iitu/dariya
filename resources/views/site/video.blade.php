@@ -76,6 +76,9 @@
                                             </li>
                                             @endforeach
                                         </ul>
+                                        <div class="mt-3">
+                                            {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
+                                        </div>
                                     </div>
                                 @endif
 
