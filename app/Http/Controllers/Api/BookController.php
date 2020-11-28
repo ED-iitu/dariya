@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use Akaunting\Money\Money;
 use App\Book;
 use App\Genre;
+use App\Rating;
 use Gufy\PdfToHtml\Config;
 use Gufy\PdfToHtml\Html;
 use Gufy\PdfToHtml\PageGenerator;
@@ -55,6 +56,7 @@ class BookController extends Controller
                 "lang_label"=> $book->getLangLabel(),
                 "publisher"=> ($book->publisher) ? $book->publisher->name : null,
                 "rating"=> $book->rate,
+                'label' => $book->is_free ? 'Бесплатно' : 'Стандарт',
                 "is_favorite"=> $book->isBookFavorite(),
                 "in_my_book"=> $book->inMyBook(),
                 "user_rating"=> ($book->user_rate()) ? $book->user_rate()->rate : null,
@@ -72,14 +74,26 @@ class BookController extends Controller
             ];
             if($book->comments){
                 foreach ($book->comments as $comment){
-                    $data['comments'][] = [
+                    $rating = Rating::query()->where([
+                        'author_id' => $comment->author_id,
+                        'object_type' => Rating::BOOK_TYPE,
+                        'object_id' => $id
+                    ])->first();
+                    $comment = [
                         "message"=> $comment->message,
                         "author_id"=> $comment->author_id,
                         "author_name"=> ($comment->author) ? $comment->author->name : '',
                         "personal_photo"=> null,
                         "post_date"=> $comment->created_at
                     ];
+                    if($rating){
+                        $comment["user_rating"] = $rating->rate;
+                    }
+                    $data['comments'][] = $comment;
                 }
+            }
+            if($book->ratings){
+                $data['rated_users_count'] = $book->ratings->count();
             }
             if($book->genres){
                 foreach ($book->genres as $genre){

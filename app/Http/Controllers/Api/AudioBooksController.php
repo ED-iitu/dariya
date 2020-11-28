@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 use Akaunting\Money\Money;
 use App\Article;
 use App\Book;
+use App\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +50,7 @@ class AudioBooksController extends Controller
                 "lang_label"=> $audio_book->getLangLabel(),
                 "publisher"=> ($audio_book->publisher) ? $audio_book->publisher->name : null,
                 "rating"=> $audio_book->rate,
+                'label' => $audio_book->is_free ? 'Бесплатно' : 'Премиум',
                 "user_rating"=> ($audio_book->user_rate()) ? $audio_book->user_rate()->rate : null,
                 "type"=> $audio_book->type,
                 "page_count"=> $audio_book->page_count,
@@ -76,14 +78,26 @@ class AudioBooksController extends Controller
 
             if($audio_book->comments){
                 foreach ($audio_book->comments as $comment){
-                    $data['comments'][] = [
+                    $rating = Rating::query()->where([
+                        'author_id' => $comment->author_id,
+                        'object_type' => Rating::BOOK_TYPE,
+                        'object_id' => $id
+                    ])->first();
+                    $comment = [
                         "message"=> $comment->message,
                         "author_id"=> $comment->author_id,
                         "author_name"=> ($comment->author) ? $comment->author->name : '',
                         "personal_photo"=> null,
                         "post_date"=> $comment->created_at
                     ];
+                    if($rating){
+                        $comment["user_rating"] = $rating->rate;
+                    }
+                    $data['comments'][] = $comment;
                 }
+            }
+            if($audio_book->ratings){
+                $data['rated_users_count'] = $audio_book->ratings->count();
             }
             if($audio_book->author){
                 $data['authors'][] = $audio_book->author->getFullName();

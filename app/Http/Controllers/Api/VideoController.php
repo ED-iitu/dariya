@@ -4,6 +4,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Rating;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,13 +68,22 @@ class VideoController extends Controller
             ];
             if($video->comments){
                 foreach ($video->comments as $comment){
-                    $data['comments'][] = [
+                    $rating = Rating::query()->where([
+                        'author_id' => $comment->author_id,
+                        'object_type' => Rating::VIDEO_TYPE,
+                        'object_id' => $id
+                    ])->first();
+                    $comment = [
                         "message"=> $comment->message,
                         "author_id"=> $comment->author_id,
                         "author_name"=> ($comment->author) ? $comment->author->name : '',
                         "personal_photo"=> null,
                         "post_date"=> $comment->created_at
                     ];
+                    if($rating){
+                        $comment["user_rating"] = $rating->rate;
+                    }
+                    $data['comments'][] = $comment;
                 }
             }
             if($video->categories){

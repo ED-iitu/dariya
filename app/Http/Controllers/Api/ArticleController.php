@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Article;
 use App\Category;
+use App\Rating;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -50,13 +51,22 @@ class ArticleController extends Controller
             ];
             if($article->comments){
                 foreach ($article->comments as $comment){
-                    $data['comments'][] = [
+                    $rating = Rating::query()->where([
+                        'author_id' => $comment->author_id,
+                        'object_type' => Rating::ARTICLE_TYPE,
+                        'object_id' => $id
+                    ])->first();
+                    $comment = [
                         "message"=> $comment->message,
                         "author_id"=> $comment->author_id,
                         "author_name"=> ($comment->author) ? $comment->author->name : '',
                         "personal_photo"=> null,
                         "post_date"=> $comment->created_at
                     ];
+                    if($rating){
+                        $comment["user_rating"] = $rating->rate;
+                    }
+                    $data['comments'][] = $comment;
                 }
             }
             if($article->categories){
