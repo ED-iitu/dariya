@@ -1267,6 +1267,12 @@ div.video-item span.more {
         height: 100px;
         background-size: contain;
     }
+    .blog-post-details iframe{
+        height: 415px!important;
+    }
+    .blog-post-details video{
+        height: 415px!important;
+    }
 }
 @media (max-width: 400px) {
     /*header----------*/
@@ -1358,5 +1364,11 @@ div.video-item span.more {
         font-size: 14px;
     }
     /*----------content*/
+    .blog-post-details iframe{
+        height: 215px!important;
+    }
+    .blog-post-details video{
+        height: 215px!important;
+    }
 }
 /*----------media*/
