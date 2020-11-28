@@ -183,32 +183,36 @@ Route::post('register', function (Request $request) {
 
 Route::post('register/google', function (Request $request) {
     $request->validate([
-        'email' => 'required|email',
-        'kid' => 'required',
-        'name' => 'required',
+        'id_token' => 'required'
     ]);
+    $response = Http::get('https://oauth2.googleapis.com/tokeninfo?id_token='.$request->id_token);
+    if($response && $response->status() == 200){
+        $data = $response->json();
+        if($data['email']){
+            $user = User::query()->where('email', $data['email'])->first();
 
-    $user = User::query()->where('email', $request->email)->first();
-
-    if ($user) {
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
-        ]);
+            if ($user) {
+                throw ValidationException::withMessages([
+                    'email' => ['The provided credentials are incorrect.'],
+                ]);
+            }
+            try{
+                $user = new User();
+                $user->setAttribute('email', $data['email']);
+                $user->setAttribute('password', Hash::make($data['email']));
+                $user->setAttribute('name', $data['name']);
+                $user->save();
+                return response(['token'=>$user->createToken(time())->plainTextToken]);
+            }catch (Exception $e){
+                throw ValidationException::withMessages([
+                    'Не известная ошибка! Попробуйте позже.',
+                ]);
+            }
+        }
     }
-    try{
-        $user = new User();
-        $user->setAttribute('email', $request->email);
-        $user->setAttribute('password', Hash::make($request->email));
-        $user->setAttribute('name', $request->name);
-        $user->save();
-    }catch (Exception $e){
-        throw ValidationException::withMessages([
-            'Internal Error Server',
-        ]);
-    }
-
-
-    return response(['token'=>$user->createToken(time())->plainTextToken]);
+    throw ValidationException::withMessages([
+        'Не известная ошибка!',
+    ]);
 });
 
 Route::post('payment/result', 'Site\PaymentController@result');
