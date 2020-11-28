@@ -73,7 +73,7 @@ class BookController extends Controller
                 "share_link"=> route('book', $book->id)
             ];
             if($book->comments){
-                foreach ($book->comments as $comment){
+                foreach ($book->comments()->paginate(5) as $comment){
                     $rating = Rating::query()->where([
                         'author_id' => $comment->author_id,
                         'object_type' => Rating::BOOK_TYPE,

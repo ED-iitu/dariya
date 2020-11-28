@@ -50,7 +50,7 @@ class ArticleController extends Controller
                 "share_link"=> route('article', $article->id)
             ];
             if($article->comments){
-                foreach ($article->comments as $comment){
+                foreach ($article->comments()->paginate(5) as $comment){
                     $rating = Rating::query()->where([
                         'author_id' => $comment->author_id,
                         'object_type' => Rating::ARTICLE_TYPE,

@@ -142,6 +142,9 @@ class Book extends Model
 
     public function isAccess(){
         $is_access = false;
+        if($this->is_free){
+            return true;
+        }
         if(Auth::user()){
             $id = $this->id;
             if(Auth::user()->have_active_tariff()){

@@ -67,7 +67,7 @@ class VideoController extends Controller
                 "share_link"=> route('video', $video->id)
             ];
             if($video->comments){
-                foreach ($video->comments as $comment){
+                foreach ($video->comments()->paginate(5) as $comment){
                     $rating = Rating::query()->where([
                         'author_id' => $comment->author_id,
                         'object_type' => Rating::VIDEO_TYPE,

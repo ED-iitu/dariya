@@ -77,7 +77,7 @@ class AudioBooksController extends Controller
             }
 
             if($audio_book->comments){
-                foreach ($audio_book->comments as $comment){
+                foreach ($audio_book->comments()->paginate(5) as $comment){
                     $rating = Rating::query()->where([
                         'author_id' => $comment->author_id,
                         'object_type' => Rating::BOOK_TYPE,
