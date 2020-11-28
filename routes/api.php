@@ -190,24 +190,20 @@ Route::post('register/google', function (Request $request) {
         $data = $response->json();
         if($data['email']){
             $user = User::query()->where('email', $data['email'])->first();
-
-            if ($user) {
-                throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
-                ]);
+            if (!$user) {
+                try{
+                    $user = new User();
+                    $user->setAttribute('email', $data['email']);
+                    $user->setAttribute('password', Hash::make($data['email']));
+                    $user->setAttribute('name', $data['name']);
+                    $user->save();
+                }catch (Exception $e){
+                    throw ValidationException::withMessages([
+                        'Не известная ошибка! Попробуйте позже.',
+                    ]);
+                }
             }
-            try{
-                $user = new User();
-                $user->setAttribute('email', $data['email']);
-                $user->setAttribute('password', Hash::make($data['email']));
-                $user->setAttribute('name', $data['name']);
-                $user->save();
-                return response(['token'=>$user->createToken(time())->plainTextToken]);
-            }catch (Exception $e){
-                throw ValidationException::withMessages([
-                    'Не известная ошибка! Попробуйте позже.',
-                ]);
-            }
+            return response(['token'=>$user->createToken(time())->plainTextToken]);
         }
     }
     throw ValidationException::withMessages([
