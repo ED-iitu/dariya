@@ -26,8 +26,6 @@ class SearchController extends Controller
                         ->where('type', $type)
                         ->where(function ($query) use ($search){
                                 $query->where('name','like', "%$search%")
-                                ->orWhere('preview_text','like', "%$search%")
-                                ->orWhere('detail_text','like', "%$search%")
                                 ->orWhereHas('author',function ($query) use ($search){
                                     return $query->where('name', 'like', "%$search%");
                                 })
@@ -41,8 +39,6 @@ class SearchController extends Controller
                 }else{
                     $bookModel = Book::query()
                         ->where('name','like', "%$search%")
-                        ->orWhere('preview_text','like', "%$search%")
-                        ->orWhere('detail_text','like', "%$search%")
                         ->orWhereHas('author',function ($query) use ($search){
                             return $query->where('name', 'like', "%$search%");
                         })
@@ -55,7 +51,7 @@ class SearchController extends Controller
                 }
 
                 $bookModel->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
-                $bookModel->paginate(5)
+                $bookModel->paginate(30)
                     ->each(function ($book) use (&$data){
                         $authors = [];
                         if($book->author){
@@ -86,14 +82,12 @@ class SearchController extends Controller
             if(($type && $type=="ARTICLE") || !$type) {
                 Article::query()
                     ->where('name', 'like', "%$search%")
-                    ->orWhere('preview_text', 'like', "%$search%")
-                    ->orWhere('detail_text', 'like', "%$search%")
                     ->orWhere('author', 'like', "%$search%")
                     ->orWhereHas('categories', function ($query) use ($search) {
                         return $query->where('name', 'like', "%$search%");
                     })
                     ->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')
-                    ->paginate(5)
+                    ->paginate(30)
                     ->each(function ($article) use (&$data) {
                         $data[] = [
                             "id" => $article->id,
@@ -116,14 +110,12 @@ class SearchController extends Controller
             if(($type && $type=="VIDEO") || !$type) {
                 Video::query()
                     ->where('name', 'like', "%$search%")
-                    ->orWhere('preview_text', 'like', "%$search%")
-                    ->orWhere('detail_text', 'like', "%$search%")
                     ->orWhere('author', 'like', "%$search%")
                     ->orWhereHas('categories', function ($query) use ($search) {
                         return $query->where('name', 'like', "%$search%");
                     })
                     ->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')
-                    ->paginate(5)
+                    ->paginate(30)
                     ->each(function ($video) use (&$data) {
                         $data[] = [
                             "id" => $video->id,
