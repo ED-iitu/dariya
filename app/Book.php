@@ -13,10 +13,13 @@ class Book extends Model
     const BOOK_TYPE = 'BOOK';
     const AUDIO_BOOK_TYPE = 'AUDIO';
 
+    const PDF_TO_HTML = 'PDF_TO_HTML';
+    const X_PDF_TO_HTML = 'X_PDF_TO_HTML';
+
     protected $table = 'books';
 
     protected $fillable = [
-        'name', 'type', 'preview_text', 'detail_text', 'lang',
+        'name', 'type', 'preview_text', 'detail_text', 'lang', 'pdf_to_html',
         'publisher_id', 'price', 'author_id', 'genres', 'image_link', 'book_link', 'is_free', 'background_color', 'page_count', 'pdf_hash', 'duration'
     ];
 

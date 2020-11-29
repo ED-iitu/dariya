@@ -5,7 +5,8 @@ namespace App\Observers;
 use App\AudioFile;
 use App\Book;
 use App\BookPages;
-use App\Jobs\Xpdf\ProcessParsePdfBooks;
+use App\Jobs\ProcessParsePdfBooks;
+use App\Jobs\Xpdf\ProcessParsePdfBooks as XProcessParsePdfBooks;
 
 class BookObserver
 {
@@ -18,7 +19,12 @@ class BookObserver
     public function created(Book $book)
     {
         if($book->book_link){
-            ProcessParsePdfBooks::dispatch($book);
+            if($book->pdf_to_html == Book::X_PDF_TO_HTML){
+                XProcessParsePdfBooks::dispatch($book);
+            }else{
+                ProcessParsePdfBooks::dispatch($book);
+            }
+
         }
     }
 
@@ -31,7 +37,11 @@ class BookObserver
     public function updated(Book $book)
     {
         if($book->book_link){
-            ProcessParsePdfBooks::dispatch($book);
+            if($book->pdf_to_html == Book::X_PDF_TO_HTML){
+                XProcessParsePdfBooks::dispatch($book);
+            }else{
+                ProcessParsePdfBooks::dispatch($book);
+            }
         }
     }
 

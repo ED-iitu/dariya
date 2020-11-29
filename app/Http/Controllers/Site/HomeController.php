@@ -12,11 +12,14 @@ use App\Tariff;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        dd(Lang::get('You are receiving this email because we received a password reset request for your account.'));
+//dd(Lang::getLocale());
         $books = Book::query()->where('type', Book::BOOK_TYPE)
             ->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate(10);
         $audio_books = Book::query()->where('type', Book::AUDIO_BOOK_TYPE)

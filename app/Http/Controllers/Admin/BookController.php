@@ -336,7 +336,12 @@ class BookController extends Controller
             'background_color' => $request->background_color,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
+            'pdf_to_html'  => $request->pdf_to_html,
         ];
+
+        if($request->generate_html){
+            $data['pdf_hash'] = $request->generate_html;
+        }
 
         if (null !== $image_link) {
             $data = array_merge($data, [

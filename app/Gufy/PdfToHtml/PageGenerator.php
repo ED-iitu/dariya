@@ -44,7 +44,7 @@ class PageGenerator
 
                     if(isset($style_arr[0]) && $style_arr[0] == 'top'){
                         $css_top = intval($style_arr[1]);
-                        if(isset($element_left_css[$css_top])){
+                        if(isset($element_top_css[$css_top])){
                             $element_top_css[$css_top]++;
                         }else{
                             $element_top_css[$css_top] = 1;

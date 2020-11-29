@@ -147,6 +147,12 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <p><a href="{{ url($book->book_link) }}" target="_blank"><i class="fa fa-file-pdf"></i> PDF</a> {{$book->name}}
                                             <a href="{{route('booksPages', $book->id)}}" target="_blank">Открыть HTML формат</a></p>
+                                        <p><input type="checkbox" name="generate_html"> Пересоздать HTML формат
+                                            <select name="pdf_to_html">
+                                                <option @if($book->pdf_to_html == \App\Book::X_PDF_TO_HTML)selected="selected"@endif value="{{ \App\Book::X_PDF_TO_HTML }}">X_PDF_TO_HTML</option>
+                                                <option @if($book->pdf_to_html == \App\Book::PDF_TO_HTML)selected="selected"@endif value="{{ \App\Book::PDF_TO_HTML }}">PDF_TO_HTML</option>
+                                            </select>
+                                        </p>
                                     </div>
                                 @endif
                                 <div class="col-xs-12 col-sm-12 col-md-12">
