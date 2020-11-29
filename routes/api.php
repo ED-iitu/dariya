@@ -151,6 +151,7 @@ Route::post('auth', function (Request $request) {
 
     return response(['token'=>$user->createToken(time())->plainTextToken]);
 });
+Route::post('password_reset','Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('register', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
