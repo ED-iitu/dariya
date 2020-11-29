@@ -51,7 +51,7 @@ class SearchController extends Controller
                 }
 
                 $bookModel->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
-                $bookModel->paginate(30)
+                $bookModel
                     ->each(function ($book) use (&$data){
                         $authors = [];
                         if($book->author){
@@ -87,7 +87,6 @@ class SearchController extends Controller
                         return $query->where('name', 'like', "%$search%");
                     })
                     ->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')
-                    ->paginate(30)
                     ->each(function ($article) use (&$data) {
                         $data[] = [
                             "id" => $article->id,
@@ -115,7 +114,6 @@ class SearchController extends Controller
                         return $query->where('name', 'like', "%$search%");
                     })
                     ->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc')
-                    ->paginate(30)
                     ->each(function ($video) use (&$data) {
                         $data[] = [
                             "id" => $video->id,
