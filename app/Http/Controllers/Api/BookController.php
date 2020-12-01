@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use Akaunting\Money\Money;
 use App\Book;
 use App\Genre;
+use App\Quote;
 use App\Rating;
 use Gufy\PdfToHtml\Config;
 use Gufy\PdfToHtml\Html;
@@ -260,5 +261,55 @@ class BookController extends Controller
         return $this->sendResponse([
             'genres' =>$genres, 'count' => $genres->count(), 'all_count' => $genres->count()
         ], '');
+    }
+
+    public function quotes($book_id = null){
+        $data = [];
+        $quotes = Quote::query()->where('user_id', Auth::id());
+        if($book_id){
+            $quotes->where('book_id', $book_id);
+        }
+        $quotes->orderBy('created_at', 'desc');
+        $quotes->each(function (Quote $quote) use (&$data){
+            $data[] = [
+                'id' => $quote->id,
+                'text' => $quote->text,
+                'book' => [
+                    'id' => $quote->book->id,
+                    'name' => $quote->book->name,
+                    'image' => url($quote->book->image_link)
+                ],
+                'user' => [
+                    'id' => $quote->user->id,
+                    'name' => $quote->user->name,
+                    'image' => url($quote->user->profile_photo_path)
+                ],
+                'created_at' => $quote->created_at
+            ];
+            return $data;
+        });
+        return $this->sendResponse([
+            'quotes' =>$data, 'count' => $quotes->count(), 'all_count' => $quotes->count()
+        ], '');
+    }
+
+    public function add_quote(Request $request){
+        if($request->book_id && Book::query()->find($request->book_id)){
+            $text = $request->text;
+            $quote = new Quote();
+            $quote->setRawAttributes([
+                'user_id' => Auth::id(),
+                'book_id' => $request->book_id,
+                'text' => $request->text
+            ]);
+            if($quote->save()){
+                return $this->sendResponse([
+                    "quote_id" => $quote->id
+                ],'Цитата успешно добавлена');
+            }
+        }
+        $book_id = $request->book_id;
+        dd($book_id);
+        return $this->sendError('Bad request.',[],403);
     }
 }

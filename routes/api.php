@@ -58,6 +58,8 @@ Route::middleware('auth:sanctum')->post('/user/remove_book_shelfs/{id}', 'Api\Us
 Route::middleware('auth:sanctum')->post('/user/add_to_book_shelf/{id}', 'Api\UserController@add_to_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\UserController@remove_in_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/toggle_favorites/{type}/{id}', 'Api\UserController@toggle_favorites');
+Route::middleware('auth:sanctum')->get('/quotes/{book_id?}', 'Api\BookController@quotes');
+Route::middleware('auth:sanctum')->post('/quotes', 'Api\BookController@add_quote');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
 
