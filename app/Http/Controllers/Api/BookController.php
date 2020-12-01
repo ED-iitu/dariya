@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Api;
 
 use Akaunting\Money\Money;
 use App\Book;
+use App\BookMark;
 use App\Genre;
 use App\Quote;
 use App\Rating;
@@ -293,9 +294,30 @@ class BookController extends Controller
         ], '');
     }
 
+    public function remove_quote($id){
+        if($quote = Quote::query()->find($id)){
+            if($quote->user_id = Auth::id()){
+                try {
+                    if ($quote->delete()) {
+                        return $this->sendResponse([
+                            "quote_id" => $quote->id
+                        ], 'Цитата успешно удалена');
+                    }
+                } catch (\Exception $e) {
+                    return $this->sendError('Internal server error.',[],500);
+                }
+            }
+
+        }
+        return $this->sendError('Bad request.',[],403);
+    }
+
     public function add_quote(Request $request){
-        if($request->book_id && Book::query()->find($request->book_id)){
-            $text = $request->text;
+        $request->validate([
+            'book_id' => 'required',
+            'text' => 'required|string',
+        ]);
+        if(Book::query()->find($request->book_id)){
             $quote = new Quote();
             $quote->setRawAttributes([
                 'user_id' => Auth::id(),
@@ -308,8 +330,77 @@ class BookController extends Controller
                 ],'Цитата успешно добавлена');
             }
         }
-        $book_id = $request->book_id;
-        dd($book_id);
         return $this->sendError('Bad request.',[],403);
+    }
+
+    public function add_book_marks(Request $request){
+        $request->validate([
+            'book_id' => 'required',
+            'page' => 'required|int',
+            'name' => 'required|string',
+        ]);
+        if(Book::query()->find($request->book_id)){
+            $book_mark = new BookMark();
+            $book_mark->setRawAttributes([
+                'user_id' => Auth::id(),
+                'book_id' => $request->book_id,
+                'page' => $request->page,
+                'name' => $request->name
+            ]);
+            if($book_mark->save()){
+                return $this->sendResponse([
+                    "bookmark_id" => $book_mark->id
+                ],'Закладка успешно добавлена');
+            }
+        }
+        return $this->sendError('Bad request.',[],403);
+    }
+
+    public function remove_bookmark($id){
+        if($bookmark = BookMark::query()->find($id)){
+            if($bookmark->user_id = Auth::id()){
+                try {
+                    if ($bookmark->delete()) {
+                        return $this->sendResponse([
+                            "bookmark_id" => $bookmark->id
+                        ], 'Закладка успешно удалена');
+                    }
+                } catch (\Exception $e) {
+                    return $this->sendError('Internal server error.',[],500);
+                }
+            }
+
+        }
+        return $this->sendError('Bad request.',[],403);
+    }
+
+    public function book_marks($book_id = null){
+        $data = [];
+        $bookmarks = BookMark::query()->where('user_id', Auth::id());
+        if($book_id){
+            $bookmarks->where('book_id', $book_id);
+        }
+        $bookmarks->orderBy('created_at', 'desc');
+        $bookmarks->each(function (BookMark $bookmark) use (&$data){
+            $data[] = [
+                'id' => $bookmark->id,
+                'name' => $bookmark->name,
+                'book' => [
+                    'id' => $bookmark->book->id,
+                    'name' => $bookmark->book->name,
+                    'image' => url($bookmark->book->image_link)
+                ],
+                'user' => [
+                    'id' => $bookmark->user->id,
+                    'name' => $bookmark->user->name,
+                    'image' => url($bookmark->user->profile_photo_path)
+                ],
+                'created_at' => $bookmark->created_at
+            ];
+            return $data;
+        });
+        return $this->sendResponse([
+            'bookmarks' =>$data, 'count' => $bookmarks->count(), 'all_count' => $bookmarks->count()
+        ], '');
     }
 }
