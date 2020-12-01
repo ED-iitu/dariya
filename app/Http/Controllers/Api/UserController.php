@@ -130,7 +130,7 @@ class UserController extends Controller
          * Articles
          */
         $articles  = [];
-        Auth::user()->favorites_articles()->paginate(5, ['*'], 'page_article')->each(function ($article) use (&$articles){
+        Auth::user()->favorites_articles()->each(function ($article) use (&$articles){
             $articles[] = [
                 'id' => $article->id,
                 'name' => $article->name,
@@ -149,7 +149,7 @@ class UserController extends Controller
          * Books
          */
         $books  = [];
-        Auth::user()->favorites_books()->paginate(5, ['*'], 'page_book')->each(function($model) use (&$books){
+        Auth::user()->favorites_books()->each(function($model) use (&$books){
 
             $authors = [];
             if($model->author){
@@ -173,13 +173,13 @@ class UserController extends Controller
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
             ];
         });
-        $all_books = Auth::user()->favorites_books()->count();
+        $all_books = Auth::user()->count();
 
         /**
          * Audio-Books
          */
         $audio_books  = [];
-        Auth::user()->favorites_audio_books()->paginate(5, ['*'], 'page_audio_book')->each(function($model) use (&$audio_books){
+        Auth::user()->favorites_audio_books()->each(function($model) use (&$audio_books){
 
             $authors = [];
             if($model->author){
@@ -209,7 +209,7 @@ class UserController extends Controller
          * Videos
          */
         $videos  = [];
-        Auth::user()->favorites_videos()->paginate(5, ['*'], 'page_video')->each(function($model) use (&$videos){
+        Auth::user()->favorites_videos()->each(function($model) use (&$videos){
             $videos[] = [
                 'id' => $model->id,
                 'name' => $model->name,

@@ -28,6 +28,9 @@ class PaymentController extends Controller
                     if ($request->get('object_id')) {
                         $object_id = $request->get('object_id');
                     }
+                    if(!$object_id){
+                        return redirect()->back()->with('error','Не выбранно срок подписки!');
+                    }
                     $tariff_price_list = TariffPriceList::query()->find($object_id);
                     if ($tariff_price_list) {
                         $transaction_data = [
@@ -75,31 +78,31 @@ class PaymentController extends Controller
                             'pg_user_contact_email' => Auth::user()->email,
                             'pg_success_url' => url('payment/success?transaction_id=' . $transaction->transaction_id),
                         ];
+                        if (Auth::user()->phone) {
+                            $request['pg_user_phone'] = Auth::user()->phone;
+                        }
+                        $request['client_name'] = Auth::user()->name;
+                        if (env('APP_DEBUG')) {
+                            $request['pg_testing_mode'] = 1; //add this parameter to request for testing payments
+                        }
+
+
+                        ksort($request); //sort alphabetically
+                        array_unshift($request, 'payment.php');
+                        array_push($request, env('PAYBOX_SECRET_KEY')); //add your secret key (you can take it in your personal cabinet on paybox system)
+
+                        $request['pg_sig'] = md5(implode(';', $request));
+
+                        unset($request[0], $request[1]);
+                        $query = http_build_query($request);
+                        $payment_url = 'https://api.paybox.money/payment.php?' . $query;
+                        return redirect($payment_url);
                     }
-                    if (Auth::user()->phone) {
-                        $request['pg_user_phone'] = Auth::user()->phone;
-                    }
-                    $request['client_name'] = Auth::user()->name;
-                    if (env('APP_DEBUG')) {
-                        $request['pg_testing_mode'] = 1; //add this parameter to request for testing payments
-                    }
-
-
-                    ksort($request); //sort alphabetically
-                    array_unshift($request, 'payment.php');
-                    array_push($request, env('PAYBOX_SECRET_KEY')); //add your secret key (you can take it in your personal cabinet on paybox system)
-
-                    $request['pg_sig'] = md5(implode(';', $request));
-
-                    unset($request[0], $request[1]);
-                    $query = http_build_query($request);
-                    $payment_url = 'https://api.paybox.money/payment.php?' . $query;
-                    return redirect($payment_url);
                 }
             }
 
         }
-        return $this->sendError('Not Found', 'Ресус не найден');
+        return redirect()->back()->with('error','Не выбранно срок подписки!');
     }
 
     public function result(Request $request)

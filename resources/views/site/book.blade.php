@@ -71,7 +71,7 @@
                                     <div class="box-tocart d-flex">
                                         @if($bookData->isAccess())
                                             @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
-                                                <a href="{{ url('listenBook', $bookData->id) }}"
+                                                <a href="{{ route('listenBook', $bookData->id) }}"
                                                    class="dariya-btn dariya-btn-yellow"><i class="fa fa-microphone"></i>
                                                     Слушать</a>
                                             @else
@@ -90,7 +90,7 @@
                                         @endif
                                         @if(\Illuminate\Support\Facades\Auth::user())
                                             <div class="product-addto-links clearfix">
-                                                @if($bookData->isBookFavorite())
+                                                @if($bookData->isFavorite())
                                                     <form action="{{route('unfavoriteBook', $bookData)}}" method="POST">
                                                         @csrf
 
@@ -163,9 +163,9 @@
                                                         </div>
                                                     </div>
                                                 @endforeach
-                                            <div class="mt-3">
-                                                {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
-                                            </div>
+                                                <div class="mt-3">
+                                                    {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
+                                                </div>
                                             @endif
                                         </div>
                                     </div>
@@ -176,38 +176,51 @@
                                         <h5>{{$bookData->name}}</h5>
                                         <form action="{{route('comment')}}" method="GET">
                                             <div>
-                                                <div class="rate-rating">
-                                                    <label>
-                                                        <input type="radio" name="stars" value="1"/>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 1 ) active @endif">★</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="stars" value="2"/>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 2 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 2 ) active @endif">★</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="stars" value="3"/>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="stars" value="4"/>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
-                                                    </label>
-                                                    <label>
-                                                        <input type="radio" name="stars" value="5"/>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
-                                                        <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
-                                                    </label>
-                                                </div>
+                                                @if(Auth::user()->getRatingForBook($bookData->id))
+                                                    <div class="user-rate-rating">
+                                                        <p>вы уже прогололсовали</p>
+                                                        <label>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 1 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 2 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                        </label>
+                                                    </div>
+                                                @else
+                                                    <div class="rate-rating">
+                                                        <label>
+                                                            <input type="radio" name="stars" value="1"/>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 1 ) active @endif">★</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="stars" value="2"/>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 2 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 2 ) active @endif">★</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="stars" value="3"/>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 3 ) active @endif">★</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="stars" value="4"/>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 4 ) active @endif">★</span>
+                                                        </label>
+                                                        <label>
+                                                            <input type="radio" name="stars" value="5"/>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                            <span class="rate-icon @if(Auth::user()->getRatingForBook($bookData->id) && Auth::user()->getRatingForBook($bookData->id) >= 5 ) active @endif">★</span>
+                                                        </label>
+                                                    </div>
+                                                @endif
                                             </div>
                                             <input type="hidden" name="object_id" value="{{$bookData->id}}">
                                             <input type="hidden" name="object_type" value="book">

@@ -16,11 +16,13 @@
                                 <div class="post_header">
                                     <h2>{{$article->name}}</h2>
                                     <ul class="post_author">
-                                        <li>Автор : <a href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a></li>
+                                        <li>Автор : <a
+                                                    href="{{url('/articles?author='.$article->author)}}">{{$article->author}}</a>
+                                        </li>
                                         <li class="post-separator">/</li>
                                         <li>{{\Jenssegers\Date\Date::parse($article->created_at)->format('j F, Y')}}</li>
                                         <li class="post-separator">/</li>
-                                        <li> <i class="fa fa-eye" aria-hidden="true"></i> {{$article->show_counter}}</li>
+                                        <li><i class="fa fa-eye" aria-hidden="true"></i> {{$article->show_counter}}</li>
                                     </ul>
                                     @include('site.blocks.share_links')
                                     @php $rating = $article->rate; @endphp
@@ -49,24 +51,25 @@
                                     </ul>
                                 @else
                                     <div class="comments_area mt-3">
-                                        <h3 class="comment__title">{{$comments->count()}} отзывов</h3>
+                                        <h3 class="comment__title">{{$comments->total()}} отзывов</h3>
                                         <ul class="comment__list">
                                             @foreach($comments as $comment)
-                                            <li>
-                                                <div class="wn__comment">
-                                                    <div class="thumb">
-                                                        <img src="../images/blog/comment/1.jpeg" alt="comment images">
-                                                    </div>
-                                                    <div class="content">
-                                                        <div class="comnt__author d-block d-sm-flex">
-                                                            <span>{{$comment->nickname}}</span>
-                                                            <span>{{\Jenssegers\Date\Date::parse($comment->created_at)->format('j F, Y H:i:s')}}</span>
-
+                                                <li>
+                                                    <div class="wn__comment">
+                                                        <div class="thumb">
+                                                            <img src="../images/blog/comment/1.jpeg"
+                                                                 alt="comment images">
                                                         </div>
-                                                        <p>{{$comment->message}}</p>
+                                                        <div class="content">
+                                                            <div class="comnt__author d-block d-sm-flex">
+                                                                <span>{{$comment->nickname}}</span>
+                                                                <span>{{\Jenssegers\Date\Date::parse($comment->created_at)->format('j F, Y H:i:s')}}</span>
+
+                                                            </div>
+                                                            <p>{{$comment->message}}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
+                                                </li>
                                             @endforeach
                                         </ul>
                                         {{$comments->links('vendor.pagination.simple-bootstrap-4')}}
@@ -76,59 +79,73 @@
                             </div>
                         </article>
                         @if( Auth::user())
-                        <div class="comment_respond">
-                            <h3 class="reply_title">Оставить отзыв</h3>
-                            <form class="comment__form" action="{{route('comment')}}" method="GET">
-                                <div>
-                                    <div class="rate-rating">
-                                        <label>
-                                            <input type="radio" name="stars" value="1" />
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 1 ) active @endif">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="stars" value="2" />
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="stars" value="3" />
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="stars" value="4" />
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" name="stars" value="5" />
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
-                                            <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
-                                        </label>
+                            <div class="comment_respond">
+                                <h3 class="reply_title">Оставить отзыв</h3>
+                                <form class="comment__form" action="{{route('comment')}}" method="GET">
+                                    <div>
+                                        @if(Auth::user()->getRatingForArticle($article->id))
+                                            <div class="user-rate-rating">
+                                                <p>вы уже прогололсовали</p>
+                                                <label>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 1 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                </label>
+                                            </div>
+                                        @else
+                                            <div class="rate-rating">
+                                                <label>
+                                                    <input type="radio" name="stars" value="1"/>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 1 ) active @endif">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="2"/>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 2 ) active @endif">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="3"/>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 3 ) active @endif">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="4"/>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 4 ) active @endif">★</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="stars" value="5"/>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                    <span class="rate-icon @if(Auth::user()->getRatingForArticle($article->id) && Auth::user()->getRatingForArticle($article->id) >= 5 ) active @endif">★</span>
+                                                </label>
+                                            </div>
+                                        @endif
                                     </div>
-                                </div>
-                                <input type="hidden" name="object_id" value="{{$article->id}}">
-                                <input type="hidden" name="object_type" value="article">
-                                <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
-                                <div class="input__box">
-                                    <label>Отзыв</label>
-                                    <textarea name="message"></textarea>
-                                </div>
-                                <div class="submite__btn">
-                                    <button class="btn btn-primary" type="submit">Отправить отзыв</button>
-                                </div>
-                            </form>
-                        </div>
+                                    <input type="hidden" name="object_id" value="{{$article->id}}">
+                                    <input type="hidden" name="object_type" value="article">
+                                    <input type="hidden" name="author_id" value="{{Auth::user()->id}}">
+                                    <div class="input__box">
+                                        <label>Отзыв</label>
+                                        <textarea name="message"></textarea>
+                                    </div>
+                                    <div class="submite__btn">
+                                        <button class="btn btn-primary" type="submit">Отправить отзыв</button>
+                                    </div>
+                                </form>
+                            </div>
                         @else
-                        <div>
-                            Чтобы оставить комментарий вам необходими <a href="{{route('signin')}}">Авторизоваться</a>
-                        </div>
+                            <div>
+                                Чтобы оставить комментарий вам необходими <a
+                                        href="{{route('signin')}}">Авторизоваться</a>
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -141,17 +158,20 @@
                             <div class="recent-posts">
                                 <ul>
                                     @foreach($similar_articles as $similar)
-                                    <li>
-                                        <div class="post-wrapper d-flex">
-                                            <div class="thumb">
-                                                <a href="{{route('article', $similar->id)}}"><img src="{{$similar->image_link}}" alt="blog images"></a>
+                                        <li>
+                                            <div class="post-wrapper d-flex">
+                                                <div class="thumb">
+                                                    <a href="{{route('article', $similar->id)}}"><img
+                                                                src="{{$similar->image_link}}" alt="blog images"></a>
+                                                </div>
+                                                <div class="content">
+                                                    <h4>
+                                                        <a href="{{route('article', $similar->id)}}">{{$similar->name}}</a>
+                                                    </h4>
+                                                    <p>    {{$similar->created_at}}</p>
+                                                </div>
                                             </div>
-                                            <div class="content">
-                                                <h4><a href="{{route('article', $similar->id)}}">{{$similar->name}}</a></h4>
-                                                <p>	{{$similar->created_at}}</p>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     @endforeach
                                 </ul>
                             </div>

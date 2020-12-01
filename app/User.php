@@ -144,6 +144,14 @@ class User extends Authenticatable implements SocialAuthenticatable
         return null;
     }
 
+    public function getRatingForVideo($article_id){
+        $rating = Rating::query()->where(['object_id' => $article_id,'object_type' => Rating::VIDEO_TYPE,'author_id' => $this->id])->orderBy('created_at', 'desc')->first();
+        if($rating){
+            return $rating->rate;
+        }
+        return null;
+    }
+
     public function getRatingForBook($book_id){
         $rating = Rating::query()->where(['object_id' => $book_id,'object_type' => Rating::BOOK_TYPE,'author_id' => $this->id])->orderBy('created_at', 'desc')->first();
         if($rating){

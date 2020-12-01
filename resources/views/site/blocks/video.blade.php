@@ -26,4 +26,13 @@
         </div>
         <span class="more">Подробнее</span>
     </a>
+    @if(\Illuminate\Support\Facades\Auth::user())
+        @if($video->isFavorite())
+            <a href="{{ route('removeInFavorite', ['type' => 'article', 'id' => $video->id]) }}"
+               class="a-remove-in-favorites"><i class="fa fa-heart"></i></a>
+        @else
+            <a href="{{ route('addToFavorite', ['type' => 'article', 'id' => $video->id]) }}"
+               class="a-add-to-favorites"><i class="fa fa-heart-o"></i></a>
+        @endif
+    @endif
 </div>

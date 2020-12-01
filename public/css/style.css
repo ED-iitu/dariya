@@ -6262,3 +6262,80 @@ a.checkout__title {
 .rate-rating label:last-child .active {
   color: #09f;
 }
+
+
+.user-rate-rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+}
+.user-rate-rating p{
+  font-size: 16px;
+}
+.user-rate-rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.user-rate-rating label:last-child {
+  position: static;
+}
+
+.user-rate-rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.user-rate-rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.user-rate-rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.user-rate-rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.user-rate-rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.user-rate-rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.user-rate-rating label .rate-icon {
+  float: left;
+  color: transparent;
+}
+
+
+.user-rate-rating:not(:hover) label input:checked ~ .rate-icon,
+.user-rate-rating:hover label:hover input ~ .rate-icon {
+  color: #09f;
+}
+
+.user-rate-rating label .active{
+  color: #09f;
+}
+
+.user-rate-rating label input:focus:not(:checked) ~ .rate-icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px #09f;
+}
+
+.user-rate-rating label:last-child .rate-icon {
+  color: #ccc;
+}
+.user-rate-rating label:last-child .active {
+  color: #09f;
+}

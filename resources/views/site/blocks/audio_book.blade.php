@@ -41,4 +41,13 @@
             </div>
         </div>
     @endif
+    @if(\Illuminate\Support\Facades\Auth::user())
+        @if($book->isFavorite())
+            <a href="{{ route('removeInFavorite', ['type' => 'article', 'id' => $book->id]) }}"
+               class="a-remove-in-favorites"><i class="fa fa-heart"></i></a>
+        @else
+            <a href="{{ route('addToFavorite', ['type' => 'article', 'id' => $book->id]) }}"
+               class="a-add-to-favorites"><i class="fa fa-heart-o"></i></a>
+        @endif
+    @endif
 </div>

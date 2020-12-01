@@ -158,12 +158,13 @@ class BookController extends Controller
         if (Auth::user() == null) {
             return view('site.createAccount');
         }
-        $model = Auth::user()->favorites_books();
         if($book->type == Book::AUDIO_BOOK_TYPE){
             $model = Auth::user()->favorites_audio_books();
+        }else{
+            $model = Auth::user()->favorites_books();
         }
 
-        $model->attach($book->id, ['object_type' => $book->type]);
+        $model->sync([$book->id => ['object_type' => $book->type]]);
 
         return redirect()->back()->with('success','Книга добалена в избранное');
     }

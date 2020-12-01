@@ -93,30 +93,31 @@ class OrderController extends Controller
                             'pg_success_url' => url('payment/success?transaction_id='.$transaction->transaction_id),
                             'pg_failure_url' => url('payment/failure?transaction_id='.$transaction->transaction_id),
                         ];
+
+                        if(Auth::user()->phone){
+                            $request['pg_user_phone'] = Auth::user()->phone;
+                        }
+                        $request['client_name'] = Auth::user()->name;
+                        if(env('APP_DEBUG')){
+                            $request['pg_testing_mode'] = 1; //add this parameter to request for testing payments
+                        }
+
+
+                        ksort($request); //sort alphabetically
+                        array_unshift($request, 'payment.php');
+                        array_push($request, env('PAYBOX_SECRET_KEY')); //add your secret key (you can take it in your personal cabinet on paybox system)
+
+                        $request['pg_sig'] = md5(implode(';', $request));
+
+                        unset($request[0], $request[1]);
+                        $query = http_build_query($request);
+                        $payment_url = 'https://api.paybox.money/payment.php?'.$query;
+                        return $this->sendResponse([
+                            'payment_url' =>$payment_url,
+                            'success_url' => $request['pg_success_url'],
+                            'failure_url' => $request['pg_failure_url']
+                        ], 'Заказ успешно создан! Осталось оплатить');
                     }
-                    if(Auth::user()->phone){
-                        $request['pg_user_phone'] = Auth::user()->phone;
-                    }
-                    $request['client_name'] = Auth::user()->name;
-                    if(env('APP_DEBUG')){
-                        $request['pg_testing_mode'] = 1; //add this parameter to request for testing payments
-                    }
-
-
-                    ksort($request); //sort alphabetically
-                    array_unshift($request, 'payment.php');
-                    array_push($request, env('PAYBOX_SECRET_KEY')); //add your secret key (you can take it in your personal cabinet on paybox system)
-
-                    $request['pg_sig'] = md5(implode(';', $request));
-
-                    unset($request[0], $request[1]);
-                    $query = http_build_query($request);
-                    $payment_url = 'https://api.paybox.money/payment.php?'.$query;
-                    return $this->sendResponse([
-                        'payment_url' =>$payment_url,
-                        'success_url' => $request['pg_success_url'],
-                        'failure_url' => $request['pg_failure_url']
-                    ], 'Заказ успешно создан! Осталось оплатить');
                 }
             }
 

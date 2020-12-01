@@ -47,11 +47,13 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
 
-        if ($article) {
-            Article::where('id', $id)->increment('show_counter');
-            $author = $article->author;
-            $similar_articles = Article::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
+        if(!$article){
+            return view('errors.404');
         }
+
+        Article::where('id', $id)->increment('show_counter');
+        $author = $article->author;
+        $similar_articles = Article::query()->orWhere('author','like', "%{$author}%")->limit(5)->get();
 
         $comments = Comment::query()
             ->where([

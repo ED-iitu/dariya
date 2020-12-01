@@ -541,7 +541,7 @@ div.book-item div.description:after {
     box-shadow: 0px 0px 20px 30px white;
 }
 div.book-item div.final {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -558,6 +558,7 @@ div.book-item div.final a.order {
 }
 div.book-item div.final div.price {
     position: relative;
+    margin-left: 10px;
 }
 div.book-item div.final div.price small{
     position: absolute;
@@ -678,7 +679,7 @@ div.audio-book-item div.description:after {
     box-shadow: 0px 0px 20px 30px white;
 }
 div.audio-book-item div.final {
-    display: flex;
+    display: inline-flex;
     justify-content: space-between;
     align-items: center;
 }
@@ -695,6 +696,7 @@ div.audio-book-item div.final a.order {
 }
 div.audio-book-item div.final div.price {
     position: relative;
+    margin-left: 10px;
 }
 div.audio-book-item div.final div.price small{
     position: absolute;
@@ -804,6 +806,10 @@ div.video-item span.more {
     font-size: 14px;
     line-height: 32px;
     color: #333;
+}
+.a-add-to-favorites, .a-remove-in-favorites{
+    float: right;
+    color: #0090ff!important;
 }
 /*advertisings*/
 #advertisings {

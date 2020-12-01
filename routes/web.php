@@ -78,6 +78,8 @@ Route::get('/comments/store', 'Site\CommentController@store')->name('comment');
 Route::get('/profile', 'Site\ProfileController@index')->name('profile')->middleware('auth');
 Route::get('/favorite', 'Site\FavoriteController@index')->name('favorite')->middleware('auth');
 
+Route::get('add-to-favorite/{type}/{id}', 'Site\FavoriteController@addToFavorite')->name('addToFavorite');
+Route::get('remove-in-favorite/{type}/{id}', 'Site\FavoriteController@removeInFavorite')->name('removeInFavorite');
 Route::post('favorite/{book}', 'Site\BookController@favoriteBook')->name('favoriteBook');
 Route::post('unfavorite/{book}', 'Site\BookController@unFavoriteBook')->name('unfavoriteBook');
 Route::get('/profile/edit/{id}', 'Site\ProfileController@edit')->name('profileEdit');
