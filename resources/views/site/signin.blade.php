@@ -30,7 +30,7 @@
                                 </label>
                             </div>
                             @include('social-auth::buttons')
-                            <a href="{{ route('signup') }}">Регистрация</a> | <a href="#">Забыли пароль?</a>
+                            <a href="{{ route('signup') }}">Регистрация</a> | <a href="{{route('password.request')}}">Забыли пароль?</a>
                         </div>
                     </form>
                 </div>
