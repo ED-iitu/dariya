@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 use App\Author;
 use App\Banner;
 use App\Book;
+use App\BookPages;
 use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
@@ -190,5 +191,15 @@ class BookController extends Controller
         $model->detach($book->id);
 
         return redirect()->back()->with('success','Книга удаленна из избранных');
+    }
+
+    public function read_book($id){
+        if($book = Book::query()->find($id)){
+            $book_pages = BookPages::query()->where('book_id',$id)->get();
+            return view('site.read_book' ,[
+                'book' => $book,
+                'book_pages' => $book_pages,
+            ]);
+        }
     }
 }

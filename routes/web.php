@@ -92,3 +92,5 @@ Route::get('/payment_plug/{transaction_id}', 'Site\PaymentPlug@index');
 
 Route::post('/buy/{type}/{object_id}', 'Site\PaymentController@buy')->middleware('auth')->name('buy');
 Route::get('payment/success', 'Site\PaymentController@success');
+
+Route::get('read_book/{id}', 'Site\BookController@read_book')->name('read_book');

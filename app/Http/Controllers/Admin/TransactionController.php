@@ -15,7 +15,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::all();
+        $transactions = Transaction::query()->orderBy('created_at', 'desc')->get();
 
         return view('adminPanel.transaction.index', [
             'transactions' => $transactions
