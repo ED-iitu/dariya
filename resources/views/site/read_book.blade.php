@@ -7,12 +7,44 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$book->name}}</title>
     <script type="text/javascript">
+        var page = 1;
+        window.addEventListener("message", message => {
+            if (message.data.text === 'setting') {
+                document.showBookReaderSettings();
+            }
+            if (message.data.text === 'setting_close') {
+                document.hideBookReaderSettings();
+            }
+            if (message.data.text === 'init') {
+                page = message.data.page;
+            }
+        });
         document.showBookReaderSettings = function(){
             document.getElementById('book-settings').style.display = 'block';
         };
         document.hideBookReaderSettings = function(){
             document.getElementById('book-settings').style.display = 'none';
         };
+        function setReadPage(element){
+            let currentPage = element.parentElement.getAttribute('data-page');
+            page = currentPage;
+            console.log(page);
+            if(typeof window.ReactNativeWebView !== 'undefined') {
+                window.ReactNativeWebView.postMessage(
+                    JSON.stringify({  "page": page }));
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+
+        });
+
+
+        function checkVisible(elm) {
+            var rect = elm.getBoundingClientRect();
+            var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+            return !(rect.bottom < 0 || rect.top - viewHeight >= 0);
+        }
     </script>
 </head>
 <body>
@@ -37,9 +69,12 @@
         <div id="book-settings">
             Настройки <div id="book-settings-close" onclick="document.hideBookReaderSettings()">[закрыть]</div>
         </div>
-        @foreach($book_pages as $page)
-            {!! str_replace(['<body>', '</body>'],'',$page->content) !!}
-            <hr>
+        @foreach($book_pages as $k=>$page)
+            <div id="page_{{$page->page}}" data-page="{{$page->page}}" class="page">
+                {!! str_replace(['<body>', '</body>'],'',$page->content) !!}
+                <button onclick="setReadPage(this)">сохранить старницу</button>
+                <hr>
+            </div>
         @endforeach
     </div>
 </body>
