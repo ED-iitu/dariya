@@ -85,6 +85,7 @@
             position: relative;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         .page{
             min-height: 100vh;
