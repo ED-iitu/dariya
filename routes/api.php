@@ -63,9 +63,10 @@ Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@
 Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
 Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');
 Route::post('/remove_quotes/{id}', 'Api\BookController@remove_quote');
-Route::post('/bookmarks', 'Api\BookController@add_book_marks');
+Route::post('/bookmarks', 'Api\BookController@add_book_marks')->name('add_book_marks');
 Route::get('/bookmarks/{book_id?}', 'Api\BookController@book_marks');
 Route::post('/remove_bookmark/{id}', 'Api\BookController@remove_bookmark');
+Route::post('/save_book_state', 'Api\BookController@save_book_state')->name('save_book_state');
 /**
  * Search
  */

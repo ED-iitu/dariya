@@ -6,7 +6,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{$book->name}}</title>
-    <script src="{{ asset('js/vendor/jquery-3.2.1.min.js') }}" defer></script>
+    <script src="{{ asset('js/vendor/jquery-3.2.1.min.js') }}"></script>
+{{--    <script src="{{ asset('js/vendor/on-scrolled-to.min.js') }}"></script>--}}
+    <script src="{{ asset('js/vendor/jquery.scrollfy.min.js') }}"></script>
     <script type="text/javascript">
 
         var page = {!! $data['current_page'] !!};
@@ -30,10 +32,12 @@
             document.getElementById('book-settings').style.display = 'none';
         };
         document.toggleBookReaderSettings = function () {
-            $('#book-settings').toggle('slow');
+            $('#book-bar').hide();
+            $('#book-settings').toggle();
         };
         document.toggleBookReaderBar = function () {
-            $('#book-bar').toggle('slow');
+            $('#book-settings').hide();
+            $('#book-bar').toggle();
         };
         function setReadPage(element){
             let currentPage = element.parentElement.getAttribute('data-page');
@@ -46,6 +50,9 @@
         }
 
         document.addEventListener("DOMContentLoaded", function(event) {
+            $('html, body').animate({
+                scrollTop: $("#page_" + page).offset().top
+            }, 1000);
             jQuery.extend({
                 highlight: function (node, re, nodeName, className) {
                     if (node.nodeType === 3) {
@@ -156,6 +163,7 @@
                     },
                     success: function (data) {
                         console.log(text);
+                        $('#quotes-list ul').append('<li>' + text + '</li>');
                         book_content.highlight(text);
                     }
                 });
@@ -167,6 +175,96 @@
                 $(this).closest('#select-menu').hide();
             });
 
+            $('#add-bookmark').on('click', function () {
+                $('#book-bar').hide();
+                $('#book-settings').hide();
+                $('#bookmark-input').toggle();
+                $('#bookmark-input input').focus();
+            });
+
+            $('#save-bookmark').on('click', function () {
+                let name = $('#bookmark-input input').val();
+                let page = $('input[name="page"]').val();
+                let hash = $('input[name="hash"]').val();
+                console.log(name);
+                if(name !== ''){
+                    $.ajax({
+                        type: "POST",
+                        url: '{{ route('add_book_marks') }}',
+                        data: {
+                            page: page,
+                            hash: hash,
+                            name: name
+                        },
+                        success: function (data) {
+                            console.log(data.message);
+                            $('#bookmark-input input').val('');
+                            $('#bookmark-input').hide();
+                            $('#bookmarks-list ul').append('<li>' + name + ' [' + page + ' - страница]</li>');
+                        }
+                    });
+                }
+            });
+
+            $('.book-bar-nav-list li:first-child').on('click', function () {
+                $('.book-bar-nav-list li').removeClass('active')
+                $(this).addClass('active');
+                $('#bookmarks-list').toggle();
+                $('#quotes-list').toggle();
+            });
+            $('.book-bar-nav-list li:last-child').on('click', function () {
+                $('.book-bar-nav-list li').removeClass('active')
+                $(this).addClass('active');
+                $('#bookmarks-list').toggle();
+                $('#quotes-list').toggle();
+            });
+
+            $('div.page')
+                .addClass('down')
+
+                .on('scrollfy:scroll:begin', function(e) {
+                    $(this).removeClass('up down').addClass(e.scrollfy.direction);
+                })
+
+                .on('scrollfy:inView', function(e) {
+                    if ( !$(this).hasClass('inview') ) {
+                        let page = $(this).data('page');
+                        let hash = $('input[name="hash"]').val();
+                        $('#current-page').text(page);
+                        $('input[name="page"]').val(page);
+                        $.ajax({
+                            type: "POST",
+                            url: '{{ route('save_book_state') }}',
+                            data: {
+                                page: page,
+                                hash: hash
+                            },
+                            success: function (data) {
+                                console.log(data.message);
+                            }
+                        });
+                        $(this).delay(100).addClass('inview');
+                    }
+                })
+
+                .on('scrollfy:offView', function(e) {
+                    if ( $(this).hasClass('inview') ) {
+                        $(this).removeClass('inview');
+                    }
+                })
+
+                .on('scrollfy:scroll:end', function(e) {
+                    $(this).removeClass('up down');
+                })
+
+                .scrollfy();
+            $(window).on('scrollfy:scroll',function(e) {
+                if ( e.scrollfy.direction =='up' ) {
+                    $('body').removeClass('down').addClass('up');
+                }else if ( e.scrollfy.direction =='down' ) {
+                    $('body').removeClass('up').addClass('down');
+                }
+            });
         });
 
         function messageFlash(message) {
@@ -298,6 +396,56 @@
         .book_content{
             padding: 15px;
         }
+        .book_content .marked{
+           border: 2px solid #fdcc22;
+            padding: 5px;
+        }
+        #bookmark-input{
+            position: fixed;
+            background: #ffffff;
+            left: 30px;
+            right: 30px;
+            bottom: 70px;
+            font-size: 22px;
+            padding: 0px;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1500;
+            display: none;
+        }
+        #bookmark-input ul{
+            margin: 0;
+            padding: 0;
+        }
+        #bookmark-input ul li{
+            list-style-type: none;
+            border-bottom: 1px solid #E8E8E8;
+            line-height: inherit;
+            font-size: 16px;
+            padding: 10px;
+        }
+        #bookmark-input ul li:first-child{
+            text-align: center;
+        }
+        #bookmark-input ul li input{
+            width: 95%;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        #bookmark-input ul li:last-child{
+            text-align: right;
+        }
+        #bookmark-input ul li button{
+            padding: 8px 10px;
+            text-align: center;
+            background: #606B8B;
+            color: #FFFFFF;
+            border-radius: 5px;
+            font-family: SF UI Display;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            border: 0;
+        }
         #book-bar{
             position: fixed;
             background: #ffffff;
@@ -309,7 +457,7 @@
             padding: 0px;
             box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
             z-index:1500;
-            display: block;
+            display: none;
         }
         .bar-block{
             margin: 0;
@@ -355,13 +503,35 @@
             color: #FFFFFF;
         }
         #quotes-list{
-            overflow-y: aut;
+            overflow-y: auto;
         }
         #quotes-list ul{
             margin: 0;
             padding: 0;
         }
         #quotes-list ul li{
+            list-style-type: none;
+            padding: 5px;
+            text-align: left;
+            color: #3E4D64;
+            background: #F3F3F3;
+            border-radius: 5px;
+            font-family: SF UI Display;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            margin: 10px;
+        }
+        #bookmarks-list{
+            overflow-y: auto;
+            display: none;
+        }
+        #bookmarks-list ul{
+            margin: 0;
+            padding: 0;
+        }
+        #bookmarks-list ul li{
             list-style-type: none;
             padding: 5px;
             text-align: left;
@@ -564,6 +734,20 @@
             <li id="copy-selected-text">Копировать</li>
         </ul>
     </div>
+    <div id="bookmark-input">
+        <ul>
+            <li>
+                5 страница
+                <img style="float: right" onclick="document.toggleBookReaderBar()" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbklEQVQ4T2NkoDJgpLJ5DEPQQGV5hf93Hz4gyuXY1GLVSIyhuNTgdAk+Q/HJ4fUaNo2EXE8wrJANIGQYKAkSNBCkCGQQiCYmsuhvIFW9TNVIoWqyISY2iU7YxBgGK6GIznqUFGlEJRtSLBj8BgIA3WFYFSSf+yIAAAAASUVORK5CYII=">
+            </li>
+            <li>
+                <input type="text">
+            </li>
+            <li>
+                <button id="save-bookmark">Добавить</button>
+            </li>
+        </ul>
+    </div>
     <div id="book-bar">
         <ul class="bar-block">
             <li class="bar-item book-bar-close">
@@ -582,6 +766,13 @@
                     <ul>
                         @foreach($quotes as $quote)
                             <li>&#171;{{ $quote }}&#187;</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div id="bookmarks-list">
+                    <ul>
+                        @foreach($bookmarks as $p=>$bookmark)
+                            <li>{{ $bookmark }} [ {{$p}} - страница]</li>
                         @endforeach
                     </ul>
                 </div>
@@ -637,24 +828,23 @@
     </div>
     <div class="book_top_bar">
         <ul>
-            <li style="width: 32px; text-align: right" onclick="document.toggleBookReaderBar()">
+            <li style="width: 40px; text-align: center" onclick="document.toggleBookReaderBar()">
                 <img width="18" height="18"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAACEAAAAhAEwqx0lAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAONJREFUOI3N0zFKQ0EUheFvQkDtFDVqlqALUEGX4g6EoAuwErVObWulbVBEUNAughswtY1EIcb2WcwIL2Ax7yHigcvcC8OZOf8w/DcF7GAPFzjCOrpYyPT4xAm8oUjVxlVpzq1hA4/JeYBX9Gsk6wdMYxNPeE9xt7CcaTLCbY3Df1bAmgi8h3sRcgetTI8xTolsCpH+LM5Uh/3cSI3SWkdFwGop2gPmU7SlTJOP72i/ooAZbJh8/u0KNxrhDm5EPgNM4VB12NdMfpEVXNYwGjaxi32c4wUHmMNiZrQxjjP3/qG+AIifYesogav3AAAAAElFTkSuQmCC" alt="list">
             </li>
             <li style="width: calc(100% - 100px)">
-                5 из 320
+                <span id="current-page">1</span> из {{$book_pages->count()}}
             </li>
             <li style="width: 44px">
-                <img width="14" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAUCAYAAACEYr13AAAA+klEQVQ4T+2UvUoDQRSFv5OZ+AhpNml309nYptBO0N43UAT1TUQCQVmw8RGsBS0stfQPLKIEfAAR1MS5slkjyYo/WwqZaph7zwdzOecKwCeNQ7Dl7F7inJvYlovrbYmNEsLx1if5pG7DFzFfCmIcD2XjgMF17+SvkJFuCpgO8R8YqRpHs0hz/ZveftHiP1rZxY0VydaB1ofwEWxnUPG7XN095CsgD+FkGs0WQKtA7btQSTowUwrhdBJQVEhHFui8hXDmnTaBLWDmS9tnnPNKMKPjQmXv9fb+sthcTaI1QxmoOarlXzAuJNL+i0/pdp9/2wmuGS3JlM1o8R22H5Ldf06SkAAAAABJRU5ErkJggg==" alt="bookmark">
-                <img style="display: none" width="14" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAOVJREFUOI3tkz9KA3EQRt/MT8VgFTb+KVYv4AHMFazFVqxSiXgEj2DEyspeLLxE2FVbL2ACIqidGGJmxiYRExQ2rfjq7/ENw4wMb+vb4noO5FSjF+otsTLrziCN6c6NpbT1IlUMK7MA1nXGpi/+xT8uRievRSevVRbjZnnNysaxp/6Dp/dHK7J23NU3pnMyuj3UaXqKI0J2gPmp3AcSV2py4koxIX5jIMi1qLWx1Hf1FiF7wOKPjcATcKERZ9J87U2MX6ysutg+cMDom2RYZCUqp2np+VI2Gfy2DIC4Z8HeGrt4HH4CmWBVnyRr+ycAAAAASUVORK5CYII=" alt="active-book-mark">
+                <img id="add-bookmark" width="14" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAUCAYAAACEYr13AAAA+klEQVQ4T+2UvUoDQRSFv5OZ+AhpNml309nYptBO0N43UAT1TUQCQVmw8RGsBS0stfQPLKIEfAAR1MS5slkjyYo/WwqZaph7zwdzOecKwCeNQ7Dl7F7inJvYlovrbYmNEsLx1if5pG7DFzFfCmIcD2XjgMF17+SvkJFuCpgO8R8YqRpHs0hz/ZveftHiP1rZxY0VydaB1ofwEWxnUPG7XN095CsgD+FkGs0WQKtA7btQSTowUwrhdBJQVEhHFui8hXDmnTaBLWDmS9tnnPNKMKPjQmXv9fb+sthcTaI1QxmoOarlXzAuJNL+i0/pdp9/2wmuGS3JlM1o8R22H5Ldf06SkAAAAABJRU5ErkJggg==" alt="bookmark">
                 <img onclick="document.toggleBookReaderSettings()" width="18" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAACxUlEQVQ4T42UX4hVVRTGf99tIhGCoCKdew5CyTm3t8pQgx5GCEM5ewYHisqIyggR8R8M1EvNPAX9GyhFNLIJDCKp7J6bURT6YEQYKIJ0z9XKOudOBD4IQQ/VvSv2mXuH28z0Z7/szdrr+/Ze3/7WFv8wgjg5iukORAh0QZehe6HIGo8uBdFSwaCWjGA6CZxasD9SZOmSmPlgECWTHlS0GpNBnGwFHfVERZZu8PEgdp54pILu/Smrf9nLt6LVmPL7JVG15hIZae/0WWC4t15E1ItfAW7ya+t27mxfPHFO1dXjgYb+OIkRGDwrmPY3EZrIs/o3g6WF8ejdZjaDuBHTc8gOA8eLLN2isOZeNWOvxHTeTPetun185Y/ffvCzJxiOxu6rVOxWGX92OpydvVQ/O0jcL1doTEHsTOIXumzPW+nxfmKpgfT8APA3zF7yGvZj1TjZLnSwrGAQIDGRN9OXB2Lfy3jF4HfEVi+2ZPfnzcZnQew+BTYCv2L2UCl2Hyhji79VELn3EeOGHmxn9WNlTs29gPEMYlfRTF8PYzdtsAfZhqLZOLWASA/nrfq71ci9JfE4xuailX4yd5h7CvGG0LY8qx8JIncI8fQ80TyofEub9L4I49EnDXsT4xLYO1R0Hcb6sjRjbd5Kz4S10bfN7LESJpyqsftBsNzMHmm3Gl/8i9j+oKlBscM4ecLQETNmFEZuh4kDwGtFlu4evm0snP3uo9wThrVko6FYXTomnS6y+vnSFsNuuZ8r1/M5cI+/pVas3nTz0DXXngaLMNuPtNPgMmKq3Uxn/mbIyO3oignBLZi92LPHnCHnXqRsUi/qMuD/tMhV4AbgqmloXbv5YWugad0msHVeg2o8+oCw95ZqWrqd9cXFE18HcTIh2fm8+bH301zTLhwD38iivf/8RhaRRcmkpLsM1vgeF/qqi471Dbow/y/dc0H3dCTXegAAAABJRU5ErkJggg==" alt="settings">
             </li>
         </ul>
     </div>
     <div class="book_content">
         @foreach($book_pages as $k=>$page)
-            <div id="page_{{$page->page}}" data-page="{{$page->page}}" data-book-id="{{$page->book->id}}" class="page">
+            <div id="page_{{$page->page}}" data-page="{{$page->page}}" data-book-id="{{$page->book->id}}" class="page @if(in_array($page->page,$bookmarks)) marked @endif" @if(in_array($page->page,$bookmarks)) style="position: relative" @endif>
+                @if(in_array($page->page,$bookmarks)) <img style="position: absolute;right: 2px;top: 2px;" width="14" height="18" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAOVJREFUOI3tkz9KA3EQRt/MT8VgFTb+KVYv4AHMFazFVqxSiXgEj2DEyspeLLxE2FVbL2ACIqidGGJmxiYRExQ2rfjq7/ENw4wMb+vb4noO5FSjF+otsTLrziCN6c6NpbT1IlUMK7MA1nXGpi/+xT8uRievRSevVRbjZnnNysaxp/6Dp/dHK7J23NU3pnMyuj3UaXqKI0J2gPmp3AcSV2py4koxIX5jIMi1qLWx1Hf1FiF7wOKPjcATcKERZ9J87U2MX6ysutg+cMDom2RYZCUqp2np+VI2Gfy2DIC4Z8HeGrt4HH4CmWBVnyRr+ycAAAAASUVORK5CYII=" alt="active-book-mark"> @endif
                 {!! str_replace(['<body>', '</body>'],'',$page->content) !!}
-                <button onclick="setReadPage(this)">сохранить старницу</button>
                 <hr>
             </div>
         @endforeach

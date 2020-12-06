@@ -349,17 +349,35 @@ class BookController extends Controller
         return $this->sendError('Bad request.',[],403);
     }
 
+    public function save_book_state(Request $request){
+        $request->validate([
+            'hash' => 'required',
+            'page' => 'required'
+        ]);
+        if($user_book_read_link = UserReadBookLink::query()->where('hash',$request->hash)->first()){
+             $user_data = $user_book_read_link->user_data;
+             $user_data['current_page'] = $request->page;
+             $user_book_read_link->user_data = $user_data;
+            if($user_book_read_link->save()){
+                return $this->sendResponse([
+                    "page" => $request->page
+                ],'Успешно сохранен!');
+            }
+        }
+        return $this->sendError('Bad request.',[],403);
+    }
+
     public function add_book_marks(Request $request){
         $request->validate([
-            'book_id' => 'required',
+            'hash' => 'required',
             'page' => 'required|int',
             'name' => 'required|string',
         ]);
-        if(Book::query()->find($request->book_id)){
+        if($user_book_read_link = UserReadBookLink::query()->where('hash',$request->hash)->first()){
             $book_mark = new BookMark();
             $book_mark->setRawAttributes([
-                'user_id' => Auth::id(),
-                'book_id' => $request->book_id,
+                'user_id' => $user_book_read_link->user_id,
+                'book_id' => $user_book_read_link->book_id,
                 'page' => $request->page,
                 'name' => $request->name
             ]);

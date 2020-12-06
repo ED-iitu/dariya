@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 use App\Author;
 use App\Banner;
 use App\Book;
+use App\BookMark;
 use App\BookPages;
 use App\Comment;
 use App\Genre;
@@ -199,13 +200,15 @@ class BookController extends Controller
         if($read_link = UserReadBookLink::query()->where('hash', $hash)->first()){
             if($book = Book::query()->find($read_link->book_id)){
                 $quotes = Quote::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('text')->toArray();
-                $book_pages = BookPages::query()->where('book_id',$book->id)->paginate(10);
+                $bookmarks = BookMark::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('name','page')->toArray();
+                $book_pages = BookPages::query()->where('book_id',$book->id)->get();
                 return view('site.read_book' ,[
                     'book' => $book,
                     'book_pages' => $book_pages,
                     'hash' => $read_link->hash,
                     'data' => $read_link->user_data,
-                    'quotes' => $quotes
+                    'quotes' => $quotes,
+                    'bookmarks' => $bookmarks
                 ]);
             }
         }
