@@ -69,7 +69,8 @@
             book_content.bind("mouseup", function () {
                 showMenu();
             });
-            book_content.bind("pointerup", function () {
+            book_content.bind("pointerup", function (event) {
+                event.preventDefault();
                 showMenu();
             });
 
