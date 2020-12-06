@@ -8,7 +8,9 @@ use App\BookPages;
 use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
+use App\Quote;
 use App\User;
+use App\UserReadBookLink;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -193,13 +195,20 @@ class BookController extends Controller
         return redirect()->back()->with('success','Книга удаленна из избранных');
     }
 
-    public function read_book($id){
-        if($book = Book::query()->find($id)){
-            $book_pages = BookPages::query()->where('book_id',$id)->get();
-            return view('site.read_book' ,[
-                'book' => $book,
-                'book_pages' => $book_pages,
-            ]);
+    public function read_book($hash){
+        if($read_link = UserReadBookLink::query()->where('hash', $hash)->first()){
+            if($book = Book::query()->find($read_link->book_id)){
+                $quotes = Quote::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('text')->toArray();
+                $book_pages = BookPages::query()->where('book_id',$book->id)->paginate(10);
+                return view('site.read_book' ,[
+                    'book' => $book,
+                    'book_pages' => $book_pages,
+                    'hash' => $read_link->hash,
+                    'data' => $read_link->user_data,
+                    'quotes' => $quotes
+                ]);
+            }
         }
+
     }
 }

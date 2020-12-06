@@ -8,8 +8,10 @@
     <title>{{$book->name}}</title>
     <script src="{{ asset('js/vendor/jquery-3.2.1.min.js') }}" defer></script>
     <script type="text/javascript">
-        var page = 1;
+
+        var page = {!! $data['current_page'] !!};
         var zoom = 1;
+        var quotes = {!! json_encode($quotes) !!};
         window.addEventListener("message", message => {
             if (message.data.text === 'setting') {
                 document.showBookReaderSettings();
@@ -28,7 +30,10 @@
             document.getElementById('book-settings').style.display = 'none';
         };
         document.toggleBookReaderSettings = function () {
-            $('#book-settings').toggle();
+            $('#book-settings').toggle('slow');
+        };
+        document.toggleBookReaderBar = function () {
+            $('#book-bar').toggle('slow');
         };
         function setReadPage(element){
             let currentPage = element.parentElement.getAttribute('data-page');
@@ -41,7 +46,70 @@
         }
 
         document.addEventListener("DOMContentLoaded", function(event) {
+            jQuery.extend({
+                highlight: function (node, re, nodeName, className) {
+                    if (node.nodeType === 3) {
+                        var match = node.data.match(re);
+                        if (match) {
+                            var highlight = document.createElement(nodeName || 'span');
+                            highlight.className = className || 'highlight';
+                            var wordNode = node.splitText(match.index);
+                            wordNode.splitText(match[0].length);
+                            var wordClone = wordNode.cloneNode(true);
+                            highlight.appendChild(wordClone);
+                            wordNode.parentNode.replaceChild(highlight, wordNode);
+                            return 1; //skip added node in parent
+                        }
+                    } else if ((node.nodeType === 1 && node.childNodes) && // only element nodes that have children
+                        !/(script|style)/i.test(node.tagName) && // ignore script and style nodes
+                        !(node.tagName === nodeName.toUpperCase() && node.className === className)) { // skip if already highlighted
+                        for (var i = 0; i < node.childNodes.length; i++) {
+                            i += jQuery.highlight(node.childNodes[i], re, nodeName, className);
+                        }
+                    }
+                    return 0;
+                }
+            });
+
+            jQuery.fn.unhighlight = function (options) {
+                var settings = { className: 'highlight', element: 'span' };
+                jQuery.extend(settings, options);
+
+                return this.find(settings.element + "." + settings.className).each(function () {
+                    var parent = this.parentNode;
+                    parent.replaceChild(this.firstChild, this);
+                    parent.normalize();
+                }).end();
+            };
+
+            jQuery.fn.highlight = function (words, options) {
+                var settings = { className: 'highlight', element: 'span', caseSensitive: false, wordsOnly: false };
+                jQuery.extend(settings, options);
+
+                if (words.constructor === String) {
+                    words = [words];
+                }
+                words = jQuery.grep(words, function(word, i){
+                    return word != '';
+                });
+                words = jQuery.map(words, function(word, i) {
+                    return word.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+                });
+                if (words.length == 0) { return this; };
+
+                var flag = settings.caseSensitive ? "" : "i";
+                var pattern = "(" + words.join("|") + ")";
+                if (settings.wordsOnly) {
+                    pattern = "\\b" + pattern + "\\b";
+                }
+                var re = new RegExp(pattern, flag);
+
+                return this.each(function () {
+                    jQuery.highlight(this, re, settings.element, settings.className);
+                });
+            };
             var book_content = $('.book_content');
+            book_content.highlight(quotes);
             $('#light-settings').change( function() {
                 let value = $(this).val();
                 $('.book_content').css('filter','brightness(' + value + '%)');
@@ -67,19 +135,86 @@
                 book_content.css('color',color);
             });
             book_content.bind("mouseup", function () {
-                showMenu();
+                showMenu(event);
             });
-            book_content.bind("pointerup", function (event) {
-                event.preventDefault();
-                showMenu();
+            $('span').bind("pointerup", function (event) {
+                showMenu(event);
+            });
+
+            $( '#add-to-quote' ).on('click', function () {
+                let text = $('input[name="text"]').val();
+                console.log(text);
+                let page = $('input[name="page"]').val();
+                let hash = $('input[name="hash"]').val();
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('add_quote') }}',
+                    data: {
+                        text: text,
+                        page: page,
+                        hash: hash
+                    },
+                    success: function (data) {
+                        console.log(text);
+                        book_content.highlight(text);
+                    }
+                });
+                $(this).closest('#select-menu').hide();
+            });
+            $('#copy-selected-text').on('click', function () {
+                let text = $(this).data('text');
+                copyTextToClipboard(text);
+                $(this).closest('#select-menu').hide();
             });
 
         });
+
+        function messageFlash(message) {
+            $('#message p').text(message);
+            $('#message').show();
+            setTimeout(function () {
+                $('#message').hide()
+            },1500);
+        }
 
         function applyZoom(){
             $('.book_content').css('zoom',zoom);
         }
 
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                var msg = successful ? 'successful' : 'unsuccessful';
+                console.log('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+        function copyTextToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                console.log('Async: Copying to clipboard was successful!');
+            }, function(err) {
+                console.error('Async: Could not copy text: ', err);
+            });
+        }
 
         function getHighlight() {
 
@@ -104,55 +239,45 @@
 
 
 
-        function showMenu() {
-            var sharing = $( '#select-menu' );
+        function showMenu(event) {
+            var select_menu = $( '#select-menu' );
             // 1.
             var highlight = getHighlight();
             // console.log(highlight);
             // 2.
             if ( highlight.text === '' ) {
 
-                sharing.hide();
-                sharing.css('left', 0);
-                sharing.css('top', 0);
+                select_menu.hide();
+                select_menu.css('left', 0);
+                select_menu.css('top', 0);
 
                 return;
             }
 
             // 4.
-            var width = ( highlight.rect.width / 2 ) - 162;
+            var width = ( highlight.rect.width / 2 ) - 55;
             /**
-             * The "42" is acquired from our sharing buttons width devided by 2.
+             * The "42" is acquired from our select_menu buttons width devided by 2.
              */
-            var left = ( highlight.rect.left + width ) + 'px';
-            var top = ( highlight.rect.top - 40 ) + 'px';
-            console.log(highlight, left, top);
-            sharing.show();
-            sharing.css('left',left);
-            sharing.css('top', top);
+            var left = Math.abs((screen.width - $('#select-menu').width()) - highlight.rect.width) + 'px';
+            //var left = ( highlight.rect.left + width ) + 'px';
+            var top = ( event.currentTarget.offsetTop - 40 ) + 'px';
+
+            let page = $(highlight.parent).closest('.page').data('page');
+            let text = highlight.text;
+
+            $( '#select-menu' ).find('li').each(function () {
+                $('input[name="text"]').val(text);
+                $('input[name="page"]').val(page);
+            });
+
+            select_menu.show();
+            select_menu.css('left',left);
+            select_menu.css('top', top);
             /**
-             * "40" is the height of our sharing buttons.
+             * "40" is the height of our select_menu buttons.
              * Herein, we lift it up above the higlighted area top position.
              */
-        }
-
-        function getSelectionText() {
-            var text = "";
-            if(window.getSelection()){
-                let element = $(window.getSelection().focusNode.parentElement);
-                element.css('position', 'relative');
-                let menuElement = $('<p>QUOTE</p>');
-                menuElement.css('color','red');
-                menuElement.css('position','absolute');
-                menuElement.css('bottom','10px');
-                menuElement.css('left',Number(window.getSelection().focusOffset) + Number(window.getSelection().anchorOffset) + 'px');
-                element.append(menuElement);
-                console.log(window.getSelection(),element);
-                text = window.getSelection().toString();
-            }else if(document.selection && document.selection.type != "Control") {
-                text = document.selection.createRange().text;
-            }
-            return text;
         }
 
         function checkVisible(elm) {
@@ -170,18 +295,85 @@
             padding: 0;
             overflow-x: hidden;
         }
-        .page{
-            position: relative;
+        .book_content{
+            padding: 15px;
         }
-        .page hr{
-            bottom: -15px;
+        #book-bar{
+            position: fixed;
+            background: #ffffff;
+            top: 0;
             left: 0;
             right: 0;
-            position: absolute;
+            bottom: 40px;
+            font-size: 22px;
+            padding: 0px;
+            box-shadow: 0px -4px 10px rgba(0, 0, 0, 0.1);
+            z-index:1500;
+            display: block;
         }
-        .book_content{
-            position: relative;
-            padding: 15px;
+        .bar-block{
+            margin: 0;
+            padding: 0;
+        }
+        .bar-item{
+            list-style-type: none;
+            border-bottom: 1px solid #E8E8E8;
+        }
+        .bar-item:first-child{
+            text-align: center;
+            line-height: inherit;
+            font-size: 16px;
+            padding: 10px;
+        }
+        .bar-item:last-child{
+            overflow-y: auto;
+            height: 82vh;
+        }
+        .book-bar-nav-list ul{
+            padding: 0;
+            margin: 0px auto;
+            display: table;
+            width: 90%;
+            border-spacing: 5px;
+        }
+        .book-bar-nav-list ul li{
+            list-style-type: none;
+            display: table-cell;
+            padding: 5px;
+            text-align: center;
+            color: #3E4D64;
+            background: #F3F3F3;
+            border-radius: 5px;
+            font-family: SF UI Display;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 20px;
+        }
+        .book-bar-nav-list ul li.active{
+            background: #606B8B;
+            color: #FFFFFF;
+        }
+        #quotes-list{
+            overflow-y: aut;
+        }
+        #quotes-list ul{
+            margin: 0;
+            padding: 0;
+        }
+        #quotes-list ul li{
+            list-style-type: none;
+            padding: 5px;
+            text-align: left;
+            color: #3E4D64;
+            background: #F3F3F3;
+            border-radius: 5px;
+            font-family: SF UI Display;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            margin: 10px;
         }
         #book-settings{
             position: fixed;
@@ -324,6 +516,7 @@
             font-weight: normal;
             font-size: 15px;
             line-height: 22px;
+            cursor: pointer;
         }
         #select-menu ul li:first-child{
             border-radius: 10px 0px 0px 10px;
@@ -331,13 +524,68 @@
         #select-menu ul li:last-child{
             border-radius: 0px 10px 10px 0px;
         }
+        #message{
+            display: none;
+            position: fixed;
+            top: 0;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgb(0 0 0 / 83%);
+        }
+        #message p{
+            text-align: center;
+            background-color: #FFFFFF;
+            display: block;
+            margin-top: 50%;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            color: #474747;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .highlight{
+            background-color: yellow;
+        }
     </style>
+    <input type="hidden" name="hash" value="{{ $hash }}">
+    <input type="hidden" name="text" value="">
+    <input type="hidden" name="page" value="">
+    <div id="message">
+        <p></p>
+    </div>
     <div id="select-menu">
         <ul>
-            <li>Цитата</li>
-            <li>Копировать</li>
-            <li>Заметка</li>
-            <li>Поделиться</li>
+            <li id="add-to-quote">Цитата</li>
+            <li id="copy-selected-text">Копировать</li>
+        </ul>
+    </div>
+    <div id="book-bar">
+        <ul class="bar-block">
+            <li class="bar-item book-bar-close">
+                {{ $book->name }}
+                <img style="float: right" onclick="document.toggleBookReaderBar()" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAbklEQVQ4T2NkoDJgpLJ5DEPQQGV5hf93Hz4gyuXY1GLVSIyhuNTgdAk+Q/HJ4fUaNo2EXE8wrJANIGQYKAkSNBCkCGQQiCYmsuhvIFW9TNVIoWqyISY2iU7YxBgGK6GIznqUFGlEJRtSLBj8BgIA3WFYFSSf+yIAAAAASUVORK5CYII=">
+            </li>
+            <li class="bar-item book-bar-nav-list">
+                <ul>
+{{--                    <li>Оглавление</li>--}}
+                    <li class="active">Цитаты</li>
+                    <li>Закладки</li>
+                </ul>
+            </li>
+            <li class="bar-item">
+                <div id="quotes-list">
+                    <ul>
+                        @foreach($quotes as $quote)
+                            <li>&#171;{{ $quote }}&#187;</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
     <div id="book-settings">
@@ -389,7 +637,7 @@
     </div>
     <div class="book_top_bar">
         <ul>
-            <li style="width: 32px; text-align: right">
+            <li style="width: 32px; text-align: right" onclick="document.toggleBookReaderBar()">
                 <img width="18" height="18"src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAACXBIWXMAAACEAAAAhAEwqx0lAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAONJREFUOI3N0zFKQ0EUheFvQkDtFDVqlqALUEGX4g6EoAuwErVObWulbVBEUNAughswtY1EIcb2WcwIL2Ax7yHigcvcC8OZOf8w/DcF7GAPFzjCOrpYyPT4xAm8oUjVxlVpzq1hA4/JeYBX9Gsk6wdMYxNPeE9xt7CcaTLCbY3Df1bAmgi8h3sRcgetTI8xTolsCpH+LM5Uh/3cSI3SWkdFwGop2gPmU7SlTJOP72i/ooAZbJh8/u0KNxrhDm5EPgNM4VB12NdMfpEVXNYwGjaxi32c4wUHmMNiZrQxjjP3/qG+AIifYesogav3AAAAAElFTkSuQmCC" alt="list">
             </li>
             <li style="width: calc(100% - 100px)">
@@ -404,7 +652,7 @@
     </div>
     <div class="book_content">
         @foreach($book_pages as $k=>$page)
-            <div id="page_{{$page->page}}" data-page="{{$page->page}}" class="page">
+            <div id="page_{{$page->page}}" data-page="{{$page->page}}" data-book-id="{{$page->book->id}}" class="page">
                 {!! str_replace(['<body>', '</body>'],'',$page->content) !!}
                 <button onclick="setReadPage(this)">сохранить старницу</button>
                 <hr>

@@ -11,6 +11,7 @@ use App\BookMark;
 use App\Genre;
 use App\Quote;
 use App\Rating;
+use App\UserReadBookLink;
 use Gufy\PdfToHtml\Config;
 use Gufy\PdfToHtml\Html;
 use Gufy\PdfToHtml\PageGenerator;
@@ -48,6 +49,9 @@ class BookController extends Controller
     }
 
     public function view($id){
+        /**
+         * @var Book $book
+         */
         if($book = Book::query()->find($id)){
             $data = [
                 "id"=> $book->id,
@@ -72,8 +76,8 @@ class BookController extends Controller
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0 ,
                 "show_counter"=> $book->show_counter,
                 "image_url"=> ($book->image_link) ? url($book->image_link) : null,
-                "share_link"=> route('book', $book->id),
-                "read_link" => route('read_book', $book->id)
+                "share_link" => route('book', $book->id),
+                "read_link" => $book->getReadLink()
             ];
             if($book->comments){
                 foreach ($book->comments()->paginate(5) as $comment){
@@ -315,20 +319,31 @@ class BookController extends Controller
 
     public function add_quote(Request $request){
         $request->validate([
-            'book_id' => 'required',
+            'hash' => 'required',
+            'page' => 'required',
             'text' => 'required|string',
         ]);
-        if(Book::query()->find($request->book_id)){
-            $quote = new Quote();
-            $quote->setRawAttributes([
-                'user_id' => Auth::id(),
-                'book_id' => $request->book_id,
-                'text' => $request->text
-            ]);
-            if($quote->save()){
-                return $this->sendResponse([
-                    "quote_id" => $quote->id
-                ],'Цитата успешно добавлена');
+        if($user_book_read_link = UserReadBookLink::query()->where('hash',$request->hash)->first()){
+            if($book = Book::query()->find($user_book_read_link->book_id)){
+                if(!Quote::query()->where([
+                    'user_id' => $user_book_read_link->user_id,
+                    'book_id' => $user_book_read_link->book_id,
+                    'page' => $request->page,
+                    'text' => $request->text
+                ])->exists()){
+                    $quote = new Quote();
+                    $quote->setRawAttributes([
+                        'user_id' => $user_book_read_link->user_id,
+                        'book_id' => $user_book_read_link->book_id,
+                        'page' => $request->page,
+                        'text' => $request->text
+                    ]);
+                    if($quote->save()){
+                        return $this->sendResponse([
+                            "quote_id" => $quote->id
+                        ],'Цитата успешно добавлена!');
+                    }
+                }
             }
         }
         return $this->sendError('Bad request.',[],403);

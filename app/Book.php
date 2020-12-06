@@ -28,6 +28,11 @@ class Book extends Model
         return $this->hasOne(Author::class, 'id', 'author_id');
     }
 
+    public function user_read_book_link()
+    {
+        return $this->hasOne(UserReadBookLink::class, 'book_id', 'id')->where('user_id', Auth::id());
+    }
+
     public function ratings()
     {
         return $this->hasMany(Rating::class, 'object_id', 'id')->where('object_type', '=', Rating::BOOK_TYPE);
@@ -145,10 +150,10 @@ class Book extends Model
 
     public function isAccess(){
         $is_access = false;
-        if($this->is_free){
-            return true;
-        }
         if(Auth::user()){
+            if($this->is_free){
+                return true;
+            }
             $id = $this->id;
             if(Auth::user()->have_active_tariff()){
                 $is_access = true;
@@ -164,5 +169,28 @@ class Book extends Model
             }
         }
         return $is_access;
+    }
+
+    public function getReadLink(){
+        if($this->isAccess()){
+            if($this->user_read_book_link){
+                return route('read_book', $this->user_read_book_link->hash);
+            }else{
+                $user_read_book_link = new UserReadBookLink();
+                $data = [
+                    'user_id' => Auth::id(),
+                    'book_id' => $this->id,
+                    'user_data' => \GuzzleHttp\json_encode([
+                        'current_page' => 1
+                    ])
+                ];
+                $user_read_book_link->setRawAttributes($data);
+                $user_read_book_link->hash = hash('sha256', serialize($data));
+                if($user_read_book_link->save()){
+                    return route('read_book', $user_read_book_link->hash);
+                }
+            }
+        }
+        return null;
     }
 }

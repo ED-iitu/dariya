@@ -58,15 +58,14 @@ Route::middleware('auth:sanctum')->post('/user/remove_book_shelfs/{id}', 'Api\Us
 Route::middleware('auth:sanctum')->post('/user/add_to_book_shelf/{id}', 'Api\UserController@add_to_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\UserController@remove_in_book_shelf');
 Route::middleware('auth:sanctum')->post('/user/toggle_favorites/{type}/{id}', 'Api\UserController@toggle_favorites');
-Route::middleware('auth:sanctum')->get('/quotes/{book_id?}', 'Api\BookController@quotes');
-Route::middleware('auth:sanctum')->post('/quotes', 'Api\BookController@add_quote');
-Route::middleware('auth:sanctum')->post('/remove_quotes/{id}', 'Api\BookController@remove_quote');
-Route::middleware('auth:sanctum')->post('/bookmarks', 'Api\BookController@add_book_marks');
-Route::middleware('auth:sanctum')->get('/bookmarks/{book_id?}', 'Api\BookController@book_marks');
-Route::middleware('auth:sanctum')->post('/remove_bookmark/{id}', 'Api\BookController@remove_bookmark');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
-
+Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
+Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');
+Route::post('/remove_quotes/{id}', 'Api\BookController@remove_quote');
+Route::post('/bookmarks', 'Api\BookController@add_book_marks');
+Route::get('/bookmarks/{book_id?}', 'Api\BookController@book_marks');
+Route::post('/remove_bookmark/{id}', 'Api\BookController@remove_bookmark');
 /**
  * Search
  */
