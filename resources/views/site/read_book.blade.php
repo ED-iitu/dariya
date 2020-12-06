@@ -41,6 +41,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function(event) {
+            var book_content = $('.book_content');
             $('#light-settings').change( function() {
                 let value = $(this).val();
                 $('.book_content').css('filter','brightness(' + value + '%)');
@@ -62,8 +63,15 @@
                 let bgcolor = $(this).data('background');
                 let color = $(this).data('color');
 
-                $('.book_content').css('background',bgcolor);
-                $('.book_content').css('color',color);
+                book_content.css('background',bgcolor);
+                book_content.css('color',color);
+            });
+            book_content.bind("mouseup", function () {
+                showMenu();
+                // var selectedText = getSelectionText();
+                // if(selectedText !== ''){
+                //     alert(selectedText);
+                // }
             });
         });
 
@@ -71,6 +79,80 @@
             $('.book_content').css('zoom',zoom);
         }
 
+
+        function getHighlight() {
+
+            var selection = window.getSelection(); // 1.
+
+            var object = {
+                parent : null,
+                text   : '',
+                rect   : null
+            };
+            // If selection is not empty.
+            if ( selection.rangeCount > 0 ) {
+                object = {
+                    text   : selection.toString().trim(), // get the text.
+                    parent : selection.anchorNode.parentNode, // get the element wrapping the text.
+                    rect   : selection.getRangeAt(0).getBoundingClientRect() // get the bounding box.
+                };
+            }
+
+            return object; // 2.
+        }
+
+
+
+        function showMenu() {
+            var sharing = $( '#select-menu' );
+            // 1.
+            var highlight = getHighlight();
+            // console.log(highlight);
+            // 2.
+            if ( highlight.text === '' ) {
+
+                sharing.hide();
+                sharing.css('left', 0);
+                sharing.css('top', 0);
+
+                return;
+            }
+
+            // 4.
+            var width = ( highlight.rect.width / 2 ) - 162;
+            /**
+             * The "42" is acquired from our sharing buttons width devided by 2.
+             */
+            var left = ( highlight.rect.left + width ) + 'px';
+            var top = ( highlight.rect.top - 40 ) + 'px';
+            console.log(highlight, left, top);
+            sharing.show();
+            sharing.css('left',left);
+            sharing.css('top', top);
+            /**
+             * "40" is the height of our sharing buttons.
+             * Herein, we lift it up above the higlighted area top position.
+             */
+        }
+
+        function getSelectionText() {
+            var text = "";
+            if(window.getSelection()){
+                let element = $(window.getSelection().focusNode.parentElement);
+                element.css('position', 'relative');
+                let menuElement = $('<p>QUOTE</p>');
+                menuElement.css('color','red');
+                menuElement.css('position','absolute');
+                menuElement.css('bottom','10px');
+                menuElement.css('left',Number(window.getSelection().focusOffset) + Number(window.getSelection().anchorOffset) + 'px');
+                element.append(menuElement);
+                console.log(window.getSelection(),element);
+                text = window.getSelection().toString();
+            }else if(document.selection && document.selection.type != "Control") {
+                text = document.selection.createRange().text;
+            }
+            return text;
+        }
 
         function checkVisible(elm) {
             var rect = elm.getBoundingClientRect();
@@ -88,7 +170,6 @@
             overflow-x: hidden;
         }
         .page{
-            min-height: 100vh;
             position: relative;
         }
         .page hr{
@@ -219,7 +300,45 @@
         .book_top_bar ul li img{
             margin: 0 2px -3px;
         }
+        #select-menu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 500;
+        }
+        #select-menu ul{
+            margin: 0;
+            padding: 0;
+        }
+        #select-menu ul li{
+            display: inline-block;
+            list-style-type: none;
+            padding: 9px 10px;
+            color: #FFFFFF;
+            background-color: #474747;
+            margin-right: -3px;
+            font-family: SF UI Display;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 22px;
+        }
+        #select-menu ul li:first-child{
+            border-radius: 10px 0px 0px 10px;
+        }
+        #select-menu ul li:last-child{
+            border-radius: 0px 10px 10px 0px;
+        }
     </style>
+    <div id="select-menu">
+        <ul>
+            <li>Цитата</li>
+            <li>Копировать</li>
+            <li>Заметка</li>
+            <li>Поделиться</li>
+        </ul>
+    </div>
     <div id="book-settings">
         <ul class="settings-block">
             <li class="settings-item book-settings-close" onclick="document.hideBookReaderSettings()">
