@@ -68,11 +68,11 @@
             });
             book_content.bind("mouseup", function () {
                 showMenu();
-                // var selectedText = getSelectionText();
-                // if(selectedText !== ''){
-                //     alert(selectedText);
-                // }
             });
+            book_content.bind("pointerup", function () {
+                showMenu();
+            });
+
         });
 
         function applyZoom(){
