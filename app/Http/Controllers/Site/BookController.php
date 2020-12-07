@@ -214,4 +214,22 @@ class BookController extends Controller
         }
 
     }
+
+    public function mobile_read_book($hash){
+        if($read_link = UserReadBookLink::query()->where('hash', $hash)->first()){
+            if($book = Book::query()->find($read_link->book_id)){
+                $quotes = Quote::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('text')->toArray();
+                $bookmarks = BookMark::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('name','page')->toArray();
+                $book_pages = BookPages::query()->where('book_id',$book->id)->get();
+                return view('site.mobile_read_book' ,[
+                    'book' => $book,
+                    'book_pages' => $book_pages,
+                    'hash' => $read_link->hash,
+                    'data' => $read_link->user_data,
+                    'quotes' => $quotes,
+                    'bookmarks' => $bookmarks
+                ]);
+            }
+        }
+    }
 }
