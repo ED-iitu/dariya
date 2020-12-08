@@ -21,17 +21,60 @@
             font-family: 'PT Sans', sans-serif;
         }
         #settingPopup-popup {
-              width: 90%;
-              left: 5%;
-              right: 5%
-          }
+            width: 90%;
+            left: 5%;
+            right: 5%
+        }
+        #barsPopup-popup {
+            width: 90%;
+            left: 5%;
+            right: 5%;
+        }
+        .ui-tabs {
+            height: 500px;
+        }
+        .ui-tabs-panel{
+            height: 80%;
+            overflow-y: auto!important;
+            padding: 16px;
+        }
     </style>
 </head>
 <body>
 <div data-role="page" id="home" data-theme="a" data-fullscreen="true">
+    <div data-role="popup" id="barsPopup" data-theme="a" class="ui-corner-all">
+        <div style="padding:10px 20px;">
+            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <h3 style="text-align: center;margin: 5px;">Меню</h3>
+            <div data-role="tabs" id="tabs">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#one" data-ajax="false">one</a></li>
+                        <li><a href="#two" data-ajax="false">two</a></li>
+                    </ul>
+                </div>
+                <div id="one" class="ui-body-d ui-content">
+
+                    <ul data-role="listview" data-inset="true">
+                        @foreach($quotes as $p => $quote)
+                            <li><a href="#page-{{$p}}">&#171;{{ $quote }}&#187;</a></li>
+                        @endforeach 
+                    </ul>
+                </div>
+                <div id="two">
+                    <ul data-role="listview" data-inset="true">
+                        @foreach($bookmarks as $p=>$bookmark)
+                            <li><a href="#page-{{$p}}">{{ $bookmark }} [ {{$p}} - страница]</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <div data-role="popup" id="settingPopup" data-theme="a" class="ui-corner-all">
             <div style="padding:10px 20px;">
-                <h3>Настройки</h3>
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+                <h3 style="text-align: center;margin: 5px;">Настройки</h3>
                 <div class="ui-field-contain">
                     <label for="light">Яркость</label>
                     <input type="range" name="light" id="light" value="100" min="0" max="200" oninput="setLight(this.value)" onchange="setLight(this.value)">
@@ -91,7 +134,7 @@
         <div data-role="navbar">
             <ul>
                 <li>
-                    <a href="#bars" data-icon="bullets" data-transition="slide">
+                    <a href="#barsPopup" data-rel="popup" data-icon="bullets"  data-position-to="window" data-transition="pop">
                         Меню
                     </a>
                 </li>
@@ -107,38 +150,6 @@
                     </a>
                 </li>
             </ul>
-        </div>
-    </div>
-</div>
-<div data-role="page" id="bars" data-theme="a">
-    <div data-role="header" data-position="fixed" data-add-back-btn="true" data-back-btn-text="Назад" data-theme="a">
-        <h1>{{ $book->name }}</h1>
-    </div>
-    <div data-role="main" class="ui-content" data-theme="a">
-        <div data-role="tabs" id="tabs">
-            <div data-role="navbar">
-                <ul>
-                    <li><a href="#one" data-ajax="false">one</a></li>
-                    <li><a href="#two" data-ajax="false">two</a></li>
-                </ul>
-            </div>
-            <div id="one" class="ui-body-d ui-content">
-                <ul data-role="listview" data-inset="true">
-                        
-                    <li><a href="home#page-1">Acura</a></li>
-                        
-                    <li><a href="home#page-2">Audi</a></li>
-                        
-                    <li><a href="#">BMW</a></li>
-                        
-                    <li><a href="#">Cadillac</a></li>
-                        
-                    <li><a href="#">Ferrari</a></li>
-                </ul>
-            </div>
-            <div id="two">
-                <h1>Second tab contents</h1>
-            </div>
         </div>
     </div>
 </div>
@@ -237,6 +248,18 @@
     $('body').on('pageinit', '#home', function( evt, ui ) {
 
     });
+    $( "#barsPopup" ).on( "popupafterclose", function( event, ui ) {
+        $('body').css('overflow-y','auto');
+    } );
+    $( "#barsPopup" ).on( "popupafteropen", function( event, ui ) {
+        $('body').css('overflow-y','hidden');
+    } );
+    $( "#settingPopup" ).on( "popupafterclose", function( event, ui ) {
+        $('body').css('overflow-y','auto');
+    } );
+    $( "#settingPopup" ).on( "popupafteropen", function( event, ui ) {
+        $('body').css('overflow-y','hidden');
+    } );
     $(function() {
         $('.lazy').Lazy({
             afterLoad: function(element) {
