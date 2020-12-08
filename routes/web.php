@@ -95,3 +95,4 @@ Route::get('payment/success', 'Site\PaymentController@success');
 
 Route::get('read_book/{id}', 'Site\BookController@read_book')->name('read_book');
 Route::get('mobile_read_book/{id}', 'Site\BookController@mobile_read_book')->name('mobile_read_book');
+Route::get('mobile_read_book_page/{page}', 'Site\BookController@mobile_read_book_page')->name('mobile_read_book_page');

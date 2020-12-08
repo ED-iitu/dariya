@@ -174,7 +174,7 @@ class Book extends Model
     public function getReadLink(){
         if($this->isAccess()){
             if($this->user_read_book_link){
-                return route('read_book', $this->user_read_book_link->hash);
+                return route('mobile_read_book', $this->user_read_book_link->hash);
             }else{
                 $user_read_book_link = new UserReadBookLink();
                 $data = [
@@ -187,7 +187,7 @@ class Book extends Model
                 $user_read_book_link->setRawAttributes($data);
                 $user_read_book_link->hash = hash('sha256', serialize($data));
                 if($user_read_book_link->save()){
-                    return route('read_book', $user_read_book_link->hash);
+                    return route('mobile_read_book', $user_read_book_link->hash);
                 }
             }
         }

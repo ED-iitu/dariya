@@ -10,7 +10,6 @@ use App\Comment;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use App\Quote;
-use App\User;
 use App\UserReadBookLink;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\Request;
@@ -216,20 +215,36 @@ class BookController extends Controller
     }
 
     public function mobile_read_book($hash){
+        $request = Request::createFromGlobals();
+        $page = $request->get('page');
         if($read_link = UserReadBookLink::query()->where('hash', $hash)->first()){
             if($book = Book::query()->find($read_link->book_id)){
                 $quotes = Quote::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('text')->toArray();
                 $bookmarks = BookMark::query()->where(['book_id'=>$book->id, 'user_id' => $read_link->user_id])->pluck('name','page')->toArray();
-                $book_pages = BookPages::query()->where('book_id',$book->id)->get();
-                return view('site.mobile_read_book' ,[
-                    'book' => $book,
-                    'book_pages' => $book_pages,
-                    'hash' => $read_link->hash,
-                    'data' => $read_link->user_data,
-                    'quotes' => $quotes,
-                    'bookmarks' => $bookmarks
-                ]);
+                /**
+                 * @var $book_pages \Illuminate\Contracts\Pagination\LengthAwarePaginator
+                 */
+                $book_pages = BookPages::query()->where('book_id',$book->id)->paginate(10);
+                if($page){
+                    return view('site.mobile_read_book_page' ,[
+                        'book_pages' => $book_pages,
+                        'bookmarks' => $bookmarks
+                    ]);
+                }else{
+                    return view('site.mobile_read_book' ,[
+                        'book' => $book,
+                        'book_pages' => $book_pages,
+                        'hash' => $read_link->hash,
+                        'data' => $read_link->user_data,
+                        'quotes' => $quotes,
+                        'bookmarks' => $bookmarks,
+                        'url_range' => $book_pages->getUrlRange($book_pages->currentPage(),$book_pages->lastPage())
+                    ]);
+                }
             }
         }
+    }
+    public function mobile_read_book_page($hash,$page){
+
     }
 }
