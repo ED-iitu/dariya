@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use Akaunting\Money\Money;
 use App\Book;
 use App\BookMark;
+use App\BookPages;
 use App\Genre;
 use App\Quote;
 use App\Rating;
@@ -371,23 +372,38 @@ class BookController extends Controller
         $request->validate([
             'hash' => 'required',
             'page' => 'required|int',
-            'name' => 'required|string',
         ]);
         if($user_book_read_link = UserReadBookLink::query()->where('hash',$request->hash)->first()){
-            $book_mark = new BookMark();
-            $book_mark->setRawAttributes([
-                'user_id' => $user_book_read_link->user_id,
-                'book_id' => $user_book_read_link->book_id,
-                'page' => $request->page,
-                'name' => $request->name
-            ]);
-            if($book_mark->save()){
-                return $this->sendResponse([
-                    "bookmark_id" => $book_mark->id
-                ],'Закладка успешно добавлена');
+            if($book_page = BookPages::query()->where(['book_id'=> $user_book_read_link->book_id, 'page' => $request->page])->first()){
+                $page_text = strip_tags($book_page->content);
+                if($page_text){
+                    $page_text = mb_substr($page_text,0,40) . ' ...';
+                    if(!BookMark::query()->where([
+                        'user_id' => $user_book_read_link->user_id,
+                        'book_id' => $user_book_read_link->book_id,
+                        'page' => $request->page
+                    ])->exists()){
+                        $book_mark = new BookMark();
+                        $book_mark->setRawAttributes([
+                            'user_id' => $user_book_read_link->user_id,
+                            'book_id' => $user_book_read_link->book_id,
+                            'page' => $request->page,
+                            'name' => $page_text
+                        ]);
+                        if($book_mark->save()){
+                            return $this->sendResponse([
+                                "name" => $page_text,
+                                "bookmark_id" => $book_mark->id
+                            ],'Закладка успешно добавлена');
+                        }
+                    }else{
+                        return $this->sendError('Страница уже добавлена!.',[],403);
+                    }
+                }
+                return $this->sendError('Вы не можете сохранить пустую страницу!.',[],403);
             }
         }
-        return $this->sendError('Bad request.',[],403);
+        return $this->sendError('Не известная ошибка!.',[],500);
     }
 
     public function remove_bookmark($id){
