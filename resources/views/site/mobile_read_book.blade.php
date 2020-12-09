@@ -123,7 +123,7 @@
                 <div id="bookmarks-list">
                     <ul data-role="listview" data-inset="true">
                         @foreach($bookmarks as $p=>$bookmark)
-                            <li><a href="#page-{{$p}}">{{ $bookmark }} [ {{$p}} - страница]</a></li>
+                            <li data-to-page="{{ $p }}" data-page-block=""><a href="#page-{{$p}}">{{ $bookmark }} [ {{$p}} - страница]</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -144,9 +144,9 @@
                 <label for="background">Фон</label>
                 <div class="ui-field-contain">
                     <fieldset data-role="controlgroup" data-type="horizontal">
-                        <button class="ui-shadow ui-btn ui-corner-all">Aa</button>
-                        <button class="ui-shadow ui-btn ui-corner-all">Aa</button>
-                        <button class="ui-shadow ui-btn ui-corner-all">Aa</button>
+                        <button class="background_settings ui-shadow ui-btn ui-corner-all" style="background-color: #FFFFFF;color: #3E4D64;" data-background="#FFFFFF" data-color="#3E4D64">Aa</button>
+                        <button class="background_settings ui-shadow ui-btn ui-corner-all" style="background-color: #F3F3F3; color: #3E4D64;" data-background="#F3F3F3" data-color="#3E4D64">Aa</button>
+                        <button class="background_settings ui-shadow ui-btn ui-corner-all" style="background-color: #606B8B;color: #FFFFFF;" data-background="#606B8B" data-color="#FFFFFF">Aa</button>
                     </fieldset>
                 </div>
             </div>
@@ -181,17 +181,14 @@
                     @foreach($book_pages as $k =>$page)
                         <div id="page-{{$page->page}}" data-page-number="{{$page->page}}"
                              data-book-id="{{$page->book->id}}"
-                             class="page @if(in_array($page->page,$bookmarks)) marked @endif"
-                             @if(in_array($page->page,$bookmarks)) style="position: relative" @endif>
-                            @if(in_array($page->page,$bookmarks)) <img style="position: absolute;right: 2px;top: 2px;"
-                                                                       width="14" height="18"
-                                                                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAOVJREFUOI3tkz9KA3EQRt/MT8VgFTb+KVYv4AHMFazFVqxSiXgEj2DEyspeLLxE2FVbL2ACIqidGGJmxiYRExQ2rfjq7/ENw4wMb+vb4noO5FSjF+otsTLrziCN6c6NpbT1IlUMK7MA1nXGpi/+xT8uRievRSevVRbjZnnNysaxp/6Dp/dHK7J23NU3pnMyuj3UaXqKI0J2gPmp3AcSV2py4koxIX5jIMi1qLWx1Hf1FiF7wOKPjcATcKERZ9J87U2MX6ysutg+cMDom2RYZCUqp2np+VI2Gfy2DIC4Z8HeGrt4HH4CmWBVnyRr+ycAAAAASUVORK5CYII="
-                                                                       alt="active-book-mark"> @endif
-                                @php
-                                    $content = str_replace(['<body>', '</body>'],'', '<body><div id="page-div" style="position:relative"><p style="margin:0;left:60px;" class="ft01">ӘОЖ 821.512.122КБЖ 84 Қаз 7-44Ә 13 </p><p style="margin:0;left:102px;text-align: center" class="ft01">Әбдәкімұлы Момбек</p><p style="margin:0;left:60px;" class="ft01">Ә 13  Қараман  қарақшы:  Хикаят..  –  Алматы:  «Дария  Дамыту </p><p style="margin:0;left:102px;text-align: center" class="ft01">Орталығы», 2020. – 380 б. </p><p style="margin:0;left:81px;" class="ft01">ISBN 9965-752-79-6</p><p style="margin:0;left:81px;" class="ft01">Қараманды халық шартты түрде «қарақшы» деп атағанымен, оның атқарған істері тасадан оқ атып, ауыл тентегінен ұзай алмайтын кейбір бұзықтардың қылықтарына мүлдем ұқсамайтын, тек қанішерлер мен баскесерлер ортасында әділдік орнатам деп күреске түскен, іс-әрекеті кең ауқымды қамтыған қаһарман болған.</p><p style="margin:0;left:81px;" class="ft01">Жамандыққа жаны қас Қараман, өмір бойы тек кедей мен шаруаға, кембағал мен жетім-жесірге зәбір көрсетушілермен күрескен. Ташкенттегі адам жегіш жөйіттермен  алысып,  оларды  қиратып  тастаған.  Кеңес  өкіметі  орнаған кезде  бейбіт  елді  басынып,  зәре-иманын  ұшырған  Өзбекстан,  Тәжікстан тауларындағы  қаскөй  басмашылармен  алысады.  Байлар  мен  саудагерлердің дүние-мүліктерін тартып алып, кедей-кепшікке таратып береді. Бірақ өзінің кейбір кереғар істері мен жеке көзқарасы үшін совет өкіметінің түрмелерінде бірнеше мәрте отыруына тура келеді.</p><p style="margin:0;left:81px;" class="ft01">Қараманның  он  бес  жасынан  қырық  бес  жасына  дейінгі  ғұмыры  «тас төсеніп,  күз  жастанып»  дегендей,  аласапыранмен  өткен.  Қолдарыңыздағы кітапта осылар туралы жан-жақты баяндалады. Мұны зердемен оқыған жан, оның өкімет тарапынан батыр деп мойындалмағанымен, күллі Қазақстан һәм Орта Азия халықтарының сүйікті қаһарманы әрі оларға өте жағымды тұлға болғанын  аңғарады.  Оның  қазақ  халқы  үшін  атқарған  істері  ағылшындық Робин Гудтың әрекеттерінен де асып түседі. Сондықтан да көпшілік ұғымында ол қайталанбас тұлға, сондай-ақ халық қаһарманы. Қалай десек те, Қараман күрделі  тұлға.  Оның  істері  жастарымыздың  ұлттық  жігерін  жандандыруға, әділетсіздіктің жолында аянбай күресуге үлгі болары хақ.</p><p style="margin:0;left:81px;" class="ft01">Қараманның үнемі биікті аңсайтын қыран жүрегі мен ылғи жеңісті мақсат тұтқан өр кеудесінің сыры осы кітапта жақсы ашылып, әдемі сипатталған.</p><p style="margin:0;left:432px;text-align: center" class="ft01">ӘОЖ 821.512.122</p><p style="margin:0;left:438px;text-align: center" class="ft01">КБЖ 84 Қаз 7-44</p><p style="margin:0;left:60px;" class="ft01"> ISBN 9965-752-79-6© «Дария Дамыту Орталығы», 2020© Момбек Әбдәкімұлы, 2020</p></div></body>');
-                                    $content = preg_replace('/(left|top|right|bottom):[0-9]{1,}px;/', '', $content);
-                                @endphp
-                                {!! $content !!}
+                             class="page @if(in_array($page->page,$bookmarks)) marked @endif">
+{{--                            @if(in_array($page->page,$bookmarks)) <img style="position: absolute;right: 2px;top: 2px;"--}}
+{{--                                                                       width="14" height="18"--}}
+{{--                                                                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAASCAYAAABrXO8xAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAOVJREFUOI3tkz9KA3EQRt/MT8VgFTb+KVYv4AHMFazFVqxSiXgEj2DEyspeLLxE2FVbL2ACIqidGGJmxiYRExQ2rfjq7/ENw4wMb+vb4noO5FSjF+otsTLrziCN6c6NpbT1IlUMK7MA1nXGpi/+xT8uRievRSevVRbjZnnNysaxp/6Dp/dHK7J23NU3pnMyuj3UaXqKI0J2gPmp3AcSV2py4koxIX5jIMi1qLWx1Hf1FiF7wOKPjcATcKERZ9J87U2MX6ysutg+cMDom2RYZCUqp2np+VI2Gfy2DIC4Z8HeGrt4HH4CmWBVnyRr+ycAAAAASUVORK5CYII="--}}
+{{--                                                                       alt="active-book-mark"> @endif--}}
+                            <?php
+                                echo $page->content;
+                                ?>
                             <hr>
                         </div>
                     @endforeach
@@ -229,6 +226,25 @@
 <script type="text/javascript">
     let zoom = 1;
     let light = 0;
+
+
+    const observerConfig = {
+        threshold: 0.5
+    };
+    var observer = new IntersectionObserver(onIntersection, observerConfig);
+    function onIntersection(entries) {
+        // Loop through the entries
+        entries.forEach(entry => {
+            // Are we in viewport?
+            if (entry.intersectionRatio > 0) {
+
+                // Stop watching and load the image
+                observer.unobserve(entry.target);
+                //preloadImage(entry.target);
+                console.log(entry.target);
+            }
+        });
+    }
 
     function applyZoom() {
         $('#page-content').css('zoom', zoom);
@@ -301,8 +317,9 @@
             $('input[name="text"]').val(s.toString().trim());
             var p = r.getBoundingClientRect();
             if (p.left || p.top) {
+                let left = (p.left + (p.width / 2)) - (menu.width() / 2);
                 menu.css({
-                    left: (p.left + (p.width / 2)) - (menu.width() / 2),
+                    left: (left > 0) ? left : 0,
                     top: ((p.top + window.scrollY) - menu.height() - 10),
                     display: 'block',
                     opacity: 0
@@ -322,134 +339,87 @@
         });
     }
 
-    var menu = $('#highlight_menu');
-    $('#add-to-bookmark').on('click', function () {
-        let page = $('input[name="page"]').val();
-        let hash = $('input[name="hash"]').val();
-        $.ajax({
-            type: "POST",
-            url: '{{ route('add_book_marks') }}',
-            data: {
-                page: page,
-                hash: hash,
-                name: name
-            },
-            success: function (data) {
-                flashMessage(data.message);
-                let bm= $('#bookmarks-list ul');
-                bm.append('<li><a href="#page-' + page + '">' + data.data.name + ' [ ' + page + ' - страница]</a></li>');
-                bm.listview("refresh");
-            },
-            error: function (data) {
-                flashMessage(data.responseJSON.message);
-            }
-        });
-
-    });
-
-    $('#font').change(function () {
-        var optionSelected = $(this).find('option:selected');
-        var optValueSelected = optionSelected.val();
-        $('#page-content').css('font-family', optValueSelected);
-    });
-    $('#zoom button').bind('click', function () {
-        let type = $(this).data('zoom');
-        if (type === 'increase') {
-            if (Number(zoom) < 2.5) {
-                zoom = Number(zoom) + 0.2;
-            }
-        } else {
-            if (Number(zoom) > 0.5) {
-                zoom = Number(zoom) - 0.2;
-            }
-        }
-        applyZoom();
-    });
-    $(document).ready(function () {
-        applyZoom();
-        applyLight();
-        $('#page-content').find('div.page').each(function () {
-            $(this).addClass('down')
-
-                .on('scrollfy:scroll:begin', function (e) {
-                    $(this).removeClass('up down').addClass(e.scrollfy.direction);
-                })
-
-                .on('scrollfy:inView', function (e) {
-                    console.log('inview');
-                    if (!$(this).hasClass('inview')) {
-                        let page = $(this).data('page-number');
-                        let atb = $('#add-to-bookmark');
-                        let total_page = atb.data('total-page');
-                        let hash = $('input[name="hash"]').val();
-                        atb.text(page + ' из ' + total_page);
-                        $('input[name="page"]').val(page);
-                        if (page > 0) {
-                            $.ajax({
-                                type: "POST",
-                                url: '{{ route('save_book_state') }}',
-                                data: {
-                                    page: page,
-                                    hash: hash
-                                },
-                                success: function (data) {
-                                    console.log(data.message);
-                                }
-                            });
-                        }
-                        $(this).delay(100).addClass('inview');
-                    }
-                })
-
-                .on('scrollfy:offView', function (e) {
-                    console.log('offview');
-                    if ($(this).hasClass('inview')) {
-                        $(this).removeClass('inview');
-                    }
-                })
-
-                .on('scrollfy:scroll:end', function (e) {
-                    $(this).removeClass('up down');
-                })
-
-                .scrollfy();
-        });
-    });
-
-    $(window).on('scrollfy:scroll', function (e) {
-        if (e.scrollfy.direction == 'up') {
-            $('body').removeClass('down').addClass('up');
-        } else if (e.scrollfy.direction == 'down') {
-            $('body').removeClass('up').addClass('down');
-        }
-    });
-    var bp = $("#barsPopup");
-    bp.on("popupafterclose", function (event, ui) {
-        $('body').css('overflow-y', 'auto');
-    });
-    bp.on("popupafteropen", function (event, ui) {
-        $('body').css('overflow-y', 'hidden');
-    });
-    var sp = $("#settingPopup");
-    sp.on("popupafterclose", function (event, ui) {
-        $('body').css('overflow-y', 'auto');
-    });
-    sp.on("popupafteropen", function (event, ui) {
-        $('body').css('overflow-y', 'hidden');
-    });
-
     $(function () {
+        var pc = $('#page-content');
+        var bp = $("#barsPopup");
+        var sp = $("#settingPopup");
+        var atq = $( '#add-to-quote' );
+        var atb = $('#add-to-bookmark');
+        var p_i = $('input[name="page"]');
+        var h_i = $('input[name="hash"]');
+        var menu = $('#highlight_menu');
+        var lz = $('.lazy');
 
-        $('#page-content').find('.page').each(function () {
+        $( document ).ready(function( ) {
+            applyZoom();
+            applyLight();
+            console.log('fffff');
+            pc.find('div.page').each(function () {
+                let page = $(this).data('page-number');
+                let total_page = atb.data('total-page');
+                $(this).addClass('down')
+                    .on('scrollfy:scroll:begin', function (e) {
+                        $(this).removeClass('up down').addClass(e.scrollfy.direction);
+                    })
+                    .on('scrollfy:inView', function (e) {
+                        if (!$(this).hasClass('inview')) {
+                            localStorage.setItem('test', 1);
+                            $(this).addClass('inview');
+                            atb.text(page + ' из ' + total_page);
+                            p_i.val(page);
+                            // if(!$(this).html()){
+                            //     let content  = localStorage.getItem('page_' + page);
+                            //     $(this).html(content);
+                            // }
+                        }
+                    })
+                    .on('scrollfy:offView', function (e) {
+                        if ($(this).hasClass('inview')) {
+                            $(this).removeClass('inview');
+                            // localStorage.setItem('page_' + page,$(this).html());
+                            // $(this).empty();
+                        }
+                    })
+                    .on('scrollfy:scroll:end', function (e) {
+                        $(this).removeClass('up down');
+                    })
+                    .scrollfy();
+            });
+        } );
+        bp.on("popupafterclose", function (event, ui) {
+            $('body').css('overflow-y', 'auto');
+        });
+        bp.on("popupafteropen", function (event, ui) {
+            $('body').css('overflow-y', 'hidden');
+        });
+        sp.on("popupafterclose", function (event, ui) {
+            $('body').css('overflow-y', 'auto');
+        });
+        sp.on("popupafteropen", function (event, ui) {
+            $('body').css('overflow-y', 'hidden');
+        });
+        pc.find('.page').each(function () {
             $(this).on('mouseup taphold', function (evt) {
                 selectText(menu);
             });
         });
+        $('#bookmarks-list li').on('click',function () {
+            let to_page = $(this).data('to-page');
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#page-" + to_page).offset().top
+            }, 2000);
+        });
+        $('.background_settings').on('click',function () {
+            let bgcolor = $(this).data('background');
+            let color = $(this).data('color');
 
-        $( '#add-to-quote' ).on('click', function () {
+            pc.css('background',bgcolor);
+            pc.css('color',color);
+        });
+        atq.on('click', function () {
             let text = $('input[name="text"]').val();
-            let page = $('input[name="page"]').val();
-            let hash = $('input[name="hash"]').val();
+            let page = p_i.val();
+            let hash = h_i.val();
             flashMessage('идет сохранение ...', false);
             $.ajax({
                 type: "POST",
@@ -471,62 +441,97 @@
             });
             menu.hide().removeClass('highlight_menu_animate');
         });
-
         $('#copy-selected-text').on('click', function () {
             let text = $(this).data('text');
             copyTextToClipboard(text);
             menu.hide().removeClass('highlight_menu_animate');
         });
+        atb.on('click', function () {
+            let page = p_i.val();
+            let hash = h_i.val();
+            $.ajax({
+                type: "POST",
+                url: '{{ route('add_book_marks') }}',
+                data: {
+                    page: page,
+                    hash: hash,
+                    name: name
+                },
+                success: function (data) {
+                    flashMessage(data.message);
+                    let bm= $('#bookmarks-list ul');
+                    bm.append('<li><a href="#page-' + page + '">' + data.data.name + ' [ ' + page + ' - страница]</a></li>');
+                    bm.listview("refresh");
+                },
+                error: function (data) {
+                    flashMessage(data.responseJSON.message);
+                }
+            });
 
-        var lz = $('.lazy');
+        });
+        $('#font').change(function () {
+            var optionSelected = $(this).find('option:selected');
+            var optValueSelected = optionSelected.val();
+            pc.css('font-family', optValueSelected);
+        });
+        $('#zoom button').bind('click', function () {
+            let type = $(this).data('zoom');
+            if (type === 'increase') {
+                if (Number(zoom) < 2.5) {
+                    zoom = Number(zoom) + 0.2;
+                }
+            } else {
+                if (Number(zoom) > 0.5) {
+                    zoom = Number(zoom) - 0.2;
+                }
+            }
+            applyZoom();
+        });
+        pc.on( "scrollstop", function( event ) {
+            let page = p_i.val();
+            let hash = h_i.val();
+            if (page > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('save_book_state') }}',
+                    data: {
+                        page: page,
+                        hash: hash
+                    },
+                    success: function (data) {
+                        console.log(data.message);
+                    }
+                });
+            }
+            $(this).delay(100).addClass('inview');
+        } );
         lz.Lazy({
             afterLoad: function (element) {
                 $(element).find('div.page').each(function () {
+                    observer.observe(this);
                     $(this).on('mouseup taphold', function (evt) {
                         selectText(menu);
                     });
                     $(this).addClass('down')
-
                         .on('scrollfy:scroll:begin', function (e) {
                             $(this).removeClass('up down').addClass(e.scrollfy.direction);
                         })
-
                         .on('scrollfy:inView', function (e) {
-                            console.log('inview');
                             if (!$(this).hasClass('inview')) {
                                 let page = $(this).data('page-number');
-                                let total_page = $('#add-to-bookmark').data('total-page');
-                                let hash = $('input[name="hash"]').val();
-                                $('#add-to-bookmark').text(page + ' из ' + total_page);
-                                $('input[name="page"]').val(page);
-                                if (page > 0) {
-                                    $.ajax({
-                                        type: "POST",
-                                        url: '{{ route('save_book_state') }}',
-                                        data: {
-                                            page: page,
-                                            hash: hash
-                                        },
-                                        success: function (data) {
-                                            console.log(data.message);
-                                        }
-                                    });
-                                }
-                                $(this).delay(100).addClass('inview');
+                                let total_page = atb.data('total-page');
+                                atb.text(page + ' из ' + total_page);
+                                p_i.val(page);
                             }
                         })
-
                         .on('scrollfy:offView', function (e) {
-                            console.log('offview');
                             if ($(this).hasClass('inview')) {
                                 $(this).removeClass('inview');
                             }
                         })
-
                         .on('scrollfy:scroll:end', function (e) {
                             $(this).removeClass('up down');
                         })
-
                         .scrollfy();
                 });
             },

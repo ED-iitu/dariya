@@ -244,7 +244,4 @@ class BookController extends Controller
             }
         }
     }
-    public function mobile_read_book_page($hash,$page){
-
-    }
 }

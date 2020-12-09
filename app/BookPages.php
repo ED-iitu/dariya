@@ -15,4 +15,11 @@ class BookPages extends Model
     public function book(){
         return $this->hasOne(Book::class,'id','book_id');
     }
+
+    public function getContentAttribute($value)
+    {
+        $value = str_replace(['<body>', '</body>'],'', $value);
+        $value = preg_replace('/(left|top|right|bottom):[0-9]{1,}px;/', '', $value);
+        return $value;
+    }
 }
