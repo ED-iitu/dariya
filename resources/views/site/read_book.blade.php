@@ -45,7 +45,7 @@
             console.log(page);
             if(typeof window.ReactNativeWebView !== 'undefined') {
                 window.ReactNativeWebView.postMessage(
-                    JSON.stringify({  "page": page }));
+                    JSON.stringify({  "page": page, "close" : true }));
             }
         }
 

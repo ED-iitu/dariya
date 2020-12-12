@@ -356,8 +356,7 @@ class BookController extends Controller
             'page' => 'required'
         ]);
         if($user_book_read_link = UserReadBookLink::query()->where('hash',$request->hash)->first()){
-             $user_data = $user_book_read_link->user_data;
-             $user_data['current_page'] = $request->page;
+             $user_data = $request->all();
              $user_book_read_link->user_data = $user_data;
             if($user_book_read_link->save()){
                 return $this->sendResponse([
