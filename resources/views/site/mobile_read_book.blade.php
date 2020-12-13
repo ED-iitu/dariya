@@ -23,6 +23,7 @@
     <style type="text/css">
         #page-content {
             font-family: 'PT Sans', sans-serif;
+            text-shadow: none;
         }
 
         #settingPopup-popup {
@@ -201,7 +202,7 @@
         @foreach($book_pages->items() as $page)
             <div id="page-{{$page->page}}" data-page-number="{{$page->page}}"
                  data-book-id="{{$page->book->id}}"
-                 class="page @if(in_array($page->page,$bookmarks)) marked @endif">
+                 @if(in_array($page->page,$bookmarks)) class="page marked" @else class="page" @endif>
                 @php
                     echo $page->content;
                 @endphp
@@ -242,26 +243,9 @@
         zoom: {{ (!empty($data['zoom'])) ? $data['zoom'] : 1 }},
         light: {{ (!empty($data['light'])) ? $data['light'] : 0 }},
         font: '{{ (!empty($data['font'])) ? $data['font'] : "'PT Sans', sans-serif" }}',
-        hash: '{{ $hash }}',
-        paginations: {!! json_encode(array_values($url_range)) !!}
+        hash: '{{ $hash }}'
     };
     var abt = document.getElementById('add-to-bookmark');
-
-    const observerConfig = {
-        threshold: 1.0
-    };
-    const observer = new IntersectionObserver(onIntersection, observerConfig);
-    function onIntersection(entries) {
-        entries.forEach(entry => {
-            let elm = entry.target;
-            if(entry.isIntersecting === true){
-                //elm.style.background = 'red';
-                //elm.classList.remove('hidden');
-                console.log('ffff');
-                setPage(elm.dataset.pageNumber);
-            }
-        });
-    }
 
     @php
     $functions = [];
@@ -272,9 +256,17 @@
         $functions[] = 'load_page_' . $key . '()';
     @endphp
 function load_page_{{$key}}() {
-    return $.get("{{$url}}", function(data) {
-        $('#page-content').append(data);
-    });
+        let key = 'page_{{ $book->id }}_{{$key}}';
+        let pages = localStorage.getItem(key);
+        if(pages){
+            $('#page-content').append(pages);
+            return  true;
+        }else{
+            return $.get("{{$url}}", function(data) {
+                $('#page-content').append(data);
+                localStorage.setItem(key, data);
+            });
+        }
 }
     @endif
     @endforeach
@@ -282,6 +274,28 @@ function load_page_{{$key}}() {
     function process() {
         $.when({!! implode(', ', $functions) !!}).then(function(){
             $('#page-content').attr('data-full', true);
+        });
+    }
+
+    function saveConfig() {
+        localStorage.removeItem(config.hash);
+        localStorage.setItem(config.hash, JSON.stringify(config));
+    }
+
+    function getConfig() {
+        let conf = localStorage.getItem(config.hash);
+        return (conf) ? JSON.parse(conf) : {};
+    }
+
+    function saveState(){
+        let conf = getConfig();
+        $.ajax({
+            type: "POST",
+            url: '{{ route('save_book_state') }}',
+            data: conf,
+            success: function (data) {
+                console.log(data.message);
+            }
         });
     }
 
@@ -301,23 +315,15 @@ function load_page_{{$key}}() {
 
         el.style["transform"] = s;
         el.style["transformOrigin"] = oString;
+        document.location.href = "#page-" + config.page;
+        saveConfig();
     }
 
-    function applyLight() {
-        if (config.light > 0) {
-            let contrast = 100 - config.light;
-            $('#page-content').css('filter', 'brightness(' + config.light + '%)');
-        }
-    }
-
-    function setLight(value) {
-        config.light = value;
-        applyLight();
-    }
     function setPage(page) {
         console.log(page);
         abt.innerHTML = page + ' из ' + config.totalPage;
         config.page = page;
+        saveConfig();
     }
 
     function flashMessage(message, textonly = true) {
@@ -397,7 +403,33 @@ function load_page_{{$key}}() {
             menu.hide().removeClass('highlight_menu_animate');
         });
     }
-    document.querySelectorAll('.page').forEach(p => observer.observe(p));
+    document.addEventListener('DOMContentLoaded', function () {
+        let full = $('#page-content').data('full');
+        if(full === false){
+            process();
+        }
+        let storage_config = getConfig();
+        console.log(storage_config, config);
+        config = Object.assign(config, storage_config);
+        setPage(config.page);
+        document.location.href = "#page-" + config.page;
+        console.log(config);
+        var observerCallback = (entries, observer, header) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setPage(entry.target.dataset.pageNumber);
+                }
+            });
+        };
+        const observer = new IntersectionObserver(
+            observerCallback,
+            {threshold: 0.5});
+
+        document.querySelectorAll('.page').forEach(p => observer.observe(p));
+
+        applyZoom();
+        saveState();
+    });
     $(function () {
         var pc = $('#page-content');
         var bp = $("#barsPopup");
@@ -409,61 +441,6 @@ function load_page_{{$key}}() {
         var menu = $('#highlight_menu');
         var lz = $('.lazy');
 
-        $(document).ready(function () {
-            applyZoom();
-            //applyLight();
-            let full = $('#page-content').data('full');
-            if(full === false){
-                process();
-            }
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#page-" + config.page).offset().top
-            });
-            // pc.find('div.page').each(function () {
-            //     let page = $(this).data('page-number');
-            //     let total_page = atb.data('total-page');
-            //     $(this).addClass('down')
-            //         .on('scrollfy:scroll:begin', function (e) {
-            //             $(this).removeClass('up down').addClass(e.scrollfy.direction);
-            //         })
-            //         .on('scrollfy:inView', function (e) {
-            //             if (!$(this).hasClass('inview')) {
-            //                 localStorage.setItem('test', 1);
-            //                 $(this).addClass('inview');
-            //                 atb.text(page + ' из ' + total_page);
-            //                 p_i.val(page);
-            //                 config.page = page;
-            //                 // if(!$(this).html()){
-            //                 //     let content  = localStorage.getItem('page_' + page);
-            //                 //     $(this).html(content);
-            //                 // }
-            //             }
-            //         })
-            //         .on('scrollfy:offView', function (e) {
-            //             if ($(this).hasClass('inview')) {
-            //                 $(this).removeClass('inview');
-            //                 // localStorage.setItem('page_' + page,$(this).html());
-            //                 // $(this).empty();
-            //             }
-            //         })
-            //         .on('scrollfy:scroll:end', function (e) {
-            //             $(this).removeClass('up down');
-            //         })
-            //         .scrollfy();
-            // });
-        });
-        bp.on("popupafterclose", function (event, ui) {
-            $('body').css('overflow-y', 'auto');
-        });
-        bp.on("popupafteropen", function (event, ui) {
-            $('body').css('overflow-y', 'hidden');
-        });
-        sp.on("popupafterclose", function (event, ui) {
-            $('body').css('overflow-y', 'auto');
-        });
-        sp.on("popupafteropen", function (event, ui) {
-            $('body').css('overflow-y', 'hidden');
-        });
         pc.find('.page').each(function () {
             $(this).on('mouseup taphold', function (evt) {
                 selectText(menu);
@@ -471,9 +448,7 @@ function load_page_{{$key}}() {
         });
         $('#bookmarks-list li').on('click', function () {
             let to_page = $(this).data('to-page');
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#page-" + to_page).offset().top
-            });
+            document.location.href = "#page-" + to_page;
         });
         $('.background_settings').on('click', function () {
             let bgcolor = $(this).data('background');
@@ -540,6 +515,7 @@ function load_page_{{$key}}() {
             var optValueSelected = optionSelected.val();
             config.font = optValueSelected;
             pc.css('font-family', optValueSelected);
+            saveConfig();
         });
         $('#zoom button').bind('click', function () {
             let type = $(this).data('zoom');
@@ -554,54 +530,6 @@ function load_page_{{$key}}() {
             }
             applyZoom();
         });
-        $(document).on("scrollstop", function (event) {
-            console.log(config);
-            if (config.page > 0) {
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('save_book_state') }}',
-                    data: config,
-                    success: function (data) {
-                        console.log(data.message);
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        localStorage.setItem(config.hash, config);
-                    }
-                });
-            }
-            // $(this).delay(100).addClass('inview');
-        });
-        // lz.Lazy({
-        //     afterLoad: function (element) {
-        //         $(element).find('div.page').each(function () {
-        //             observer.observe(this);
-        //             $(this).on('mouseup taphold', function (evt) {
-        //                 selectText(menu);
-        //             });
-        //             $(this).addClass('down')
-        //                 .on('scrollfy:scroll:begin', function (e) {
-        //                     $(this).removeClass('up down').addClass(e.scrollfy.direction);
-        //                 })
-        //                 .on('scrollfy:inView', function (e) {
-        //                     if (!$(this).hasClass('inview')) {
-        //                         let page = $(this).data('page-number');
-        //                         let total_page = atb.data('total-page');
-        //                         atb.text(page + ' из ' + total_page);
-        //                         p_i.val(page);
-        //                     }
-        //                 })
-        //                 .on('scrollfy:offView', function (e) {
-        //                     if ($(this).hasClass('inview')) {
-        //                         $(this).removeClass('inview');
-        //                     }
-        //                 })
-        //                 .on('scrollfy:scroll:end', function (e) {
-        //                     $(this).removeClass('up down');
-        //                 })
-        //                 .scrollfy();
-        //         });
-        //     },
-        // });
     });
 </script>
 </body>
