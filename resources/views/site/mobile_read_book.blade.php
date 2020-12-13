@@ -109,18 +109,19 @@
     </style>
 </head>
 <body>
-<div data-role="page" id="home" data-theme="a" data-fullscreen="true">
-    <div id="highlight_menu" class="sharing">
+<div id="highlight_menu" class="sharing">
 
-        <ul class="social-share">
-            <li id="add-to-quote">Цитата</li>
-            <li id="copy-selected-text">Копировать</li>
-        </ul>
+    <ul class="social-share">
+        <li id="add-to-quote">Цитата</li>
+        <li id="copy-selected-text">Копировать</li>
+    </ul>
 
-        <div class="caret">
-        </div>
-
+    <div class="caret">
     </div>
+
+</div>
+<div data-role="page" id="home" data-theme="a" data-fullscreen="true">
+
     <div data-role="popup" id="barsPopup" data-theme="a" class="ui-corner-all">
         <div style="padding:10px 20px;">
             <a href="#" data-rel="back"
@@ -573,22 +574,20 @@ function load_page_{{$key}}() {
 
     function showMenu() {
         var highlight = getHighlight();
-        try{
-            if (highlight.text === '') {
-                sharing.setAttribute('class', 'sharing');
-                sharing.style.left = 0;
-                sharing.style.top  = 0;
-                return;
-            }
-            var width = (highlight.rect.width/2) - buttonsWidth/2;
-            sharing.setAttribute('class', 'sharing sharing--shown sharing_animate');
-            var left = highlight.rect.left + width > 0 ? highlight.rect.left + width : highlight.rect.left;
-            if (left + buttonsWidth > ${useWindowDimensions().width} - 18) left = ${useWindowDimensions().width} - buttonsWidth - 18;
-            sharing.style.left = left + 'px';
-            sharing.style.top = (highlight.rect.top - highlight.doc.top - 40) + 'px';
-        }catch (e) {
-
+        console.log(highlight.text);
+        if (highlight.text === '') {
+            sharing.setAttribute('class', 'sharing');
+            sharing.style.left = 0;
+            sharing.style.top  = 0;
+            return;
         }
+        var buttonsWidth = 100;
+        var width = (highlight.rect.width/2) - buttonsWidth/2;
+        sharing.setAttribute('class', 'sharing sharing--shown sharing_animate');
+        var left = highlight.rect.left + width > 0 ? highlight.rect.left + width : highlight.rect.left;
+        if (left + buttonsWidth > window.screen.width - 18) left = window.screen.width - buttonsWidth - 18;
+        sharing.style.left = left + 'px';
+        sharing.style.top = (highlight.rect.top - highlight.doc.top - 40) + 'px';
     };
     function hideMenu() {
         sharing.setAttribute('class', 'sharing sharing_animate');
@@ -597,7 +596,7 @@ function load_page_{{$key}}() {
         window.getSelection().empty();
         window.getSelection().removeAllRanges();
         document.selection.empty();
-    };s
+    };
 </script>
 </body>
 </html>
