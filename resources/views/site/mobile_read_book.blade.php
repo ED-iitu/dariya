@@ -202,6 +202,10 @@
             </div>
         </div>
     </div>
+    <div data-role="header" data-position="fixed">
+        <a href="#" id="close-app" data-role="button" data-icon="back">Закрыть</a>
+        <h1>{{ $book->name }}</h1>
+    </div>
     <div data-role="main" id="page-content" class="ui-content" data-theme="a" data-full="false">
         <input type="hidden" name="hash" value="{{ $hash }}">
         <input type="hidden" name="text" value="">
@@ -410,6 +414,11 @@ function load_page_{{$key}}() {
         });
     }
 
+    document.getElementById('close-app').addEventListener('click', function () {
+        if(typeof window.ReactNativeWebView !== 'undefined') {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "close" }));
+        }
+    });
     document.addEventListener('DOMContentLoaded', function () {
         let full = $('#page-content').data('full');
         if(full === false){
