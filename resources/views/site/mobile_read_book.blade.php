@@ -480,7 +480,7 @@ function load_page_{{$key}}() {
         //         selectText(menu);
         //     });
         // });
-        $('#bookmarks-list li').on('click', function () {
+        $('body').on('click', '#bookmarks-list li', function () {
             bp.panel( "close" );
             let to_page = $(this).data('to-page');
             document.location.href = "#page-" + to_page;
@@ -528,15 +528,14 @@ function load_page_{{$key}}() {
             menu.hide().removeClass('highlight_menu_animate');
         });
         atb.on('click', function () {
-            let page = p_i.val();
-            let hash = h_i.val();
+            let page = config.page;
+            let hash = config.hash;
             $.ajax({
                 type: "POST",
                 url: '{{ route('add_book_marks') }}',
                 data: {
                     page: page,
-                    hash: hash,
-                    name: name
+                    hash: hash
                 },
                 success: function (data) {
                     flashMessage(data.message);
