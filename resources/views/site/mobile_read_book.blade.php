@@ -109,7 +109,7 @@
     </style>
 </head>
 <body>
-<div id="highlight_menu" class="sharing">
+<div id="highlight_menu" class="sharing" style="z-index: 10000;">
 
     <ul class="social-share">
         <li id="add-to-quote">Цитата</li>
@@ -431,12 +431,17 @@ function load_page_{{$key}}() {
             entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
                     setPage(entry.target.dataset.pageNumber);
+                }else{
+                    console.log('out')
                 }
             });
         };
         const observer = new IntersectionObserver(
             observerCallback,
-            {threshold: 0.5});
+            {
+                root: null,
+                threshold: 0.2
+            });
 
         document.querySelectorAll('.page').forEach(p => {
             observer.observe(p);
@@ -456,6 +461,9 @@ function load_page_{{$key}}() {
         //console.log('onselection');
         setTimeout(showMenu, 100);
     };
+    $("body").on("taphold",function(){
+        setTimeout(showMenu, 100);
+    });
     $(function () {
         var pc = $('#page-content');
         var bp = $("#barsPanel");
