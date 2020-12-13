@@ -229,7 +229,7 @@
                 </li>
                 <li>
                     <a href="javascript:;" id="add-to-bookmark" data-total-page="{{ $book_pages->total() }}"
-                       data-icon="bookmark" data-transition="slide">
+                       data-icon="tag" data-transition="slide">
                         1 из {{ $book_pages->total() }}
                     </a>
                 </li>
