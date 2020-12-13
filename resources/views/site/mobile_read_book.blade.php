@@ -26,15 +26,15 @@
             text-shadow: none;
         }
 
-        /*#settingPopup-popup {*/
+        /*#settingPanel-popup {*/
         /*    width: 80%;*/
         /*    left: 10%;*/
         /*    right: 10%*/
         /*}*/
-        #settingPopup.ui-panel {
+        #settingPanel.ui-panel {
             width: 15em;
         }
-        #barsPopup-popup {
+        #barsPanel-popup {
             width: 90%;
             left: 5%;
             right: 5%;
@@ -47,7 +47,7 @@
         .ui-tabs-panel {
             height: 80%;
             overflow-y: auto !important;
-            padding: 16px;
+            padding: 16px 0px;
         }
 
         .sharing {
@@ -122,15 +122,13 @@
 </div>
 <div data-role="page" id="home" data-theme="a" data-fullscreen="true">
 
-    <div data-role="popup" id="barsPopup" data-theme="a" class="ui-corner-all">
-        <div style="padding:10px 20px;">
-            <a href="#" data-rel="back"
-               class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+    <div data-role="panel" id="barsPanel" data-theme="a" class="ui-corner-all">
+        <div>
             <h3 style="text-align: center;margin: 5px;">Меню</h3>
             <div data-role="tabs" id="tabs">
                 <div data-role="navbar">
                     <ul>
-                        <li><a href="#quotes-list" data-ajax="false">Цитаты</a></li>
+                        <li><a href="#quotes-list" data-ajax="false" class="ui-btn-active">Цитаты</a></li>
                         <li><a href="#bookmarks-list" data-ajax="false">Закладки</a></li>
                     </ul>
                 </div>
@@ -138,22 +136,21 @@
 
                     <ul data-role="listview" data-inset="true">
                         @foreach($quotes as $p => $quote)
-                            <li><a href="#page-{{$p}}">&#171;{{ $quote }}&#187;</a></li>
+                            <li data-to-page="{{ $p }}"><a href="#page-{{$p}}">&#171;{{ $quote }}&#187;</a></li>
                         @endforeach 
                     </ul>
                 </div>
                 <div id="bookmarks-list">
                     <ul data-role="listview" data-inset="true">
                         @foreach($bookmarks as $p=>$bookmark)
-                            <li data-to-page="{{ $p }}" data-page-block=""><a href="#page-{{$p}}">{{ $bookmark }}
-                                    [ {{$p}} - страница]</a></li>
+                            <li data-to-page="{{ $p }}" data-page-block=""><a href="#page-{{$p}}">[ {{$p}}-стр.] {{ $bookmark }}</a></li>
                         @endforeach
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div data-role="panel" id="settingPopup" data-theme="a" class="ui-corner-all" data-position="right" data-display="overlay" data-position-fixed="true">
+    <div data-role="panel" id="settingPanel" data-theme="a" class="ui-corner-all" data-position="right" data-display="overlay" data-position-fixed="true">
         <div>
             <div>
                 <img src="{{url($book->image_link)}}" alt="" style="max-width: 13em;">
@@ -203,7 +200,7 @@
         </div>
     </div>
     <div data-role="header" data-position="fixed">
-        <a href="#" id="close-app" data-role="button" data-icon="back">Закрыть</a>
+        <a href="#" id="close-app" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext">Закрыть</a>
         <h1>{{ $book->name }}</h1>
     </div>
     <div data-role="main" id="page-content" class="ui-content" data-theme="a" data-full="false">
@@ -225,7 +222,7 @@
         <div data-role="navbar">
             <ul>
                 <li>
-                    <a href="#barsPopup" data-rel="popup" data-icon="bullets" data-position-to="window"
+                    <a href="#barsPanel" data-rel="panel" data-icon="bullets" data-position-to="window"
                        data-transition="pop">
                         Меню
                     </a>
@@ -237,7 +234,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#settingPopup" data-rel="panel" data-position-to="window" data-icon="gear"
+                    <a href="#settingPanel" data-rel="panel" data-position-to="window" data-icon="gear"
                        data-transition="slide">
                         Настройки
                     </a>
@@ -461,8 +458,8 @@ function load_page_{{$key}}() {
     };
     $(function () {
         var pc = $('#page-content');
-        var bp = $("#barsPopup");
-        var sp = $("#settingPopup");
+        var bp = $("#barsPanel");
+        var sp = $("#settingPanel");
         var atq = $('#add-to-quote');
         var atb = $('#add-to-bookmark');
         var p_i = $('input[name="page"]');
@@ -476,6 +473,12 @@ function load_page_{{$key}}() {
         //     });
         // });
         $('#bookmarks-list li').on('click', function () {
+            bp.panel( "close" );
+            let to_page = $(this).data('to-page');
+            document.location.href = "#page-" + to_page;
+        });
+        $('body').on('click', '#quotes-list li', function () {
+            bp.panel( "close" );
             let to_page = $(this).data('to-page');
             document.location.href = "#page-" + to_page;
         });
@@ -487,22 +490,22 @@ function load_page_{{$key}}() {
             pc.css('color', color);
         });
         atq.on('click', function () {
-            let text = $('input[name="text"]').val();
-            let page = p_i.val();
-            let hash = h_i.val();
+            var highlight = getHighlight();
+            let page = $(highlight.parent).closest('.page').data('page-number');
+            let hash = config.hash;
             flashMessage('идет сохранение ...', false);
             $.ajax({
                 type: "POST",
                 url: '{{ route('add_quote') }}',
                 data: {
-                    text: text,
+                    text: highlight.text,
                     page: page,
                     hash: hash
                 },
                 success: function (data) {
                     flashMessage(data.message);
                     let q = $('#quotes-list ul');
-                    q.append('<li>' + text + '</li>');
+                    q.append('<li data-to-page="' + page + '"><a href="#page-' + page + '">&#171;' + highlight.text + '&#187;</a></li>');
                     q.listview("refresh");
                 },
                 error: function (data) {
