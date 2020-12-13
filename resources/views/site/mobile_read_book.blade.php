@@ -26,12 +26,14 @@
             text-shadow: none;
         }
 
-        #settingPopup-popup {
-            width: 90%;
-            left: 5%;
-            right: 5%
+        /*#settingPopup-popup {*/
+        /*    width: 80%;*/
+        /*    left: 10%;*/
+        /*    right: 10%*/
+        /*}*/
+        #settingPopup.ui-panel {
+            width: 15em;
         }
-
         #barsPopup-popup {
             width: 90%;
             left: 5%;
@@ -150,9 +152,13 @@
             </div>
         </div>
     </div>
-    <div data-role="popup" id="settingPopup" data-theme="a" class="ui-corner-all">
-        <div style="padding:10px 20px;">
-            <a href="#" data-rel="back"
+    <div data-role="panel" id="settingPopup" data-theme="a" class="ui-corner-all" data-position="right" data-display="overlay" data-position-fixed="true">
+        <div>
+            <div>
+                <img src="{{url($book->image_link)}}" alt="" style="max-width: 13em;">
+                <p>{{ $book->name }}</p>
+            </div>
+            <a href="#" data-rel="close"
                class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <h3 style="text-align: center;margin: 5px;">Настройки</h3>
             <div class="ui-field-contain">
@@ -226,7 +232,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#settingPopup" data-rel="popup" data-position-to="window" data-icon="gear"
+                    <a href="#settingPopup" data-rel="panel" data-position-to="window" data-icon="gear"
                        data-transition="slide">
                         Настройки
                     </a>
@@ -278,7 +284,6 @@ function load_page_{{$key}}() {
     }
 
     function saveConfig() {
-        localStorage.removeItem(config.hash);
         localStorage.setItem(config.hash, JSON.stringify(config));
     }
 
@@ -312,10 +317,10 @@ function load_page_{{$key}}() {
             el.style[p[i] + "Transform"] = s;
             el.style[p[i] + "TransformOrigin"] = oString;
         }
-
+        document.getElementById('page-content');
         el.style["transform"] = s;
         el.style["transformOrigin"] = oString;
-        document.location.href = "#page-" + config.page;
+        document.getElementById('page-' + config.page).scrollIntoView()
         saveConfig();
     }
 
