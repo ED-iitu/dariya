@@ -464,6 +464,12 @@ function load_page_{{$key}}() {
     $("body").on("taphold",function(){
         setTimeout(showMenu, 100);
     });
+
+    document.addEventListener("message", message => {
+        var event = JSON.parse(message.data);
+        window.localStorage.setItem(event.page, event.content);
+    });
+
     $(function () {
         var pc = $('#page-content');
         var bp = $("#barsPanel");
