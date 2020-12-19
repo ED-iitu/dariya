@@ -126,7 +126,7 @@
 </div>
 <div data-role="page" id="home" data-theme="a" data-fullscreen="true">
 
-    <div data-role="panel" id="barsPanel" data-theme="a" class="ui-corner-all">
+    <div data-role="panel" id="barsPanel" data-theme="a" class="ui-corner-all" data-position-fixed="true">
         <div>
             <h3 style="text-align: center;margin: 5px;">Меню</h3>
             <div data-role="tabs" id="tabs">
@@ -639,7 +639,7 @@ function load_page_{{$key}}() {
         sharing.style.top  = 0;
         window.getSelection().empty();
         window.getSelection().removeAllRanges();
-        document.selection.empty();
+        //document.selection.empty();
     };
 
     function hasClass( target, className ) {
