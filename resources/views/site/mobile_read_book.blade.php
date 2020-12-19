@@ -199,7 +199,7 @@
             </div>
         </div>
     </div>
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-fullscreen="true">
         <a href="#" id="close-app" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext">Закрыть</a>
         <h1>{{ $book->name }}</h1>
     </div>
