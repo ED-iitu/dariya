@@ -467,7 +467,12 @@ function load_page_{{$key}}() {
 
     document.addEventListener("message", message => {
         var event = JSON.parse(message.data);
-        window.localStorage.setItem(event.page, event.content);
+        if (event.action === 'page') {
+            localStorage.setItem(event.page, event.content);
+        }
+        if (event.action === 'process') {
+            process();
+        }
     });
 
     $(function () {
