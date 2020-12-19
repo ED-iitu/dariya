@@ -61,6 +61,7 @@
             -webkit-user-select: none;
             z-index: 10;
             display:none;
+            text-shadow: none;
         }
         .sharing--shown{
             display:block;
