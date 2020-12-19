@@ -457,6 +457,16 @@ function load_page_{{$key}}() {
             // });
         });
 
+        // var tracks = [];
+        // $('#page-content').on("touchmove", function (event) {
+        //     if (event.originalEvent.touches.length === 2) {
+        //         tracks.push([ [event.originalEvent.touches[0].pageX, event.originalEvent.touches[0].pageY], [event.originalEvent.touches[1].pageX, event.originalEvent.touches[1].pageY] ]);
+        //     }
+        // }).on("touchstart", function (event) {
+        //     tracks = [];
+        // }).on("touchend", function ()
+        //
+        // });
         applyZoom();
         saveState();
     });
@@ -555,7 +565,7 @@ function load_page_{{$key}}() {
                 success: function (data) {
                     flashMessage(data.message);
                     let bm = $('#bookmarks-list ul');
-                    bm.append('<li><a href="#page-' + page + '">' + data.data.name + ' [ ' + page + ' - страница]</a></li>');
+                    bm.append('<li data-to-page="' + page + '"><a href="#page-' + page + '">' + data.data.name + ' [ ' + page + ' - страница]</a></li>');
                     bm.listview("refresh");
                 },
                 error: function (data) {
