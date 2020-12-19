@@ -99,6 +99,9 @@
             background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" xmlns="http://www.w3.org/2000/svg"><g><title>background</title><rect fill="none" id="canvas_background" height="14" width="14" y="-1" x="-1"/></g><g><title>Layer 1</title><path stroke="null" fill="#ffffff" id="svg_1" d="m360.34926,0l-318.20605,0c-6.57174,0 -11.90633,4.47656 -11.90633,10l0,374.52734c-0.0093,7.50391 4.98113,14.37891 12.92488,17.8086c7.94841,3.42578 17.51068,2.82812 24.76146,-1.55078l133.32302,-80.26953l133.32768,80.26562c7.25542,4.37109 16.80838,4.96484 24.75215,1.53906c7.93911,-3.42578 12.93418,-10.29687 12.93418,-17.79297l0,-374.52734c0,-5.52344 -5.3346,-10 -11.91099,-10zm-11.90633,384.52344l-140.25288,-84.44141c-4.14862,-2.49609 -9.72971,-2.49609 -13.87366,0l-140.25754,84.44531l0,-364.52734l294.38408,0l0,364.52344zm0,0"/></g></svg>');
         }
 
+        .ui-header-fullscreen, .ui-footer-fullscreen {
+            opacity: 1;
+        }
 
         .hidden {
             opacity: 0;
@@ -583,7 +586,7 @@ function load_page_{{$key}}() {
     });
 
     function getHighlight() {
-        var selection = document.getSelection();
+        var selection = window.getSelection();
         var object = {
             parent : null,
             text   : '',
@@ -611,13 +614,13 @@ function load_page_{{$key}}() {
             sharing.style.top  = 0;
             return;
         }
-        var buttonsWidth = 100;
+        var buttonsWidth = 115;
         var width = (highlight.rect.width/2) - buttonsWidth/2;
         sharing.setAttribute('class', 'sharing sharing--shown sharing_animate');
         var left = highlight.rect.left + width > 0 ? highlight.rect.left + width : highlight.rect.left;
-        if (left + buttonsWidth > window.screen.width - 18) left = window.screen.width - buttonsWidth - 18;
+        if (left + buttonsWidth > window.screen.width - 55) left = window.screen.width - buttonsWidth - 115;
         sharing.style.left = left + 'px';
-        sharing.style.top = (highlight.rect.top - highlight.doc.top - 40) + 'px';
+        sharing.style.top = (highlight.rect.top - highlight.doc.top - 55) + 'px';
     };
     function hideMenu() {
         sharing.setAttribute('class', 'sharing sharing_animate');
@@ -627,6 +630,21 @@ function load_page_{{$key}}() {
         window.getSelection().removeAllRanges();
         document.selection.empty();
     };
+
+    function hasClass( target, className ) {
+        return new RegExp('(\\s|^)' + className + '(\\s|$)').test(target.className);
+    }
+
+    document.addEventListener('touchmove', function(e) {
+        if(sharing.style.display === 'block'){
+            setTimeout(hideMenu(), 100);
+        }
+    }, true);
+    window.addEventListener('scroll', function(e) {
+        if(hasClass(sharing, 'sharing--shown')){
+            setTimeout(hideMenu(), 100);
+        }
+    }, true);
 </script>
 </body>
 </html>
