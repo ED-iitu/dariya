@@ -66,7 +66,7 @@ Route::get('/signup', 'Site\CreateAccountController@signup')->name('signup');
 Route::get('/books', 'Site\BookController@index')->name('books');
 Route::get('/audio_books', 'Site\BookController@audioBooks')->name('audio_books');
 Route::get('/articles', 'Site\ArticleController@index')->name('articles');
-Route::get('/videos', 'Site\VideoController@index')->name('videos');
+Route::get('/videos/{category?}', 'Site\VideoController@index')->name('videos');
 Route::get('/video/{id}', 'Site\VideoController@single')->name('video');
 Route::get('/book/{id}', 'Site\BookController@singleBook')->name('book');
 Route::get('/read/audio/{id}', 'Site\BookController@readBook')->name('listenBook');

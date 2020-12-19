@@ -19,7 +19,7 @@
                         </div>
                         <!-- End Single Post -->
                     </div>
-                    {{$videos->onEachSide(1)->links()}}
+                    {{$videos->links()}}
                 </div>
                 <div class="col-lg-3 col-12 md-mt-30 sm-mt-30 pt--30">
                     <div class="wn__sidebar">
@@ -50,7 +50,7 @@
                             <h3 class="widget-title">Категории</h3>
                             <ul>
                                 @foreach($categories as $category)
-                                <li><a href="{{url('/videos?category='.$category->name)}}">{{$category->name}}</a></li>
+                                <li><a href="{{url('/videos/'.$category->name)}}">{{$category->name}}</a></li>
                                 @endforeach
                             </ul>
                         </aside>

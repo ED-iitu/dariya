@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 class VideoController extends Controller
 {
-    public function index(Request $request)
+    public function index($category = null)
     {
         $title = 'Подборка видео';
         $breadcrumb[] = [
@@ -35,8 +35,7 @@ class VideoController extends Controller
                 }
             }
         }
-        if($request->get('category')){
-            $category = $request->get('category');
+        if($category){
             $videos->whereHas('categories',function ($query) use ($category){
                 return $query->where('name', 'like', "%$category%");
             });
