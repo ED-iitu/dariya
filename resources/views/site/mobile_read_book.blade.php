@@ -487,6 +487,11 @@ function load_page_{{$key}}() {
         if (event.action === 'process') {
             process();
         }
+        if (event.action === 'get_config') {
+            if(typeof window.ReactNativeWebView !== 'undefined') {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ "config": getConfig() }));
+            }
+        }
     });
 
     $(function () {
