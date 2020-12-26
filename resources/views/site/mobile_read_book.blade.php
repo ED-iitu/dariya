@@ -312,7 +312,7 @@ function load_page_{{$key}}() {
 
     function applyZoom() {
         let el = document.getElementById('page-content');
-        el.style.width = (window.screen.width - 32)/config.zoom + 'px';
+        el.style.width = (window.screen.width - 64)/config.zoom + 'px';
         transformOrigin = [0,0];
         el = el || instance.getContainer();
         var p = ["webkit", "moz", "ms", "o"],
@@ -414,6 +414,10 @@ function load_page_{{$key}}() {
             menu.hide().removeClass('highlight_menu_animate');
         });
     }
+
+    $( window ).on( "orientationchange", function( event ) {
+        applyZoom();
+    });
 
     document.getElementById('close-app').addEventListener('click', function () {
         if(typeof window.ReactNativeWebView !== 'undefined') {
