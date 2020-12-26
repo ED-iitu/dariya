@@ -19,6 +19,7 @@ class BookPages extends Model
     public function getContentAttribute($value)
     {
         $value = str_replace(['<body>', '</body>'],'', $value);
+        $value = str_replace('&nbsp;',' ', $value);
         $value = preg_replace('/(left|top|right|bottom):[0-9]{1,}px;/', '', $value);
         return $value;
     }
