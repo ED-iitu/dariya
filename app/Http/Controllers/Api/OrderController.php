@@ -60,11 +60,11 @@ class OrderController extends Controller
                     $book = Book::query()->find($object_id);
                     if($book){
                         if($my_book = UserBook::query()->where(['book_id' => $book->id, 'user_id' => $user->id])->first()){
-                            return $this->sendError('Forbidden','Вы ранее уже купили эту книгу', 403);
+                            return $this->sendError('Вы ранее уже купили эту книгу','Вы ранее уже купили эту книгу', 403);
                         }
                         $user = Auth::user();
                         if($user->tariff_id && time() < strtotime($user->tariff_end_date)){
-                            return $this->sendError('Forbidden','У вас уже имеется подписка', 403);
+                            return $this->sendError('У вас уже имеется подписка','У вас уже имеется подписка', 403);
                         }
                         $transaction_data = [
                             'user_id' => Auth::id(),

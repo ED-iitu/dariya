@@ -347,6 +347,14 @@ function load_page_{{$key}}() {
         console.log(page);
         abt.innerHTML = page + ' из ' + config.totalPage;
         config.page = page;
+        if(typeof window.ReactNativeWebView !== 'undefined') {
+            window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "page","page" : page }));
+        }
+        if(page == config.totalPage){
+            if(typeof window.ReactNativeWebView !== 'undefined') {
+                window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "end"}));
+            }
+        }
         saveConfig();
     }
 
