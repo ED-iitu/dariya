@@ -58,7 +58,7 @@ class HomeScreenController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => 'BOOK'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => 'BOOK', 'status' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->paginate(10)->each(function($model) use (&$books){
 

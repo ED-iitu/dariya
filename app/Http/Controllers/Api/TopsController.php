@@ -27,7 +27,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -60,7 +60,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => 'BOOK'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => 'BOOK', 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -255,7 +255,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 

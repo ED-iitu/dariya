@@ -95,6 +95,15 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <label for="status">Статус</label>
+                            <select class="form-control" id="status" name="status">
+                                <option value="0" @if(!$book->status) selected="selected" @endif>Отключен</option>
+                                <option value="1" @if($book->status) selected="selected" @endif>Включен</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <input type="text" value="{{ $book->background_color }}" name="background_color" class="form-control" placeholder="Цвет фона">
                         </div>
                     </div>

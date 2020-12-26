@@ -28,7 +28,7 @@ class BookController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $books = [];
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+        $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($book) use (&$books){
             $books[] = [
                 "id"=> $book->id,

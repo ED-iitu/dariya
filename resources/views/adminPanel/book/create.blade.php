@@ -95,6 +95,15 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
+                                <label for="status">Статус</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="0">Отключен</option>
+                                    <option value="1">Включен</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <div class="custom-file">
                                     <input type="file" class="custom-file-input" name="image_link" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" >
                                     <label class="custom-file-label" for="inputGroupFile01">Загрузите картинку</label>
