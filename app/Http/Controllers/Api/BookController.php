@@ -54,6 +54,7 @@ class BookController extends Controller
          * @var Book $book
          */
         if($book = Book::query()->find($id)){
+            Book::where('id', $id)->increment('show_counter');
             $data = [
                 "id"=> $book->id,
                 "name"=> $book->name,

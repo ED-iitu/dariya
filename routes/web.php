@@ -88,7 +88,6 @@ Route::get('/page/{id}', 'Site\PageController@getPage')->name('page');
 
 
 
-Route::get('/payment_plug/{transaction_id}', 'Site\PaymentPlug@index');
 
 Route::post('/buy/{type}/{object_id}', 'Site\PaymentController@buy')->middleware('auth')->name('buy');
 Route::get('payment/success', 'Site\PaymentController@success');

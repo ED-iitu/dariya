@@ -41,6 +41,7 @@ class AudioBooksController extends Controller
 
     public function view($id){
         if($audio_book = Book::query()->find($id)){
+            Book::where('id', $id)->increment('show_counter');
             $data = [
                 "id"=> $audio_book->id,
                 "name"=> $audio_book->name,

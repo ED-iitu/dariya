@@ -35,6 +35,7 @@ class ArticleController extends Controller
 
     public function view($id){
         if($article = Article::query()->find($id)){
+            Article::where('id', $id)->increment('show_counter');
             $data = [
                 "id"=> $article->id,
                 "name"=> $article->name,

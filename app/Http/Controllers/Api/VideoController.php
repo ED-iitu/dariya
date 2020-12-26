@@ -49,6 +49,7 @@ class VideoController extends Controller
 
     public function view($id){
         if($video = Video::query()->find($id)){
+            Video::where('id', $id)->increment('show_counter');
             $data = [
                 "id"=> $video->id,
                 "name"=> $video->name,
