@@ -72,8 +72,8 @@ class CommentController extends Controller
                     ],'Комментарий успешно добавлен');
                 }
             }
-            return $this->sendError('Not Found.',[],404);
+            return $this->sendError('Ошибка при добвление!',[],404);
         }
-        return $this->sendError('Bad request.',[],403);
+        return $this->sendError('Ресурс не найден!',[],403);
     }
 }

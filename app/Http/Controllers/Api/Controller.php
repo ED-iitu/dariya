@@ -37,6 +37,9 @@ class Controller extends BaseController
      */
     public function sendError($error, $errorMessages = [], $code = 404)
     {
+        if(empty($error)){
+            $error = 'Не известная ошибка!';
+        }
         $response = [
             'success' => false,
             'message' => $error,

@@ -95,6 +95,8 @@ class PaymentController extends Controller
 
                         unset($request[0], $request[1]);
                         $query = http_build_query($request);
+                        $transaction->request = $query;
+                        $transaction->save();
                         $payment_url = 'https://api.paybox.money/payment.php?' . $query;
                         return redirect($payment_url);
                     }
@@ -138,6 +140,8 @@ class PaymentController extends Controller
         } else {
             $transaction_id = $request['pg_order_id'];
             if ($transaction = Transaction::query()->find($transaction_id)) {
+                $transaction->result_response = json_encode($request);
+                $transaction->save();
                 if ($transaction->status == 0) {
                     $transaction->processor_transaction_id = $request['pg_payment_id'];
                     $transaction->status = true;

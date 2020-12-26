@@ -48,8 +48,8 @@ class VoteController extends Controller
                     ],'Голос успешно добавлен');
                 }
             }
-            return $this->sendError('Not Found.',[],404);
+            return $this->sendError('Ресурс не найден!',[],404);
         }
-        return $this->sendError('Bad request.',[],403);
+        return $this->sendError('Техническая ошибка не сервере!',[],403);
     }
 }

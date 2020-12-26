@@ -112,6 +112,8 @@ class OrderController extends Controller
                         unset($request[0], $request[1]);
                         $query = http_build_query($request);
                         $payment_url = 'https://api.paybox.money/payment.php?'.$query;
+                        $transaction->request = $payment_url;
+                        $transaction->save();
                         return $this->sendResponse([
                             'payment_url' =>$payment_url,
                             'success_url' => $request['pg_success_url'],
@@ -122,6 +124,6 @@ class OrderController extends Controller
             }
 
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Ресус не найден!','Ресус не найден');
     }
 }

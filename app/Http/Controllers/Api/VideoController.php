@@ -96,6 +96,6 @@ class VideoController extends Controller
             }
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Видео-материал не найден!','Ресус не найден');
     }
 }

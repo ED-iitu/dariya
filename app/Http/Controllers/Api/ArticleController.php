@@ -79,7 +79,7 @@ class ArticleController extends Controller
             }
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Статья не найдено!','Ресус не найден');
     }
 
     public function categories(){

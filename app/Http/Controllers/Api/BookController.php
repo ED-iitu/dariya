@@ -118,7 +118,7 @@ class BookController extends Controller
 
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Книга не существует!','Ресус не найден');
     }
     /**
      * Display a listing of the resource.
@@ -148,7 +148,7 @@ class BookController extends Controller
         }
 
 
-        return $this->sendError('Book Not Found' ,[], 404);
+        return $this->sendError('Книга не существует!' ,[], 404);
     }
 
     public function get_html_by_paginate($id)
@@ -174,7 +174,7 @@ class BookController extends Controller
         }
 
 
-        return $this->sendError('Book Not Found' ,[], 404);
+        return $this->sendError('Книга не существует!' ,[], 404);
     }
 
     public function group_by_genre(Request $request){

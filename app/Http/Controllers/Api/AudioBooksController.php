@@ -119,6 +119,6 @@ class AudioBooksController extends Controller
 
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Аудио-книга не существует!','Ресус не найден');
     }
 }

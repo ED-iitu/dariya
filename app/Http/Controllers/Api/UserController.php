@@ -293,7 +293,7 @@ class UserController extends Controller
 
             return $this->sendResponse($tariff, 'Ваша подписка');
         }
-        return $this->sendError('Not Found','Вы еще не приобрели подписку');
+        return $this->sendError('Вы еще не приобрели подписку','Вы еще не приобрели подписку');
     }
 
     public function update(Request $request){
@@ -381,7 +381,7 @@ class UserController extends Controller
             }
             return $this->sendResponse($data, '');
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Полка не существует!','Ресус не найден');
     }
 
     public function book_shelfs_add(){
@@ -426,7 +426,7 @@ class UserController extends Controller
                 return $this->sendResponse($data, 'Успешно добавлен!');
             }
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Книга уже добавлена!','Ресус не найден');
     }
 
     public function remove_in_book_shelf($id){
@@ -437,7 +437,7 @@ class UserController extends Controller
                 return $this->sendResponse([], 'Успешно удален из полки!');
             }
         }
-        return $this->sendError('Not Found','Ресус не найден');
+        return $this->sendError('Книга не найдена в полке!','Ресус не найден');
     }
 
     public function push_settings(){
