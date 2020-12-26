@@ -151,7 +151,7 @@ Route::post('auth', function (Request $request) {
 
     if (! $user || ! Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
+            'email' => ['Не правильный email или пароль!'],
         ]);
     }
 
@@ -169,7 +169,7 @@ Route::post('register', function (Request $request) {
 
     if ($user) {
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect.'],
+            'email' => ['Пользователь уже зарегистрирован!'],
         ]);
     }
     try{
@@ -180,7 +180,7 @@ Route::post('register', function (Request $request) {
         $user->save();
     }catch (Exception $e){
         throw ValidationException::withMessages([
-            'Internal Error Server',
+            'Не известная ошибка сервера!',
         ]);
     }
 
