@@ -110,6 +110,16 @@
             height: 0;
             transition: opacity 0.5s ease-out,width 0.5s ease 0.5s, height 0.5s ease 0.5s;
         }
+        @media (min-width: 28em){
+            .ui-field-contain>label~[class*=ui-], .ui-field-contain .ui-controlgroup-controls {
+                width: 100%;
+            }
+            .ui-field-contain>label, .ui-field-contain .ui-controlgroup-label, .ui-field-contain>.ui-rangeslider>label {
+                width: 100%;
+                margin: .5em 2% .5em 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -310,14 +320,12 @@ function load_page_{{$key}}() {
 
     function applyZoom() {
         let el = document.getElementById('page-content');
-        let fix = 0;
         if(screen.orientation.type === 'landscape-primary'){
             document.querySelector('.setting-panel-header').style.display = 'none';
-            fix = 16;
         }else{
             document.querySelector('.setting-panel-header').style.display = 'block';
         }
-        el.style.width = (window.screen.width - 48 + fix)/config.zoom + 'px';
+        el.style.width = ((window.screen.width /config.zoom) - 32) + 'px';
         transformOrigin = [0,0];
         el = el || instance.getContainer();
         var p = ["webkit", "moz", "ms", "o"],
