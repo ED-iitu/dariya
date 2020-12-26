@@ -109,11 +109,11 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="0">
+                                <input class="form-check-input" type="checkbox" @if(!$book->is_free) checked="checked" @endif id="is_free" name="is_free" value="0">
                                 <label class="form-check-label" for="is_free">Платная</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
+                                <input class="form-check-input" type="checkbox" @if($book->is_free) checked="checked" @endif id="is_free" name="is_free" value="1">
                                 <label class="form-check-label" for="is_free">Бесплатная</label>
                             </div>
                         </div>
