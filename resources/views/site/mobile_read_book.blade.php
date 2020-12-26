@@ -156,12 +156,10 @@
     </div>
     <div data-role="panel" id="settingPanel" data-theme="a" class="ui-corner-all" data-position="right" data-display="overlay" data-position-fixed="true">
         <div>
-            <div>
+            <div class="setting-panel-header">
                 <img src="{{url($book->image_link)}}" alt="" style="max-width: 13em;">
                 <p>{{ $book->name }}</p>
             </div>
-            <a href="#" data-rel="close"
-               class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
             <h3 style="text-align: center;margin: 5px;">Настройки</h3>
             <div class="ui-field-contain">
                 <label for="background">Фон</label>
@@ -312,7 +310,14 @@ function load_page_{{$key}}() {
 
     function applyZoom() {
         let el = document.getElementById('page-content');
-        el.style.width = (window.screen.width - 64)/config.zoom + 'px';
+        let fix = 0;
+        if(screen.orientation.type === 'landscape-primary'){
+            document.querySelector('.setting-panel-header').style.display = 'none';
+            fix = 16;
+        }else{
+            document.querySelector('.setting-panel-header').style.display = 'block';
+        }
+        el.style.width = (window.screen.width - 48 + fix)/config.zoom + 'px';
         transformOrigin = [0,0];
         el = el || instance.getContainer();
         var p = ["webkit", "moz", "ms", "o"],
@@ -416,6 +421,12 @@ function load_page_{{$key}}() {
     }
 
     $( window ).on( "orientationchange", function( event ) {
+        console.log( "This device is in " + event.orientation + " mode!" );
+        if(event.orientation === 'landscape'){
+            $('.setting-panel-header').hide();
+        }else{
+            $('.setting-panel-header').show();
+        }
         applyZoom();
     });
 
