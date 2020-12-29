@@ -8,6 +8,7 @@ use App\Rating;
 use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class VideoController extends Controller
 {
@@ -98,5 +99,25 @@ class VideoController extends Controller
             return $this->sendResponse($data, '');
         }
         return $this->sendError('Видео-материал не найден!','Ресус не найден');
+    }
+
+    public function check_vip_code(Request $request){
+        $request->validate([
+            'code' => 'required|string',
+            'id' => 'required',
+        ]);
+        try{
+            if($video = Video::query()->find($request->id)){
+                if($request->code == '123456'){
+                    return $this->sendResponse([], 'Проверка успешно прошла!');
+                }
+                return $this->sendError('Вы уже использовали код больше 3 раза!','Ресус не найден');
+            }
+            return $this->sendError('Видео-материал не найден!','Ресус не найден');
+        }catch (\Exception $e){
+            throw ValidationException::withMessages([
+                'Не известная ошибка сервера!',
+            ]);
+        }
     }
 }

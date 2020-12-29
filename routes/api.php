@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->post('/user/remove_in_book_shelf/{id}', 'Api\
 Route::middleware('auth:sanctum')->post('/user/toggle_favorites/{type}/{id}', 'Api\UserController@toggle_favorites');
 Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get_html');
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
+Route::middleware('auth:sanctum')->post('check_vip_code', 'Api\VideoController@check_vip_code');
 Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
 Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');
 Route::post('/remove_quotes/{id}', 'Api\BookController@remove_quote');
