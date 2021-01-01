@@ -58,6 +58,7 @@ class XPdfToHtml extends Dom
             file_put_contents($base_path.'/page'.$i.'.html', $content);
             $contents[ $i ] = file_get_contents($base_path.'/page'.$i.'.html');
             unlink($base_path.'/page'.$i.'.html');
+            unlink($base_path.'/page'.$i.'.png');
         }
         $this->contents = $contents;
     }
@@ -176,24 +177,24 @@ class XPdfToHtml extends Dom
             $i_c = 0;
             foreach ($elements as $key=>&$element){
                 if($element instanceof Dom\HtmlNode) {
-                    $i_c++;
-                    $styles = $element->getAttribute('style');
-                    $styles_arr = explode(';', $styles);
-                    $left = null;
-                    $css_top = null;
-                    foreach ($styles_arr as $style) {
-                        $style_arr = explode(':', $style);
-                        $style_name = str_replace(' ','',$style_arr[0]);
-                        if (isset($style_name) && $style_name == 'left') {
-                            $left = intval($style_arr[1]);
-                            if (isset($element_left_css[$left])) {
-                                $element_left_css[$left]++;
-                            } else {
-                                $element_left_css[$left] = 1;
+                    if(!empty($element->innerHtml()) && $element->innerHtml() != $title && !preg_match('/(<span class="[a-zA-Z0-9]{1,}" style="font-size:[0-9]{1,}px;vertical-align:baseline;">(([0-9]{1,})|([0-9]{1,} {1,}))<\/span>)/m',$element->innerHtml())){
+                        $i_c++;
+                        $styles = $element->getAttribute('style');
+                        $styles_arr = explode(';', $styles);
+                        $left = null;
+                        $css_top = null;
+                        foreach ($styles_arr as $style) {
+                            $style_arr = explode(':', $style);
+                            $style_name = str_replace(' ','',$style_arr[0]);
+                            if (isset($style_name) && $style_name == 'left') {
+                                $left = intval($style_arr[1]);
+                                if (isset($element_left_css[$left])) {
+                                    $element_left_css[$left]++;
+                                } else {
+                                    $element_left_css[$left] = 1;
+                                }
                             }
                         }
-                    }
-                    if($element->innerHtml() != $title && !preg_match('/(<span class="[a-zA-Z0-9]{1,}" style="font-size:[0-9]{1,}px;vertical-align:baseline;">(([0-9]{1,})|([0-9]{1,} {1,}))<\/span>)/m',$element->innerHtml())){
                         $tags[] = [
                             'left' => $left,
                             'top' => $css_top,
@@ -207,13 +208,19 @@ class XPdfToHtml extends Dom
 
         arsort($element_left_css);
         $element_left_css = array_keys($element_left_css);
-        $min_left = min($element_left_css[0], $element_left_css[1]);
-        $max_left = max($element_left_css[0], $element_left_css[1]);
+        if(count($element_left_css) >= 2){
+            $min_left = min($element_left_css[0], $element_left_css[1]);
+            $max_left = max($element_left_css[0], $element_left_css[1]);
+        }else{
+            $min_left = $max_left = $element_left_css[0];
+        }
+
         /**
          * @var Dom\HtmlNode $e
          */
         $ps = [];
         $element_index = 0;
+
         foreach ($tags as $k=>$e){
             $current_left = $e['left'];
             $is_new_p = false;
