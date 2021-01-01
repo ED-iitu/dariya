@@ -28,7 +28,7 @@ class BookController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $books = [];
-        $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+        $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1, 'in_list' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($book) use (&$books){
             $books[] = [
                 "id"=> $book->id,
@@ -184,9 +184,9 @@ class BookController extends Controller
         $books = [];
         $res = Book::query();
         if($request->get('only') == Book::BOOK_TYPE){
-            $res = Book::query()->where(['type' => Book::BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1, 'in_list' => true])->paginate($pageSize,['*'],'page', $page);
         }elseif($request->get('only') == Book::AUDIO_BOOK_TYPE){
-            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'in_list' => true])->paginate($pageSize,['*'],'page', $page);
         }else{
             $res = Book::query()->paginate($pageSize,['*'],'page', $page);
         }

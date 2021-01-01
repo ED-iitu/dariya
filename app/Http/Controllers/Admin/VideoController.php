@@ -75,6 +75,8 @@ class VideoController extends Controller
             'author'    => $request->author,
             'lang'         => $request->lang,
             'youtube_video_id'         => $request->youtube_video_id,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
 
         if($request->for_vip && $request->for_vip == 'on'){
@@ -162,6 +164,8 @@ class VideoController extends Controller
             'author'    => $request->author,
             'lang'         => $request->lang,
             'youtube_video_id'         => $request->youtube_video_id,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
 
         if($request->for_vip && $request->for_vip == 'on'){

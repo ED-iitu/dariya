@@ -177,6 +177,8 @@ class BookController extends Controller
             'background_color' => $request->background_color,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
 
         if (null !== $image_link) {
@@ -338,7 +340,9 @@ class BookController extends Controller
             'background_color' => $request->background_color,
             'lang'         => $request->lang,
             'is_free'      => $request->is_free,
-            'pdf_to_html'  => $request->pdf_to_html,
+            'pdf_to_html'  => ($request->pdf_to_html) ? $request->pdf_to_html : Book::X_PDF_TO_HTML,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
 
         if($request->generate_html){

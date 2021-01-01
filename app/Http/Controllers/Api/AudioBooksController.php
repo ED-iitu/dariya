@@ -18,7 +18,7 @@ class AudioBooksController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $audio_books = [];
-        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'in_list' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($audio_book) use (&$audio_books){
             $audio_books[] = [
                 "id"=> $audio_book->id,

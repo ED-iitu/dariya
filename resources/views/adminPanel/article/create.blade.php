@@ -81,8 +81,12 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="for_all" name="for_all" value="0">
-                            <label class="form-check-label" for="is_free">Для всех</label>
+                            <input class="form-check-input" type="checkbox" id="in_home_screen" name="in_home_screen" value="1">
+                            <label class="form-check-label" for="in_home_screen">Показать на главном экране</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="in_home_screen" name="in_list" value="1">
+                            <label class="form-check-label" for="in_home_screen">Показать в спике</label>
                         </div>
                     </div>
                 </div>

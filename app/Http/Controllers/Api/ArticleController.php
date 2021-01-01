@@ -15,7 +15,7 @@ class ArticleController extends Controller
         $page = $request->get('page') ? $request->get('page') : 1;
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $artiles = [];
-        $res = Article::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+        $res = Article::query()->where(['in_list' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
         $res->each(function ($article) use (&$artiles){
             $artiles[] = [
                 "id"=> $article->id,

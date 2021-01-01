@@ -104,6 +104,18 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="in_home_screen" name="in_home_screen" value="1"  @if($book->in_home_screen)checked="checked"@endif>
+                                <label class="form-check-label" for="in_home_screen">Показать на главном экране</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="in_home_screen" name="in_list" value="1" @if($book->in_list)checked="checked"@endif>
+                                <label class="form-check-label" for="in_home_screen">Показать в спике</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <input type="text" value="{{ $book->background_color }}" name="background_color" class="form-control" placeholder="Цвет фона">
                         </div>
                     </div>

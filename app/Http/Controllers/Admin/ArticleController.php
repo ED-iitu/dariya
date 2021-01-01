@@ -59,7 +59,9 @@ class ArticleController extends Controller
             'detail_text'  => $request->detail_text,
             'author'    => $request->author,
             'lang'         => $request->lang,
-            'image_link' => null
+            'image_link' => null,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
         $image_link = $request->file('image_link');
         if($image_link){
@@ -131,6 +133,8 @@ class ArticleController extends Controller
             'detail_text'  => $request->detail_text,
             'author'    => $request->author,
             'lang'         => $request->lang,
+            'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
+            'in_list' => ($request->in_list) ? $request->in_list : false,
         ];
 
         if (null !== $image_link) {

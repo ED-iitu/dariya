@@ -211,8 +211,10 @@ class XPdfToHtml extends Dom
         if(count($element_left_css) >= 2){
             $min_left = min($element_left_css[0], $element_left_css[1]);
             $max_left = max($element_left_css[0], $element_left_css[1]);
-        }else{
+        }elseif(count($element_left_css) > 0){
             $min_left = $max_left = $element_left_css[0];
+        }else{
+            $min_left = $max_left = 0;
         }
 
         /**

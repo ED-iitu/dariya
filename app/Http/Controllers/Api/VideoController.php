@@ -17,11 +17,11 @@ class VideoController extends Controller
         $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
         $videos = [];
 
-        $res = Video::query()->where('for_vip', 0);
+        $res = Video::query()->where(['for_vip' => 0, 'in_list' => true]);
         if(Auth::user()){
             if(Auth::user()->have_active_tariff()){
                 if(Auth::user()->tariff->slug == 'vip'){
-                    $res = Video::query();
+                    $res = Video::query()->where(['in_list' => true]);
                 }
             }
         }

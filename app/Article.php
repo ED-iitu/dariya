@@ -12,7 +12,7 @@ class Article extends Model
     protected $table = 'articles';
 
     protected $fillable = [
-        'name', 'preview_text', 'detail_text', 'author', 'categories', 'lang', 'image_link'
+        'name', 'preview_text', 'detail_text', 'author', 'categories', 'lang', 'image_link', 'in_home_screen', 'in_list'
     ];
 
     public function comments()

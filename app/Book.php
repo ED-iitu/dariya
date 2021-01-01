@@ -19,7 +19,7 @@ class Book extends Model
     protected $table = 'books';
 
     protected $fillable = [
-        'name', 'type', 'preview_text', 'detail_text', 'lang', 'pdf_to_html',
+        'name', 'type', 'preview_text', 'detail_text', 'lang', 'pdf_to_html', 'in_home_screen', 'in_list',
         'publisher_id', 'price', 'status', 'author_id', 'genres', 'image_link', 'book_link', 'is_free', 'background_color', 'page_count', 'pdf_hash', 'duration'
     ];
 

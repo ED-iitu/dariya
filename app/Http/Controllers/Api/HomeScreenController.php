@@ -39,7 +39,7 @@ class HomeScreenController extends Controller
         /**
          * Articles
          */
-        $res = Article::query()->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Article::query()->where(['in_home_screen' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $articles  = [];
         $res->paginate(5)->each(function ($article) use (&$articles){
             $articles[] = [
@@ -58,7 +58,7 @@ class HomeScreenController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => 'BOOK', 'status' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => 'BOOK', 'status' => true, 'in_home_screen' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->paginate(10)->each(function($model) use (&$books){
 
@@ -89,7 +89,7 @@ class HomeScreenController extends Controller
         /**
          * Audio-Books
          */
-        $res = Book::query()->where(['type' => 'AUDIO'])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => 'AUDIO', 'in_home_screen' => true])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $audio_books  = [];
         $res->paginate(10)->each(function($model) use (&$audio_books){
 
@@ -120,11 +120,11 @@ class HomeScreenController extends Controller
         /**
          * Videos
          */
-        $res = Video::query()->where('for_vip', 0);
+        $res = Video::query()->where(['for_vip' => 0, 'in_home_screen' => true]);
         if(Auth::user()){
             if(Auth::user()->have_active_tariff()){
                 if(Auth::user()->tariff->slug == 'vip'){
-                    $res = Video::query();
+                    $res = Video::query()->where(['in_home_screen' => true]);
                 }
             }
         }
