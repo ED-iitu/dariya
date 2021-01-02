@@ -35,10 +35,14 @@ class ProcessCorrectingPdfBooks implements ShouldQueue
      */
     public function handle()
     {
-        $book_page = $this->book_page;
-        $correct_html = XPdfToHtml::generateCorrectHtml($book_page->original_content, $this->title);
-        $book_page->content = $correct_html;
-        $book_page->status = true;
-        $book_page->save();
+        try{
+            $book_page = $this->book_page;
+            $correct_html = XPdfToHtml::generateCorrectHtml($book_page->original_content, $this->title);
+            $book_page->content = $correct_html;
+            $book_page->status = true;
+            $book_page->save();
+        }catch (\Exception $e){
+            echo $e->getMessage();
+        }
     }
 }
