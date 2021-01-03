@@ -74,6 +74,7 @@ class BookController extends Controller
                 "is_free"=> $book->is_free ? true :false,
                 "is_access"=> $book->isAccess(),
                 "price"=> $book->price,
+                "price_id"=> $book->price_id,
                 "formatted_price"=> Money::KZT($book->price)->format(),
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0 ,
                 "show_counter"=> $book->show_counter,

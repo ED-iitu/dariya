@@ -68,8 +68,12 @@
                                 <div class="col-xs-4 col-sm-12 col-md-4 border-left border-top border-bottom p-3">
                                     <div class="form-group">
                                         <label for="price">Цена</label>
-                                        <input type="text" name="price_list[{{$id}}][price]" class="form-control" placeholder="Цена"
-                                               value="{{$price}}">
+                                        <select class="form-control" id="price" name="price_list[{{$id}}][price]">
+                                            <option value="0">0</option>
+                                            @foreach(\App\TariffPriceList::$prices as $p)
+                                                <option @if($price == $p) selected="selected" @endif value="{{$p}}">{{ \Akaunting\Money\Money::KZT($p, true)->format()}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <label>{{ $label }}</label>

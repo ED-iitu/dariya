@@ -18,6 +18,8 @@ class BookObserver
      */
     public function created(Book $book)
     {
+        $book->generatePriceCode();
+        $book->save();
         if($book->book_link){
             if($book->pdf_to_html == Book::X_PDF_TO_HTML){
                 XProcessParsePdfBooks::dispatch($book);
@@ -36,6 +38,8 @@ class BookObserver
      */
     public function updated(Book $book)
     {
+        $book->generatePriceCode();
+        $book->save();
         if($book->book_link){
             if($book->pdf_to_html == Book::X_PDF_TO_HTML){
                 XProcessParsePdfBooks::dispatch($book);

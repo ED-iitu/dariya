@@ -4,7 +4,7 @@
        @if($book->background_color)
                background-color:{{ $book->background_color }};
        @endif
-               background-image: url( {{ url($book->image_link) }} );
+               background-image:url( {{ $book->image_link }} );
                ">
         <span class="sale mt-3"><i class="fa fa-book"></i></span>
     </a>

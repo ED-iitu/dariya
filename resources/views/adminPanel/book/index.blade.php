@@ -41,7 +41,16 @@
                 @else
                     <td>Автор не задан</td>
                 @endif
-                <td><a href="{{ route('books.show',$book->id) }}">@if($book->type == \App\Book::AUDIO_BOOK_TYPE) <i class="fa fa-microphone"></i> @endif{{ $book->name }}</a></td>
+                <td>
+                    <a href="{{ route('books.edit',$book->id) }}">
+                        @if($book->type == \App\Book::AUDIO_BOOK_TYPE)
+                            <i class="fa fa-microphone"></i>
+                        @endif
+                            {{ $book->name }}
+                    </a>
+                    <br>
+                    <p style="color: #cccccc; font-size: 12px;">ID: <span style="color: #222222; font-weight: bold">{{ $book->price_id }}</span></p>
+                </td>
                 @if($book->author)
                 <td>{{ $book->author->name }} {{ $book->author->surname }}</td>
                 @else

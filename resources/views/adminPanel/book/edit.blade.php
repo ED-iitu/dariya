@@ -79,7 +79,13 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <input type="text" name="price" class="form-control" placeholder="Цена" value="{{ $book->price }}">
+                            <label for="price">Цена</label>
+                            <select class="form-control" id="price" name="price">
+                                <option value="0">0</option>
+                                @foreach(\App\Book::$prices as $price)
+                                    <option @if($book->price == $price) selected="selected" @endif value="{{$price}}">{{ \Akaunting\Money\Money::KZT($price, true)->format()}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

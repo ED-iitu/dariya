@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Shared\PriceCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Book extends Model
 {
 
-    use MultiLang;
+    use MultiLang, PriceCode;
 
     const BOOK_TYPE = 'BOOK';
     const AUDIO_BOOK_TYPE = 'AUDIO';

@@ -9,6 +9,7 @@ use App\BookPages;
 use App\BookToGenre;
 use App\Favorite;
 use App\Genre;
+use App\Helpers\Formatter;
 use App\Publisher;
 use App\UserBook;
 use Illuminate\Http\JsonResponse;
