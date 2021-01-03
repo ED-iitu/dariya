@@ -6,8 +6,6 @@ use App\Article;
 use App\Book;
 use App\Observers\ArticleObserver;
 use App\Observers\BookObserver;
-use App\Observers\TariffPriceListObserver;
-use App\TariffPriceList;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -34,7 +32,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Book::observe(BookObserver::class);
         Article::observe(ArticleObserver::class);
-        TariffPriceList::observe(TariffPriceListObserver::class);
         Schema::defaultStringLength(191);
         Date::setlocale(config('app.locale'));
         Paginator::defaultView('vendor.pagination.bootstrap-4');

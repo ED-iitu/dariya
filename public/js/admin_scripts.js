@@ -174,6 +174,11 @@
     $('#modalBlocksEdit').on('hide.bs.modal', function () {
         console.log('close');
     });
+
+    $('.generate-code').on('click', function () {
+
+    });
+
     $('#modal_save_edit_block').on('click', function () {
         let modal = $(this).closest('#modalBlocksEdit');
         let block_type = block_element.data('type');
