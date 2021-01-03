@@ -372,7 +372,7 @@ class BookController extends Controller
                 }
             });
         }
-
+        $book->generatePriceCode();
         $book->update($data);
 
         BookToGenre::query()->where('book_id',$book->id)->delete();
@@ -389,6 +389,17 @@ class BookController extends Controller
 
         return redirect()->route('booksPage')
             ->with('success','Книга успешно обновлена');
+    }
+
+    public function generate_price_id($id){
+        if($book = Book::query()->find($id)){
+            $book->generatePriceCode();
+            $book->save();
+            return redirect()->route('booksPage')
+                ->with('success','Книга успешно обновлена');
+        }
+        return redirect()->route('booksPage')
+            ->with('error','Ошибка!');
     }
 
     /**

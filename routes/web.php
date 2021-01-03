@@ -59,6 +59,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('video', 'Admin\VideoController@index')->name('videosPage');
         Route::post('search_vip', 'Admin\VideoController@search_vip');
         Route::post('generate_vip_code', 'Admin\VideoController@generate_vip_code');
+        Route::get('generate_price_id/book/{id}', 'Admin\BookController@generate_price_id')->name('generate_price_id');
+        Route::get('generate_price_id/tariff/{id}', 'Admin\TariffController@generate_price_id')->name('generate_price_id_for_price');
         Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
         Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
         Route::get('audio_load/{id}', 'Admin\BookController@loadAudioFiles')->name('loadAudioFiles');

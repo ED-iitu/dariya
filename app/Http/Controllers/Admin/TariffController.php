@@ -70,6 +70,17 @@ class TariffController extends Controller
             ->with('success','Тариф успешно добавлен.');
     }
 
+    public function generate_price_id($id){
+        if($book = TariffPriceList::query()->find($id)){
+            $book->generatePriceCode();
+            $book->save();
+            return redirect()->back()
+                ->with('success','Тариф успешно обновлена');
+        }
+        return redirect()->back()
+            ->with('error','Ошибка!');
+    }
+
     /**
      * Display the specified resource.
      *

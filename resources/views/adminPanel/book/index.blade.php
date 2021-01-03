@@ -49,7 +49,8 @@
                             {{ $book->name }}
                     </a>
                     <br>
-                    <p style="color: #cccccc; font-size: 12px;">ID: <span style="color: #222222; font-weight: bold">{{ $book->price_id }}</span></p>
+                    <p style="color: #cccccc; font-size: 12px;">ID: @if($book->price_id)<span style="color: #222222; font-weight: bold">{{ $book->price_id }}</span>@else
+                            <a href="{{route('generate_price_id', $book->id)}}" class="btn btn-success btn-sm">Генерироать</a> @endif</p>
                 </td>
                 @if($book->author)
                 <td>{{ $book->author->name }} {{ $book->author->surname }}</td>

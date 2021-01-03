@@ -45,7 +45,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="description">Описание</label>
-                        <textarea name="description" class="form-control" placeholder="Описание">{{$tariff->description}}</textarea>
+                        <textarea name="description" class="form-control"
+                                  placeholder="Описание">{{$tariff->description}}</textarea>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -58,30 +59,36 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="row border-right">
-                            @foreach(\App\TariffPriceList::getDurationLabels() as $d=>$label)
-                                @php
-                                    $price = array_key_exists($d, $price_lists) ? $price_lists[$d]['price'] : 0;
-                                    $duration = array_key_exists($d, $price_lists) ? $price_lists[$d]['duration'] : $d;
-                                    $id = array_key_exists($d, $price_lists) ? $price_lists[$d]['id'] : 'd_'.$d;
-                                @endphp
-                                <div class="col-xs-4 col-sm-12 col-md-4 border-left border-top border-bottom p-3">
-                                    <div class="form-group">
-                                        <label for="price">Цена</label>
-                                        <select class="form-control" id="price" name="price_list[{{$id}}][price]">
-                                            <option value="0">0</option>
-                                            @foreach(\App\TariffPriceList::$prices as $p)
-                                                <option @if($price == $p) selected="selected" @endif value="{{$p}}">{{ \Akaunting\Money\Money::KZT($p, true)->format()}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>{{ $label }}</label>
-                                        <input type="hidden" value="{{ $duration }}" name="price_list[{{$id}}][duration]">
-                                    </div>
+                    <div class="row border-right">
+                        @foreach(\App\TariffPriceList::getDurationLabels() as $d=>$label)
+                            @php
+                                $price = array_key_exists($d, $price_lists) ? $price_lists[$d]['price'] : 0;
+                                $price_id = array_key_exists($d, $price_lists) ? $price_lists[$d]['price_id'] : null;
+                                $duration = array_key_exists($d, $price_lists) ? $price_lists[$d]['duration'] : $d;
+                                $id = array_key_exists($d, $price_lists) ? $price_lists[$d]['id'] : 'd_'.$d;
+                            @endphp
+                            <div class="col-xs-4 col-sm-12 col-md-4 border-left border-top border-bottom p-3">
+                                <p style="color: #cccccc; font-size: 12px;">ID: @if($price_id)<span
+                                            style="color: #222222; font-weight: bold">{{ $price_id }}</span>@else
+                                        <a href="{{route('generate_price_id_for_price', $id)}}" class="btn btn-success btn-sm">Генерироать</a> @endif
+                                </p>
+                                <div class="form-group">
+                                    <label for="price">Цена</label>
+                                    <select class="form-control" id="price" name="price_list[{{$id}}][price]">
+                                        <option value="0">0</option>
+                                        @foreach(\App\TariffPriceList::$prices as $p)
+                                            <option @if($price == $p) selected="selected"
+                                                    @endif value="{{$p}}">{{ \Akaunting\Money\Money::KZT($p, true)->format()}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            @endforeach
-                        </div>
+                                <div class="form-group">
+                                    <label>{{ $label }}</label>
+                                    <input type="hidden" value="{{ $duration }}" name="price_list[{{$id}}][duration]">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center mt-4">
                     <button type="submit" class="btn btn-primary">Добавить тариф</button>
