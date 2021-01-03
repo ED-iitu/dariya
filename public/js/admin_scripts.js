@@ -175,8 +175,56 @@
         console.log('close');
     });
 
-    $('.generate-code').on('click', function () {
+    $('.search-vip').on('input',function () {
+        let value = $(this).val();
+        let token = $(this).siblings('input[name="_token"]').val();
+        let tbody = $(this).closest('div').siblings('table');
+        if(value.length > 3){
+            $.post({
+                url: "/admin/search_vip",
+                data: {
+                    name: value,
+                    _token: token
+                },
+                success: function(data)
+                {
+                    tbody.html(data);
+                    tbody.show();
+                }
+            });
+        }
+        console.log(value);
+    });
 
+    $('.vip-search-results').on('click','tr', function () {
+        let id = $(this).data('id');
+        let text = $(this).find('td:last-child').text().trim();
+        $(this).closest('.row').find('.search-vip').val(text);
+        $(this).closest('.row').find('input[name="object_id"]').val(id);
+    });
+
+    $('.generate-code').on('click', function () {
+        let object_id = $(this).closest('.row').find('input[name="object_id"]').val();
+        let user_id = $(this).closest('.row').find('input[name="user_id"]').val();
+        let token = $(this).closest('.row').find('input[name="_token"]').val();
+        let tbody = $(this).closest('.modal-body').find('.table tbody');
+        if(object_id && user_id){
+            $.post({
+                url: "/admin/generate_vip_code",
+                data: {
+                    object_id: object_id,
+                    user_id: user_id,
+                    _token: token
+                },
+                success: function(data)
+                {
+
+                    tbody.append(data);
+                }
+            });
+        }else{
+            alert('Выберите видео');
+        }
     });
 
     $('#modal_save_edit_block').on('click', function () {

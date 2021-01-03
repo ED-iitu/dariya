@@ -11,4 +11,9 @@ class VipCode extends Model
     const BOOK_TYPE = 'book';
 
     protected $table = 'vip_codes';
+
+    public function video()
+    {
+        return $this->hasOne(Video::class,'id', 'object_id');
+    }
 }

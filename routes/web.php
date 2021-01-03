@@ -57,6 +57,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::get('transactions', 'Admin\TransactionController@index')->name('transactionsPage');
         Route::get('supportTickets', 'Admin\SupportTicketController@index')->name('supportTicketsPage');
         Route::get('video', 'Admin\VideoController@index')->name('videosPage');
+        Route::post('search_vip', 'Admin\VideoController@search_vip');
+        Route::post('generate_vip_code', 'Admin\VideoController@generate_vip_code');
         Route::get('banners', 'Admin\BannerController@index')->name('bannersPage');
         Route::get('publishers', 'Admin\PublisherController@index')->name('publishersPage');
         Route::get('audio_load/{id}', 'Admin\BookController@loadAudioFiles')->name('loadAudioFiles');

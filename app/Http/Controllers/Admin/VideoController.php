@@ -6,10 +6,12 @@ use App\Category;
 use App\Favorite;
 use App\Video;
 use App\VideoToCategory;
+use App\VipCode;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class VideoController extends Controller
 {
@@ -217,5 +219,31 @@ class VideoController extends Controller
         Favorite::query()->where(['object_type' => Favorite::FAVORITE_VIDEO, 'object_id' => $video->id])->delete();
         return redirect()->route('videosPage')
             ->with('success','Видео успешно удалено');
+    }
+
+    public function search_vip(Request $request)
+    {
+        $name = $request->name;
+        $videos = Video::query()->where('for_vip',1)->where('name' ,'like', "%$name%")->get();
+        return view('adminPanel.video.vip_videos', ['videos' => $videos]);
+    }
+    public function generate_vip_code(Request $request)
+    {
+        $request->validate([
+            'object_id' => 'required|integer',
+            'user_id' => 'required|integer',
+        ]);
+        $code = strtoupper(Str::random(6));
+        if(!VipCode::query()->where('code' , $code)->exists()){
+            $vip_code = new VipCode();
+            $vip_code->object_id = $request->object_id;
+            $vip_code->object_type = VipCode::VIDEO_TYPE;
+            $vip_code->user_id = $request->user_id;
+            $vip_code->try_count = 3;
+            $vip_code->status = true;
+            $vip_code->code = $code;
+            $vip_code->save();
+            return view('adminPanel.video.vip_code', ['vip_code' => $vip_code]);
+        }
     }
 }
