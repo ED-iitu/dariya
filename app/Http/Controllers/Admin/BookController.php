@@ -180,6 +180,7 @@ class BookController extends Controller
             'is_free'      => $request->is_free,
             'in_home_screen' => ($request->in_home_screen) ? $request->in_home_screen : false,
             'in_list' => ($request->in_list) ? $request->in_list : false,
+            'pdf_to_html'  => ($request->pdf_to_html) ? $request->pdf_to_html : Book::X_PDF_TO_HTML,
         ];
 
         if (null !== $image_link) {
