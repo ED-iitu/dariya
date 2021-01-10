@@ -15,7 +15,7 @@ class CreateApplePurchaseDevicesTable extends Migration
     {
         Schema::create('apple_purchase_devices', function (Blueprint $table) {
             $table->id();
-            $table->string('device_id',500)->index('deviceUID');
+            $table->string('device_id',500);
             $table->text('receipt');
             $table->text('receipt_check_data')->nullable();
             $table->string('price_id')->nullable();
