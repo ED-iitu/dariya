@@ -28,6 +28,51 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    public function info(Request $request){
+        $data = [
+            "id"=> null,
+            "name"=> 'Анонимный пользователь',
+            "email"=> null,
+            "date_of_birth"=> null,
+            "phone"=> null,
+            "profile_photo_path"=> null,
+            "tariff_id"=> null,
+            "have_active_tariff"=> null,
+            "tariff_price_list_id"=> null,
+            "created_at"=> null,
+            "updated_at"=> null,
+            "tariff_begin_date"=> null,
+            "tariff_end_date"=> null
+        ];
+        if(\Illuminate\Support\Facades\Auth::user()){
+            $user = $request->user();
+            $data = [
+                "id"=> $user->id,
+                "name"=> $user->name,
+                "email"=> $user->email,
+                "date_of_birth"=> DateHelper::changeDateFormat($user->date_of_birth,'d.m.Y', 'Y-m-d'),
+                "phone"=> PhoneHelper::formatFromNumeric($user->phone),
+                "profile_photo_path"=> url('uploads/'.$user->profile_photo_path),
+                "tariff_id"=> $user->tariff_id,
+                "have_active_tariff"=> $user->have_active_tariff(),
+                "tariff_price_list_id"=> $user->tariff_price_list_id,
+                "created_at"=> $user->created_at,
+                "updated_at"=> $user->updated_at,
+                "tariff_begin_date"=> $user->tariff_begin_date,
+                "tariff_end_date"=> $user->tariff_end_date
+            ];
+        }else{
+            if($device = \App\ApplePurchaseDevice::query()->where('device_id', $request->header('DeviceUID'))->first()){
+                $data['tariff_id'] = $device->tariff_id;
+                $data['have_active_tariff'] = true;
+                $data['tariff_price_list_id'] = $device->tariff_price_list_id;
+                $data['tariff_begin_date'] = $device->tariff_begin_date;
+                $data['tariff_end_date'] = $device->tariff_end_date;
+            }
+        }
+        return $this->sendResponse($data,'');
+    }
+
     public function my_books()
     {
 

@@ -22,7 +22,7 @@ use Illuminate\Validation\ValidationException;
 Route::fallback(function(){
     return response()->json(['message' => 'Entity Not Found'], 404);
 });
-Route::middleware('auth:sanctum')->middleware(\App\Http\Middleware\ApplePurchasesDevice::class)->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user = $request->user();
     $data = [
         "id"=> $user->id,
@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
 Route::middleware('auth:sanctum')->post('check_vip_code', 'Api\VideoController@check_vip_code');
 Route::get('/courses', 'Site\CourseController@index');
+Route::get('/user/v2', 'Api\UserController@info');
 Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
 Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');
 Route::post('/remove_quotes/{id}', 'Api\BookController@remove_quote');
