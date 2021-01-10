@@ -22,7 +22,7 @@ use Illuminate\Validation\ValidationException;
 Route::fallback(function(){
     return response()->json(['message' => 'Entity Not Found'], 404);
 });
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->middleware(\App\Http\Middleware\ApplePurchasesDevice::class)->get('/user', function (Request $request) {
     $user = $request->user();
     $data = [
         "id"=> $user->id,
@@ -69,6 +69,7 @@ Route::post('/bookmarks', 'Api\BookController@add_book_marks')->name('add_book_m
 Route::get('/bookmarks/{book_id?}', 'Api\BookController@book_marks');
 Route::post('/remove_bookmark/{id}', 'Api\BookController@remove_bookmark');
 Route::post('/save_book_state', 'Api\BookController@save_book_state')->name('save_book_state');
+Route::post('/in_app_purchase', 'Api\OrderController@in_app_purchase')->name('in_app_purchase');
 /**
  * Search
  */
@@ -137,7 +138,7 @@ Route::middleware('auth:sanctum')->post('vote/{object_type}/{id}', 'Api\VoteCont
 /**
  * Tariffs
  */
-Route::middleware('auth:sanctum')->get('tariffs', 'Api\OrderController@tariffs');
+Route::get('tariffs', 'Api\OrderController@tariffs');
 Route::middleware('auth:sanctum')->post('create_order/{type}/{object_id}', 'Api\OrderController@create');
 
 /**

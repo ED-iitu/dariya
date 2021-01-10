@@ -4,14 +4,17 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\ApplePurchaseDevice;
 use App\Book;
 use App\Tariff;
 use App\TariffPriceList;
 use App\Transaction;
 use App\UserBook;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
@@ -19,11 +22,8 @@ class OrderController extends Controller
     {
         $tariffs = [];
 
-        if(Auth::user()->isInviteToVip()){
-            $res = Tariff::query();
-        }else{
-            $res = Tariff::query()->whereIn('slug',['premium', 'standard']);
-        }
+        $res = Tariff::query()->whereIn('slug',['premium', 'standard']);
+
         $res->each(function ($tariff) use (&$tariffs){
             $tariffs[] = [
                 "id"=> $tariff->id,
@@ -36,6 +36,37 @@ class OrderController extends Controller
         return $this->sendResponse([
             'tariffs' =>$tariffs
         ], '');
+    }
+
+    public function in_app_purchase(Request $request){
+        $request->validate([
+            'price_id' => 'required|string',
+            'receipt' => 'required|string',
+            'device_id' => 'required|string',
+        ]);
+        if($tariff_price_list = TariffPriceList::query()->where('price_id', $request->price_id)->first()){
+            $device_tariff_begin_date = date('Y-m-d H:i:s', time());
+            $device_tariff_end_date = date('Y-m-d H:i:s', strtotime("+{$tariff_price_list->duration} month"));
+            if (!($device = ApplePurchaseDevice::query()->where('device_id' , $request->device_id)->first())) {
+                $device = new ApplePurchaseDevice();
+                $device->device_id = $request->device_id;
+            }
+            $device->tariff_id = $tariff_price_list->tariff_id;
+            $device->receipt = $request->receipt;
+            $device->receipt_check_data = '[not check]';
+            $device->tariff_price_list_id = $tariff_price_list->id;
+            $device->tariff_begin_date = $device_tariff_begin_date;
+            $device->tariff_end_date = $device_tariff_end_date;
+            if($device->save()){
+                return $this->sendResponse([
+                    'tariff' => array_merge($request->all(),[
+                        'tariff_begin_date' => $device->tariff_begin_date,
+                        'tariff_end_date' => $device->tariff_end_date,
+                    ])], 'Подптска успешно сохранена!');
+            }
+
+        }
+        return $this->sendError('Подписка не найдено');
     }
 
     public function create($type, $object_id)
