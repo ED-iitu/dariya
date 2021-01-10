@@ -181,6 +181,16 @@ Route::post('register', function (Request $request) {
         $user->setAttribute('email', $request->email);
         $user->setAttribute('password', Hash::make($request->email));
         $user->setAttribute('name', $request->name);
+        if($request->header('DeviceUID')){
+            if($device = \App\ApplePurchaseDevice::query()->where('device_id',$request->header('DeviceUID'))->first()){
+                if($device->have_active_tariff()){
+                    $user->setAttribute('tariff_id', $device->tariff_id);
+                    $user->setAttribute('tariff_price_list_id', $device->tariff_price_list_id);
+                    $user->setAttribute('tariff_begin_date', $device->tariff_begin_date);
+                    $user->setAttribute('tariff_end_date', $device->tariff_end_date);
+                }
+            }
+        }
         $user->save();
     }catch (Exception $e){
         throw ValidationException::withMessages([

@@ -5,6 +5,7 @@ namespace App;
 use App\Shared\PriceCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
 class Book extends Model
 {
@@ -168,6 +169,15 @@ class Book extends Model
                     }
                 });
             }
+        }elseif(Request::header('DeviceUID')){
+            if($device = \App\ApplePurchaseDevice::query()->where('device_id', Request::header('DeviceUID'))->first()){
+                if($device->have_active_tariff()){
+                    $is_access = true;
+                    if($device->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE){
+                        $is_access = false;
+                    }
+                }
+            }
         }
         return $is_access;
     }
@@ -179,12 +189,16 @@ class Book extends Model
             }else{
                 $user_read_book_link = new UserReadBookLink();
                 $data = [
-                    'user_id' => Auth::id(),
                     'book_id' => $this->id,
                     'user_data' => \GuzzleHttp\json_encode([
                         'current_page' => 1
                     ])
                 ];
+                if(Auth::check()){
+                    $data['user_id'] = Auth::id();
+                }elseif (Request::header('DeviceUID')){
+                    $data['device_id'] = Request::header('DeviceUID');
+                }
                 $user_read_book_link->setRawAttributes($data);
                 $user_read_book_link->hash = hash('sha256', serialize($data));
                 if($user_read_book_link->save()){

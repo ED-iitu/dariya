@@ -14,4 +14,7 @@ class ApplePurchaseDevice extends Model
     public function have_active_tariff(){
         return ($this->tariff_id && date('Y-m-d H:i:s', time()) < $this->tariff_end_date) ? true : false;
     }
+    public function tariff(){
+        return $this->hasOne(Tariff::class,'id','tariff_id');
+    }
 }
