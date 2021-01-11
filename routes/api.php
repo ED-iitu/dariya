@@ -179,7 +179,7 @@ Route::post('register', function (Request $request) {
     try{
         $user = new User();
         $user->setAttribute('email', $request->email);
-        $user->setAttribute('password', Hash::make($request->email));
+        $user->setAttribute('password', Hash::make($request->password));
         $user->setAttribute('name', $request->name);
         if($request->header('DeviceUID')){
             if($device = \App\ApplePurchaseDevice::query()->where('device_id',$request->header('DeviceUID'))->first()){
