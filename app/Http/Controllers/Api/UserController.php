@@ -39,6 +39,7 @@ class UserController extends Controller
             "tariff_id"=> null,
             "have_active_tariff"=> null,
             "tariff_price_list_id"=> null,
+            "price_id"=> null,
             "created_at"=> null,
             "updated_at"=> null,
             "tariff_begin_date"=> null,
@@ -56,6 +57,7 @@ class UserController extends Controller
                 "tariff_id"=> $user->tariff_id,
                 "have_active_tariff"=> $user->have_active_tariff(),
                 "tariff_price_list_id"=> $user->tariff_price_list_id,
+                "price_id"=> ($user->tariff_price_list) ? $user->tariff_price_list->price_id : null,
                 "created_at"=> $user->created_at,
                 "updated_at"=> $user->updated_at,
                 "tariff_begin_date"=> $user->tariff_begin_date,
@@ -66,6 +68,7 @@ class UserController extends Controller
                 $data['tariff_id'] = $device->tariff_id;
                 $data['have_active_tariff'] = true;
                 $data['tariff_price_list_id'] = $device->tariff_price_list_id;
+                $data['price_id'] = $device->price_id;
                 $data['tariff_begin_date'] = $device->tariff_begin_date;
                 $data['tariff_end_date'] = $device->tariff_end_date;
             }

@@ -53,6 +53,7 @@ class OrderController extends Controller
             }
             $device->tariff_id = $tariff_price_list->tariff_id;
             $device->receipt = $request->receipt;
+            $device->price_id = $request->price_id;
             $device->receipt_check_data = '[not check]';
             $device->tariff_price_list_id = $tariff_price_list->id;
             $device->tariff_begin_date = $device_tariff_begin_date;
