@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::resource('info','Admin\InfoController');
         Route::resource('page','Admin\PageController');
         Route::resource('articles','Admin\ArticleController');
+        Route::resource('courses','Admin\CourseController');
         Route::resource('tariffs','Admin\TariffController');
         Route::resource('transactions','Admin\TransactionController');
         Route::resource('videos','Admin\VideoController');
@@ -45,6 +46,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','acl'], 'is' => 'admi
         Route::post('remove_audio/{id}', 'Admin\BookController@remove_audio');
         Route::post('upload/file', 'Admin\FileController@upload');
         Route::get('articles', 'Admin\ArticleController@index')->name('articlesPage');
+        Route::get('courses', 'Admin\CourseController@index')->name('coursesPage');
+        Route::post('remove_lesson_video', 'Admin\CourseController@remove_lesson_video')->name('remove_lesson_video');
         Route::get('authors', 'Admin\AuthorController@index')->name('authorsPage');
         Route::get('genres', 'Admin\GenreController@index')->name('genresPage');
         Route::get('categories', 'Admin\CategoryController@index')->name('categoriesPage');

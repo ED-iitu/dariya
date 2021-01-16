@@ -76,6 +76,10 @@
                         Статьи
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <a class="nav-link" href="{{route('coursesPage')}}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-graduation-cap"></i></div>
+                        Курсы
+                    </a>
                     <div class="collapse" id="aricleContent" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="{{route('categoriesPage')}}">Категории</a>

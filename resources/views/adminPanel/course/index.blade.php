@@ -1,0 +1,50 @@
+@extends('layouts.admin-app')
+@section('admin-content')
+    <div class="container">
+        <div>
+            <a class="btn btn-success" href="{{ route('courses.create') }}">Добавить курс</a>
+        </div>
+        <div class="mt-3 mb-2">
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+        </div>
+
+        <hr>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Название</th>
+                <th scope="col">Автор</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach($courses as $course)
+                <tr>
+                    <th scope="row">{{ $course->id }}</th>
+                    <td><a href="{{ route('courses.show',$course->id) }}">{{ $course->name }}</a></td>
+                    @if ($course->author)
+                    <td>{{ $course->author }}</td>
+                    @else
+                    <td>Автор не задан</td>
+                    @endif
+                    <td>
+                        <form class="delete" action="{{ route('courses.destroy',$course->id) }}" method="POST">
+                            <a class="btn btn-primary edit" href="{{ route('courses.edit',$course->id) }}">Изменить</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger edit delete-confirm" onclick="return confirm('Are you sure?')">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
+    </div>
+@endsection

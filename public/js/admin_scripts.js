@@ -227,6 +227,16 @@
         }
     });
 
+    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+    triggerTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl)
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault()
+            tabTrigger.show()
+        })
+    });
+
     $('#modal_save_edit_block').on('click', function () {
         let modal = $(this).closest('#modalBlocksEdit');
         let block_type = block_element.data('type');
@@ -285,6 +295,110 @@
         }
         modal.modal('hide');
     });
+    body.on('click', '.add-more-video', function () {
+        let lesson_detail = $(this).closest('.lesson-detail');
+        let index = lesson_detail.data('index');
+        console.log('index',index);
+        lesson_detail.find('.video-files').append('<div class="row video-row">\n' +
+        '                                                <div class="col-xs-6 col-sm-6 col-md-6">\n' +
+        '                                                    <div class="form-group">\n' +
+        '                                                        <div class="custom-file">\n' +
+        '                                                            <input type="file" class="custom-file-input" name="lessons[' + index + '][video_link][]" >\n' +
+        '                                                            <label class="custom-file-label">Загрузите видео</label>\n' +
+        '                                                        </div>\n' +
+        '                                                    </div>\n' +
+        '                                                </div>\n' +
+        '                                                <div class="col-xs-3 col-sm-3 col-md-3">\n' +
+        '                                                    <a href="javascript:;" class="btn btn-success add-more-video">добавить еще ...</a>\n' +
+        '                                                    <a href="javascript:;" class="btn btn-danger remove-video"><i class="fa fa-trash"></i></a>\n' +
+        '                                                </div>\n' +
+        '                                                <div class="col-xs-3 col-sm-3 col-md-3">\n' +
+        '                                                    <a href="javascript:;" class="btn btn-light set-as-external">Указать на внешний ресурс</a>\n' +
+        '                                                </div>' +
+        '                                            </div>');
+    });
+    body.on('click', '.remove-video', function () {
+        $(this).closest('.video-row').remove();
+    });
+    body.on('click', '.set-as-external', function () {
+        let form_group = $(this).closest('.row').find('.form-group');
+        let input_name = form_group.find('input[type="file"]').attr('name');
+        form_group.html('<input type="text" class="form-control" placeholder="Укажите ссылку на видео" name="' + input_name + '">');
+    });
+    body.on('click', '.add-more-lesson', function () {
+        let index = $(this).closest('.lesson-detail').data('index');
+        index++;
+        $('#lesson-accordion').append('<div class="card">\n' +
+            '                            <div class="card-header" id="heading_' + index + '">\n' +
+            '                                <h2 class="mb-0">\n' +
+            '                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse_' + index + '" aria-expanded="true" aria-controls="collapse_' + index + '">\n' +
+            '                                        Новый урок' +
+            '                                    </button>\n' +
+            '                                </h2>\n' +
+            '                            </div>\n' +
+            '\n' +
+            '                            <div id="collapse_' + index + '" class="collapse show" aria-labelledby="heading_' + index + '" data-parent="#lesson-accordion">\n' +
+            '                                <div class="card-body">\n' +
+            '                                    <div class="row mt-5 lesson-detail" data-index="' + index + '">\n' +
+            '                                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
+            '                                            <div class="form-group">\n' +
+            '                                                <input type="text" name="lessons[' + index + '][name]" class="form-control" placeholder="Название">\n' +
+            '                                            </div>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
+            '                                            <div class="form-group">\n' +
+            '                                <textarea class="form-control tiny_editor" style="height:150px" name="lessons[' + index + '][lesson]"\n' +
+            '                                          placeholder="Описание курса"></textarea>\n' +
+            '                                            </div>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="col-md-12 video-files">\n' +
+            '                                            <div class="row">\n' +
+            '                                                <div class="col-xs-6 col-sm-6 col-md-6">\n' +
+            '                                                    <div class="form-group">\n' +
+            '                                                        <div class="custom-file">\n' +
+            '                                                            <input type="file" class="custom-file-input" name="lessons[' + index + '][video_link][]">\n' +
+            '                                                            <label class="custom-file-label">Загрузите видео</label>\n' +
+            '                                                        </div>\n' +
+            '                                                    </div>\n' +
+            '                                                </div>\n' +
+            '                                                <div class="col-xs-3 col-sm-3 col-md-3">\n' +
+            '                                                    <a href="javascript:;" class="btn btn-success add-more-video">добавить еще ...</a>\n' +
+            '                                                </div>\n' +
+            '                                                <div class="col-xs-3 col-sm-3 col-md-3">\n' +
+            '                                                    <a href="javascript:;" class="btn btn-light set-as-external">Указать на внешний ресурс</a>\n' +
+            '                                                </div>' +
+            '                                            </div>\n' +
+            '                                        </div>\n' +
+            '                                        <div class="col-md-12">\n' +
+            '                                            <a href="javascript:;" class="btn btn-success add-more-lesson">добавить еще один урок</a>\n' +
+            '                                        </div>\n' +
+            '                                    </div>\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>');
+        if (typeof tinymce !== 'undefined') {
+            tinymce.init({selector:'.tiny_editor'});
+        }
+    });
+    body.on('click','.remove-lesson-video', function(){
+        let id = $(this).data('id');
+        let div = $(this).closest('div');
+        let token = $('input[name="_token"]').val();
+        if(confirm('Действительно хотите удалить видео?')){
+            $.post({
+                url: "/admin/remove_lesson_video",
+                data: {
+                    id: id,
+                    _token: token
+                },
+                success: function(data)
+                {
+                    div.remove();
+                }
+            });
+        }
+    });
+
 })(jQuery);
 window.onload = function() {
     if (typeof tinymce !== 'undefined') {
