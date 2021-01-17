@@ -34,6 +34,7 @@ class UserController extends Controller
             "name"=> 'Анонимный пользователь',
             "email"=> null,
             "date_of_birth"=> null,
+            "course_link"=> url('api/courses'),
             "phone"=> null,
             "profile_photo_path"=> null,
             "tariff_id"=> null,
@@ -47,6 +48,12 @@ class UserController extends Controller
         ];
         if(\Illuminate\Support\Facades\Auth::user()){
             $user = $request->user();
+            $course_key = $user->course_key;
+            if(!$course_key){
+                $course_key = Hash::make($user->password.$user->id);
+                $user->course_key = $course_key;
+                $user->save();
+            }
             $data = [
                 "id"=> $user->id,
                 "name"=> $user->name,
@@ -61,7 +68,8 @@ class UserController extends Controller
                 "created_at"=> $user->created_at,
                 "updated_at"=> $user->updated_at,
                 "tariff_begin_date"=> $user->tariff_begin_date,
-                "tariff_end_date"=> $user->tariff_end_date
+                "tariff_end_date"=> $user->tariff_end_date,
+                "course_link"=> url('api/courses/'.$course_key),
             ];
         }else{
             if($device = \App\ApplePurchaseDevice::query()->where('device_id', $request->header('DeviceUID'))->first()){
