@@ -7787,11 +7787,13 @@
             left: 10px;
             top: 8px;
         }
-        #courses ul{
+
+        #courses ul {
             margin: 0;
             padding: 0;
         }
-        #courses ul li{
+
+        #courses ul li {
             list-style-type: none;
             background-color: #ddd;
             padding: 10px 30px;
@@ -7800,6 +7802,7 @@
             color: #333;
             font-weight: bold;
         }
+
         #courses ul li:after {
             content: '';
             height: 10px;
@@ -7810,6 +7813,7 @@
             left: 10px;
             top: 19px;
         }
+
         #courses ul li:before {
             content: '';
             height: 10px;
@@ -7820,11 +7824,13 @@
             left: 10px;
             top: 12px;
         }
-        .lesson-content{
+
+        .lesson-content {
             margin-top: 2.5em;
             padding: 20px;
         }
-        #lesson .btn{
+
+        #lesson .btn {
             width: 86%;
             background-color: #007AFF;
             color: #FFFFFF;
@@ -7838,38 +7844,49 @@
     <div data-role="header" data-position="fixed">
         <a href="#" id="close-app" class="close-btn">Назад</a>
         <h1>Курсы</h1>
-        <label for="search-4" class="ui-hidden-accessible">Search Input:</label>
-        <input type="search" name="search-4" id="search-4" value="" placeholder="Курсы, уроки ил по авторам ...">
-        <div data-role="navbar" id="navbar" data-iconpos="top">
-            <ul>
-                <li><a href="#one" data-ajax="false" class="tabButton">Общие курсы</a></li>
-                <li><a href="#two" data-ajax="false" class="tabButton">Мои курсы</a></li>
-            </ul>
-        </div>
+        @if(\Illuminate\Support\Facades\Auth::check())
+            <label for="search-4" class="ui-hidden-accessible">Search Input:</label>
+            <input type="search" name="search-4" id="search-4" value="" placeholder="Курсы, уроки ил по авторам ...">
+        @endif
+            <div data-role="navbar" id="navbar" data-iconpos="top">
+                <ul>
+                    <li><a href="#one" data-ajax="false" class="tabButton">Общие курсы</a></li>
+                    <li><a href="#two" data-ajax="false" class="tabButton">Мои курсы</a></li>
+                </ul>
+            </div>
     </div>
     <div data-role="main" id="page-content" class="ui-content" data-theme="a" data-full="false">
         <div data-role="tabs" id="tabs">
             <div id="one" class="ui-body-d ui-content tabView">
-                @foreach($courses as $course)
-                    <div class="card course" data-page="#detail_{{ $course->id }}">
-                        <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @foreach($courses as $course)
+                        <div class="card course" data-page="#detail_{{ $course->id }}">
+                            <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
+                            </div>
+                            <h3>{{ $course->name }}</h3>
+                            <p>{{ $course->author }}</p>
                         </div>
-                        <h3>{{ $course->name }}</h3>
-                        <p>{{ $course->author }}</p>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p>Чтобы получить доступ к курсам авторизуйтесь!</p>
+                @endif
             </div>
             <div id="two" class="tabView">
-                @foreach($my_courses as $course)
-                    <div class="card course" data-page="#detail">
-                        <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @foreach($my_courses as $course)
+                        <div class="card course" data-page="#detail">
+                            <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
+                            </div>
+                            <h3>{{ $course->name }}</h3>
+                            <p>{{ $course->author }}</p>
                         </div>
-                        <h3>{{ $course->name }}</h3>
-                        <p>{{ $course->author }}</p>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p>Чтобы получить доступ к курсам авторизуйтесь!</p>
+                @endif
             </div>
         </div>
+
     </div>
 </div>
 @foreach($courses as $course)
@@ -7929,38 +7946,38 @@
             return false;
         });
     });
-    $('.view-lesson').on('click', function(){
+    $('.view-lesson').on('click', function () {
         let lesson_id = $(this).data('lesson-id');
-        $.post('/api/courses/lesson/' + lesson_id, function(data) {
+        $.post('/api/courses/lesson/' + lesson_id, function (data) {
             $('#lesson').html(data);
             $.mobile.changePage('#lesson');
             $.mobile.loadPage();
         });
     });
-    $('body').on('click', '.close-btn', function(){
+    $('body').on('click', '.close-btn', function () {
         let activePageId = $.mobile.activePage.attr('id');
-        if(activePageId === 'home'){
-            if(typeof window.ReactNativeWebView !== 'undefined') {
-                window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "close" }));
+        if (activePageId === 'home') {
+            if (typeof window.ReactNativeWebView !== 'undefined') {
+                window.ReactNativeWebView.postMessage(JSON.stringify({"action": "close"}));
             }
-        }else{
+        } else {
             $.mobile.back();
         }
     });
-    $('body').on('click', '.show-tariff', function() {
-        if(typeof window.ReactNativeWebView !== 'undefined') {
-            window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "pay" }));
+    $('body').on('click', '.show-tariff', function () {
+        if (typeof window.ReactNativeWebView !== 'undefined') {
+            window.ReactNativeWebView.postMessage(JSON.stringify({"action": "pay"}));
         }
     });
     document.addEventListener("message", message => {
         var event = JSON.parse(message.data);
         if (event.action === 'back') {
             let activePageId = $.mobile.activePage.attr('id');
-            if(activePageId === 'home'){
-                if(typeof window.ReactNativeWebView !== 'undefined') {
-                    window.ReactNativeWebView.postMessage(JSON.stringify({ "action": "close" }));
+            if (activePageId === 'home') {
+                if (typeof window.ReactNativeWebView !== 'undefined') {
+                    window.ReactNativeWebView.postMessage(JSON.stringify({"action": "close"}));
                 }
-            }else{
+            } else {
                 $.mobile.back();
             }
         }
@@ -7973,7 +7990,7 @@
     $(".finish-lesson").on("click", function (event) {
         let lesson_id = $(this).data('lesson-id');
         //let token = $(this).closest('.row').find('input[name="_token"]').val();
-        $.post('/api/courses/finish_lesson/' + lesson_id, function(data) {
+        $.post('/api/courses/finish_lesson/' + lesson_id, function (data) {
             location.reload();
             $.mobile.back();
         });
