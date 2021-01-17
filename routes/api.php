@@ -62,6 +62,8 @@ Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
 Route::middleware('auth:sanctum')->post('check_vip_code', 'Api\VideoController@check_vip_code');
 Route::get('/courses', 'Site\CourseController@index');
+Route::post('/courses/lesson/{id}', 'Site\CourseController@lesson');
+Route::post('/courses/finish_lesson/{id}', 'Site\CourseController@finish_lesson');
 Route::get('/user/v2', 'Api\UserController@info');
 Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
 Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');

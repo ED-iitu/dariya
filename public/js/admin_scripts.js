@@ -232,7 +232,7 @@
         var tabTrigger = new bootstrap.Tab(triggerEl)
 
         triggerEl.addEventListener('click', function (event) {
-            event.preventDefault()
+            event.preventDefault();
             tabTrigger.show()
         })
     });
