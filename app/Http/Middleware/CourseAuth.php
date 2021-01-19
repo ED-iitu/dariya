@@ -19,7 +19,9 @@ class CourseAuth
     {
         if ($course_key = ($request->route('course_key') ?? $request->get('course_key'))) {
             if ($user = User::query()->where('course_key', $course_key)->first()) {
-                Auth::login($user);
+                if(!Auth::check()){
+                    Auth::login($user);
+                }
             }
         }
         return $next($request);
