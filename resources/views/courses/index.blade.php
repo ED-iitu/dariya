@@ -7693,7 +7693,7 @@
         }
 
         .ui-input-text, .ui-input-search {
-            margin: 0.5em 1em;
+            margin: 1em;
             background: #ededed !important;
             border: 0;
         }
@@ -7764,28 +7764,32 @@
             margin: 0 !important;
             padding: 10px 25px;
             color: #007AFF !important;
+            font-size: 14px!important;
+            font-weight: 100!important;
         }
 
         .close-btn:after {
             content: '';
-            height: 10px;
+            height: 14px;
             background-color: #007AFF;
-            width: 2px;
+            width: 3px;
             position: absolute;
             transform: rotate(-45deg);
             left: 10px;
-            top: 15px;
+            top: 14px;
+            border-radius: 0 0px 5px 5px;
         }
 
         .close-btn:before {
             content: '';
-            height: 10px;
+            height: 14px;
             background-color: #007AFF;
-            width: 2px;
+            width: 3px;
             position: absolute;
             transform: rotate(45deg);
             left: 10px;
-            top: 8px;
+            top: 6px;
+            border-radius: 5px 5px 0 0;
         }
 
         #courses ul {
@@ -7801,28 +7805,9 @@
             position: relative;
             color: #333;
             font-weight: bold;
-        }
-
-        #courses ul li:after {
-            content: '';
-            height: 10px;
-            background-color: #333;
-            width: 2px;
-            position: absolute;
-            transform: rotate(45deg);
-            left: 10px;
-            top: 19px;
-        }
-
-        #courses ul li:before {
-            content: '';
-            height: 10px;
-            background-color: #333;
-            width: 2px;
-            position: absolute;
-            transform: rotate(-45deg);
-            left: 10px;
-            top: 12px;
+            -webkit-border-radius: 15px;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
         }
 
         .lesson-content {
@@ -7898,15 +7883,13 @@
         </div>
         <div data-role="main" id="page-detail" class="ui-content" data-theme="a" data-full="false">
             <div class="detail-image" style="background-image: url({{ url($course->image_link) }});">
-                <h2>{{ $course->name }}</h2>
             </div>
             <div class="detail-content">
-                <h3>{{ $course->author }}</h3>
                 <div data-role="tabs" id="detail-tabs">
                     <div data-role="navbar">
                         <ul>
-                            <li><a href="#courses" data-ajax="false">Уроки</a></li>
-                            <li><a href="#course-info" data-ajax="false">Информация</a></li>
+                            <li><a href="#courses" data-ajax="false" style="-webkit-border-radius: 15px 0 0 15px;-moz-border-radius: 15px 0 0 15px;border-radius: 15px 0 0 15px;">Уроки</a></li>
+                            <li><a href="#course-info" data-ajax="false" style="-webkit-border-radius: 0px 15px 15px 0;-moz-border-radius: 0px 15px 15px 0;border-radius: 0px 15px 15px 0;">Информация</a></li>
                         </ul>
                     </div>
                     <div id="courses" class="ui-body-d ui-content">
@@ -7994,6 +7977,10 @@
     });
     $(".finish-lesson").on("click", function (event) {
         let lesson_id = $(this).data('lesson-id');
+        let course_key = $('input[name="course_key"]').val();
+        if(course_key.length > 0){
+            lesson_id = lesson_id + '?course_key=' + course_key;
+        }
         //let token = $(this).closest('.row').find('input[name="_token"]').val();
         $.post('/api/courses/finish_lesson/' + lesson_id, function (data) {
             location.reload();
