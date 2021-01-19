@@ -7841,9 +7841,10 @@
 </head>
 <body>
 <div data-role="page" id="home" data-theme="a" data-fullscreen="true">
+    @if(\Illuminate\Support\Facades\Auth::check())
+        <input type="hidden" name="course_key" value="{{\Illuminate\Support\Facades\Auth::user()->course_key}}">
+    @endif
     <div data-role="header" data-position="fixed">
-        <a href="#" id="close-app" class="close-btn">Назад</a>
-        <h1>Курсы</h1>
         @if(\Illuminate\Support\Facades\Auth::check())
             <label for="search-4" class="ui-hidden-accessible">Search Input:</label>
             <input type="search" name="search-4" id="search-4" value="" placeholder="Курсы, уроки ил по авторам ...">
@@ -7948,6 +7949,10 @@
     });
     $('.view-lesson').on('click', function () {
         let lesson_id = $(this).data('lesson-id');
+        let course_key = $('input[name="course_key"]').val();
+        if(course_key.length > 0){
+            lesson_id = lesson_id + '?course_key=' + course_key;
+        }
         $.post('/api/courses/lesson/' + lesson_id, function (data) {
             $('#lesson').html(data);
             $.mobile.changePage('#lesson');

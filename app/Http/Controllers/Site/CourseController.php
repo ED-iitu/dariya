@@ -16,7 +16,7 @@ class CourseController extends Controller
     public function index(Request $request){
         $courses = Course::query()->where('is_free',false)->get();
         $my_courses = Course::query()->where('is_free',true)->get();
-        return view('site.courses', [
+        return view('courses.index', [
             'courses' => $courses,
             'my_courses' => $my_courses
         ]);
@@ -30,7 +30,7 @@ class CourseController extends Controller
                     $is_access = true;
                 }
             }
-            return view('site.lesson', [
+            return view('courses.lesson', [
                 'lesson' => $lesson,
                 'is_access' => $is_access
             ]);

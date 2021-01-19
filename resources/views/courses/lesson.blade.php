@@ -5,7 +5,7 @@
 @if($is_access)
     <div data-role="main" id="page-lesson" class="ui-content" data-theme="a" data-full="false">
         <div class="lesson-content">
-            {{ $lesson->lesson }}
+            {!! $lesson->lesson !!}
         </div>
         <div class="lesson-video">
             @foreach($lesson->videos as $video)
