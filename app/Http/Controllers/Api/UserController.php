@@ -51,6 +51,7 @@ class UserController extends Controller
             $course_key = $user->course_key;
             if(!$course_key){
                 $course_key = Hash::make($user->password.$user->id);
+                $course_key = md5(uniqid($course_key, true));
                 $user->course_key = $course_key;
                 $user->save();
             }
