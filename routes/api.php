@@ -65,6 +65,8 @@ Route::middleware(\App\Http\Middleware\CourseAuth::class)->get('/courses/{course
 Route::middleware(\App\Http\Middleware\CourseAuth::class)->post('/courses/lesson/{id}', 'Site\CourseController@lesson');
 Route::middleware(\App\Http\Middleware\CourseAuth::class)->post('/courses/finish_lesson/{id}', 'Site\CourseController@finish_lesson');
 Route::get('/user/v2', 'Api\UserController@info');
+Route::get('/user/terms_of_use', 'Api\UserController@terms_of_use');
+Route::get('/user/privacy_policy', 'Api\UserController@privacy_policy');
 Route::get('/quotes/{book_id?}', 'Api\BookController@quotes');
 Route::post('/quotes', 'Api\BookController@add_quote')->name('add_quote');
 Route::post('/remove_quotes/{id}', 'Api\BookController@remove_quote');

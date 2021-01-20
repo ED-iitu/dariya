@@ -525,4 +525,12 @@ class UserController extends Controller
         }
         return $this->sendError('Ошибка при обнавление!','Ошибка при обнавление!',400);
     }
+
+    public function terms_of_use(){
+        return view('law.terms_of_use');
+    }
+
+    public function privacy_policy(){
+        return view('law.privacy_policy');
+    }
 }

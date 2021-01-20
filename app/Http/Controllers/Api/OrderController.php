@@ -25,12 +25,17 @@ class OrderController extends Controller
         $res = Tariff::query()->whereIn('slug',['premium', 'standard']);
 
         $res->each(function ($tariff) use (&$tariffs){
+            $tariff_price_list = $tariff->tariffPriceLists;
+            foreach ($tariff_price_list as &$p){
+                $p['title'] = TariffPriceList::getDurationLabels($p['duration']);
+            }
             $tariffs[] = [
                 "id"=> $tariff->id,
                 "title"=> $tariff->title,
+                "slug"=> $tariff->slug,
                 "description"=> $tariff->description,
                 "image_url"=> ($tariff->image_url) ? url($tariff->image_url) : null,
-                "price_list" => $tariff->tariffPriceLists
+                "price_list" =>$tariff_price_list
             ];
         });
         return $this->sendResponse([
