@@ -22,9 +22,9 @@ class TariffPriceList extends Model
     public static function getDurationLabels($duration = null)
     {
         $labels = [
-            self::DURAION_3_MONTH => '3 месяц',
-            self::DURAION_6_MONTH => '6 месяц',
-            self::DURAION_12_MONTH => '12 месяц',
+            self::DURAION_3_MONTH => '3 месяца',
+            self::DURAION_6_MONTH => '6 месяцев',
+            self::DURAION_12_MONTH => '1 год',
         ];
         if (isset($labels[$duration])) {
             return $labels[$duration];
