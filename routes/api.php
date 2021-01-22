@@ -19,25 +19,25 @@ use Illuminate\Validation\ValidationException;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::fallback(function(){
+Route::fallback(function () {
     return response()->json(['message' => 'Entity Not Found'], 404);
 });
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     $user = $request->user();
     $data = [
-        "id"=> $user->id,
-        "name"=> $user->name,
-        "email"=> $user->email,
-        "date_of_birth"=> DateHelper::changeDateFormat($user->date_of_birth,'d.m.Y', 'Y-m-d'),
-        "phone"=> PhoneHelper::formatFromNumeric($user->phone),
-        "profile_photo_path"=> url('uploads/'.$user->profile_photo_path),
-        "tariff_id"=> $user->tariff_id,
-        "have_active_tariff"=> $user->have_active_tariff(),
-        "tariff_price_list_id"=> $user->tariff_price_list_id,
-        "created_at"=> $user->created_at,
-        "updated_at"=> $user->updated_at,
-        "tariff_begin_date"=> $user->tariff_begin_date,
-        "tariff_end_date"=> $user->tariff_end_date
+        "id" => $user->id,
+        "name" => $user->name,
+        "email" => $user->email,
+        "date_of_birth" => DateHelper::changeDateFormat($user->date_of_birth, 'd.m.Y', 'Y-m-d'),
+        "phone" => PhoneHelper::formatFromNumeric($user->phone),
+        "profile_photo_path" => url('uploads/' . $user->profile_photo_path),
+        "tariff_id" => $user->tariff_id,
+        "have_active_tariff" => $user->have_active_tariff(),
+        "tariff_price_list_id" => $user->tariff_price_list_id,
+        "created_at" => $user->created_at,
+        "updated_at" => $user->updated_at,
+        "tariff_begin_date" => $user->tariff_begin_date,
+        "tariff_end_date" => $user->tariff_end_date
     ];
     return $data;
 });
@@ -157,15 +157,16 @@ Route::post('auth', function (Request $request) {
 
     $user = User::query()->where('email', $request->email)->first();
 
-    if (! $user || ! Hash::check($request->password, $user->password)) {
+    if (!$user || !Hash::check($request->password, $user->password)) {
         throw ValidationException::withMessages([
             'email' => ['Не правильный email или пароль!'],
         ]);
     }
 
-    return response(['token'=>$user->createToken(time())->plainTextToken]);
+    \App\Device::saveDevice($user);
+    return response(['token' => $user->createToken(time())->plainTextToken]);
 });
-Route::post('password_reset','Auth\ForgotPasswordController@sendResetLinkEmail');
+Route::post('password_reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 Route::post('register', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
@@ -180,14 +181,14 @@ Route::post('register', function (Request $request) {
             'email' => ['Пользователь уже зарегистрирован!'],
         ]);
     }
-    try{
+    try {
         $user = new User();
         $user->setAttribute('email', $request->email);
         $user->setAttribute('password', Hash::make($request->password));
         $user->setAttribute('name', $request->name);
-        if($request->header('DeviceUID')){
-            if($device = \App\ApplePurchaseDevice::query()->where('device_id',$request->header('DeviceUID'))->first()){
-                if($device->have_active_tariff()){
+        if ($request->header('DeviceUID')) {
+            if ($device = \App\ApplePurchaseDevice::query()->where('device_id', $request->header('DeviceUID'))->first()) {
+                if ($device->have_active_tariff()) {
                     $user->setAttribute('tariff_id', $device->tariff_id);
                     $user->setAttribute('tariff_price_list_id', $device->tariff_price_list_id);
                     $user->setAttribute('tariff_begin_date', $device->tariff_begin_date);
@@ -196,39 +197,41 @@ Route::post('register', function (Request $request) {
             }
         }
         $user->save();
-    }catch (Exception $e){
+        \App\Device::saveDevice($user);
+    } catch (Exception $e) {
         throw ValidationException::withMessages([
             'Не известная ошибка сервера!',
         ]);
     }
 
 
-    return response(['token'=>$user->createToken(time())->plainTextToken]);
+    return response(['token' => $user->createToken(time())->plainTextToken]);
 });
 
 Route::post('register/google', function (Request $request) {
     $request->validate([
         'id_token' => 'required'
     ]);
-    $response = Http::get('https://oauth2.googleapis.com/tokeninfo?id_token='.$request->id_token);
-    if($response && $response->status() == 200){
+    $response = Http::get('https://oauth2.googleapis.com/tokeninfo?id_token=' . $request->id_token);
+    if ($response && $response->status() == 200) {
         $data = $response->json();
-        if($data['email']){
+        if ($data['email']) {
             $user = User::query()->where('email', $data['email'])->first();
             if (!$user) {
-                try{
+                try {
                     $user = new User();
                     $user->setAttribute('email', $data['email']);
                     $user->setAttribute('password', Hash::make($data['email']));
                     $user->setAttribute('name', $data['name']);
                     $user->save();
-                }catch (Exception $e){
+                    \App\Device::saveDevice($user);
+                } catch (Exception $e) {
                     throw ValidationException::withMessages([
                         'Не известная ошибка! Попробуйте позже.',
                     ]);
                 }
             }
-            return response(['token'=>$user->createToken(time())->plainTextToken]);
+            return response(['token' => $user->createToken(time())->plainTextToken]);
         }
     }
     throw ValidationException::withMessages([

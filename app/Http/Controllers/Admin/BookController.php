@@ -70,7 +70,7 @@ class BookController extends Controller
             'status' => $request->get('status'),
             'content' => str_replace(['&nbsp;', '&ndash;'],[' ','–'],$request->get('content')),
         ])){
-            return redirect()->route('booksPages',$book_page->book_id)
+            return redirect()->back()
                 ->with('success',"Страница {$book_page->page}  успешно обновлена");
         }
 
