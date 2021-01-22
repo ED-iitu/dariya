@@ -178,6 +178,8 @@ class Book extends Model
                         $is_access = false;
                     }
                 }
+            } elseif ($this->is_free){
+                return true;
             }
         }else{
             if ($this->is_free) {
