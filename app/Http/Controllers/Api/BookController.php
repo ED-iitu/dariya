@@ -19,6 +19,7 @@ use Gufy\PdfToHtml\PageGenerator;
 use Gufy\PdfToHtml\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use PHPHtmlParser\Dom;
 
 
@@ -120,7 +121,7 @@ class BookController extends Controller
                 $data['authors'][] = $book->author->getFullName();
             }
 
-
+            log::info(print_r([$data,\Illuminate\Support\Facades\Request::url(), \Illuminate\Support\Facades\Request::header()], true));
             return $this->sendResponse($data, '');
         }
         return $this->sendError('Книга не существует!','Ресус не найден');
