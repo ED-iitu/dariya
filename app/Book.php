@@ -150,43 +150,49 @@ class Book extends Model
         return false;
     }
 
-    public function isAccess(){
+    public function isAccess()
+    {
         $is_access = false;
-        if(Auth::user()){
-            if($this->is_free){
+        if (Auth::user()) {
+            if ($this->is_free) {
                 return true;
             }
             $id = $this->id;
-            if(Auth::user()->have_active_tariff()){
+            if (Auth::user()->have_active_tariff()) {
                 $is_access = true;
-                if(Auth::user()->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE){
+                if (Auth::user()->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE) {
                     $is_access = false;
                 }
-            }else{
-                Auth::user()->books->each(function ($my_book) use (&$is_access, $id){
-                    if(!$is_access && $id == $my_book->id){
+            } else {
+                Auth::user()->books->each(function ($my_book) use (&$is_access, $id) {
+                    if (!$is_access && $id == $my_book->id) {
                         $is_access = true;
                     }
                 });
             }
-        }elseif(Request::header('DeviceUID')){
-            if($device = \App\ApplePurchaseDevice::query()->where('device_id', Request::header('DeviceUID'))->first()){
-                if($device->have_active_tariff()){
+        } elseif (Request::header('DeviceUID')) {
+            if ($device = \App\ApplePurchaseDevice::query()->where('device_id', Request::header('DeviceUID'))->first()) {
+                if ($device->have_active_tariff()) {
                     $is_access = true;
-                    if($device->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE){
+                    if ($device->tariff->slug == 'standard' && $this->type == Book::AUDIO_BOOK_TYPE) {
                         $is_access = false;
                     }
                 }
+            }
+        }else{
+            if ($this->is_free) {
+                return true;
             }
         }
         return $is_access;
     }
 
-    public function getReadLink(){
-        if($this->isAccess()){
-            if($this->user_read_book_link){
+    public function getReadLink()
+    {
+        if ($this->isAccess()) {
+            if ($this->user_read_book_link) {
                 return route('mobile_read_book', $this->user_read_book_link->hash);
-            }else{
+            } else {
                 $user_read_book_link = new UserReadBookLink();
                 $data = [
                     'book_id' => $this->id,
@@ -194,17 +200,29 @@ class Book extends Model
                         'current_page' => 1
                     ])
                 ];
-                if(Auth::check()){
+                if (Auth::check()) {
                     $data['user_id'] = Auth::id();
-                }elseif (Request::header('DeviceUID')){
+                } elseif (Request::header('DeviceUID')) {
+                    if($this->device_user_read_book_link()){
+                        return route('mobile_read_book', $this->device_user_read_book_link()->hash);
+                    }
                     $data['device_id'] = Request::header('DeviceUID');
                 }
                 $user_read_book_link->setRawAttributes($data);
                 $user_read_book_link->hash = hash('sha256', serialize($data));
-                if($user_read_book_link->save()){
+                if ($user_read_book_link->save()) {
                     return route('mobile_read_book', $user_read_book_link->hash);
                 }
             }
+        }
+        return null;
+    }
+
+    public function device_user_read_book_link()
+    {
+        if (Request::header('DeviceUID')) {
+            $device_id = Request::header('DeviceUID');
+            return UserReadBookLink::query()->where(['device_id' => $device_id, 'book_id' => $this->id])->first();
         }
         return null;
     }
