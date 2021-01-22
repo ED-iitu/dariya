@@ -142,7 +142,7 @@ class PaymentController extends Controller
             if ($transaction = Transaction::query()->find($transaction_id)) {
                 $transaction->result_response = json_encode($request);
                 $transaction->save();
-                if ($transaction->status == 0) {
+                if ($transaction->status == 0 && $request['pg_result']) {
                     $transaction->processor_transaction_id = $request['pg_payment_id'];
                     $transaction->status = true;
                     if ($transaction->save()) {
