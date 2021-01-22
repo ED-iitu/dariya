@@ -68,6 +68,17 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <label for="book_id">@if($book->type == \App\Book::BOOK_TYPE)Есть аудио-книга @else Есть электронная-книга @endif</label>
+                            <select class="form-control" id="book_id" name="book_id">
+                                <option></option>
+                                @foreach($books as $b)
+                                    <option value="{{$b->id}}" @if($b->id == $book->book_id)selected="selected"@endif>{{$b->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
                             <label for="publisher">Выберите издателя</label>
                             <select class="form-control" id="publisher" name="publisher_id">
                                 <option value="{{$book->publisher->id}}">{{$book->publisher->name}}</option>

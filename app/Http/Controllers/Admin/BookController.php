@@ -262,8 +262,14 @@ class BookController extends Controller
         $genres  = Genre::all();
         $authors = Author::all();
         $publishers = Publisher::all();
+        if($book->type == \App\Book::BOOK_TYPE){
+            $books = Book::query()->where('type', Book::AUDIO_BOOK_TYPE)->get();
+        }else{
+            $books = Book::query()->where('type', Book::BOOK_TYPE)->get();
+        }
         return view('adminPanel.book.edit',[
             'book' => $book,
+            'books' => $books,
             'genres' => $genres,
             'authors' => $authors,
             'publishers' => $publishers
@@ -336,6 +342,7 @@ class BookController extends Controller
             'duration' => $duration,
             'detail_text'  => $request->detail_text,
             'price'        => $request->price,
+            'book_id'        => $request->book_id,
             'status'        => $request->status,
             'author_id'    => $request->author_id,
             'publisher_id' => $request->publisher_id,

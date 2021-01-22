@@ -82,6 +82,9 @@ class BookController extends Controller
                 "share_link" => route('book', $book->id),
                 "read_link" => $book->getReadLink()
             ];
+            if($book->book_id){
+                $data['book_id'] = $book->book_id;
+            }
             if($book->comments){
                 foreach ($book->comments()->paginate(5) as $comment){
                     $rating = Rating::query()->where([
