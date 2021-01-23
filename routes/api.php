@@ -62,7 +62,7 @@ Route::middleware('auth:sanctum')->post('get_book/{id}', 'Api\BookController@get
 Route::middleware('auth:sanctum')->post('v2/get_book/{id}', 'Api\BookController@get_html_by_paginate');
 Route::middleware('auth:sanctum')->post('check_vip_code', 'Api\VideoController@check_vip_code');
 Route::middleware(\App\Http\Middleware\CourseAuth::class)->get('/courses/{course_key?}', 'Site\CourseController@index');
-Route::middleware(\App\Http\Middleware\CourseAuth::class)->post('/courses/lesson/{id}', 'Site\CourseController@lesson');
+Route::middleware(\App\Http\Middleware\CourseAuth::class)->get('/courses/lesson/{id}', 'Site\CourseController@lesson');
 Route::middleware(\App\Http\Middleware\CourseAuth::class)->post('/courses/finish_lesson/{id}', 'Site\CourseController@finish_lesson');
 Route::get('/user/v2', 'Api\UserController@info');
 Route::get('/user/terms_of_use', 'Api\UserController@terms_of_use');

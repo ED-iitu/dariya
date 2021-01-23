@@ -7800,16 +7800,22 @@
         #courses ul li {
             list-style-type: none;
             background-color: #ddd;
-            padding: 10px 30px;
             margin-bottom: 10px;
             position: relative;
-            color: #333;
-            font-weight: bold;
             -webkit-border-radius: 15px;
             -moz-border-radius: 15px;
             border-radius: 15px;
         }
 
+        #courses ul li a{
+            display: block;
+            width: 100%;
+            height: 100%;
+            padding: 10px 30px;
+            color: #333;
+            font-weight: bold;
+            text-decoration: none;
+        }
         .lesson-content {
             margin-top: 2.5em;
             padding: 20px;
@@ -7860,7 +7866,7 @@
             <div id="two" class="tabView">
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @foreach($my_courses as $course)
-                        <div class="card course" data-page="#detail">
+                        <div class="card course" data-page="#detail_{{ $course->id }}">
                             <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
                             </div>
                             <h3>{{ $course->name }}</h3>
@@ -7876,12 +7882,12 @@
     </div>
 </div>
 @foreach($courses as $course)
-    <div data-role="page" id="detail_{{ $course->id }}" data-theme="a" data-fullscreen="true">
-        <div data-role="header" data-position="fixed" data-fullscreen="true">
+    <div data-role="page" id="detail_{{ $course->id }}" data-theme="a">
+        <div data-role="header" data-fullscreen="true">
             <a href="#" id="close-detail" class="close-btn">Назад</a>
-            <h1>Курсы</h1>
+            <h1>{{ $course->name }}</h1>
         </div>
-        <div data-role="main" id="page-detail" class="ui-content" data-theme="a" data-full="false">
+        <div data-role="main" id="page-detail_{{ $course->id }}" class="ui-content" data-theme="a">
             <div class="detail-image" style="background-image: url({{ url($course->image_link) }});">
             </div>
             <div class="detail-content">
@@ -7896,7 +7902,15 @@
                         <p>Завершено {{ $course->getFinishedCount() }} из {{ $course->lessons()->count() }}</p>
                         <ul>
                             @foreach($course->lessons as $lesson)
-                                <li class="view-lesson" data-lesson-id="{{ $lesson->id }}">{{ $lesson->name }}</li>
+                                @php
+                                $url = '/api/courses/lesson/' . $lesson->id;
+                                if(\Illuminate\Support\Facades\Auth::user()->course_key){
+                                    $url .= '?course_key=' . \Illuminate\Support\Facades\Auth::user()->course_key;
+                                }
+                                @endphp
+                                <li class="view-lesson" data-lesson-id="{{ $lesson->id }}">
+                                    <a href="{{ $url }}">{{ $lesson->name }}</a>
+                                </li>
                             @endforeach
                         </ul>
                     </div>
@@ -7909,9 +7923,6 @@
         </div>
     </div>
 @endforeach
-<div data-role="page" id="lesson" data-theme="a" data-fullscreen="true">
-
-</div>
 <script type="text/javascript">
     $(document).on("pagecreate", "#home", function () {
         //start with only viewone visible
@@ -7930,19 +7941,8 @@
             return false;
         });
     });
-    $('.view-lesson').on('click', function () {
-        let lesson_id = $(this).data('lesson-id');
-        let course_key = $('input[name="course_key"]').val();
-        if(course_key.length > 0){
-            lesson_id = lesson_id + '?course_key=' + course_key;
-        }
-        $.post('/api/courses/lesson/' + lesson_id, function (data) {
-            $('#lesson').html(data);
-            $.mobile.changePage('#lesson');
-            $.mobile.loadPage();
-        });
-    });
-    $('body').on('click', '.close-btn', function () {
+    var b = $('body');
+    b.on('click', '.close-btn', function () {
         let activePageId = $.mobile.activePage.attr('id');
         if (activePageId === 'home') {
             if (typeof window.ReactNativeWebView !== 'undefined') {
@@ -7952,7 +7952,7 @@
             $.mobile.back();
         }
     });
-    $('body').on('click', '.show-tariff', function () {
+    b.on('click', '.show-tariff', function () {
         if (typeof window.ReactNativeWebView !== 'undefined') {
             window.ReactNativeWebView.postMessage(JSON.stringify({"action": "pay"}));
         }
@@ -7975,7 +7975,7 @@
         $.mobile.navigate($(this).data('page'));
         // alterContent( this.attr( "href" ) );
     });
-    $(".finish-lesson").on("click", function (event) {
+    b.on("click", ".finish-lesson", function (event) {
         let lesson_id = $(this).data('lesson-id');
         let course_key = $('input[name="course_key"]').val();
         if(course_key.length > 0){
