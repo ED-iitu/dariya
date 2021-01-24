@@ -7904,7 +7904,7 @@
                             @foreach($course->lessons as $lesson)
                                 @php
                                 $url = '/api/courses/lesson/' . $lesson->id;
-                                if(\Illuminate\Support\Facades\Auth::user()->course_key){
+                                if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->course_key){
                                     $url .= '?course_key=' . \Illuminate\Support\Facades\Auth::user()->course_key;
                                 }
                                 @endphp
