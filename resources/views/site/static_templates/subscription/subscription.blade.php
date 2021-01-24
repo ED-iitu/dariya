@@ -1,5 +1,5 @@
 <!-- Start subscription -->
-<div class="subscription container mb-md-5 mb-3">
+<div class="subscription container mb-md-5 mb-3" id="subscription-section">
     <div class="content-box">
         @foreach($tariffs as $tariff)
             <div class="item {{ $tariff->slug }} p-md-3 p-1">

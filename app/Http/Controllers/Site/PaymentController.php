@@ -141,10 +141,15 @@ class PaymentController extends Controller
             $transaction_id = $request['pg_order_id'];
             if ($transaction = Transaction::query()->find($transaction_id)) {
                 $transaction->result_response = json_encode($request);
+                $transaction->processor_transaction_id = $request['pg_payment_id'];
                 $transaction->save();
                 if ($transaction->status == 0 && $request['pg_result']) {
-                    $transaction->processor_transaction_id = $request['pg_payment_id'];
                     $transaction->status = true;
+                    $response = '<?xml version="1.0" encoding="UTF-8"?>
+                                <response>
+                                  <pg_status>ok</pg_status>
+                                </response>';
+                    $transaction->response = $response;
                     if ($transaction->save()) {
 
                         if ($transaction->transaction_type == Transaction::TRANSACTION_TYPE_PRODUCT) {
@@ -174,11 +179,6 @@ class PaymentController extends Controller
                                 }
                             }
                         }
-
-                        $response = '<?xml version="1.0" encoding="UTF-8"?>
-                                <response>
-                                  <pg_status>ok</pg_status>
-                                </response>';
                     }
                 }
             }

@@ -52,10 +52,6 @@
                                                 <div class="new__box">
                                                     <span class="new-label">Hot</span>
                                                 </div>
-                                                <ul class="prize position__right__bottom d-flex">
-                                                    <li>{{$book->price}} KZT</li>
-                                                    <li class="old_prize">15000 KZT</li>
-                                                </ul>
                                                 <div class="action">
                                                     <div class="actions_inner">
                                                         <ul class="add_to_links">
@@ -108,10 +104,6 @@
                                                 <li class="on"><i class="fa fa-star-o"></i></li>
                                                 <li><i class="fa fa-star-o"></i></li>
                                                 <li><i class="fa fa-star-o"></i></li>
-                                            </ul>
-                                            <ul class="prize__box">
-                                                <li>{{$book->price}} KZT</li>
-                                                <li class="old__prize">12000 KZT</li>
                                             </ul>
                                             <p>{{$book->preview_text}}</p>
                                             <ul class="cart__action d-flex">

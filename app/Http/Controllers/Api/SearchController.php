@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 
 
 
-use Akaunting\Money\Money;
 use App\Article;
 use App\Book;
 use App\Video;
@@ -69,8 +68,8 @@ class SearchController extends Controller
                             "type"=> $book->type,
                             "is_free"=> $book->is_free ? true :false,
                             "is_favorite"=> $book->isFavorite(),
-                            "price"=> $book->price,
-                            "formatted_price"=> Money::KZT($book->price)->format(),
+                            "price"=> 0,
+                            "formatted_price"=> null,
                             "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                             "show_counter"=> $book->show_counter,
                             "image_url"=> ($book->image_link) ? url($book->image_link) : null,

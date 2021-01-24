@@ -171,7 +171,6 @@ class BookController extends Controller
             'type' => $request->type,
             'preview_text' => $request->preview_text,
             'detail_text'  => $request->detail_text,
-            'price'        => $request->price,
             'status'        => $request->status,
             'author_id'    => $request->author_id,
             'publisher_id' => $request->publisher_id,
@@ -341,7 +340,6 @@ class BookController extends Controller
             'type' => $request->type,
             'duration' => $duration,
             'detail_text'  => $request->detail_text,
-            'price'        => $request->price,
             'book_id'        => $request->book_id,
             'status'        => $request->status,
             'author_id'    => $request->author_id,
@@ -380,7 +378,6 @@ class BookController extends Controller
                 }
             });
         }
-        $book->generatePriceCode();
         $book->update($data);
 
         BookToGenre::query()->where('book_id',$book->id)->delete();
@@ -399,16 +396,6 @@ class BookController extends Controller
             ->with('success','Книга успешно обновлена');
     }
 
-    public function generate_price_id($id){
-        if($book = Book::query()->find($id)){
-            $book->generatePriceCode();
-            $book->save();
-            return redirect()->route('booksPage')
-                ->with('success','Книга успешно обновлена');
-        }
-        return redirect()->route('booksPage')
-            ->with('error','Ошибка!');
-    }
 
     /**
      * Remove the specified resource from storage.

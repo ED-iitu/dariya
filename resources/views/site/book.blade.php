@@ -63,9 +63,6 @@
                                         </div>
                                     </div>
                                     <div class="price-box">
-                                        <span>{{$bookData->price}} KZT</span>
-                                    </div>
-                                    <div class="price-box">
                                         <span>Автор: {{$bookData->author->name}} {{$bookData->author->surname}}</span>
                                     </div>
                                     <div class="box-tocart d-flex">
@@ -80,13 +77,15 @@
                                                     Читать</a>
                                             @endif
                                         @else
-                                            <form action="{{route('buy', ['product',$bookData->id])}}" method="post">
-                                                @csrf
-                                                <button type="submit" title="Купить книгу"
-                                                        class="dariya-btn dariya-btn-yellow"><i
-                                                            class="fa fa-shopping-bag"></i> Купить
-                                                </button>
-                                            </form>
+                                            <a href="/#subscription-section" title="Купить книгу"
+                                               class="dariya-btn dariya-btn-yellow"><i
+                                                        class="fa fa-shopping-bag"></i>
+                                                @if($bookData->type == \App\Book::AUDIO_BOOK_TYPE)
+                                                    Купить Премиум подписку
+                                                @else
+                                                    Купить Стандарт подписку
+                                                @endif
+                                            </a>
                                         @endif
                                         @if(\Illuminate\Support\Facades\Auth::user())
                                             <div class="product-addto-links clearfix">

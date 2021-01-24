@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 
 
 
-use Akaunting\Money\Money;
 use App\Book;
 use App\BookMark;
 use App\BookPages;
@@ -13,14 +12,9 @@ use App\Genre;
 use App\Quote;
 use App\Rating;
 use App\UserReadBookLink;
-use Gufy\PdfToHtml\Config;
-use Gufy\PdfToHtml\Html;
-use Gufy\PdfToHtml\PageGenerator;
-use Gufy\PdfToHtml\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use PHPHtmlParser\Dom;
 
 
 class BookController extends Controller
@@ -38,8 +32,8 @@ class BookController extends Controller
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
                 "is_favorite"=> $book->isBookFavorite(),
-                "price"=> $book->price,
-                "formatted_price"=> Money::KZT($book->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                 "show_counter"=> $book->show_counter,
                 "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -74,9 +68,9 @@ class BookController extends Controller
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
                 "is_access"=> $book->isAccess(),
-                "price"=> $book->price,
-                "price_id"=> $book->price_id,
-                "formatted_price"=> Money::KZT($book->price)->format(),
+                "price"=> 0,
+                "price_id"=> null,
+                "formatted_price"=> null,
                 "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0 ,
                 "show_counter"=> $book->show_counter,
                 "image_url"=> ($book->image_link) ? url($book->image_link) : null,
@@ -191,9 +185,9 @@ class BookController extends Controller
         if($request->get('only') == Book::BOOK_TYPE){
             $res = Book::query()->where(['type' => Book::BOOK_TYPE, 'status' => 1, 'in_list' => true])->paginate($pageSize,['*'],'page', $page);
         }elseif($request->get('only') == Book::AUDIO_BOOK_TYPE){
-            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'in_list' => true])->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'status' => 1, 'in_list' => true])->paginate($pageSize,['*'],'page', $page);
         }else{
-            $res = Book::query()->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where('status',1)->paginate($pageSize,['*'],'page', $page);
         }
 
         $i = 0;
@@ -213,8 +207,8 @@ class BookController extends Controller
                         "type"=> $book->type,
                         "is_free"=> $book->is_free ? true :false,
                         "is_favorite"=> $book->isBookFavorite(),
-                        "price"=> $book->price,
-                        "formatted_price"=> Money::KZT($book->price)->format(),
+                        "price"=> 0,
+                        "formatted_price"=> null,
                         "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                         "show_counter"=> $book->show_counter,
                         "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -227,8 +221,8 @@ class BookController extends Controller
                         "type"=> $book->type,
                         "is_free"=> $book->is_free ? true :false,
                         "is_favorite"=> $book->isBookFavorite(),
-                        "price"=> $book->price,
-                        "formatted_price"=> Money::KZT($book->price)->format(),
+                        "price"=> 0,
+                        "formatted_price"=> null,
                         "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                         "show_counter"=> $book->show_counter,
                         "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -256,8 +250,8 @@ class BookController extends Controller
                     "type"=> $book->type,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isBookFavorite(),
-                    "price"=> $book->price,
-                    "formatted_price"=> Money::KZT($book->price)->format(),
+                    "price"=> 0,
+                    "formatted_price"=> null,
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                     "show_counter"=> $book->show_counter,
                     "image_url"=> ($book->image_link) ? url($book->image_link) : null

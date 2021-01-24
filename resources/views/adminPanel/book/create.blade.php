@@ -80,17 +80,6 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <label for="price">Цена</label>
-                                <select class="form-control" id="price" name="price">
-                                    <option value="0">0</option>
-                                    @foreach(\App\Book::$prices as $price)
-                                        <option value="{{$price}}">{{ \Akaunting\Money\Money::KZT($price, true)->format()}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
                                 <label for="author">Выберите автора</label>
                                 <select class="form-control" id="author" name="author_id">
                                     @foreach($authors as $author)
@@ -132,7 +121,7 @@
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" checked type="checkbox" id="is_free" name="is_free" value="0">
-                                    <label class="form-check-label" for="is_free">Платная</label>
+                                    <label class="form-check-label" for="is_free">По подписке</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">

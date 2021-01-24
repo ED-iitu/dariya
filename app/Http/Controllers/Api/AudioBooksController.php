@@ -4,13 +4,9 @@
 namespace App\Http\Controllers\Api;
 
 
-use Akaunting\Money\Money;
-use App\Article;
 use App\Book;
 use App\Rating;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Auth;
 
 class AudioBooksController extends Controller
 {
@@ -27,8 +23,8 @@ class AudioBooksController extends Controller
                 "type"=> $audio_book->type,
                 "is_free"=> $audio_book->is_free ? true :false,
                 "is_favorite"=> $audio_book->isFavorite(),
-                "price"=> $audio_book->price,
-                "formatted_price"=> Money::KZT($audio_book->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 "forum_message_count"=> ($audio_book->comments) ? $audio_book->comments->count() : 0,
                 "show_counter"=> $audio_book->show_counter,
                 "image_url"=> ($audio_book->image_link) ? url($audio_book->image_link) : null
@@ -60,13 +56,17 @@ class AudioBooksController extends Controller
                 "is_favorite"=> $audio_book->isFavorite(),
                 "in_my_book"=> $audio_book->inMyBook(),
                 "is_access"=> $audio_book->isAccess(),
-                "price"=> $audio_book->price,
-                "formatted_price"=> Money::KZT($audio_book->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 "forum_message_count"=> ($audio_book->comments) ? $audio_book->comments->count() : 0 ,
                 "show_counter"=> $audio_book->show_counter,
                 "image_url"=> ($audio_book->image_link) ? url($audio_book->image_link) : null,
                 "share_link"=> route('book', $audio_book->id)
             ];
+
+            if($audio_book->book_id){
+                $data['book_id'] = $audio_book->book_id;
+            }
 
             if($audio_book->genres){
                 foreach ($audio_book->genres as $genre){

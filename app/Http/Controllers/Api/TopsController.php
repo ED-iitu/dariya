@@ -3,10 +3,7 @@
 
 namespace App\Http\Controllers\Api;
 
-
-use Akaunting\Money\Money;
 use App\Book;
-use GuzzleHttp\Psr7\Request;
 
 /**
  * Class TopsController
@@ -44,8 +41,8 @@ class TopsController extends Controller
                     'authors' => $authors,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
-                    "price"=> $book->price,
-                    "formatted_price"=> Money::KZT($book->price)->format(),
+                    "price"=> 0,
+                    "formatted_price"=> null,
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                     "show_counter"=> $book->show_counter,
                     "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -79,8 +76,8 @@ class TopsController extends Controller
                 'authors' => $authors,
                 'rating' => $model->rate,
                 "is_favorite"=> $model->isFavorite(),
-                "price"=> $model->price,
-                "formatted_price"=> Money::KZT($model->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
@@ -122,7 +119,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -139,8 +136,8 @@ class TopsController extends Controller
                     'authors' => $authors,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
-                    "price"=> $book->price,
-                    "formatted_price"=> Money::KZT($book->price)->format(),
+                    "price"=> 0,
+                    "formatted_price"=> null,
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                     "show_counter"=> $book->show_counter,
                     "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -155,7 +152,7 @@ class TopsController extends Controller
         /**
          * Books
          */
-        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $books  = [];
         $res->each(function($model) use (&$books){
 
@@ -174,8 +171,8 @@ class TopsController extends Controller
                 'authors' => $authors,
                 'rating' => $model->rate,
                 "is_favorite"=> $model->isFavorite(),
-                "price"=> $model->price,
-                "formatted_price"=> Money::KZT($model->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
@@ -222,7 +219,7 @@ class TopsController extends Controller
             $page = $request->get('page') ? $request->get('page') : 1;
             $pageSize = $request->get('pageSize') ? $request->get('pageSize') : 5;
             $books = [];
-            $res = Book::query()->where('type',$type)->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
+            $res = Book::query()->where(['type' => $type, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc')->paginate($pageSize,['*'],'page', $page);
             $res->each(function ($book) use (&$books){
                 $authors = [];
                 if($book->author){
@@ -239,8 +236,8 @@ class TopsController extends Controller
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isFavorite(),
                     'authors' => $authors,
-                    "price"=> $book->price,
-                    "formatted_price"=> Money::KZT($book->price)->format(),
+                    "price"=> 0,
+                    "formatted_price"=> null,
                     "forum_message_count"=> ($book->comments) ? $book->comments->count() : 0,
                     "show_counter"=> $book->show_counter,
                     "image_url"=> ($book->image_link) ? url($book->image_link) : null
@@ -274,8 +271,8 @@ class TopsController extends Controller
                 'authors' => $authors,
                 'rating' => $model->rate,
                 "is_favorite"=> $model->isFavorite(),
-                "price"=> $model->price,
-                "formatted_price"=> Money::KZT($model->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,
@@ -286,7 +283,7 @@ class TopsController extends Controller
         /**
          * Audio-Books
          */
-        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
+        $res = Book::query()->where(['type' => Book::AUDIO_BOOK_TYPE, 'status' => 1])->orderBy('created_at','desc')->orderBy('updated_at', 'desc');
         $audio_books  = [];
         $res->each(function($model) use (&$audio_books){
 
@@ -304,8 +301,8 @@ class TopsController extends Controller
                 "type"=> $model->type,
                 'authors' => $authors,
                 'rating' => $model->rate,
-                "price"=> $model->price,
-                "formatted_price"=> Money::KZT($model->price)->format(),
+                "price"=> 0,
+                "formatted_price"=> null,
                 'forum_message_count' => ($model->comments) ? $model->comments->count() : 0,
                 'show_counter' => $model->show_counter,
                 'image_url' => ($model->image_link) ? url($model->image_link) : null,

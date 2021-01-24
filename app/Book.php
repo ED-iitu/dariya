@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Shared\PriceCode;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Request;
 class Book extends Model
 {
 
-    use MultiLang, PriceCode;
+    use MultiLang;
 
     const BOOK_TYPE = 'BOOK';
     const AUDIO_BOOK_TYPE = 'AUDIO';
@@ -22,7 +21,7 @@ class Book extends Model
 
     protected $fillable = [
         'name', 'type', 'preview_text', 'detail_text', 'lang', 'pdf_to_html', 'in_home_screen', 'in_list',
-        'book_id', 'publisher_id', 'price', 'status', 'author_id', 'genres', 'image_link', 'book_link', 'is_free', 'background_color', 'page_count', 'pdf_hash', 'duration'
+        'book_id', 'publisher_id', 'status', 'author_id', 'genres', 'image_link', 'book_link', 'is_free', 'background_color', 'page_count', 'pdf_hash', 'duration'
     ];
 
     public function author()

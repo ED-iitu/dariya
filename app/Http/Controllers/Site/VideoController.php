@@ -30,7 +30,7 @@ class VideoController extends Controller
         $videos = Video::query()->where('for_vip', 0);
         if(Auth::user()){
             if(Auth::user()->have_active_tariff()){
-                if(Auth::user()->tariff->slug == 'vip'){
+                if(Auth::user()->isInviteToVip()){
                     $videos = Video::query();
                 }
             }

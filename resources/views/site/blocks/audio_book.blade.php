@@ -33,12 +33,7 @@
         </div>
     @else
         <div class="final">
-            <a href="{{ url('bye/'.$book->id) }}" class="order">Купить</a>
-            <div class="price">
-                @if($book->old_price)
-                    <small>{{ \Akaunting\Money\Money::KZT($book->old_price)->format() }}</small>@endif
-                <span>{{ \Akaunting\Money\Money::KZT($book->price)->format() }}</span>
-            </div>
+            <a href="{{ url('book/'.$book->id) }}" class="order">Купить Премиум подписку</a>
         </div>
     @endif
     @if(\Illuminate\Support\Facades\Auth::user())
