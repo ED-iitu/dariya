@@ -19,7 +19,7 @@ class AudioBooksController extends Controller
             $audio_books[] = [
                 "id"=> $audio_book->id,
                 "name"=> $audio_book->name,
-                "rating"=> round($audio_book->rate, 20),
+                "rating"=> round($audio_book->rate, 2),
                 "type"=> $audio_book->type,
                 "is_free"=> $audio_book->is_free ? true :false,
                 "is_favorite"=> $audio_book->isFavorite(),
@@ -46,7 +46,7 @@ class AudioBooksController extends Controller
                 "lang"=> $audio_book->lang,
                 "lang_label"=> $audio_book->getLangLabel(),
                 "publisher"=> ($audio_book->publisher) ? $audio_book->publisher->name : null,
-                "rating"=> round($audio_book->rate, 20),
+                "rating"=> round($audio_book->rate, 2),
                 'label' => $audio_book->is_free ? 'Бесплатно' : 'Премиум',
                 "user_rating"=> ($audio_book->user_rate()) ? $audio_book->user_rate()->rate : null,
                 "type"=> $audio_book->type,
