@@ -58,7 +58,7 @@ class BookController extends Controller
                 "lang"=> $book->lang,
                 "lang_label"=> $book->getLangLabel(),
                 "publisher"=> ($book->publisher) ? $book->publisher->name : null,
-                "rating"=> $book->rate,
+                "rating"=> round($book->rate, 2),
                 'label' => $book->is_free ? 'Бесплатно' : 'Стандарт',
                 "is_favorite"=> $book->isBookFavorite(),
                 "in_my_book"=> $book->inMyBook(),

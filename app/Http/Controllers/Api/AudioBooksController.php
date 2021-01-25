@@ -46,7 +46,7 @@ class AudioBooksController extends Controller
                 "lang"=> $audio_book->lang,
                 "lang_label"=> $audio_book->getLangLabel(),
                 "publisher"=> ($audio_book->publisher) ? $audio_book->publisher->name : null,
-                "rating"=> $audio_book->rate,
+                "rating"=> round($audio_book->rate, 20),
                 'label' => $audio_book->is_free ? 'Бесплатно' : 'Премиум',
                 "user_rating"=> ($audio_book->user_rate()) ? $audio_book->user_rate()->rate : null,
                 "type"=> $audio_book->type,
