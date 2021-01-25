@@ -28,7 +28,7 @@ class BookController extends Controller
             $books[] = [
                 "id"=> $book->id,
                 "name"=> $book->name,
-                "rating"=> $book->rate,
+                "rating"=> round($book->rate, 2),
                 "type"=> $book->type,
                 "is_free"=> $book->is_free ? true :false,
                 "is_favorite"=> $book->isBookFavorite(),
@@ -203,7 +203,7 @@ class BookController extends Controller
                     $books[$genre->id]['books'][] = [
                         "id"=> $book->id,
                         "name"=> $book->name,
-                        "rating"=> $book->rate,
+                        "rating"=> round($book->rate, 2),
                         "type"=> $book->type,
                         "is_free"=> $book->is_free ? true :false,
                         "is_favorite"=> $book->isBookFavorite(),
@@ -217,7 +217,7 @@ class BookController extends Controller
                     $books[$genre->id]['books'][] = [
                         "id"=> $book->id,
                         "name"=> $book->name,
-                        "rating"=> $book->rate,
+                        "rating"=> round($book->rate, 2),
                         "type"=> $book->type,
                         "is_free"=> $book->is_free ? true :false,
                         "is_favorite"=> $book->isBookFavorite(),
@@ -246,7 +246,7 @@ class BookController extends Controller
                 $books[] = [
                     "id"=> $book->id,
                     "name"=> $book->name,
-                    "rating"=> $book->rate,
+                    "rating"=> round($book->rate, 2),
                     "type"=> $book->type,
                     "is_free"=> $book->is_free ? true :false,
                     "is_favorite"=> $book->isBookFavorite(),

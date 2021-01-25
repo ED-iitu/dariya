@@ -20,7 +20,7 @@ class ArticleController extends Controller
             $artiles[] = [
                 "id"=> $article->id,
                 "name"=> $article->name,
-                "rating"=> $article->rate,
+                "rating"=> round($article->rate, 2),
                 "is_favorite"=> $article->isFavorite(),
                 "author"=> $article->author ? $article->author : null,
                 "forum_message_count"=> ($article->comments) ? $article->comments->count() : 0,
@@ -41,7 +41,7 @@ class ArticleController extends Controller
                 "name"=> $article->name,
                 "preview_text"=> $article->preview_text,
                 "detail_text"=> $article->detail_text,
-                "rating"=> $article->rate,
+                "rating"=> round($article->rate, 2),
                 "is_favorite"=> $article->isFavorite(),
                 "user_rating"=> ($article->user_rate()) ? $article->user_rate()->rate : null,
                 "author"=> $article->author ? $article->author : null,

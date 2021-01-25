@@ -31,7 +31,7 @@ class VideoController extends Controller
             $videos[] = [
                 "id" => $video->id,
                 "name" => $video->name,
-                "rating" => $video->rate,
+                "rating" => round($video->rate, 2),
                 "is_favorite" => $video->isFavorite(),
                 "author" => $video->author ? $video->author : null,
                 "forum_message_count" => ($video->comments) ? $video->comments->count() : 0,
@@ -57,7 +57,7 @@ class VideoController extends Controller
                 "name" => $video->name,
                 "preview_text" => $video->preview_text,
                 "detail_text" => $video->detail_text,
-                "rating" => $video->rate,
+                "rating" => round($video->rate, 2),
                 "is_favorite" => $video->isFavorite(),
                 "user_rating" => ($video->user_rate()) ? $video->user_rate()->rate : null,
                 "author" => $video->author ? $video->author : null,

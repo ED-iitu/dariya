@@ -19,7 +19,7 @@ class AudioBooksController extends Controller
             $audio_books[] = [
                 "id"=> $audio_book->id,
                 "name"=> $audio_book->name,
-                "rating"=> $audio_book->rate,
+                "rating"=> round($audio_book->rate, 20),
                 "type"=> $audio_book->type,
                 "is_free"=> $audio_book->is_free ? true :false,
                 "is_favorite"=> $audio_book->isFavorite(),
