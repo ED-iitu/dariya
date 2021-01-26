@@ -112,6 +112,22 @@
         }
         .setting-panel-header {
             height: 15em;
+            position: relative;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #ccc;
+        }
+        .setting-panel-header p{
+            position: absolute;
+            bottom: 0;
+            margin: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0,0,0,0.7);
+            padding: 5px;
+            text-shadow: none;
+            color: #FFFFFF;
         }
         @media (min-width: 28em){
             .ui-field-contain>label~[class*=ui-], .ui-field-contain .ui-controlgroup-controls {
@@ -169,8 +185,7 @@
     </div>
     <div data-role="panel" id="settingPanel" data-theme="a" class="ui-corner-all" data-position="right" data-display="overlay" data-position-fixed="true">
         <div>
-            <div class="setting-panel-header">
-                <img src="{{url($book->image_link)}}" alt="" style="max-width: 13em;">
+            <div class="setting-panel-header" style="background-image: url({{url($book->image_link)}})">
                 <p>{{ $book->name }}</p>
             </div>
             <h3 style="text-align: center;margin: 5px;">Настройки</h3>
