@@ -110,6 +110,9 @@
             height: 0;
             transition: opacity 0.5s ease-out,width 0.5s ease 0.5s, height 0.5s ease 0.5s;
         }
+        .setting-panel-header {
+            height: 15em;
+        }
         @media (min-width: 28em){
             .ui-field-contain>label~[class*=ui-], .ui-field-contain .ui-controlgroup-controls {
                 width: 100%;
