@@ -22,9 +22,11 @@
                 @endforeach
             </div>
         </div>
-        <div data-role="footer" data-position="fixed" class="ui-bar">
-            <a href="javascript:;" class="btn btn-primary finish-lesson" data-lesson-id="{{ $lesson->id }}">Завершить</a>
-        </div>
+        @if(!$lesson->is_finished())
+            <div data-role="footer" data-position="fixed" class="ui-bar">
+                <a href="javascript:;" class="btn btn-primary finish-lesson" data-lesson-id="{{ $lesson->id }}">Завершить</a>
+            </div>
+        @endif
     @else
         <div data-role="main" id="page-lesson" class="ui-content" data-theme="a" data-full="false">
             <div class="lesson-content">

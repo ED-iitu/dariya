@@ -15,7 +15,11 @@ class CourseController extends Controller
 {
     public function index(Request $request){
         $courses = Course::query()->where('is_free',false)->get();
-        $my_courses = Course::query()->where('is_free',true)->get();
+        if(Auth::check() && Auth::user()->have_active_tariff() && Auth::user()->tariff->slug == 'premium'){
+            $my_courses = Course::query()->get();
+        }else{
+            $my_courses = Course::query()->where('is_free',true)->get();
+        }
         return view('courses.index', [
             'courses' => $courses,
             'my_courses' => $my_courses
