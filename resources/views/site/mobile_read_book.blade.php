@@ -111,7 +111,7 @@
             transition: opacity 0.5s ease-out,width 0.5s ease 0.5s, height 0.5s ease 0.5s;
         }
         .setting-panel-header {
-            height: 15em;
+            height: 10em;
             position: relative;
             background-size: contain;
             background-position: center;
