@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Course;
 use App\Favorite;
 use App\Lesson;
+use App\LessonFiles;
 use App\LessonVideo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -97,6 +98,26 @@ class CourseController extends Controller
                                 sleep(1);
                             }
                         }
+
+                        if(isset($lesson['file_link']) && !empty($lesson['file_link']) & is_array($lesson['file_link'])){
+                            foreach ($lesson['file_link'] as $v=>$file_link){
+                                $v++;
+                                $n_lesson_file = new LessonFiles();
+                                $n_lesson_file->lesson_id = $n_lesson->id;
+                                $n_lesson_file->title = $n_lesson->name.' '.$v;
+                                if($file_link instanceof UploadedFile){
+                                    $n_lesson_file->type = $file_link->getType();
+                                    $extensionImage = $file_link->getClientOriginalExtension();
+                                    Storage::disk('public')->put($file_link->getFilename().'.'.$extensionImage,  File::get($file_link));
+                                    $n_lesson_file->file_url = '/uploads/' . $file_link->getFilename() . '.' . $extensionImage;
+                                }else{
+                                    $n_lesson_file->file_url = $file_link;
+                                    $n_lesson_file->is_external = true;
+                                }
+                                $n_lesson_file->save();
+                                sleep(1);
+                            }
+                        }
                     }
                 }
             }
@@ -125,7 +146,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
-        return view('adminPanel.course.edit',[
+        return view('adminPanel.course.edit', [
             'course' => $course,
         ]);
     }
@@ -145,7 +166,6 @@ class CourseController extends Controller
             $extensionImage = $image_link->getClientOriginalExtension();
             Storage::disk('public')->put($image_link->getFilename().'.'.$extensionImage,  File::get($image_link));
         }
-
 
         $data = [
             'name'         => $request->name,
@@ -189,6 +209,25 @@ class CourseController extends Controller
                                 sleep(1);
                             }
                         }
+                        if(isset($lesson['file_link']) && !empty($lesson['file_link']) & is_array($lesson['file_link'])){
+                            foreach ($lesson['file_link'] as $v=>$file_link){
+                                $v++;
+                                $n_lesson_file = new LessonFiles();
+                                $n_lesson_file->lesson_id = $n_lesson->id;
+                                $n_lesson_file->title = $n_lesson->name.' '.$v;
+                                if($file_link instanceof UploadedFile){
+                                    $n_lesson_file->type = $file_link->getMimeType();
+                                    $extensionImage = $file_link->getClientOriginalExtension();
+                                    Storage::disk('public')->put($file_link->getFilename().'.'.$extensionImage,  File::get($file_link));
+                                    $n_lesson_file->file_url = '/uploads/' . $file_link->getFilename() . '.' . $extensionImage;
+                                }else{
+                                    $n_lesson_file->file_url = $file_link;
+                                    $n_lesson_file->is_external = true;
+                                }
+                                $n_lesson_file->save();
+                                sleep(1);
+                            }
+                        }
                     }
                 }
             }
@@ -216,17 +255,31 @@ class CourseController extends Controller
 
     public function remove_lesson_video(Request $request){
         $request->validate([
-            'id' => 'required'
+            'id' => 'required',
+            'type' => 'required',
         ]);
-        if($video = LessonVideo::query()->find($request->id)){
+        if($request->type == 'video'){
+            if($video = LessonVideo::query()->find($request->id)){
+                try {
+                    $video->delete();
+                    return response('OK');
+                } catch (\Exception $e) {
+                    return response('OK',401);
+                }
+
+            }
+        }
+
+        if($file = LessonFiles::query()->find($request->id)){
             try {
-                $video->delete();
+                $file->delete();
                 return response('OK');
             } catch (\Exception $e) {
                 return response('OK',401);
             }
 
         }
+
         return response('OK',400);
     }
 }

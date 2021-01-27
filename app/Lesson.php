@@ -12,6 +12,11 @@ class Lesson extends Model
         return $this->hasMany(LessonVideo::class);
     }
 
+    public function files()
+    {
+        return $this->hasMany(LessonFiles::class, 'lesson_id', 'id');
+    }
+
     public function is_finished()
     {
         if(Auth::check() && UserLessonLog::query()->where(

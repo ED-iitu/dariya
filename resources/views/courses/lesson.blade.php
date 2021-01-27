@@ -21,6 +21,17 @@
                     @endif
                 @endforeach
             </div>
+            @if($lesson->files)
+                <div class="lesson-files" style="padding: 20px">
+                    @foreach($lesson->files as $file)
+                        @if($file->is_extenal)
+                            <p>Файл: <a href="{{ $file->file_url }}" target="_blank">{{ $file->title }}</a></p>
+                        @else
+                            <p>Файл: <a href="{{ url($file->file_url) }}" target="_blank">{{ $file->title }}</a></p>
+                        @endif
+                    @endforeach
+                </div>
+            @endif
         </div>
         @if(!$lesson->is_finished())
             <div data-role="footer" data-position="fixed" class="ui-bar">

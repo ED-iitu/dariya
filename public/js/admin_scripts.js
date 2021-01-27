@@ -227,9 +227,19 @@
         }
     });
 
-    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'))
+    var triggerTabList = [].slice.call(document.querySelectorAll('#myTab a'));
     triggerTabList.forEach(function (triggerEl) {
-        var tabTrigger = new bootstrap.Tab(triggerEl)
+        var tabTrigger = new bootstrap.Tab(triggerEl);
+
+        triggerEl.addEventListener('click', function (event) {
+            event.preventDefault();
+            tabTrigger.show()
+        })
+    });
+
+    var triggerLessonMaterialTabList = [].slice.call(document.querySelectorAll('#lessonMaterialTab a'));
+    triggerLessonMaterialTabList.forEach(function (triggerEl) {
+        var tabTrigger = new bootstrap.Tab(triggerEl);
 
         triggerEl.addEventListener('click', function (event) {
             event.preventDefault();
@@ -295,16 +305,27 @@
         }
         modal.modal('hide');
     });
-    body.on('click', '.add-more-video', function () {
+    body.on('click', '.add-more-video, .add-more-file', function () {
+
         let lesson_detail = $(this).closest('.lesson-detail');
+
         let index = lesson_detail.data('index');
-        console.log('index',index);
-        lesson_detail.find('.video-files').append('<div class="row video-row">\n' +
+        let files = lesson_detail.find('.video-files');
+        let title = 'Загрузите видео';
+        let input_name = 'video_link';
+
+        if($(this).hasClass('add-more-file')){
+            files = lesson_detail.find('.lesson-files');
+            title = 'Загрузите файл';
+            input_name = 'file_link';
+        }
+
+        files.append('<div class="row file-row">\n' +
         '                                                <div class="col-xs-6 col-sm-6 col-md-6">\n' +
         '                                                    <div class="form-group">\n' +
         '                                                        <div class="custom-file">\n' +
-        '                                                            <input type="file" class="custom-file-input" name="lessons[' + index + '][video_link][]" >\n' +
-        '                                                            <label class="custom-file-label">Загрузите видео</label>\n' +
+        '                                                            <input type="file" class="custom-file-input" name="lessons[' + index + '][' + input_name + '][]" >\n' +
+        '                                                            <label class="custom-file-label">' + title + '</label>\n' +
         '                                                        </div>\n' +
         '                                                    </div>\n' +
         '                                                </div>\n' +
@@ -318,12 +339,17 @@
         '                                            </div>');
     });
     body.on('click', '.remove-video', function () {
-        $(this).closest('.video-row').remove();
+        $(this).closest('.file-row').remove();
     });
-    body.on('click', '.set-as-external', function () {
+    body.on('click', '.set-as-external, .set-as-external-file', function () {
+        let title = 'Укажите ссылку на видео';
+
+        if($(this).hasClass('set-as-external-file')){
+            title = 'Укажите ссылку на файл';
+        }
         let form_group = $(this).closest('.row').find('.form-group');
         let input_name = form_group.find('input[type="file"]').attr('name');
-        form_group.html('<input type="text" class="form-control" placeholder="Укажите ссылку на видео" name="' + input_name + '">');
+        form_group.html('<input type="text" class="form-control" placeholder="' + title + '" name="' + input_name + '">');
     });
     body.on('click', '.add-more-lesson', function () {
         let index = $(this).closest('.lesson-detail').data('index');
@@ -380,15 +406,20 @@
             tinymce.init({selector:'.tiny_editor'});
         }
     });
-    body.on('click','.remove-lesson-video', function(){
+    body.on('click','.remove-lesson-video, .remove-lesson-file', function(){
         let id = $(this).data('id');
         let div = $(this).closest('div');
         let token = $('input[name="_token"]').val();
-        if(confirm('Действительно хотите удалить видео?')){
+        let type = 'video';
+        if($(this).hasClass('remove-lesson-file')){
+            type = 'file'
+        }
+        if(confirm('Действительно хотите удалить?')){
             $.post({
                 url: "/admin/remove_lesson_video",
                 data: {
                     id: id,
+                    type: type,
                     _token: token
                 },
                 success: function(data)
