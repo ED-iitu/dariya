@@ -10,7 +10,7 @@
             </div>
             <div class="lesson-video">
                 @foreach($lesson->videos as $video)
-                    @if($video->is_extenal)
+                    @if($video->is_external)
                         <iframe src="{{ $video->video_link }}" width="100%" height="320" frameborder="0"
                                 webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     @else
