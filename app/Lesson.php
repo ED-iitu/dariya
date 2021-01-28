@@ -17,6 +17,10 @@ class Lesson extends Model
         return $this->hasMany(LessonFiles::class, 'lesson_id', 'id');
     }
 
+    public function course(){
+        return $this->hasOne(Course::class,'id', 'course_id');
+    }
+
     public function is_finished()
     {
         if(Auth::check() && UserLessonLog::query()->where(

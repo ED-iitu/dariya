@@ -13,12 +13,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    public function index(Request $request){
-        $courses = Course::query()->where('is_free',false)->get();
-        if(Auth::check() && Auth::user()->have_active_tariff() && Auth::user()->tariff->slug == 'premium'){
+    public function index(Request $request)
+    {
+        $courses = Course::query()->get();
+        if (Auth::check() && Auth::user()->have_active_tariff() && Auth::user()->tariff->slug == 'premium') {
             $my_courses = Course::query()->get();
-        }else{
-            $my_courses = Course::query()->where('is_free',true)->get();
+        } else {
+            $my_courses = Course::query()->where('is_free', true)->get();
         }
         return view('courses.index', [
             'courses' => $courses,
@@ -26,12 +27,16 @@ class CourseController extends Controller
         ]);
     }
 
-    public function lesson($id){
-        if($lesson = Lesson::query()->find($id)){
+    public function lesson($id)
+    {
+        if ($lesson = Lesson::query()->find($id)) {
             $is_access = false;
-            if(Auth::user()){
-                if(Auth::user()->have_active_tariff() && $tariff = Auth::user()->tariff->slug == 'premium'){
+            if (Auth::user() && $lesson->course) {
+                if (Auth::user()->have_active_tariff() && Auth::user()->tariff->slug == 'premium') {
                     $is_access = true;
+                    if($lesson->course->is_vip && Auth::user()->tariff_price_list->duration != 12){
+                        $is_access = false;
+                    }
                 }
             }
             return view('courses.lesson', [
@@ -39,23 +44,25 @@ class CourseController extends Controller
                 'is_access' => $is_access
             ]);
         }
-        return response('Not Found',404);
+        return response('Not Found', 404);
     }
-    public function finish_lesson($id){
-        if($lesson = Lesson::query()->find($id)){
-            if(!UserLessonLog::query()->where([
+
+    public function finish_lesson($id)
+    {
+        if ($lesson = Lesson::query()->find($id)) {
+            if (!UserLessonLog::query()->where([
                 'user_id' => (Auth::check()) ? Auth::id() : 0,
                 'lesson_id' => $lesson->id,
                 'course_id' => $lesson->course_id,
-            ])->exists()){
+            ])->exists()) {
                 $link = new UserLessonLog();
                 $link->user_id = (Auth::check()) ? Auth::id() : 0;
                 $link->lesson_id = $lesson->id;
                 $link->course_id = $lesson->course_id;
                 $link->save();
             }
-            return $this->sendResponse([],'Успешно завершен!');
+            return $this->sendResponse([], 'Успешно завершен!');
         }
-        return $this->sendError('Курс не найден!','',404);
+        return $this->sendError('Курс не найден!', '', 404);
     }
 }

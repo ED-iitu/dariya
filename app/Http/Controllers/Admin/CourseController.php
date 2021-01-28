@@ -61,6 +61,15 @@ class CourseController extends Controller
             'author'    => $request->author,
             'image_link' => null,
         ];
+
+        if($request->is_vip){
+            $data['is_vip'] = true;
+            $data['is_free'] = false;
+        }elseif($request->is_free){
+            $data['is_free'] = true;
+            $data['is_vip'] = false;
+        }
+
         $image_link = $request->file('image_link');
 
         if($image_link){
@@ -172,6 +181,14 @@ class CourseController extends Controller
             'description' => $request->description,
             'author'    => $request->author,
         ];
+
+        if($request->is_vip){
+            $data['is_vip'] = true;
+            $data['is_free'] = false;
+        }elseif($request->is_free){
+            $data['is_free'] = true;
+            $data['is_vip'] = false;
+        }
 
         if (null !== $image_link) {
             $data = array_merge($data, [

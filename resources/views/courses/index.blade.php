@@ -193,12 +193,12 @@
             border-radius: 5px 5px 0 0;
         }
 
-        #courses ul {
+        .courses ul {
             margin: 0;
             padding: 0;
         }
 
-        #courses ul li {
+        .courses ul li {
             list-style-type: none;
             background-color: #ddd;
             margin-bottom: 10px;
@@ -207,8 +207,33 @@
             -moz-border-radius: 15px;
             border-radius: 15px;
         }
-
-        #courses ul li a{
+        .courses ul li.finished:after{
+            content: '';
+            height: 9px;
+            background-color: #007AFF;
+            width: 3px;
+            position: absolute;
+            transform: rotate(
+                    -43deg
+            );
+            right: 22px;
+            top: 23px;
+            border-radius: 0 0px 5px 5px;
+        }
+        .courses ul li.finished:before{
+            content: '';
+            height: 16px;
+            background-color: #007AFF;
+            width: 3px;
+            position: absolute;
+            transform: rotate(
+                    35deg
+            );
+            top: 16px;
+            right: 15px;
+            border-radius: 5px 5px 0 0;
+        }
+        .courses ul li a{
             display: block;
             width: 100%;
             height: 100%;
@@ -251,18 +276,14 @@
     <div data-role="main" id="page-content" class="ui-content" data-theme="a" data-full="false">
         <div data-role="tabs" id="tabs">
             <div id="one" class="ui-body-d ui-content tabView">
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @foreach($courses as $course)
-                        <div class="card course" data-page="#detail_{{ $course->id }}">
-                            <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
-                            </div>
-                            <h3>{{ $course->name }}</h3>
-                            <p>{{ $course->author }}</p>
+                @foreach($courses as $course)
+                    <div class="card course" data-page="#detail_{{ $course->id }}">
+                        <div class="card-image" style="background-image: url({{ url($course->image_link) }});">
                         </div>
-                    @endforeach
-                @else
-                    <p>Чтобы получить доступ к курсам авторизуйтесь!</p>
-                @endif
+                        <h3>{{ $course->name }}</h3>
+                        <p>{{ $course->author }}</p>
+                    </div>
+                @endforeach
             </div>
             <div id="two" class="tabView">
                 @if(\Illuminate\Support\Facades\Auth::check())
@@ -298,11 +319,11 @@
                 <div data-role="tabs" id="detail-tabs">
                     <div data-role="navbar">
                         <ul>
-                            <li><a href="#courses" data-ajax="false" style="-webkit-border-radius: 15px 0 0 15px;-moz-border-radius: 15px 0 0 15px;border-radius: 15px 0 0 15px;">Уроки</a></li>
-                            <li><a href="#course-info" data-ajax="false" style="-webkit-border-radius: 0px 15px 15px 0;-moz-border-radius: 0px 15px 15px 0;border-radius: 0px 15px 15px 0;">Информация</a></li>
+                            <li><a href="#courses-{{ $course->id }}" data-ajax="false" style="-webkit-border-radius: 15px 0 0 15px;-moz-border-radius: 15px 0 0 15px;border-radius: 15px 0 0 15px;">Уроки</a></li>
+                            <li><a href="#course-info-{{ $course->id }}" data-ajax="false" style="-webkit-border-radius: 0px 15px 15px 0;-moz-border-radius: 0px 15px 15px 0;border-radius: 0px 15px 15px 0;">Информация</a></li>
                         </ul>
                     </div>
-                    <div id="courses" class="ui-body-d ui-content">
+                    <div id="courses-{{ $course->id }}" class="courses ui-body-d ui-content">
                         <p>Завершено {{ $course->getFinishedCount() }} из {{ $course->lessons()->count() }}</p>
                         <ul>
                             @foreach($course->lessons as $lesson)
@@ -312,13 +333,13 @@
                                     $url .= '?course_key=' . \Illuminate\Support\Facades\Auth::user()->course_key;
                                 }
                                 @endphp
-                                <li class="view-lesson" data-lesson-id="{{ $lesson->id }}">
+                                <li class="view-lesson @if($lesson->is_finished()) finished @endif" data-lesson-id="{{ $lesson->id }}">
                                     <a href="{{ $url }}">{{ $lesson->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
                     </div>
-                    <div id="course-info">
+                    <div id="course-info-{{ $course->id }}" class="course-info">
                         {!! $course->description !!}
                     </div>
                 </div>

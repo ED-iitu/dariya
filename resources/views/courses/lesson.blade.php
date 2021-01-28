@@ -40,9 +40,16 @@
         @endif
     @else
         <div data-role="main" id="page-lesson" class="ui-content" data-theme="a" data-full="false">
-            <div class="lesson-content">
-                Чтобы получить доступ к уроку купите подписку <a href="javascript:;" class="btn btn-link show-tariff">Премиум</a>
-            </div>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <div class="lesson-content">
+                    Чтобы получить доступ к уроку купите подписку <a href="javascript:;"
+                                                                     class="btn btn-link show-tariff">Премиум</a>
+                </div>
+            @else
+                <div class="lesson-content">
+                    <p>Чтобы получить доступ к курсам авторизуйтесь!</p>
+                </div>
+            @endif
         </div>
     @endif
 </div>

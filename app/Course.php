@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class Course extends Model
 {
     protected $fillable = [
-        'name', 'description', 'author', 'image_link'
+        'name', 'description', 'author', 'image_link', 'is_free', 'is_vip'
     ];
 
     public function lessons()

@@ -63,8 +63,16 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="is_external" name="is_external" value="1">
-                                    <label class="form-check-label" for="is_external">Бесплатный курс</label>
+                                    <input class="form-check-input" type="checkbox" id="is_free" name="is_free" value="1">
+                                    <label class="form-check-label" for="is_free">Бесплатный курс</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="is_vip" name="is_vip" value="1">
+                                    <label class="form-check-label" for="is_vip">VIP</label>
                                 </div>
                             </div>
                         </div>
