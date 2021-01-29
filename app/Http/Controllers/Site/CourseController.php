@@ -37,6 +37,8 @@ class CourseController extends Controller
                     if($lesson->course->is_vip && Auth::user()->tariff_price_list->duration != 12){
                         $is_access = false;
                     }
+                }elseif ($lesson->course && $lesson->course->is_free){
+                    $is_access = true;
                 }
             }
             return view('courses.lesson', [
