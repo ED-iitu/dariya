@@ -231,14 +231,21 @@ class BookController extends Controller
                         'bookmarks' => $bookmarks
                     ]);
                 }else{
+                    $type = pathinfo(public_path($book->image_link), PATHINFO_EXTENSION);
+                    $data = file_get_contents(public_path($book->image_link));
+                    $book_image = 'data:image/' . $type . ';base64,' . base64_encode($data);
+                    $url_range = $book_pages->getUrlRange($book_pages->currentPage(),$book_pages->lastPage());
+                    $url_range = array_values($url_range);
+                    array_shift($url_range);
                     return view('site.mobile_read_book' ,[
                         'book' => $book,
+                        'book_image' => $book_image,
                         'book_pages' => $book_pages,
                         'hash' => $read_link->hash,
                         'data' => $read_link->user_data,
                         'quotes' => $quotes,
                         'bookmarks' => $bookmarks,
-                        'url_range' => $book_pages->getUrlRange($book_pages->currentPage(),$book_pages->lastPage())
+                        'url_range' => json_encode($url_range, JSON_UNESCAPED_SLASHES )
                     ]);
                 }
             }
